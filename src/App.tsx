@@ -4,6 +4,7 @@ import Header from './Components/Header/Header'
 import { ThemeProvider } from 'styled-components'
 import darkTheme from './styles/themes/dark'
 import lightTheme from './styles/themes/light'
+import Hero from './Containers/Hero/Hero'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
@@ -18,7 +19,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <Header toggleTheme={toggleTheme} />
-      <h1>current Theme is: {theme}</h1>
+      <Hero />
     </ThemeProvider>
   )
 }
