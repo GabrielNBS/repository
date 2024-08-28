@@ -1,22 +1,15 @@
 import styled from 'styled-components'
 
 export const ToggleSwitch = styled.div`
-  position: fixed;
+  position: relative;
   width: 50px;
   height: 25px;
   --light: #d8dbe0;
   --dark: #28292c;
   --link: rgb(27, 129, 112);
   --link-hover: rgb(24, 94, 82);
-  top: 15px;
-  left: 90%;
   cursor: pointer;
   z-index: 11;
-
-  @media (max-width: 768px) {
-    top: 35px;
-    left: 80%;
-  }
 `
 
 export const SwitchLabel = styled.label`

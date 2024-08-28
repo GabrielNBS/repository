@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 export const Header = styled.header`
   display: flex;
-  width: 720px;
-  justify-content: space-around;
+  padding: 0 1rem;
+  max-width: 720px;
+  width: 100%;
+  justify-content: space-between;
   border-radius: 2rem;
-  position: absolute;
+  position: fixed;
   left: 50%;
   transform: translateX(-50%);
   top: 2rem;
