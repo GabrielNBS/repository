@@ -1,24 +1,20 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-    /* Reset CSS */
+
     *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  /* Global Font and Body Settings */
   body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f4;
+    background-color: ${(props) => props.theme.colors.primary};
     color: #333;
     line-height: 1.6;
   }
 
-
-
-  /* Links and Lists */
   a, li {
     text-decoration: none;
     list-style: none;
@@ -30,7 +26,12 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  /* Buttons */
+  .container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   button {
     font-family: inherit;
     cursor: pointer;

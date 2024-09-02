@@ -4,7 +4,7 @@ import { Text, Title } from '../../Components/Text/styles'
 
 export default function Hero() {
   return (
-    <HeroSection>
+    <HeroSection className="container">
       <Title $large as={'h2'}>
         Desenvolvedor Front-End
       </Title>

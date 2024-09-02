@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as S from './styles'
 import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange'
 import { ThemeToggleProps } from '../../types/ThemesProps'
@@ -6,7 +6,7 @@ import { ThemeToggleProps } from '../../types/ThemesProps'
 const Header: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   return (
     <>
-      <S.Header>
+      <S.Header className="container">
         <h1>GNBS</h1>
         <nav>
           <ul>
