@@ -11,7 +11,7 @@ export const Title = styled.h1<TitlesProps>`
       case 'h1':
         return 'blue' // Cor para H1
       case 'h2':
-        return (props) => props.theme.colors.secondary // Cor para H2
+        return (props) => props.theme.colors.primary // Cor para H2
       case 'h3':
         return 'red' // Cor para H3
       default:

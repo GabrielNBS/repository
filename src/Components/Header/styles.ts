@@ -14,6 +14,7 @@ export const Header = styled.header`
   align-items: center;
   background-color: ${(props) => props.theme.colors.primary};
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 
   ul {
     display: flex;

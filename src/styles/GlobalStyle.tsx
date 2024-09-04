@@ -32,6 +32,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
   }
 
+  .centralized {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   button {
     font-family: inherit;
     cursor: pointer;
