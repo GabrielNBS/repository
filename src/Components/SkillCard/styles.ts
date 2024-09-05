@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Title } from '../Text/styles'
+import { Button } from '../Button/styles'
 
 export const Card = styled.div`
   display: flex;
@@ -13,13 +14,17 @@ export const Card = styled.div`
 
   ul {
     align-items: flex-start;
-    background-color: black;
     width: 80%;
     height: 80%;
+    border-radius: 16px;
 
     li {
       font-size: 1.5rem;
       color: ${(props) => props.theme.colors.secondary};
     }
+  }
+
+  ${Button} {
+    margin-bottom: 10px;
   }
 `
