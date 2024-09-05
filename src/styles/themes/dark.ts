@@ -1,7 +1,7 @@
 const darkTheme = {
   colors: {
-    primary: '#2E2E2E',
-    secondary: '#A59DFF',
+    primary: '#173332',
+    secondary: '#415353',
   },
 }
 

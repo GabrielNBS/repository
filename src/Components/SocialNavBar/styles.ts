@@ -9,7 +9,7 @@ export const SocialLinks = styled.aside`
   top: 50%;
   transform: translateY(-50%);
   border-radius: 0 1rem 1rem 0;
-  box-shadow: 8px 11px 10px rgba(250, 0, 0, 0.4);
+  box-shadow: 8px 11px 10px rgba(0, 0, 0, 0.4);
   color: white;
 
   ul {

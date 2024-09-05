@@ -12,8 +12,8 @@ export const Header = styled.header`
   transform: translateX(-50%);
   top: 2rem;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.primary};
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: ${(props) => props.theme.colors.secondary};
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   z-index: 1;
 
   ul {
