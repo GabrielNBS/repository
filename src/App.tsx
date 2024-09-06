@@ -7,6 +7,7 @@ import lightTheme from './styles/themes/light'
 import Hero from './Containers/Hero/Hero'
 import Main from './Containers/Main/Main'
 import SocialNavBar from './Components/SocialNavBar/SocialNavBar'
+import Projects from './Containers/Projects/Projects'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
@@ -23,6 +24,7 @@ const App: React.FC = () => {
       <Header toggleTheme={toggleTheme} />
       <Hero />
       <Main />
+      <Projects />
       <SocialNavBar />
     </ThemeProvider>
   )
