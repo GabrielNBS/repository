@@ -4,9 +4,9 @@ export const Box = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: red;
   border-radius: 12px;
   color: #fff;
+  position: relative;
 `
 
 export const ImgBox = styled.div`
@@ -14,26 +14,26 @@ export const ImgBox = styled.div`
   background: black;
   width: 50%;
   height: 100%;
+  border-radius: 12px;
+  box-shadow: -15px 15px 25px -3px rgba(0, 0, 0, 0.7);
 `
 
 export const TextBox = styled.div`
   width: 50%;
   height: 100%;
-  background-color: blue;
   gap: 16px;
-
-  h3 {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-  }
 
   > div {
     display: flex;
+    position: absolute;
+    left: 45%;
+    top: 20%;
+    width: 50%;
     flex-direction: column;
     gap: 2rem;
-    padding: 0 2rem;
-    margin-top: 3rem;
+    background-color: green;
+    padding: 1rem;
+    border-radius: 10px;
   }
 
   ul {

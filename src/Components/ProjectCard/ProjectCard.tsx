@@ -7,8 +7,8 @@ export default function ProjectCard() {
     <S.Box>
       <S.ImgBox></S.ImgBox>
       <S.TextBox>
-        <h3>Nome do Projeto</h3>
         <div className="centralized">
+          <h3>Nome do Projeto</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
             omnis illo voluptatum quam, alias veniam quasi ullam. Corporis,
