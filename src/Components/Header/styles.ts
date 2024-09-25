@@ -8,7 +8,7 @@ export const Header = styled.header`
   padding: 0 1rem;
   justify-content: space-between;
   align-items: center;
-  z-index: 2;
+  z-index: 5;
   transition: transform ease-in-out 0.2s;
 
   &.scrolled {
