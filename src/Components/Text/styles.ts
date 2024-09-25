@@ -1,23 +1,16 @@
 import styled, { css } from 'styled-components'
 import TitlesProps from '../../types/TitleProps'
 
-export const Text = styled.p<{ $primary?: boolean; $secondary?: boolean }>`
-  color: ${(props) => props.theme.colors.primary};
+export const Text = styled.p<{
+  $primary?: boolean
+  $secondary?: boolean
+}>`
+  color: ${(props) => props.theme.color.primary};
+  font-size: 1rem;
 `
 
 export const Title = styled.h1<TitlesProps>`
-  color: ${({ as }) => {
-    switch (as) {
-      case 'h1':
-        return 'blue' // Cor para H1
-      case 'h2':
-        return (props) => props.theme.colors.primary // Cor para H2
-      case 'h3':
-        return 'red' // Cor para H3
-      default:
-        return 'blue' // Padrão para H1
-    }
-  }};
+  color: ${(props) => props.theme.color.primary};
 
   font-size: ${(props) =>
     props.$small
@@ -25,6 +18,18 @@ export const Title = styled.h1<TitlesProps>`
       : props.$medium
         ? '2rem'
         : props.$large
-          ? '3rem'
+          ? '4rem'
           : '1rem'};
+
+  font-weight: ${(props) =>
+    props.$small
+      ? '400'
+      : props.$medium
+        ? '700'
+        : props.$large
+          ? '900'
+          : '400'};
+
+  text-shadow: ${(props) =>
+    props.$shadowLetter ? '-9px 6px 20px rgba(0, 0, 0, 0.7);' : 'none'};
 `

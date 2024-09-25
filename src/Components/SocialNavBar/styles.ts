@@ -4,7 +4,7 @@ export const SocialLinks = styled.aside`
   position: absolute;
   height: 16rem;
   width: 6rem;
-  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) => props.theme.background.secondary};
   left: 0;
   top: 50%;
   transform: translateY(-50%);

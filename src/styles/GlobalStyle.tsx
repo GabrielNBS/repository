@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 
     *, *::before, *::after {
     margin: 0;
@@ -9,9 +11,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: #333;
+    font-family: 'Inter', sans-serif;
+    background-color: ${(props) => props.theme.background.primary};
     line-height: 1.6;
   }
 
@@ -38,19 +39,5 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-  button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.2s ease-in;
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
 `
 export default GlobalStyle

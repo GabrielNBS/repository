@@ -4,4 +4,5 @@ export default interface TitlesProps {
   $small?: boolean
   $medium?: boolean
   $large?: boolean
+  $shadowLetter?: boolean
 }

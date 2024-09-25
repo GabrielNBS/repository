@@ -3,8 +3,8 @@ import styled from 'styled-components'
 export const Button = styled.button`
   position: relative;
   background-color: #fff;
-  border: solid 1px ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.primary};
+  border: solid 1px ${(props) => props.theme.background.primary};
+  color: ${(props) => props.theme.background.primary};
   padding: 8px;
   border-radius: 12px;
   cursor: pointer;
@@ -16,7 +16,7 @@ export const Button = styled.button`
     content: '';
     height: 100%;
     width: 0;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.background.primary};
     position: absolute;
     z-index: -1;
     border-radius: 12px;

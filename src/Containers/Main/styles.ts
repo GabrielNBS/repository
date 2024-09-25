@@ -5,7 +5,7 @@ import { Card } from '../../Components/SkillCard/styles'
 export const Main = styled.main`
   height: 100vh;
   width: 100vw;
-  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) => props.theme.background.secondary};
 
   ${Title} {
     padding-top: 2rem;
