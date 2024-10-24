@@ -18,5 +18,10 @@ export const SocialLinks = styled.aside`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+
+    a {
+      font-size: 2rem;
+      animation: shak infinite 0.2s;
+    }
   }
 `

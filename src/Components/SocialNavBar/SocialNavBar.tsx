@@ -1,18 +1,26 @@
 import React from 'react'
 import { SocialLinks } from './styles'
+import { BsWhatsapp } from 'react-icons/bs'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa6'
 
 export default function SocialNavBar() {
   return (
     <SocialLinks>
       <ul>
         <li>
-          <a href="">G</a>
+          <a href="">
+            <FaGithub />
+          </a>
         </li>
         <li>
-          <a href="">L</a>
+          <a href="">
+            <FaLinkedinIn />
+          </a>
         </li>
         <li>
-          <a href="">W</a>
+          <a href="">
+            <BsWhatsapp />
+          </a>
         </li>
       </ul>
     </SocialLinks>
