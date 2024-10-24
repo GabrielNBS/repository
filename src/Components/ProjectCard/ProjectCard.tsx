@@ -1,28 +1,31 @@
 import React from 'react'
 import * as S from './styles'
 import Button from '../Button/Buttons'
+import CardProps from '../../types/CardProps'
 
-export default function ProjectCard() {
+export default function ProjectCard({
+  img,
+  title,
+  description,
+  techs,
+  deploy,
+  github,
+}: CardProps) {
   return (
     <S.Box>
-      <S.ImgBox></S.ImgBox>
+      <S.ImgBox style={{ backgroundImage: `url(${img})` }}></S.ImgBox>
       <S.TextBox>
         <div className="centralized">
-          <h3>Nome do Projeto</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-            omnis illo voluptatum quam, alias veniam quasi ullam. Corporis,
-            soluta quia. Repellendus illum dolorum sint suscipit! Eveniet
-            eligendi asperiores repellendus laborum?
-          </p>
+          <h3>{title}</h3>
+          <p>{description}</p>
           <ul>
-            <li>React</li>
-            <li>JavaScript</li>
-            <li>Typescript</li>
+            {techs.map((tech, id) => (
+              <li key={id}>{tech}</li>
+            ))}
           </ul>
           <S.ButtonBox>
-            <Button>Deploy</Button>
-            <Button>codigo</Button>
+            <Button href={deploy}>Deploy</Button>
+            <Button href={github}>Código</Button>
           </S.ButtonBox>
         </div>
       </S.TextBox>
