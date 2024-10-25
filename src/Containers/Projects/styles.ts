@@ -10,11 +10,8 @@ export const ProjectsContainer = styled.div`
     margin: 0 auto;
     width: 380px;
     padding: 2rem 0;
-
-    ul {
-      display: flex;
-      justify-content: space-between;
-    }
+    display: flex;
+    justify-content: space-evenly;
   }
 
   > div {

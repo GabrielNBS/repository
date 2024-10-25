@@ -3,5 +3,9 @@ import { ButtonProps } from '../../types/ButtonProps'
 import { Button as PButton } from './styles'
 
 export default function Button({ children, as = 'button' }: ButtonProps) {
-  return <PButton as={as}>{children}</PButton>
+  return (
+    <PButton as={as}>
+      <span>{children}</span>
+    </PButton>
+  )
 }

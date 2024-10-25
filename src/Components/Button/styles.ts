@@ -2,37 +2,61 @@ import styled from 'styled-components'
 
 export const Button = styled.button`
   position: relative;
-  background-color: #fff;
-  border: solid 1px ${(props) => props.theme.background.primary};
-  color: ${(props) => props.theme.background.primary};
-  padding: 8px;
-  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: ${(props) => props.theme.background.primary};
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
   cursor: pointer;
-  box-shadow: -7px 6px 6px 1px rgba(0, 0, 0, 0.7);
-  z-index: 3;
-  transition: color ease-in 0.5s;
+  border: none;
+  padding: 0.5em;
 
-  &:before {
-    content: '';
+  &:after {
+    content: ' ';
+    width: 0%;
     height: 100%;
-    width: 0;
-    background-color: ${(props) => props.theme.background.primary};
+    background: ${(props) => props.theme.background.secondary};
     position: absolute;
-    z-index: -1;
-    border-radius: 12px;
-    top: 0;
-    left: 0;
-    transition: width ease-in 0.3s;
+    transition: all 0.4s ease-in-out;
+    right: 0;
   }
 
-  &:hover {
-    filter: contrast(1.1);
-    color: #fff;
-    transition: color ease-in 0.5s;
+  &:hover::after {
+    right: auto;
+    left: 0;
+    width: 100%;
+  }
 
-    &:before {
-      width: 100%;
-      transition: width ease-in 0.3s;
+  span {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    color: #fff;
+    font-size: 1.125em;
+    font-weight: 700;
+    z-index: 20;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover span {
+    color: red;
+    animation: scaleUp 0.3s ease-in-out;
+  }
+
+  @keyframes scaleUp {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(0.95);
+    }
+
+    100% {
+      transform: scale(1);
     }
   }
 `

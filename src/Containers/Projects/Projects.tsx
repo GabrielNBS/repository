@@ -6,23 +6,25 @@ import projects from '../../projects/projects'
 
 export default function Projects() {
   const [currentProject, setCurrentProject] = useState(projects[0])
+  const [activeButtonIndex, setActiveButtonIndex] = useState(0)
 
   const handleProjectChange = (projectIndex: number) => {
     setCurrentProject(projects[projectIndex])
+    setActiveButtonIndex(projectIndex)
   }
 
   return (
     <ProjectsContainer>
       <nav>
-        <ul>
-          {projects.map((project, index) => (
-            <li key={index}>
-              <Button onClick={() => handleProjectChange(index)}>
-                Prtojeto {index + 1}
-              </Button>
-            </li>
-          ))}
-        </ul>
+        {projects.map((project, index) => (
+          <Button
+            key={index}
+            className={activeButtonIndex === index ? 'active' : ''}
+            onClick={() => handleProjectChange(index)}
+          >
+            <span>Projeto {index + 1}</span>
+          </Button>
+        ))}
       </nav>
       <div className="container">
         <ProjectCard
