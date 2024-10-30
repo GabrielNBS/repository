@@ -18,17 +18,23 @@ export default function ProjectCard({
         <div className="centralized">
           <h3>{title}</h3>
           <p>{description}</p>
-          <ul>
-            {techs.map((tech, id) => (
-              <li key={id}>{tech}</li>
-            ))}
-          </ul>
           <S.ButtonBox>
             <Button href={deploy}>Deploy</Button>
             <Button href={github}>Código</Button>
           </S.ButtonBox>
         </div>
       </S.TextBox>
+      <S.IconsCard>
+        <ul>
+          {techs.map((tech, id) => (
+            <li key={id}>
+              <i>
+                {typeof tech === 'string' ? tech : React.createElement(tech)}
+              </i>
+            </li>
+          ))}
+        </ul>
+      </S.IconsCard>
     </S.Box>
   )
 }

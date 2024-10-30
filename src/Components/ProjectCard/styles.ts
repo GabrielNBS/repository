@@ -26,14 +26,17 @@ export const TextBox = styled.div`
   > div {
     display: flex;
     position: absolute;
-    left: 45%;
-    top: 20%;
+    left: 40%;
     width: 50%;
     flex-direction: column;
     gap: 2rem;
-    background-color: green;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow:
+      0 0 0 10px rgba(255, 255, 255, 1),
+      -10px 6px 0 10px rgba(100, 255, 255, 1),
+      -20px 15px 0 10px rgba(0, 0, 0, 1);
   }
 
   ul {
@@ -46,4 +49,21 @@ export const ButtonBox = styled.div`
   display: flex;
   width: 30%;
   gap: 2rem;
+`
+
+export const IconsCard = styled.div`
+  position: absolute;
+  right: 49%;
+  bottom: 0;
+  padding: 1rem;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  i {
+    padding: 0.5em;
+  }
 `

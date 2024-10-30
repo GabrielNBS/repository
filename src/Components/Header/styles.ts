@@ -13,9 +13,10 @@ export const Header = styled.header`
 
   &.scrolled {
     border-radius: 2rem;
-    background-color: ${(props) => props.theme.background.secondary};
+    background-color: transparent;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     transform: translateX(-50%) translateY(2rem);
+    z-index: 20;
   }
 
   ul {

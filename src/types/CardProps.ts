@@ -1,10 +1,10 @@
-import { ReactElement } from 'react'
+import { IconType } from 'react-icons'
 
 export default interface CardProps {
   img: string
   title: string
   description: string
-  techs: string[]
+  techs: (IconType | string)[]
   deploy: string
   github: string
 }
