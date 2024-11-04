@@ -27,14 +27,7 @@ export default function Projects() {
         ))}
       </nav>
       <div className="container">
-        <ProjectCard
-          img={currentProject.img}
-          title={currentProject.title}
-          description={currentProject.description}
-          techs={currentProject.techs}
-          deploy={currentProject.deploy}
-          github={currentProject.github}
-        />
+        <ProjectCard />
       </div>
     </ProjectsContainer>
   )
