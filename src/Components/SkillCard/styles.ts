@@ -7,7 +7,7 @@ export const Card = styled.div`
   align-items: center;
   background-color: azure;
   height: 480px;
-  width: 360px;
+  width: 480px;
   border-radius: 16px;
   box-shadow: -20px 19px 15px rgba(0, 0, 0, 0.5);
 

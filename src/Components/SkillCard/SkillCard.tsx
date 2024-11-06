@@ -14,7 +14,7 @@ export default function SkillCard() {
         <li>service</li>
       </ul>
       <Button aria-label="Clique para saber mais" as="a" href="">
-        Alavanque sua empresa
+        Alavanque
       </Button>
     </Card>
   )

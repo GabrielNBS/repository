@@ -1,4 +1,5 @@
 import { FaReact } from 'react-icons/fa'
+import HTD from '.././Image/HTDLandPage-front.png'
 import {
   ReactIcon,
   ReduxIcon,
@@ -8,16 +9,16 @@ import {
 
 const projects = [
   {
-    img: 'link-da-imagem-1',
+    imageUrl: HTD,
     title: 'EFood',
     description:
       'Desenvolvi um projeto de delivery utilizando React para a construção da interface dinâmica e responsiva utilizando React',
     techs: [ReactIcon, TypeScriptIcon, ReduxIcon, StyledComponentsIcon],
-    deploy: 'https://deploy-do-projeto1.com',
+    deploy: 'https://e-food-chi.vercel.app/',
     github: 'https://github.com/repo-projeto1',
   },
   {
-    img: 'link-da-imagem-2',
+    imageUrl: 'link-da-imagem-2',
     title: 'Projeto 2',
     description: 'Descrição do Projeto 2',
     techs: ['Sass', 'JavaScript', 'Bootstrap'],
@@ -25,7 +26,7 @@ const projects = [
     github: 'https://github.com/repo-projeto2',
   },
   {
-    img: 'link-da-imagem-2',
+    imageUrl: 'link-da-imagem-2',
     title: 'Projeto 2',
     description: 'Descrição do Projeto 2',
     techs: ['Sass', 'JavaScript', 'Bootstrap'],

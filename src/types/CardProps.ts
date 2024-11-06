@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons'
 
-export default interface CardProps {
-  img: string
+export type CardProps = {
+  imageUrl: string
   title: string
   description: string
   techs: (IconType | string)[]
