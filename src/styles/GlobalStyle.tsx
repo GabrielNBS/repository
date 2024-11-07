@@ -27,17 +27,26 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
     background-color: ${(props) => props.theme.background.primary};
     line-height: 1.6;
+    color: #fff;
+
+    h2 {
+    font-size: clamp(32px, 4vw, 48px);
+  }
+
+    h3 {
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    p,
+    li {
+      font-size: clamp(16px, 1.5vw, 18px);
+    }
   }
 
   a, li {
     text-decoration: none;
     list-style: none;
     color: inherit;
-    transition: color 0.2s ease-in;
-
-    &:hover {
-      color: #007bff;
-    }
   }
 
   .container {
@@ -53,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   i {
-    font-size: 2rem;
+    font-size: 1.2rem;
     border-radius: 8px;
   }
 `

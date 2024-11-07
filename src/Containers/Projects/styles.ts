@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
 export const ProjectsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100vw;
+  display: block;
+  margin: 0 auto;
 
   nav {
     margin: 0 auto;

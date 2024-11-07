@@ -16,23 +16,18 @@ function ProjectCard({
       <S.DescriptionProjectBox>
         <h2>{title}</h2>
         <p>{description}</p>
-
-        <h3>Techs Utilizadas</h3>
         <ul>
           {techs.map((tech, index) => (
             <li key={index}>
-              {typeof tech === 'string' ? tech : React.createElement(tech)}
+              <i>{React.createElement(tech.techIcon)}</i>
+              <span>{tech.name}</span>
             </li>
           ))}
         </ul>
 
         <div>
-          <Button as="a" href={deploy} target="_blank">
-            Site
-          </Button>
-          <Button as="a" href={github} target="_blank">
-            Github
-          </Button>
+          <Button href={deploy}>Deploy</Button>
+          <Button href={github}>Código</Button>
         </div>
       </S.DescriptionProjectBox>
 

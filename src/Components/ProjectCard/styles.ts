@@ -1,38 +1,29 @@
 import styled from 'styled-components'
 
 export const Box = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   height: 100vh;
-  max-width: 1280px;
+  max-width: 90vw;
 `
 
 export const DescriptionProjectBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
-
-  h2 {
-    font-size: clamp(32px, 4vw, 48px);
-  }
-
-  h3 {
-    font-size: clamp(24px, 3vw, 36px);
-  }
-
-  p,
-  li {
-    font-size: clamp(16px, 1.5vw, 18px);
-  }
 
   p {
     margin: 2rem 0;
   }
 
   ul {
-    margin: 1rem 0;
+    margin: 3rem 0;
     li {
-      margin-left: 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+      gap: 0.5rem;
     }
   }
 
@@ -43,6 +34,7 @@ export const DescriptionProjectBox = styled.div`
 `
 
 export const ImageProjectBox = styled.div`
+  height: 100%;
   width: 100%;
   background-size: contain;
   background-position: center;
