@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import GlobalStyle from './styles/GlobalStyle'
-import Header from './Components/Header/Header'
+import Header from './Components/Navbar/NavBar'
 import { ThemeProvider } from 'styled-components'
 import darkTheme from './styles/themes/dark'
 import lightTheme from './styles/themes/light'
 import Hero from './Containers/Hero/Hero'
-import SocialNavBar from './Components/SocialNavBar/SocialNavBar'
 import Projects from './Containers/Projects/Projects'
-import About from './Containers/Main/About'
+import About from './Containers/About/About'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
@@ -25,7 +24,6 @@ const App: React.FC = () => {
       <Hero />
       <About />
       <Projects />
-      <SocialNavBar />
     </ThemeProvider>
   )
 }

@@ -5,6 +5,7 @@ export const Box = styled.div`
   grid-template-columns: 1fr 2fr;
   height: 100vh;
   max-width: 90vw;
+  color: ${(props) => props.theme.color.primary};
 `
 
 export const DescriptionProjectBox = styled.div`
@@ -17,9 +18,8 @@ export const DescriptionProjectBox = styled.div`
   }
 
   ul {
-    margin: 3rem 0;
+    margin: 0 0 3rem 0;
     li {
-      color: #fff;
       display: flex;
       align-items: center;
       margin: 1rem 0;

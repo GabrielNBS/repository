@@ -2,8 +2,9 @@ import {
   FaReact,
   FaBootstrap,
   FaGithub,
-  FaLinkedin,
+  FaLinkedinIn,
   FaJs,
+  FaWhatsapp,
 } from 'react-icons/fa'
 import {
   SiStyledcomponents,
@@ -15,19 +16,23 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 
     *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
   }
 
   body {
-    font-family: 'Inter', sans-serif;
     background-color: ${(props) => props.theme.background.primary};
     line-height: 1.6;
     color: #fff;
+
 
     h2 {
     font-size: clamp(32px, 4vw, 48px);
@@ -79,7 +84,7 @@ export const GithubIcon = styled(FaGithub)`
   color: #181717;
 `
 
-export const LinkedinIcon = styled(FaLinkedin)`
+export const LinkedinIcon = styled(FaLinkedinIn)`
   color: #0a66c2;
 `
 
@@ -101,6 +106,10 @@ export const CypressIcon = styled(SiCypress)`
 
 export const ReduxIcon = styled(SiRedux)`
   color: #764abc;
+`
+
+export const WhatsappIcon = styled(FaWhatsapp)`
+  color: #25d366;
 `
 
 export default GlobalStyle

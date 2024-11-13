@@ -1,6 +1,6 @@
 import React from 'react'
 import * as S from './styles'
-import { Title } from '../../Components/Text/styles'
+import { Text } from '../../Components/Text/styles'
 
 export default function About() {
   return (
@@ -10,7 +10,7 @@ export default function About() {
       </Title> */}
       <div className="container">
         <S.AboutContainer>
-          <h3>Sobre Mim</h3>
+          <Text as="h2">Sobre Mim</Text>
           <p>
             Sou <b>Gabriel Nascimento</b>, <b>desenvolvedor Front-end</b> com
             dois anos de experiência em tecnologias modernas para criação de
@@ -25,7 +25,7 @@ export default function About() {
         </S.AboutContainer>
         <S.ServicesContainer>
           <div>
-            <h3 className="centralized">Como posso contribuir?</h3>
+            <Text as="h2">Como posso contribuir?</Text>
             <p>
               Ofereço soluções front-end que ajudam empresas a se destacarem
               digitalmente e a se conectarem melhor com seu público. Meu

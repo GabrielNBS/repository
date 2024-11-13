@@ -1,28 +1,30 @@
 import React from 'react'
-import { SocialLinks } from './styles'
-import { BsWhatsapp } from 'react-icons/bs'
-import { FaGithub, FaLinkedinIn } from 'react-icons/fa6'
+import { StyledWrapper } from './styles'
+import {
+  GithubIcon,
+  LinkedinIcon,
+  WhatsappIcon,
+} from '../../styles/GlobalStyle'
 
-export default function SocialNavBar() {
+function SocialNavBar() {
   return (
-    <SocialLinks>
-      <ul>
-        <li>
-          <a href="">
-            <FaGithub />
-          </a>
+    <StyledWrapper>
+      <ul className="wrapper">
+        <li className="icon linkedin">
+          <span className="tooltip">linkedin</span>
+          <LinkedinIcon className="linkedin" />
         </li>
-        <li>
-          <a href="">
-            <FaLinkedinIn />
-          </a>
+        <li className="icon github">
+          <span className="tooltip">github</span>
+          <GithubIcon className="github" />
         </li>
-        <li>
-          <a href="">
-            <BsWhatsapp />
-          </a>
+        <li className="icon whatsapp">
+          <span className="tooltip">whatsapp</span>
+          <WhatsappIcon className="whatsapp" />
         </li>
       </ul>
-    </SocialLinks>
+    </StyledWrapper>
   )
 }
+
+export default SocialNavBar

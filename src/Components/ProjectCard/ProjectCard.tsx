@@ -2,6 +2,7 @@ import React from 'react'
 import * as S from './styles'
 import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
+import { Text } from '../Text/styles'
 
 function ProjectCard({
   title,
@@ -16,6 +17,7 @@ function ProjectCard({
       <S.DescriptionProjectBox>
         <h2>{title}</h2>
         <p>{description}</p>
+        <Text as="h3">Tecnologias:</Text>
         <ul>
           {techs.map((tech, index) => (
             <li key={index}>

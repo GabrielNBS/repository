@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Title } from '../../Components/Text/styles'
+import { Text } from '../../Components/Text/styles'
 
 export const AboutSection = styled.section`
   height: 100vh;
@@ -11,6 +11,10 @@ export const AboutSection = styled.section`
   overflow: hidden;
   background: linear-gradient(135deg, black 50%, white 50%);
 
+  h2 {
+    color: white;
+  }
+
   b {
     color: purple;
   }
@@ -18,6 +22,7 @@ export const AboutSection = styled.section`
   p {
     letter-spacing: 1px;
     line-height: 2rem;
+    font-weight: 100;
   }
 
   div.container {
@@ -32,7 +37,7 @@ export const AboutSection = styled.section`
     gap: 20px;
   }
 
-  ${Title} {
+  ${Text} {
     justify-content: flex-start;
     padding-top: 2rem;
     margin-left: 2rem;
@@ -67,6 +72,11 @@ export const ServicesContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+
+  h2 {
+    justify-self: center;
+    color: black;
+  }
 
   &::before {
     content: '';

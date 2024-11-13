@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import * as S from './styles'
 import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange'
 import { ThemeToggleProps } from '../../types/ThemesProps'
+import { Text } from '../Text/styles'
 
-const Header: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
+const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Header: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   return (
     <>
       <S.Header className={`container ${isScrolled ? 'scrolled' : ''}`}>
-        <h1>GNBS</h1>
+        <Text as="h1">GNBS</Text>
         <nav>
           <ul>
             <li>
@@ -45,4 +46,4 @@ const Header: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   )
 }
 
-export default Header
+export default NavBar

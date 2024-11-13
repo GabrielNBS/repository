@@ -12,8 +12,8 @@ export const Button = styled.button`
   background-color: inherit;
   border-radius: 100px;
   font-weight: 600;
-  color: greenyellow;
-  box-shadow: 0 0 0 2px greenyellow;
+  color: ${(props) => props.theme.color.primary};
+  box-shadow: 0 0 0 2px ${(props) => props.theme.color.primary};
   cursor: pointer;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -21,7 +21,7 @@ export const Button = styled.button`
   svg {
     position: absolute;
     width: 24px;
-    fill: greenyellow;
+    fill: ${(props) => props.theme.color.primary};
     z-index: 9;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   }
@@ -41,7 +41,7 @@ export const Button = styled.button`
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: greenyellow;
+    background-color: ${(props) => props.theme.color.primary};
     border-radius: 50%;
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -56,7 +56,7 @@ export const Button = styled.button`
 
   &:hover {
     box-shadow: 0 0 0 12px transparent;
-    color: #212121;
+    color: ${(props) => props.theme.color.secondary};
     border-radius: 12px;
   }
 
@@ -73,12 +73,12 @@ export const Button = styled.button`
   }
 
   &:hover svg {
-    fill: #212121;
+    fill: ${(props) => props.theme.color.secondary};
   }
 
   &:active {
     scale: 0.95;
-    box-shadow: 0 0 0 4px greenyellow;
+    box-shadow: 0 0 0 4px ${(props) => props.theme.color.primary};
   }
 
   &:hover .circle {

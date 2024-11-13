@@ -1,34 +1,20 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import TitlesProps from '../../types/TitleProps'
 
-export const Text = styled.p<{
-  $primary?: boolean
-  $secondary?: boolean
-}>`
+const textStyles = {
+  h1: { fontSize: '4rem', fontWeight: '900' },
+  h2: { fontSize: '2.5rem', fontWeight: '700' },
+  h3: { fontSize: '1.75rem', fontWeight: '500' },
+  p: { fontSize: '1rem', fontWeight: '400' },
+} as const
+
+export const Text = styled.div<TitlesProps>`
   color: ${(props) => props.theme.color.primary};
-  font-size: 1rem;
-`
-
-export const Title = styled.h1<TitlesProps>`
-  color: ${(props) => props.theme.color.primary};
-
-  font-size: ${(props) =>
-    props.$small
-      ? '1.25rem'
-      : props.$medium
-        ? '2rem'
-        : props.$large
-          ? '4rem'
-          : '1rem'};
-
-  font-weight: ${(props) =>
-    props.$small
-      ? '400'
-      : props.$medium
-        ? '700'
-        : props.$large
-          ? '900'
-          : '400'};
+  font-size: ${({ as = 'p' }) =>
+    textStyles[as as keyof typeof textStyles].fontSize};
+  font-weight: ${({ as = 'p' }) =>
+    textStyles[as as keyof typeof textStyles].fontWeight};
+  line-height: 1.5;
 
   text-shadow: ${(props) =>
     props.$shadowLetter ? '-9px 6px 20px rgba(0, 0, 0, 0.7);' : 'none'};

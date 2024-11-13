@@ -11,6 +11,10 @@ export const Header = styled.header`
   z-index: 5;
   transition: transform ease-in-out 0.2s;
 
+  h1 {
+    font-size: 2rem;
+  }
+
   &.scrolled {
     border-radius: 2rem;
     background-color: transparent;
@@ -22,6 +26,6 @@ export const Header = styled.header`
   ul {
     display: flex;
     gap: 1rem;
-    color: white;
+    color: ${(props) => props.theme.color.primary};
   }
 `

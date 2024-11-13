@@ -5,6 +5,7 @@ const lightTheme = {
   },
   color: {
     primary: '#000',
+    secondary: '#fff',
   },
 }
 
