@@ -5,9 +5,9 @@ import { ThemeProvider } from 'styled-components'
 import darkTheme from './styles/themes/dark'
 import lightTheme from './styles/themes/light'
 import Hero from './Containers/Hero/Hero'
-import Main from './Containers/Main/Main'
 import SocialNavBar from './Components/SocialNavBar/SocialNavBar'
 import Projects from './Containers/Projects/Projects'
+import About from './Containers/Main/About'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
@@ -23,7 +23,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Header toggleTheme={toggleTheme} />
       <Hero />
-      <Main />
+      <About />
       <Projects />
       <SocialNavBar />
     </ThemeProvider>
