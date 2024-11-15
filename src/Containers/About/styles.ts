@@ -9,7 +9,11 @@ export const AboutSection = styled.section`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, black 50%, white 50%);
+  background: linear-gradient(
+    135deg,
+    ${(props) => props.theme.background.primary} 50%,
+    white 50%
+  );
 
   h2 {
     color: white;
