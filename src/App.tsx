@@ -7,6 +7,7 @@ import lightTheme from './styles/themes/light'
 import Hero from './Containers/Hero/Hero'
 import Projects from './Containers/Projects/Projects'
 import About from './Containers/About/About'
+import Contact from './Containers/Contact'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
@@ -24,6 +25,7 @@ const App: React.FC = () => {
       <Hero />
       <About />
       <Projects />
+      <Contact />
     </ThemeProvider>
   )
 }
