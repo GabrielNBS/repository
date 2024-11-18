@@ -97,3 +97,21 @@ export const ServicesContainer = styled.div`
     margin: 1rem 0;
   }
 `
+
+export const ListBox = styled.li`
+  margin: 1rem 0;
+  box-shadow: 8px 5px 12px 2px rgba(0, 0, 0, 0.3);
+
+  &:nth-child(1) {
+    transform: translateX(-1rem);
+  }
+  &:nth-child(2) {
+    transform: translateX(1rem);
+  }
+  &:nth-child(3) {
+    transform: translateX(-1rem);
+  }
+  &:nth-child(4) {
+    transform: translateX(1rem);
+  }
+`

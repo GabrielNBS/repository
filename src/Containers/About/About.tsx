@@ -32,26 +32,26 @@ export default function About() {
               conjunto de habilidades inclui:
             </p>
             <ul>
-              <li>
+              <S.ListBox>
                 Desenvolvimento com React e TypeScript: Criação de interfaces
                 robustas e escaláveis, ideais para projetos que precisam de alto
                 desempenho e organização.
-              </li>
-              <li>
+              </S.ListBox>
+              <S.ListBox>
                 Gerenciamento de estado com Redux: Implementação de
                 gerenciamento de estado global eficiente para aplicações
                 complexas, garantindo consistência e facilidade de manutenção.
-              </li>
-              <li>
+              </S.ListBox>
+              <S.ListBox>
                 Estilização avançada: Com Styled-Components, Sass e Bootstrap,
                 desenvolvo designs responsivos e personalizados que se adaptam
                 perfeitamente a qualquer dispositivo.
-              </li>
-              <li>
+              </S.ListBox>
+              <S.ListBox>
                 JavaScript moderno: Experiência em JavaScript para criar
                 funcionalidades interativas e dinâmicas que aprimoram a
                 usabilidade.
-              </li>
+              </S.ListBox>
             </ul>
           </div>
         </S.ServicesContainer>
