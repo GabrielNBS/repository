@@ -11,28 +11,6 @@ export const StyledWrapper = styled.div`
     font-family: 'Poppins', sans-serif;
     justify-content: center;
     color: black;
-
-    &::before {
-      content: ' ';
-      position: absolute;
-      left: 27%;
-      top: 55%;
-      border-radius: 3em;
-      background-color: ${(props) => props.theme.background.secondary};
-      height: 8px;
-      width: 120px;
-    }
-
-    &::after {
-      content: ' ';
-      position: absolute;
-      right: 27%;
-      top: 55%;
-      border-radius: 3em;
-      background-color: ${(props) => props.theme.background.secondary};
-      height: 8px;
-      width: 120px;
-    }
   }
 
   .icon {

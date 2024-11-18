@@ -3,6 +3,7 @@ import { Text } from '../../Components/Text/styles'
 import { Gradient, Levitate } from '../../styles/Animation'
 import { CloundVetor } from '../../Components/Vetores'
 import { Cloud1 } from '../../Components/Vetores/styles'
+import { StyledWrapper } from '../../Components/SocialNavBar/styles'
 
 export const HeroSection = styled.main`
   width: 100vw;
@@ -16,6 +17,32 @@ export const HeroSection = styled.main`
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 5;
+
+  ${StyledWrapper} {
+    .wrapper {
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: 27%;
+        top: 55%;
+        border-radius: 3em;
+        background-color: ${(props) => props.theme.background.secondary};
+        height: 8px;
+        width: 120px;
+      }
+
+      &::after {
+        content: ' ';
+        position: absolute;
+        right: 27%;
+        top: 55%;
+        border-radius: 3em;
+        background-color: ${(props) => props.theme.background.secondary};
+        height: 8px;
+        width: 120px;
+      }
+    }
+  }
 
   &::after {
     content: '';
