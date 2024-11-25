@@ -1,7 +1,6 @@
 import React from 'react'
 import * as S from './styles'
 import { Text } from '../../Components/Text/styles'
-import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar'
 import {
   GithubIcon,
   LinkedinIcon,

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Box = styled.div`
+export const Box = styled.section`
   display: grid;
   grid-template-columns: 1fr 2fr;
   height: 100vh;

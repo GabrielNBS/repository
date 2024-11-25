@@ -18,6 +18,11 @@ export const HeroSection = styled.main`
   background-repeat: no-repeat;
   z-index: 5;
 
+  h1 {
+    font-size: 5em;
+    white-space: nowrap;
+  }
+
   ${StyledWrapper} {
     .wrapper {
       &::before {
