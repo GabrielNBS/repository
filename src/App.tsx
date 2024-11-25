@@ -8,9 +8,11 @@ import Hero from './Containers/Hero/Hero'
 import Projects from './Containers/Projects/Projects'
 import About from './Containers/About/About'
 import Contact from './Containers/Contact'
+import Anchor from './Components/Anchor'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
+  const [activeElement, setActiveElement] = useState<number>(0)
 
   const currentTheme = theme ? darkTheme : lightTheme
 
@@ -43,10 +45,34 @@ const App: React.FC = () => {
     }
   }, []) // Executa o efeito apenas uma vez, após o componente ser montado
 
+  useEffect(() => {
+    const elements = document.querySelectorAll('section, main')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Array.from(elements).indexOf(entry.target)
+            setActiveElement(index) // Atualiza o estado com a seção ativa
+          }
+        })
+      },
+      {
+        root: null, // Viewport como referência
+        threshold: 0.5, // Seção deve estar 50% visível
+      },
+    )
+
+    elements.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect() // Cleanup para evitar vazamento de memória
+  }, [])
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <Header toggleTheme={toggleTheme} />
+      <Anchor activeSection={activeElement} />
       <Hero />
       <About />
       <Projects />
