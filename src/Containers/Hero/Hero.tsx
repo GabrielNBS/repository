@@ -14,10 +14,10 @@ export default function Hero() {
         <Text as="h1">
           Ola, sou <strong>Gabriel Nascimento</strong>
         </Text>
-        <Text as="h2">Desenvolvedor Front-End - Testando</Text>
+        <Text as="h2">Desenvolvedor Front-End</Text>
         <SocialNavBar />
         {/* <Circle className="rellax" data-rellax-speed="2" /> */}
-        <CloundVetor className="rellax" />
+        {/* <CloundVetor className="rellax" /> */}
       </div>
     </HeroSection>
   )

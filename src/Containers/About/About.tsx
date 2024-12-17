@@ -5,9 +5,8 @@ import { Text } from '../../Components/Text/styles'
 export default function About() {
   return (
     <S.AboutSection>
-      {/* <Title className="centralized" as={'h2'} $medium>
-        Como posso colabora com sua empresa?
-      </Title> */}
+      <span>真由美</span>
+      <span>沙織</span>
       <div className="container">
         <S.AboutContainer>
           <Text as="h2">Sobre Mim</Text>

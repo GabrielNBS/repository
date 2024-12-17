@@ -15,6 +15,28 @@ export const AboutSection = styled.section`
     white 50%
   );
 
+  span:nth-child(1) {
+    position: absolute;
+    color: transparent;
+    font-size: 104px;
+    writing-mode: vertical-lr;
+    -webkit-text-stroke: 2px rgba(264, 264, 264, 0.1); /* Define o contorno */
+    left: 0;
+    bottom: 1em;
+    pointer-events: none;
+  }
+
+  span:nth-child(2) {
+    position: absolute;
+    color: transparent;
+    font-size: 104px;
+    writing-mode: vertical-lr;
+    -webkit-text-stroke: 2px rgba(0, 0, 0, 0.1); /* Define o contorno */
+    right: 0;
+    top: 1em;
+    pointer-events: none;
+  }
+
   h2 {
     color: white;
   }
