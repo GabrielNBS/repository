@@ -8,6 +8,7 @@ export const AnchorContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 100;
 `
 
 export const AnchorDot = styled.div<{ active: boolean }>`

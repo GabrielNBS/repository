@@ -60,7 +60,7 @@ export const AboutSection = styled.section`
     grid-template-areas:
       'container1 .'
       '. container2';
-    gap: 20px;
+    column-gap: 8em;
   }
 
   ${Text} {
@@ -73,10 +73,6 @@ export const AboutSection = styled.section`
 export const AboutContainer = styled.div`
   grid-area: container1;
   color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
 
   &::before {
@@ -94,9 +90,6 @@ export const AboutContainer = styled.div`
 export const ServicesContainer = styled.div`
   grid-area: container2;
   color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
 
   h2 {

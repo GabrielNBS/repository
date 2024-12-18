@@ -9,18 +9,12 @@ export const HeroSection = styled.main`
   width: 100vw;
   height: 100vh;
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  position: relative;
-  background-size: cover;
-  background-repeat: no-repeat;
   z-index: 5;
 
   h1 {
-    font-size: 5em;
-    white-space: nowrap;
+    font-stretch: expanded;
   }
 
   ${StyledWrapper} {
