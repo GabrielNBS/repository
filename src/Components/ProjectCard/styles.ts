@@ -13,6 +13,10 @@ export const DescriptionProjectBox = styled.div`
   flex-direction: column;
   justify-content: center;
 
+  h2 {
+    color: ${(props) => props.theme.color.secondary};
+  }
+
   p {
     margin: 2rem 0;
   }

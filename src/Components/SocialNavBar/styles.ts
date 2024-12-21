@@ -3,14 +3,14 @@ import styled from 'styled-components'
 export const StyledWrapper = styled.div`
   .wrapper {
     display: inline-flex;
-    position: relative;
+    position: absolute;
     list-style: none;
     height: 120px;
-    width: 100%;
-    padding-top: 40px;
     font-family: 'Poppins', sans-serif;
     justify-content: center;
     color: black;
+    margin-top: 10px;
+    right: 24px;
   }
 
   .icon {
@@ -64,20 +64,17 @@ export const StyledWrapper = styled.div`
   }
 
   .github {
-    background-color: #181717;
-    color: #fff;
+    color: ${(props) => props.theme.color.primary};
     font-size: 1.2em;
   }
 
   .linkedin {
-    background-color: #0a66c2;
-    color: #fff;
+    color: ${(props) => props.theme.color.primary};
     font-size: 1.2em;
   }
 
   .whatsapp {
-    background-color: #25d366;
-    color: #fff;
+    color: ${(props) => props.theme.color.primary};
     font-size: 1.2em;
   }
 
@@ -90,19 +87,17 @@ export const StyledWrapper = styled.div`
   .wrapper .linkedin:hover .tooltip,
   .wrapper .linkedin:hover .tooltip::before {
     background: #0a66c2;
-    color: #fff;
   }
 
   .wrapper .github:hover,
   .wrapper .github:hover .tooltip,
   .wrapper .github:hover .tooltip::before {
     background: #181717;
-    color: #fff;
   }
+
   .wrapper .whatsapp:hover,
   .wrapper .whatsapp:hover .tooltip,
   .wrapper .whatsapp:hover .tooltip::before {
     background: #25d366;
-    color: #fff;
   }
 `

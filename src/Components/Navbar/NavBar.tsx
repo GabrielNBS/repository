@@ -33,7 +33,7 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
               <a href="">Projetos</a>
             </li>
             <li>
-              <a href="">Servicos</a>
+              <a href="">Serviços</a>
             </li>
             <li>
               <a href="">Contatos</a>

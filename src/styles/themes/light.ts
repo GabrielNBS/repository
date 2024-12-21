@@ -1,11 +1,13 @@
 const lightTheme = {
   background: {
-    primary: '#F0EDB2',
-    secondary: '#5500f0',
+    primary: '#E5E5E5',
+    secondary: '#FCA311',
+    tertiary: '#14213D',
   },
   color: {
     primary: '#000',
-    secondary: '#fff',
+    secondary: '#14213D',
+    tertiary: '#fff',
   },
 }
 

@@ -10,19 +10,6 @@ import {
 export default function Footer() {
   return (
     <S.FooterContainer>
-      <nav>
-        <ul>
-          <li>
-            <a href="">Home</a>
-          </li>
-          <li>
-            <a href="">Sobre</a>
-          </li>
-          <li>
-            <a href="">Projetos</a>
-          </li>
-        </ul>
-      </nav>
       <Text>© 2024 Gabriel Nascimento. Todos os direitos reservados.</Text>
       <ul>
         <li>
