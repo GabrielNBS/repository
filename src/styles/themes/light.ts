@@ -9,6 +9,9 @@ const lightTheme = {
     secondary: '#14213D',
     tertiary: '#fff',
   },
+  shadow: {
+    primary: '0, 0, 0, 0.2',
+  },
 }
 
 export default lightTheme

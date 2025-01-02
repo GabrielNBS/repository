@@ -21,31 +21,6 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    // Seleciona os elementos de seção apenas após o DOM ser carregado
-    const elements = Array.from(document.querySelectorAll('section, main'))
-
-    const handleScroll = (event: WheelEvent) => {
-      event.preventDefault()
-      const direction = event.deltaY > 0 ? 1 : -1 // Determina a direção do scroll
-      const currentSectionIndex = Math.round(
-        window.scrollY / window.innerHeight,
-      ) // Calcula a seção atual
-      const nextSectionIndex = currentSectionIndex + direction
-
-      // Faz o scroll para a próxima seção, garantindo que não saia dos limites
-      if (nextSectionIndex >= 0 && nextSectionIndex < elements.length) {
-        elements[nextSectionIndex].scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-
-    window.addEventListener('wheel', handleScroll, { passive: false }) // Torna o evento preventivo
-
-    return () => {
-      window.removeEventListener('wheel', handleScroll)
-    }
-  }, []) // Executa o efeito apenas uma vez, após o componente ser montado
-
-  useEffect(() => {
     const elements = document.querySelectorAll('section, main')
 
     const observer = new IntersectionObserver(

@@ -33,17 +33,6 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.6;
     color: #fff;
     height: 100vh;
-    overflow-y: scroll;
-    overflow: hidden;
-    // Habilita o scroll snapping no eixo vertical
-
-
-  section, main{
-      //Ponto de alinhamento para o snap
-      scroll-snap-align: start;
-      scroll-snap-type: y mandatory;
-  }
-
 
     h2 {
     font-size: clamp(32px, 4vw, 48px);

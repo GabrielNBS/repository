@@ -14,18 +14,17 @@ export const HeroSection = styled.main`
     position: relative;
     display: inline-block;
 
-    /* strong {
-      ${Gradient};
-      background: rgb(247, 253, 45);
-      background: linear-gradient(
-        232deg,
-        rgba(247, 253, 45, 1) 8%,
-        rgba(195, 34, 60, 1) 96%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 900;
-    } */
+    strong {
+      color: ${(props) => props.theme.color.primary}; /* Branco ou cor base */
+      text-shadow:
+        2px 2px 0 #000,
+        /* Sombra preta base */ 4px 4px 0
+          ${(props) => props.theme.background.secondary},
+        /* Camada 1 - Rosa */ 6px 6px 0
+          ${(props) => props.theme.background.tertiary}; /* Camada 2 - Verde Neon */
+      transform: skew(-10deg); /* Inclinação simulando itálico distorcido */
+      display: inline-block;
+    }
   }
 
   h2 {

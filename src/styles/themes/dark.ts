@@ -9,6 +9,9 @@ const darkTheme = {
     secondary: '#FCA311',
     tertiary: '#000',
   },
+  shadow: {
+    primary: '255, 255, 255, 0.2',
+  },
 }
 
 export default darkTheme

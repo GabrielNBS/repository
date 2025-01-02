@@ -82,20 +82,20 @@ export const ServicesContainer = styled.div`
 
 export const ListBox = styled.li`
   margin: 1rem 0;
-  box-shadow: 8px 5px 12px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 8px 5px 12px 2px rgba(${(props) => props.theme.shadow.primary});
 
   &:nth-child(1) {
     transform: translateX(-1rem);
   }
   &:nth-child(2) {
     transform: translateX(1rem);
-    box-shadow: -8px 5px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 8px 5px 12px 2px rgba(${(props) => props.theme.shadow.primary});
   }
   &:nth-child(3) {
     transform: translateX(-1rem);
   }
   &:nth-child(4) {
     transform: translateX(1rem);
-    box-shadow: -8px 5px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 8px 5px 12px 2px rgba(${(props) => props.theme.shadow.primary});
   }
 `
