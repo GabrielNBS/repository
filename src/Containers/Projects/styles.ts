@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ProjectsContainer = styled.div`
+export const ProjectsContainer = styled.section`
   display: block;
   margin: 0 auto;
 

@@ -3,10 +3,21 @@ import * as S from './styles'
 import { AnchorProps } from '../../types/AnchorProps'
 
 const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
-  const sections = ['Hero', 'About', 'Projects', 'Contact']
+  const sections = [
+    'Hero',
+    'About',
+    'Projects',
+    'Contact',
+    'EFood',
+    'EPlay',
+    'HojeTaDoce',
+    'ToDo',
+    'Spider-Verse',
+    'CloneDisney',
+  ]
 
   const scrollToSection = (index: number) => {
-    const section = document.querySelectorAll('section')[index]
+    const section = document.querySelectorAll('section, main')[index]
     section?.scrollIntoView({ behavior: 'smooth' })
   }
 

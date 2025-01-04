@@ -6,6 +6,7 @@ export type TechsProps = {
 }
 
 export type CardProps = {
+  id: string
   videoUrl: string
   title: string
   description: string

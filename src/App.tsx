@@ -21,7 +21,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    const elements = document.querySelectorAll('section, main')
+    const elements = document.querySelectorAll('main, section')
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -34,7 +34,7 @@ const App: React.FC = () => {
       },
       {
         root: null, // Viewport como referência
-        threshold: 0.5, // Seção deve estar 50% visível
+        threshold: 0.8, // Seção deve estar 80% visível
       },
     )
 

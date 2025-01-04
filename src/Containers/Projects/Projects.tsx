@@ -8,6 +8,7 @@ export default function Projects() {
     <ProjectsContainer>
       {projects.map((project, index) => (
         <ProjectCard
+          id={project.id}
           key={index}
           title={project.title}
           description={project.description}

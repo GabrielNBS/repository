@@ -6,6 +6,7 @@ import { Text } from '../Text/styles'
 import MacBookMockup from '../../Image/Mockups/MacBook15_mockup.png'
 
 function ProjectCard({
+  id,
   title,
   description,
   techs,
@@ -14,7 +15,7 @@ function ProjectCard({
   github,
 }: CardProps) {
   return (
-    <S.Box className="container">
+    <S.Box id={id} className="container">
       <S.DescriptionProjectBox>
         <h2>{title}</h2>
         <p>{description}</p>
