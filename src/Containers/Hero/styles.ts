@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Gradient } from '../../styles/Animation'
 
 export const HeroSection = styled.main`
   width: 100vw;
@@ -36,4 +35,25 @@ export const HeroSection = styled.main`
     flex-direction: column;
     position: relative;
   }
+`
+
+export const BlurFormElement = styled.div`
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #ff0099, #493240);
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
+  filter: blur(40px);
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
 `

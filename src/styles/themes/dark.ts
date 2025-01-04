@@ -11,6 +11,7 @@ const darkTheme = {
   },
   shadow: {
     primary: '255, 255, 255, 0.2',
+    secondary: '255, 255, 255, 0.1',
   },
 }
 

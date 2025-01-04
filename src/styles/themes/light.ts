@@ -11,6 +11,7 @@ const lightTheme = {
   },
   shadow: {
     primary: '0, 0, 0, 0.2',
+    secondary: '0, 0, 0, 0.1',
   },
 }
 

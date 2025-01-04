@@ -12,7 +12,7 @@ export default function Projects() {
           title={project.title}
           description={project.description}
           techs={project.techs}
-          imageUrl={project.imageUrl}
+          videoUrl={project.videoUrl}
           deploy={project.deploy}
           github={project.github}
         />

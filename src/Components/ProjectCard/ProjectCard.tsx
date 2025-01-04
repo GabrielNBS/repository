@@ -3,12 +3,13 @@ import * as S from './styles'
 import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 import { Text } from '../Text/styles'
+import MacBookMockup from '../../Image/Mockups/MacBook15_mockup.png'
 
 function ProjectCard({
   title,
   description,
   techs,
-  imageUrl,
+  videoUrl,
   deploy,
   github,
 }: CardProps) {
@@ -32,8 +33,10 @@ function ProjectCard({
           <Button href={github}>Código</Button>
         </div>
       </S.DescriptionProjectBox>
-
-      <S.ImageProjectBox style={{ backgroundImage: `url(${imageUrl})` }} />
+      <S.VideoProjectBox>
+        <img src={MacBookMockup} alt="" />
+        <video src={videoUrl} autoPlay loop muted></video>
+      </S.VideoProjectBox>
     </S.Box>
   )
 }

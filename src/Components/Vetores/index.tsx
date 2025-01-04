@@ -1,20 +1,30 @@
 import React from 'react'
-import * as S from './styles'
-import Cloud from '../../Image/Vetores/Vetor3.png'
-import { ReactComponent as Dragon } from '../../Image/Vetores/dragon.svg'
+import styled from 'styled-components'
 
-export type VetorProps = {
-  className: string
+interface SvgIconProps {
+  width?: string
+  height?: string
+  color?: string
 }
 
-export default function Circle({ className }: VetorProps) {
-  return <S.Circle className={className}></S.Circle>
+const SvgContainer = styled.svg<SvgIconProps>`
+  width: ${({ width }) => width || '24px'};
+  height: ${({ height }) => height || '24px'};
+  fill: ${({ color }) => color || 'currentColor'};
+`
+
+const ExampleSvg: React.FC<SvgIconProps> = ({ width, height, color }) => {
+  return (
+    <SvgContainer
+      width={width}
+      height={height}
+      color={color}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Aqui você pode adicionar qualquer conteúdo SVG */}
+    </SvgContainer>
+  )
 }
 
-export function CloudVetor({ className }: VetorProps) {
-  return <S.Cloud1 className={className} src={Cloud} alt="" />
-}
-
-export function DragonVetor() {
-  return <Dragon width="500px" height="500px" />
-}
+export default ExampleSvg

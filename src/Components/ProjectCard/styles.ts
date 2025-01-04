@@ -4,7 +4,7 @@ export const Box = styled.section`
   display: grid;
   grid-template-columns: 1fr 2fr;
   height: 100vh;
-  max-width: 90vw;
+  column-gap: 100px;
   color: ${(props) => props.theme.color.primary};
 `
 
@@ -37,10 +37,24 @@ export const DescriptionProjectBox = styled.div`
   }
 `
 
-export const ImageProjectBox = styled.div`
-  height: 100%;
-  width: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+export const VideoProjectBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%; /* Controle de largura */
+  max-width: 800px; /* Ajuste para mockup */
+  margin: 0 auto;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto; /* Mantém proporção do mockup */
+  }
+
+  video {
+    width: 80%;
+    height: 354px;
+    position: absolute;
+  }
 `

@@ -6,7 +6,7 @@ export type TechsProps = {
 }
 
 export type CardProps = {
-  imageUrl: string
+  videoUrl: string
   title: string
   description: string
   techs: TechsProps[]

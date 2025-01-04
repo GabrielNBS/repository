@@ -51,13 +51,14 @@ export const AboutSection = styled.section`
 
   div.container {
     display: grid;
+    position: relative;
     max-width: 1280px;
     height: 100%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       'container1 .'
-      '. container2';
+      'container3 container2';
     column-gap: 8em;
   }
 
@@ -74,6 +75,7 @@ export const AboutContainer = styled.div`
 
 export const ServicesContainer = styled.div`
   grid-area: container2;
+  z-index: 2;
 
   li {
     margin: 1rem 0;
@@ -98,4 +100,12 @@ export const ListBox = styled.li`
     transform: translateX(1rem);
     box-shadow: 8px 5px 12px 2px rgba(${(props) => props.theme.shadow.primary});
   }
+`
+
+export const SvgContainer = styled.img`
+  grid-area: container3;
+  position: absolute;
+  background: transparent;
+  width: 400px;
+  height: auto;
 `
