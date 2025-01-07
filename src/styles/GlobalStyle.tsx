@@ -5,6 +5,9 @@ import {
   FaLinkedinIn,
   FaJs,
   FaWhatsapp,
+  FaHtml5,
+  FaCss3,
+  FaSass,
 } from 'react-icons/fa'
 import {
   SiStyledcomponents,
@@ -111,6 +114,18 @@ export const ReduxIcon = styled(SiRedux)`
 
 export const WhatsappIcon = styled(FaWhatsapp)`
   color: #25d366;
+`
+
+export const HtmlIcon = styled(FaHtml5)`
+  color: #e34f26;
+`
+
+export const CssIcon = styled(FaCss3)`
+  color: #1572b6;
+`
+
+export const SassIcon = styled(FaSass)`
+  color: #cc6699;
 `
 
 export default GlobalStyle

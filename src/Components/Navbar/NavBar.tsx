@@ -9,7 +9,7 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 450) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
@@ -25,7 +25,7 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
 
   return (
     <>
-      <S.Header className={`container ${isScrolled ? 'scrolled' : ''}`}>
+      <S.Header className={isScrolled ? 'scrolled' : ''}>
         <Text as="h1">GNBS</Text>
         <nav>
           <ul>

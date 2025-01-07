@@ -15,7 +15,8 @@ export const AnchorDot = styled.div<{ active: boolean }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${(props) => (props.active ? '#FFD700' : '#ccc')};
+  background-color: ${(props) =>
+    props.active ? '#FFD700' : 'rgba(255, 255, 255, .1)'};
   transition: background-color 0.3s ease;
   cursor: pointer;
 

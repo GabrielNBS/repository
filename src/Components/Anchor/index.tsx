@@ -6,7 +6,6 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
   const sections = [
     'Hero',
     'About',
-    'Projects',
     'Contact',
     'EFood',
     'EPlay',

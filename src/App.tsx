@@ -34,7 +34,7 @@ const App: React.FC = () => {
       },
       {
         root: null, // Viewport como referência
-        threshold: 0.8, // Seção deve estar 80% visível
+        threshold: 0.6, // Seção deve estar 80% visível
       },
     )
 
