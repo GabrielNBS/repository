@@ -4,6 +4,10 @@ import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 import { Text } from '../Text/styles'
 import MacBookMockup from '../../Image/Mockups/MacBook15_mockup.png'
+import PizzaSVG from '../../Image/Vetores/hoje_ta_doce/pizza.png'
+import SushiSVG from '../../Image/Vetores/hoje_ta_doce/sushi.png'
+import PokeSVG from '../../Image/Vetores/hoje_ta_doce/poke_indonesio.png'
+import ChocolateSVG from '../../Image/Vetores/hoje_ta_doce/chocolate.png'
 
 function ProjectCard({
   id,
@@ -15,30 +19,67 @@ function ProjectCard({
   github,
 }: CardProps) {
   return (
-    <S.Box id={id} className="container">
-      <S.DescriptionProjectBox>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <Text as="h3">Tecnologias:</Text>
-        <ul>
-          {techs.map((tech, index) => (
-            <li key={index}>
-              <i>{React.createElement(tech.techIcon)}</i>
-              <span>{tech.name}</span>
-            </li>
-          ))}
-        </ul>
-
+    <S.ProjectsContainer>
+      <S.Box id={id}>
         <div>
-          <Button href={deploy}>Deploy</Button>
-          <Button href={github}>Código</Button>
+          <S.DescriptionProjectBox>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <Text as="h3">Tecnologias:</Text>
+            <ul>
+              {techs.map((tech, index) => (
+                <li key={index}>
+                  <i>{React.createElement(tech.techIcon)}</i>
+                  <span>{tech.name}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div>
+              <Button href={deploy}>Deploy</Button>
+              <Button href={github}>Código</Button>
+            </div>
+          </S.DescriptionProjectBox>
+          <S.VideoProjectBox>
+            <div className="transformContainer">
+              {' '}
+              <img
+                className="pizza"
+                src={PizzaSVG}
+                alt="Imagem de uma pizza de queijo"
+              />
+            </div>
+            <div className="transformContainer">
+              {' '}
+              <img
+                className="sushi"
+                src={SushiSVG}
+                alt="Imagem de um sushi de salmão"
+              />
+            </div>
+            <div className="transformContainer">
+              {' '}
+              <img
+                className="chocolate"
+                src={ChocolateSVG}
+                alt="Imagem de chocolate"
+              />
+            </div>
+            <div className="transformContainer">
+              {' '}
+              <img
+                className="poke"
+                src={PokeSVG}
+                alt="Imagem de poke indonésio"
+              />
+            </div>
+
+            <img src={MacBookMockup} alt="" />
+            <video src={videoUrl} autoPlay loop muted></video>
+          </S.VideoProjectBox>
         </div>
-      </S.DescriptionProjectBox>
-      <S.VideoProjectBox>
-        <img src={MacBookMockup} alt="" />
-        <video src={videoUrl} autoPlay loop muted></video>
-      </S.VideoProjectBox>
-    </S.Box>
+      </S.Box>
+    </S.ProjectsContainer>
   )
 }
 
