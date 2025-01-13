@@ -15,7 +15,7 @@ const darkTheme = {
   color: {
     primary: '#E5E5E5',
     secondary: '#fff', // Cinza neutro para melhor integração com o layout
-    tertiary: '#000',
+    tertiary: '#fefb9d',
   },
   shadow: {
     primary: '255, 255, 255, 0.2',

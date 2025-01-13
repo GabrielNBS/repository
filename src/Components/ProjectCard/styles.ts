@@ -1,48 +1,27 @@
-import styled, { css, keyframes } from 'styled-components'
-
-const fly = keyframes`
-  0% {
-    transform: translateY(0) rotate(0);
-  }
-  50% {
-    transform: translateY(-5px) rotate(-2deg);
-  }
-  75% {
-    transform: translateY(0) rotate(2deg);
-  }
-  100% {
-    transform: translateY(0) rotate(0);
-  }
-`
-
-const flyAnimation = css`
-  animation: ${fly} 3s ease-in-out infinite;
-`
+import styled from 'styled-components'
+import { flyAnimation } from '../../keyframes/FlyAnimation'
 
 export const ProjectsContainer = styled.div`
-  #EPlay {
-    background-color: ${(props) => props.theme.projectBackground.project1};
-  }
+  ${(props) => {
+    const projectBackgrounds = [
+      'EPlay',
+      'EFood',
+      'HojeTaDoce',
+      'ToDo',
+      'Spider-Verse',
+      'CloneDisney',
+    ]
 
-  #EFood {
-    background-color: ${(props) => props.theme.projectBackground.project2};
-  }
-
-  #HojeTaDoce {
-    background-color: ${(props) => props.theme.projectBackground.project3};
-  }
-
-  #ToDo {
-    background-color: ${(props) => props.theme.projectBackground.project4};
-  }
-
-  #Spider-Verse {
-    background-color: ${(props) => props.theme.projectBackground.project5};
-  }
-
-  #CloneDisney {
-    background-color: ${(props) => props.theme.projectBackground.project6};
-  }
+    return projectBackgrounds
+      .map(
+        (project, index) => `
+        #${project} {
+          background-color: ${props.theme.projectBackground[`project${index + 1}`]};
+        }
+      `,
+      )
+      .join('')
+  }}
 `
 
 export const Box = styled.section`
@@ -92,67 +71,87 @@ export const VideoProjectBox = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 100%; /* Controle de largura */
-  max-width: 800px; /* Ajuste para mockup */
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
 
   .transformContainer {
-    display: block; /* Inicialmente em block para poder animar */
+    display: block;
     position: absolute;
-    width: 120px;
-    opacity: 0; /* Começam invisíveis */
-    visibility: hidden; /* Inicia invisível */
+    width: 60px;
+    opacity: 0;
+    visibility: hidden;
     transition:
       transform 1.5s ease-in-out,
       opacity 1.5s ease-in-out;
     z-index: 0;
   }
 
-  /* Ajustes para hover */
-  &:hover {
-    .pizza,
-    .chocolate,
-    .poke,
-    .sushi {
-      display: block;
-      ${flyAnimation}
-      object-fit: cover;
-      filter: drop-shadow(
-        0 4px 8px rgba(0, 0, 0, 0.3)
-      ); /* Aplicando sombra diretamente na imagem */
+  @keyframes transformAnimation {
+    0% {
+      transform: translateX(0) translateY(0) rotateZ(0deg);
     }
-    .transformContainer {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0);
-      transition:
-        transform 1.5s ease-in-out,
-        opacity 1.5s ease-in-out;
-    }
-
-    .transformContainer:nth-child(1) {
-      transform: translateX(350px) translateY(-340px) rotateZ(-30deg);
-      animation-delay: 0s;
-    }
-    .transformContainer:nth-child(2) {
-      transform: translateX(-350px) translateY(-340px) rotateZ(-30deg);
-      animation-delay: 2s;
-    }
-    .transformContainer:nth-child(3) {
-      transform: translateX(-120px) translateY(-390px) rotateZ(-30deg);
-      animation-delay: 4s;
-    }
-    .transformContainer:nth-child(4) {
-      transform: translateX(120px) translateY(-390px) rotateZ(-30deg);
-      animation-delay: 6s;
+    100% {
+      transform: translateX(var(--translateX)) translateY(var(--translateY))
+        rotateZ(-30deg);
     }
   }
 
-  /* Controle do vídeo */
+  /* Removendo o hover e aplicando as animações diretamente */
+  .pizza,
+  .chocolate,
+  .poke,
+  .sushi {
+    display: flex;
+    ${flyAnimation}
+    object-fit: cover;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  }
+
+  .pizza {
+    animation-delay: 0s;
+  }
+  .chocolate {
+    animation-delay: 0.5s;
+  }
+  .poke {
+    animation-delay: 1s;
+  }
+  .sushi {
+    animation-delay: 1.5s;
+  }
+
+  .transformContainer {
+    visibility: visible;
+    opacity: 1;
+    animation: transformAnimation 1.5s ease-in-out forwards;
+  }
+
+  .transformContainer:nth-child(1) {
+    --translateX: 30px;
+    --translateY: -330px;
+    animation-delay: 0s;
+  }
+  .transformContainer:nth-child(2) {
+    --translateX: 100px;
+    --translateY: -300px;
+    animation-delay: 0.4s;
+  }
+  .transformContainer:nth-child(3) {
+    --translateX: -100px;
+    --translateY: -300px;
+    animation-delay: 0.6s;
+  }
+  .transformContainer:nth-child(4) {
+    --translateX: -30px;
+    --translateY: -330px;
+    animation-delay: 0.8s;
+  }
+
   img {
     display: flex;
     width: 100%;
-    height: auto; /* Mantém proporção do mockup */
+    height: auto;
   }
 
   video {

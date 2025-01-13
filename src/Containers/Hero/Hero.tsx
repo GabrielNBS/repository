@@ -6,11 +6,11 @@ import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar'
 export default function Hero() {
   return (
     <S.HeroSection>
-      <S.BlurFormElement />
       <div className="container">
-        <Text as="h2">Ola, sou Gabriel Nascimento</Text>
-        <Text as="h1">
-          <strong>Desenvolvedor Front-end</strong>
+        <Text as="h1">Olá, me chamo Gabriel</Text>
+        <Text as="p">
+          Crio interfaces intuitivas e responsivas explorando o melhor do
+          <span> desenvolvimento web</span>.
         </Text>
         <SocialNavBar />
       </div>

@@ -9,25 +9,26 @@ export const HeroSection = styled.main`
   z-index: 5;
 
   h1 {
-    font-size: 72px;
+    font-size: 5rem;
     position: relative;
     display: inline-block;
-
-    strong {
-      color: ${(props) => props.theme.color.primary}; /* Branco ou cor base */
-      text-shadow:
-        2px 2px 0 #000,
-        /* Sombra preta base */ 4px 4px 0
-          ${(props) => props.theme.background.secondary},
-        /* Camada 1 - Rosa */ 6px 6px 0
-          ${(props) => props.theme.background.tertiary}; /* Camada 2 - Verde Neon */
-      transform: skew(-10deg); /* Inclinação simulando itálico distorcido */
-      display: inline-block;
-    }
+    background: linear-gradient(to right, #fefb9d, #ff7e5f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: wave 5s linear infinite;
   }
 
-  h2 {
-    font-size: 2rem;
+  p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 1;
+    filter: brightness(0.8);
+
+    span {
+      font-weight: 700;
+      color: #ff7e5f;
+    }
   }
 
   div.container {
@@ -35,25 +36,16 @@ export const HeroSection = styled.main`
     flex-direction: column;
     position: relative;
   }
-`
 
-export const BlurFormElement = styled.div`
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, #ff0099, #493240);
-  clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 30%,
-    100% 70%,
-    70% 100%,
-    30% 100%,
-    0% 70%,
-    0% 30%
-  );
-  filter: blur(40px);
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -20%);
+  @keyframes wave {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 `
