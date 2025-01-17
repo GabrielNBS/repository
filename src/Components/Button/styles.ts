@@ -41,7 +41,7 @@ export const Button = styled.button`
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: ${(props) => props.theme.background.tertiary};
+    background-color: ${(props) => props.theme.background.secondary};
     border-radius: 50%;
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -56,7 +56,7 @@ export const Button = styled.button`
 
   &:hover {
     box-shadow: 0 0 0 12px transparent;
-    color: ${(props) => props.theme.color.tertiary};
+    color: ${(props) => props.theme.color.secondary};
     border-radius: 12px;
   }
 
@@ -73,7 +73,7 @@ export const Button = styled.button`
   }
 
   &:hover svg {
-    fill: ${(props) => props.theme.color.tertiary};
+    fill: ${(props) => props.theme.color.secondary};
   }
 
   &:active {

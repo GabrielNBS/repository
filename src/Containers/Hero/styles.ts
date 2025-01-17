@@ -23,7 +23,11 @@ export const HeroSection = styled.main`
     font-size: 5rem;
     position: relative;
     display: inline-block;
-    background: linear-gradient(to right, #fefb9d, #ff7e5f);
+    background: linear-gradient(
+      to right,
+      ${(props) => props.theme.color.secondary},
+      ${(props) => props.theme.color.tertiary}
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% 200%;
@@ -38,7 +42,7 @@ export const HeroSection = styled.main`
 
     span {
       font-weight: 700;
-      color: #ff7e5f;
+      color: ${(props) => props.theme.color.tertiary};
     }
   }
 

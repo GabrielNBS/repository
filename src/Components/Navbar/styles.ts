@@ -51,13 +51,13 @@ export const Header = styled.header`
 
     a,
     h1 {
-      color: ${(props) => props.theme.color.tertiary};
+      color: ${(props) => props.theme.background.primary};
       transition: color 0.3s ease-in-out;
     }
 
     a:hover,
     :hover {
-      color: ${(props) => props.theme.color.tertiary};
+      color: ${(props) => props.theme.background.secondary};
     }
   }
 `

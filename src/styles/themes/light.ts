@@ -1,8 +1,7 @@
 const lightTheme = {
   background: {
-    primary: '#E5E5E5',
-    secondary: '#FCA311',
-    tertiary: '#14213D',
+    primary: '#FEF9E1',
+    secondary: '#E5D0AC',
   },
   projectBackground: {
     project1: '#f3f3f3', // EPlay - Branco acinzentado mais suave
@@ -14,12 +13,25 @@ const lightTheme = {
   },
   color: {
     primary: '#000',
-    secondary: '#000',
-    tertiary: '#fff',
+    secondary: '#A31D1D',
+    tertiary: '#6D2323',
   },
   shadow: {
     primary: '0, 0, 0, 0.2',
     secondary: '0, 0, 0, 0.1',
+    tertiary: '0, 0, 0, 0.4',
+  },
+  stackColor: {
+    react: '#cceeff',
+    javascript: '#fff4cc',
+    typescript: '#cce4ff',
+    redux: '#e0ccff',
+    styledComponent: '#ffd1e1',
+    sass: '#ffccdd',
+    html: '#ffccb3',
+    css: '#cce0ff',
+    cypress: '#b3b3b3',
+    bootstrap: '#d9cce4',
   },
 }
 

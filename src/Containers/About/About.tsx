@@ -17,7 +17,6 @@ export default function About() {
             icon={card.icon}
             title={card.title}
             description={card.description}
-            background={card.background}
           />
         ))}
       </div>

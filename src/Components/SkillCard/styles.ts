@@ -8,6 +8,7 @@ export const CardBox = styled.div`
   height: 320px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: ${(props) => props.theme.background.secondary};
 
   .cardIcon {
     justify-self: flex-end;
@@ -17,6 +18,7 @@ export const CardBox = styled.div`
     border-radius: 50%;
     ${centralize}
     font-size: 24px;
+    background-color: ${(props) => props.theme.background.primary};
   }
 
   .cardDescription {
@@ -24,7 +26,7 @@ export const CardBox = styled.div`
     flex-direction: column;
     font-size: 16px;
     padding: 0 10px;
-    color: rgba(0, 0, 0, 0.8);
+    color: ${(props) => props.theme.color.primary};
     text-align: center;
     gap: 2rem;
   }

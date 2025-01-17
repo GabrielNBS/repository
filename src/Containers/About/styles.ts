@@ -15,11 +15,12 @@ export const AboutSection = styled.section`
     position: relative;
     margin-bottom: 3rem;
     align-self: flex-end;
+    color: ${(props) => props.theme.color.primary};
 
     p {
       font-size: 124px;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+      -webkit-text-stroke: 1px rgba(${(props) => props.theme.shadow.tertiary});
       position: absolute;
       top: -90px;
       left: -20px;
@@ -105,7 +106,7 @@ export const SoftSkills = styled.div`
       display: flex;
       width: 150px;
       padding: 8px;
-      color: black;
+      color: ${(props) => props.theme.color.primary};
       border-radius: 8px;
       position: relative;
       justify-content: center;
@@ -118,47 +119,48 @@ export const SoftSkills = styled.div`
         border-radius: 50%;
         left: 0;
         margin: 4px 0 0 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
     }
   }
 
   .react {
-    background-color: #cceeff;
+    background-color: ${(props) => props.theme.stackColor.react};
   }
 
   .javascript {
-    background-color: #fff4cc;
+    background-color: ${(props) => props.theme.stackColor.javascript};
   }
 
   .typescript {
-    background-color: #cce4ff;
+    background-color: ${(props) => props.theme.stackColor.typescript};
   }
 
   .redux {
-    background-color: #e0ccff;
+    background-color: ${(props) => props.theme.stackColor.redux};
   }
 
   .styledComponent {
-    background-color: #ffd1e1;
+    background-color: ${(props) => props.theme.stackColor.styledComponent};
   }
 
   .sass {
-    background-color: #ffccdd;
+    background-color: ${(props) => props.theme.stackColor.sass};
   }
 
   .html {
-    background-color: #ffccb3;
+    background-color: ${(props) => props.theme.stackColor.html};
   }
 
   .css {
-    background-color: #cce0ff;
+    background-color: ${(props) => props.theme.stackColor.css};
   }
 
   .cypress {
-    background-color: #b3b3b3;
+    background-color: ${(props) => props.theme.stackColor.cypress};
   }
 
   .bootstrap {
-    background-color: #d9cce4;
+    background-color: ${(props) => props.theme.stackColor.bootstrap};
   }
 `

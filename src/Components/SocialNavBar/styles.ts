@@ -3,13 +3,11 @@ import styled from 'styled-components'
 export const StyledWrapper = styled.div`
   .wrapper {
     display: inline-flex;
-    position: absolute;
     list-style: none;
     height: 120px;
-    font-family: 'Poppins', sans-serif;
     justify-content: center;
     color: black;
-    margin-top: 10px;
+    margin-top: 50px;
     right: 24px;
   }
 
