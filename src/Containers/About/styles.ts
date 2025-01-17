@@ -2,73 +2,163 @@ import styled from 'styled-components'
 import { centralize } from '../../keyframes/Centralize'
 
 export const AboutSection = styled.section`
-  height: 100vh;
-  width: 100vw;
-  ${centralize}
   position: relative;
-  background-color: ${(props) => props.theme.background.primary};
-  color: ${(props) => props.theme.color.primary};
+  height: 100vh;
+  display: grid;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
 
-  div {
+  .card_title {
     display: flex;
-    max-width: 1480px;
-    width: 100%;
-    flex-direction: row-reverse;
-    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 3rem;
+    align-self: flex-end;
 
-    h2 {
-      color: ${(props) => props.theme.color.secondary};
+    p {
+      font-size: 124px;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+      position: absolute;
+      top: -90px;
+      left: -20px;
+      pointer-events: none;
+      font-style: italic;
     }
   }
 
-  span:nth-child(1),
-  span:nth-child(2) {
-    position: absolute;
-    color: transparent;
-    font-size: 104px;
-    writing-mode: vertical-lr;
-    -webkit-text-stroke: 2px rgba(264, 264, 264, 0.1);
-    pointer-events: none;
+  .card_container {
+    ${centralize}
+    gap: 10px;
 
-    &:nth-child(1) {
-      left: 0;
-      bottom: 1em;
+    h3 {
+      font-size: 1.5rem;
     }
+  }
 
-    &:nth-child(2) {
-      right: 0;
-      top: 1em;
+  .hardSkillsContainer {
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 50px;
+
+    .react,
+    .javascript,
+    .typescript,
+    .redux,
+    .styledComponent,
+    .sass,
+    .html,
+    .css,
+    .cypress,
+    .bootstrap {
+      ${centralize}
+      height: 50px;
+      width: 100px;
+      border-radius: 8px;
+      margin: 0 auto;
+
+      p {
+        font-size: 16px;
+        color: ${(props) => props.theme.color.primary};
+      }
     }
   }
 `
-export const CardsSection = styled.div`
-  width: 100%;
-  height: 50vh;
-  position: relative;
-  img {
-    width: 700px;
-    height: 250px;
-    border-radius: 10px;
 
-    &:nth-child(1) {
-      position: absolute;
-      left: 50px;
-      top: 300px;
+export const SoftSkills = styled.div`
+  width: 100%;
+  align-self: flex-end;
+  position: relative;
+  padding: 2rem;
+
+  &::before,
+  &::after {
+    content: '{';
+    position: absolute;
+    font-size: 5rem;
+    color: ${(props) => props.theme.color.primary};
+  }
+
+  &::before {
+    top: 0;
+    left: 18%;
+  }
+
+  &::after {
+    bottom: 0;
+    right: 18%;
+    transform: rotate(180deg);
+  }
+
+  ul {
+    ${centralize}
+    gap: 1rem;
+    max-width: 940px;
+    flex-wrap: wrap;
+    justify-self: center;
+
+    li {
+      display: flex;
+      width: 150px;
+      padding: 8px;
+      color: black;
+      border-radius: 8px;
+      position: relative;
+      justify-content: center;
+
+      span {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border-radius: 50%;
+        left: 0;
+        margin: 4px 0 0 4px;
+      }
     }
-    &:nth-child(2) {
-      position: absolute;
-      left: 0;
-      top: 450px;
-    }
-    &:nth-child(3) {
-      position: absolute;
-      left: 50px;
-      top: 0;
-    }
-    &:nth-child(4) {
-      position: absolute;
-      left: 0;
-      top: 150px;
-    }
+  }
+
+  .react {
+    background-color: #cceeff;
+  }
+
+  .javascript {
+    background-color: #fff4cc;
+  }
+
+  .typescript {
+    background-color: #cce4ff;
+  }
+
+  .redux {
+    background-color: #e0ccff;
+  }
+
+  .styledComponent {
+    background-color: #ffd1e1;
+  }
+
+  .sass {
+    background-color: #ffccdd;
+  }
+
+  .html {
+    background-color: #ffccb3;
+  }
+
+  .css {
+    background-color: #cce0ff;
+  }
+
+  .cypress {
+    background-color: #b3b3b3;
+  }
+
+  .bootstrap {
+    background-color: #d9cce4;
   }
 `

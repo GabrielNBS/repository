@@ -5,7 +5,7 @@ import {
   GithubIcon,
   LinkedinIcon,
   WhatsappIcon,
-} from '../../styles/GlobalStyle'
+} from '../../assets/icons/icons'
 
 export default function Footer() {
   return (

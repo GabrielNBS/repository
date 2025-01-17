@@ -16,7 +16,7 @@ import {
   HtmlIcon,
   JavaScriptIcon,
   SassIcon,
-} from '../styles/GlobalStyle'
+} from '../assets/icons/icons'
 
 const projects = [
   {

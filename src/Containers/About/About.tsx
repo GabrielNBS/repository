@@ -1,27 +1,70 @@
 import React from 'react'
 import * as S from './styles'
-import { Text } from '../../Components/Text/styles'
-import CardHardSkill_1 from '../../Image/AboutCards/HardSkill_1.svg'
-import CardHardSkill_2 from '../../Image/AboutCards/HardSkill_2.svg'
-import CardHardSkill_3 from '../../Image/AboutCards/HardSkill_3.svg'
-import CardHardSkill_4 from '../../Image/AboutCards/HardSkill_4.svg'
+import cards from '../../cards/cards'
+import CardSkills from '../../Components/SkillCard/SkillCard'
 
 export default function About() {
   return (
     <S.AboutSection>
-      <span>真由美</span>
-      <span>沙織</span>
-      <div>
-        <div>
-          <Text as="h2">Hard Skills</Text>
-        </div>
-        <S.CardsSection>
-          <img src={CardHardSkill_1} alt="Card com trechos de códigos" />
-          <img src={CardHardSkill_2} alt="Card com trechos de códigos" />
-          <img src={CardHardSkill_3} alt="Card com trechos de códigos" />
-          <img src={CardHardSkill_4} alt="Card com trechos de códigos" />
-        </S.CardsSection>
+      <div className="card_title">
+        <p>Skills</p>
+        <h2>Oque eu faco</h2>
       </div>
+      <div className="card_container">
+        {cards.map((card, index) => (
+          <CardSkills
+            key={index}
+            icon={card.icon}
+            title={card.title}
+            description={card.description}
+            background={card.background}
+          />
+        ))}
+      </div>
+      <S.SoftSkills>
+        <ul>
+          <li className="javascript">
+            <span />
+            JavaScript
+          </li>
+          <li className="typescript">
+            <span />
+            TypeScript
+          </li>
+          <li className="react">
+            <span />
+            React
+          </li>
+          <li className="bootstrap">
+            <span />
+            Bootstrap
+          </li>
+          <li className="html">
+            <span />
+            HTML
+          </li>
+          <li className="css">
+            <span />
+            CSS
+          </li>
+          <li className="sass">
+            <span />
+            Sass
+          </li>
+          <li className="cypress">
+            <span />
+            Cypress
+          </li>
+          <li className="styledComponent">
+            <span />
+            Styled
+          </li>
+          <li className="redux">
+            <span />
+            Redux
+          </li>
+        </ul>
+      </S.SoftSkills>
     </S.AboutSection>
   )
 }

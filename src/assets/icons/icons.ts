@@ -1,0 +1,89 @@
+import {
+  FaReact,
+  FaBootstrap,
+  FaGithub,
+  FaLinkedinIn,
+  FaJs,
+  FaWhatsapp,
+  FaHtml5,
+  FaCss3,
+  FaSass,
+  FaLaptopCode,
+  FaPuzzlePiece,
+  FaServer,
+  FaRocket,
+} from 'react-icons/fa'
+import {
+  SiStyledcomponents,
+  SiTypescript,
+  SiCypress,
+  SiRedux,
+} from 'react-icons/si'
+import styled from 'styled-components'
+
+export const ReactIcon = styled(FaReact)`
+  color: #61dafb;
+`
+
+export const BootstrapIcon = styled(FaBootstrap)`
+  color: #7952b3;
+`
+
+export const GithubIcon = styled(FaGithub)`
+  color: #181717;
+`
+
+export const LinkedinIcon = styled(FaLinkedinIn)`
+  color: #0a66c2;
+`
+
+export const StyledComponentsIcon = styled(SiStyledcomponents)`
+  color: #db7093;
+`
+
+export const JavaScriptIcon = styled(FaJs)`
+  color: #f7df1e;
+`
+
+export const TypeScriptIcon = styled(SiTypescript)`
+  color: #3178c6;
+`
+
+export const CypressIcon = styled(SiCypress)`
+  color: #17202c;
+`
+
+export const ReduxIcon = styled(SiRedux)`
+  color: #764abc;
+`
+
+export const WhatsappIcon = styled(FaWhatsapp)`
+  color: #25d366;
+`
+
+export const HtmlIcon = styled(FaHtml5)`
+  color: #e34f26;
+`
+
+export const CssIcon = styled(FaCss3)`
+  color: #1572b6;
+`
+
+export const SassIcon = styled(FaSass)`
+  color: #cc6699;
+`
+export const LaptopCodeIcon = styled(FaLaptopCode)`
+  color: ${(props) => props.theme.color.primary};
+`
+
+export const PuzzlePieceIcon = styled(FaPuzzlePiece)`
+  color: ${(props) => props.theme.color.primary};
+`
+
+export const ServerIcon = styled(FaServer)`
+  color: ${(props) => props.theme.color.primary};
+`
+
+export const RocketIcon = styled(FaRocket)`
+  color: ${(props) => props.theme.color.primary};
+`

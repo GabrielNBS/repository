@@ -4,7 +4,7 @@ import {
   GithubIcon,
   LinkedinIcon,
   WhatsappIcon,
-} from '../../styles/GlobalStyle'
+} from '../../assets/icons/icons'
 
 function SocialNavBar() {
   return (
