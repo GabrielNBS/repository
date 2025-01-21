@@ -2,14 +2,11 @@ import React from 'react'
 import * as S from './styles'
 import cards from '../../cards/cards'
 import CardSkills from '../../Components/SkillCard/SkillCard'
+import Skills from '../../Components/Hard-skill'
 
 export default function About() {
   return (
     <S.AboutSection>
-      <div className="card_title">
-        <p>Skills</p>
-        <h2>Oque eu faco</h2>
-      </div>
       <div className="card_container">
         {cards.map((card, index) => (
           <CardSkills
@@ -19,51 +16,17 @@ export default function About() {
             description={card.description}
           />
         ))}
+        <div className="card_title">
+          <h2>Como eu te ajudo</h2>
+          <p>
+            <strong>✨ Tudo começa com uma necessidade</strong>
+            Eu a transformo em interfaces que conectam, inspiram e entregam
+            resultados. Combinando tecnologia e design, crio experiências
+            digitais que fazem a diferença.
+          </p>
+        </div>
       </div>
-      <S.SoftSkills>
-        <ul>
-          <li className="javascript">
-            <span />
-            JavaScript
-          </li>
-          <li className="typescript">
-            <span />
-            TypeScript
-          </li>
-          <li className="react">
-            <span />
-            React
-          </li>
-          <li className="bootstrap">
-            <span />
-            Bootstrap
-          </li>
-          <li className="html">
-            <span />
-            HTML
-          </li>
-          <li className="css">
-            <span />
-            CSS
-          </li>
-          <li className="sass">
-            <span />
-            Sass
-          </li>
-          <li className="cypress">
-            <span />
-            Cypress
-          </li>
-          <li className="styledComponent">
-            <span />
-            Styled
-          </li>
-          <li className="redux">
-            <span />
-            Redux
-          </li>
-        </ul>
-      </S.SoftSkills>
+      {/* <Skills /> */}
     </S.AboutSection>
   )
 }

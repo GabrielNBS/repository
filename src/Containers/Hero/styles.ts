@@ -26,7 +26,7 @@ export const HeroSection = styled.main`
     background: linear-gradient(
       to right,
       ${(props) => props.theme.color.secondary},
-      ${(props) => props.theme.color.tertiary}
+      ${(props) => props.theme.color.primary}
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

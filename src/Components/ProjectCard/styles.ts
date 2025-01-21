@@ -4,8 +4,8 @@ import { flyAnimation } from '../../keyframes/FlyAnimation'
 export const ProjectsContainer = styled.div`
   ${(props) => {
     const projectBackgrounds = [
-      'EPlay',
       'EFood',
+      'EPlay',
       'HojeTaDoce',
       'ToDo',
       'Spider-Verse',
@@ -16,7 +16,23 @@ export const ProjectsContainer = styled.div`
       .map(
         (project, index) => `
         #${project} {
-          background-color: ${props.theme.projectBackground[`project${index + 1}`]};
+          position: relative;
+        }
+
+        #${project}::after {
+          content: '${index + 1}';
+          position: absolute;
+          top: 10%;
+          right: 0;
+          border-radius: 50% 0 0 50%;
+          font-size: 10rem;
+          width: 150px;
+          height: 150px;
+          color: transparent;
+          -webkit-text-stroke: 2px rgba(${props.theme.shadow.primary});
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       `,
       )
@@ -41,20 +57,18 @@ export const DescriptionProjectBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 2rem 0;
+  color: ${(props) => props.theme.color.primary};
 
   h2 {
-    color: ${(props) => props.theme.color.secondary};
-  }
-
-  p {
-    margin: 2rem 0;
+    color: ${(props) => props.theme.color.primary};
   }
 
   ul {
     margin: 0 0 3rem 0;
+
     li {
       display: flex;
-      align-items: center;
       margin: 1rem 0;
       gap: 0.5rem;
     }

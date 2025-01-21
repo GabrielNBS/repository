@@ -25,12 +25,10 @@ function ProjectCard({
           <S.DescriptionProjectBox>
             <h2>{title}</h2>
             <p>{description}</p>
-            <Text as="h3">Tecnologias:</Text>
             <ul>
               {techs.map((tech, index) => (
                 <li key={index}>
-                  <i>{React.createElement(tech.techIcon)}</i>
-                  <span>{tech.name}</span>
+                  <span>- {tech.name}</span>
                 </li>
               ))}
             </ul>

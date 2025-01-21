@@ -1,20 +1,21 @@
 const lightTheme = {
   background: {
-    primary: '#FEF9E1',
-    secondary: '#E5D0AC',
+    primary: '#FFFBF5',
+    secondary: '#F7EFE5',
+    tertiary: '#C3ACD0',
   },
   projectBackground: {
-    project1: '#f3f3f3', // EPlay - Branco acinzentado mais suave
-    project2: '#ececec', // EFood - Cinza claro com menos contraste
-    project3: '#FFD5E6', // Hoje Tá Doce - Rosa pastel mais equilibrado
-    project4: '#e0cdc7', // ToDo - Bege mais suave e levemente mais saturado
-    project5: '#AC6FCF', // Spider-Verse - Roxo mais claro
-    project6: '#d4d4f0', // Clone Disney - Azul acinzentado sutil
+    project1: '#e0e0e0', // EPlay - Branco acinzentado mais suave
+    project2: '#d9d9d9', // EFood - Cinza claro com menos contraste
+    project3: '#FFB3C6', // Hoje Tá Doce - Rosa pastel mais equilibrado
+    project4: '#d1b8b0', // ToDo - Bege mais suave e levemente mais saturado
+    project5: '#9A4FBF', // Spider-Verse - Roxo mais claro
+    project6: '#b3b3d1', // Clone Disney - Azul acinzentado sutil
   },
   color: {
     primary: '#000',
-    secondary: '#A31D1D',
-    tertiary: '#6D2323',
+    secondary: '#7743DB',
+    tertiary: '0 ,0 ,0 , .8',
   },
   shadow: {
     primary: '0, 0, 0, 0.2',
@@ -22,16 +23,16 @@ const lightTheme = {
     tertiary: '0, 0, 0, 0.4',
   },
   stackColor: {
-    react: '#cceeff',
-    javascript: '#fff4cc',
-    typescript: '#cce4ff',
-    redux: '#e0ccff',
-    styledComponent: '#ffd1e1',
-    sass: '#ffccdd',
-    html: '#ffccb3',
-    css: '#cce0ff',
-    cypress: '#b3b3b3',
-    bootstrap: '#d9cce4',
+    react: '#99d6ff',
+    javascript: '#ffe680',
+    typescript: '#99ccff',
+    redux: '#c299ff',
+    styled: '#ff99b3',
+    sass: '#ff99aa',
+    html: '#ff9966',
+    css: '#99b3ff',
+    cypress: '#808080',
+    bootstrap: '#b399cc',
   },
 }
 
