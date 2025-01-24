@@ -1,10 +1,14 @@
 import { IconType } from 'react-icons'
 
-export type TechsProps = {
+interface TechsProps {
   name: string
   techIcon: IconType
 }
 
+interface IconAnimationProps {
+  name: string
+  alt: string
+}
 export type CardProps = {
   id: string
   videoUrl: string
@@ -13,4 +17,5 @@ export type CardProps = {
   techs: TechsProps[]
   deploy: string
   github: string
+  iconAnimation: IconAnimationProps[]
 }

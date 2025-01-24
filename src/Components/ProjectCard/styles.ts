@@ -118,28 +118,11 @@ export const VideoProjectBox = styled.div`
     }
   }
 
-  /* Removendo o hover e aplicando as animações diretamente */
-  .pizza,
-  .chocolate,
-  .poke,
-  .sushi {
+  .transformContainer img {
     display: flex;
     ${flyAnimation}
     object-fit: cover;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  }
-
-  .pizza {
-    animation-delay: 0s;
-  }
-  .chocolate {
-    animation-delay: 0.5s;
-  }
-  .poke {
-    animation-delay: 1s;
-  }
-  .sushi {
-    animation-delay: 1.5s;
   }
 
   .transformContainer {
@@ -151,12 +134,17 @@ export const VideoProjectBox = styled.div`
   .transformContainer:nth-child(1) {
     --translateX: 30px;
     --translateY: -330px;
-    animation-delay: 0s;
+
+    img {
+      animation-delay: 0s;
+    }
   }
   .transformContainer:nth-child(2) {
     --translateX: 100px;
     --translateY: -300px;
-    animation-delay: 0.4s;
+    img {
+      animation-delay: 0.4s;
+    }
   }
   .transformContainer:nth-child(3) {
     --translateX: -100px;
@@ -166,7 +154,9 @@ export const VideoProjectBox = styled.div`
   .transformContainer:nth-child(4) {
     --translateX: -30px;
     --translateY: -330px;
-    animation-delay: 0.8s;
+    img {
+      animation-delay: 0.8s;
+    }
   }
 
   img {

@@ -4,10 +4,6 @@ import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 import { Text } from '../Text/styles'
 import MacBookMockup from '../../Image/Mockups/MacBook15_mockup.png'
-import PizzaSVG from '../../Image/Vetores/hoje_ta_doce/pizza.png'
-import SushiSVG from '../../Image/Vetores/hoje_ta_doce/sushi.png'
-import PokeSVG from '../../Image/Vetores/hoje_ta_doce/poke_indonesio.png'
-import ChocolateSVG from '../../Image/Vetores/hoje_ta_doce/chocolate.png'
 
 function ProjectCard({
   id,
@@ -17,6 +13,7 @@ function ProjectCard({
   videoUrl,
   deploy,
   github,
+  iconAnimation,
 }: CardProps) {
   return (
     <S.ProjectsContainer>
@@ -39,39 +36,11 @@ function ProjectCard({
             </div>
           </S.DescriptionProjectBox>
           <S.VideoProjectBox>
-            <div className="transformContainer">
-              {' '}
-              <img
-                className="pizza"
-                src={PizzaSVG}
-                alt="Imagem de uma pizza de queijo"
-              />
-            </div>
-            <div className="transformContainer">
-              {' '}
-              <img
-                className="sushi"
-                src={SushiSVG}
-                alt="Imagem de um sushi de salmão"
-              />
-            </div>
-            <div className="transformContainer">
-              {' '}
-              <img
-                className="chocolate"
-                src={ChocolateSVG}
-                alt="Imagem de chocolate"
-              />
-            </div>
-            <div className="transformContainer">
-              {' '}
-              <img
-                className="poke"
-                src={PokeSVG}
-                alt="Imagem de poke indonésio"
-              />
-            </div>
-
+            {iconAnimation.map((icon) => (
+              <div key={icon.name} className="transformContainer">
+                <img src={icon.name} alt={icon.alt} />
+              </div>
+            ))}
             <img src={MacBookMockup} alt="" />
             <video src={videoUrl} autoPlay loop muted></video>
           </S.VideoProjectBox>
