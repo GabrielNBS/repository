@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { flyAnimation } from '../../keyframes/FlyAnimation'
+import { GradientText } from '../../styles/GlobalStyle'
 
 export const ProjectsContainer = styled.div`
   ${(props) => {
@@ -61,7 +62,11 @@ export const DescriptionProjectBox = styled.div`
   color: ${(props) => props.theme.color.primary};
 
   h2 {
-    color: ${(props) => props.theme.color.primary};
+    ${GradientText}
+  }
+
+  p {
+    filter: brightness(0.8);
   }
 
   ul {
@@ -71,6 +76,8 @@ export const DescriptionProjectBox = styled.div`
       display: flex;
       margin: 1rem 0;
       gap: 0.5rem;
+      font-style: italic;
+      font-weight: 600;
     }
   }
 

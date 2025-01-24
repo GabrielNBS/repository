@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, css } from 'styled-components'
 
 // Importando as fontes
 import Black from '../assets/fonts/Black.ttf'
@@ -181,6 +181,31 @@ i {
   font-size: 1.2rem;
   border-radius: 8px;
 }
+`
+
+export const GradientText = css`
+  color: ${(props) => props.theme.color.secondary};
+  background: linear-gradient(
+    45deg,
+    ${(props) => props.theme.color.primary},
+    ${(props) => props.theme.color.secondary}
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 3s ease infinite;
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 `
 
 export default GlobalStyle

@@ -22,55 +22,94 @@ import {
 import styled from 'styled-components'
 
 export const ReactIcon = styled(FaReact)`
-  color: #61dafb;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #61dafb;
+  }
 `
 
 export const BootstrapIcon = styled(FaBootstrap)`
-  color: #7952b3;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #7952b3;
+  }
 `
 
 export const GithubIcon = styled(FaGithub)`
-  color: #181717;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #181717;
+  }
 `
 
 export const LinkedinIcon = styled(FaLinkedinIn)`
-  color: #0a66c2;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #0a66c2;
+  }
 `
 
 export const StyledComponentsIcon = styled(SiStyledcomponents)`
-  color: #db7093;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #db7093;
+  }
 `
 
 export const JavaScriptIcon = styled(FaJs)`
-  color: #f7df1e;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #f7df1e;
+  }
 `
 
 export const TypeScriptIcon = styled(SiTypescript)`
-  color: #3178c6;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #3178c6;
+  }
 `
 
 export const CypressIcon = styled(SiCypress)`
-  color: #17202c;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #17202c;
+  }
 `
 
 export const ReduxIcon = styled(SiRedux)`
-  color: #764abc;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #764abc;
+  }
 `
 
 export const WhatsappIcon = styled(FaWhatsapp)`
-  color: #25d366;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #25d366;
+  }
 `
 
 export const HtmlIcon = styled(FaHtml5)`
-  color: #e34f26;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #e34f26;
+  }
 `
 
 export const CssIcon = styled(FaCss3)`
-  color: #1572b6;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #1572b6;
+  }
 `
 
 export const SassIcon = styled(FaSass)`
-  color: #cc6699;
+  color: ${(props) => props.theme.color.primary};
+  &:hover {
+    color: #cc6699;
+  }
 `
 export const LaptopCodeIcon = styled(FaLaptopCode)`
   color: ${(props) => props.theme.color.primary};

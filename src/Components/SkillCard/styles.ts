@@ -36,7 +36,16 @@ export const CardBox = styled.div`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, #ff5f6d, #ff9671);
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(173, 216, 230, 0.3),
+      rgba(255, 255, 255, 0.2)
+    );
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: rotate(-45deg);
     transition: all 0.3s ease;
     z-index: -1;

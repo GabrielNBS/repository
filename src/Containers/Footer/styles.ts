@@ -10,10 +10,10 @@ export const FooterContainer = styled.footer`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  color: ${(props) => props.theme.color.primary};
 
   ${Text} {
     font-size: 0.8em;
+    filter: opacity(0.5);
   }
 
   ul {

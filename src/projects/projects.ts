@@ -33,6 +33,11 @@ const projects = [
     ],
     deploy: 'https://e-food-chi.vercel.app/',
     github: 'https://github.com/repo-projeto1',
+    // iconAnimation: [
+    //   {
+    //     name: pizza
+    //   }
+    // ]
   },
   {
     id: 'EPlay',
