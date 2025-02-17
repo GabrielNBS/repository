@@ -13,7 +13,6 @@ function ProjectCard({
   videoUrl,
   deploy,
   github,
-  iconAnimation,
 }: CardProps) {
   return (
     <S.ProjectsContainer>
@@ -36,11 +35,6 @@ function ProjectCard({
             </div>
           </S.DescriptionProjectBox>
           <S.VideoProjectBox>
-            {iconAnimation.map((icon) => (
-              <div key={icon.name} className="transformContainer">
-                <img src={icon.name} alt={icon.alt} />
-              </div>
-            ))}
             <img src={MacBookMockup} alt="" />
             <video src={videoUrl} autoPlay loop muted></video>
           </S.VideoProjectBox>

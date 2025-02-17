@@ -15,7 +15,6 @@ export default function Projects() {
           videoUrl={project.videoUrl}
           deploy={project.deploy}
           github={project.github}
-          iconAnimation={project.iconAnimation || []}
         />
       ))}
     </>
