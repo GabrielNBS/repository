@@ -1,60 +1,59 @@
 import styled from 'styled-components'
 import { CardBox } from '../../Components/SkillCard/styles'
 import { centralize } from '../../keyframes/Centralize'
+import cards from '../../cards/cards'
 
 export const AboutSection = styled.section`
   position: relative;
   height: 100vh;
-  ${centralize}
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1rem;
+
+  .card_description {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    color: ${(props) => props.theme.color.primary};
+
+    p {
+      color: rgba(${(props) => props.theme.color.tertiary});
+    }
+
+    strong {
+      display: block;
+      color: ${(props) => props.theme.color.secondary};
+    }
+  }
 
   .card_container {
     display: grid;
-    grid-template-columns: 50% 25% 25%;
-    grid-template-areas:
-      'text1 card1 card3'
-      'text1 card2 card4';
-    row-gap: 1rem;
-    width: fit-content;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 
-    ${CardBox} {
-      &:nth-child(1) {
-        grid-area: card1;
-        justify-self: flex-end;
-        align-self: center;
-        margin-right: 1.5rem;
-      }
-      &:nth-child(2) {
-        grid-area: card2;
-        justify-self: flex-end;
-        margin-right: 1.5rem;
-      }
-      &:nth-child(3) {
-        grid-area: card3;
-        margin-right: 1.5rem;
-        transform: translateY(30px);
-      }
-      &:nth-child(4) {
-        grid-area: card4;
-        transform: translateY(30px);
+  @media ${({ theme }) => theme.device.mobile} {
+    grid-template-columns: 1fr;
+    height: 100vh;
+    padding: 2rem 0;
+
+    .card_container {
+      display: flex;
+      overflow-x: auto;
+      padding: 1rem 0;
+      -webkit-overflow-scrolling: touch;
+
+      ${CardBox} {
+        flex-shrink: 0;
+        width: 300px;
+        height: 350px;
       }
     }
 
-    .card_title {
-      grid-area: text1;
-      align-self: center;
-      justify-self: center;
-      position: relative;
-      color: ${(props) => props.theme.color.primary};
-      margin-left: 5rem;
-
-      p {
-        color: rgba(${(props) => props.theme.color.tertiary});
-      }
-
-      strong {
-        display: block;
-        color: ${(props) => props.theme.color.secondary};
-      }
+    .card_description {
+      order: -1;
+      padding: 0 1rem;
+      text-align: center;
     }
   }
 `

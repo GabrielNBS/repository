@@ -1,5 +1,5 @@
 const breakpoints = {
-  laptop: '1279px',
+  desktop: '1279px',
   tablet: '1023px',
   tabletVertical: '767px',
   mobile: '479px',
@@ -43,7 +43,7 @@ const darkTheme = {
   },
   breakpoints,
   device: {
-    laptop: `(max-width: ${breakpoints.laptop})`,
+    desktop: `(max-width: ${breakpoints.desktop})`,
     tablet: `(max-width: ${breakpoints.tablet})`,
     tabletVertical: `(max-width: ${breakpoints.tabletVertical})`,
     mobile: `(max-width: ${breakpoints.mobile})`,

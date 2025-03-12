@@ -5,8 +5,6 @@ export const CardBox = styled.div`
   ${centralize}
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 350px;
   border-radius: 8px;
   backdrop-filter: blur(5px) brightness(1.1) saturate(1.5);
   box-shadow:
