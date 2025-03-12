@@ -1,3 +1,10 @@
+const breakpoints = {
+  laptop: '1279px',
+  tablet: '1023px',
+  tabletVertical: '767px',
+  mobile: '479px',
+}
+
 const darkTheme = {
   background: {
     primary: '#181C14',
@@ -33,6 +40,13 @@ const darkTheme = {
     css: '#002266',
     cypress: '#3d3d3d',
     bootstrap: '#3d2355',
+  },
+  breakpoints,
+  device: {
+    laptop: `(max-width: ${breakpoints.laptop})`,
+    tablet: `(max-width: ${breakpoints.tablet})`,
+    tabletVertical: `(max-width: ${breakpoints.tabletVertical})`,
+    mobile: `(max-width: ${breakpoints.mobile})`,
   },
 }
 

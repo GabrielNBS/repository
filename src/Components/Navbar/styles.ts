@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Text } from '../Text/styles'
 
 export const Header = styled.header`
   display: flex;
@@ -58,6 +59,49 @@ export const Header = styled.header`
     a:hover,
     :hover {
       color: ${(props) => props.theme.background.secondary};
+    }
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    ${Text} {
+      display: none;
+    }
+
+    flex-direction: row-reverse;
+  }
+`
+export const HamburgerMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+
+  span {
+    width: 100%;
+    height: 0.25rem;
+    background-color: ${(props) => props.theme.color.primary};
+  }
+`
+export const MobileNav = styled.nav`
+  position: absolute;
+  height: 100vh;
+  width: 40%;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: ${(props) => props.theme.background.secondary};
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+
+  ul {
+    flex-direction: column;
+
+    li {
+      font-size: 1.2rem;
     }
   }
 `

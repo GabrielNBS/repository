@@ -1,3 +1,10 @@
+const breakpoints = {
+  laptop: '1279px',
+  tablet: '1023px',
+  tabletVertical: '767px',
+  mobile: '479px',
+}
+
 const lightTheme = {
   background: {
     primary: '#FFFBF5',
@@ -33,6 +40,13 @@ const lightTheme = {
     css: '#99b3ff',
     cypress: '#808080',
     bootstrap: '#b399cc',
+  },
+  breakpoints,
+  device: {
+    laptop: `(max-width: ${breakpoints.laptop})`,
+    tablet: `(max-width: ${breakpoints.tablet})`,
+    tabletVertical: `(max-width: ${breakpoints.tabletVertical})`,
+    mobile: `(max-width: ${breakpoints.mobile})`,
   },
 }
 

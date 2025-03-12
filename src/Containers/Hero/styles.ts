@@ -63,4 +63,50 @@ export const HeroSection = styled.main`
       background-position: 0% 50%;
     }
   }
+
+  @media ${({ theme }) => theme.device.laptop} {
+    h1 {
+      font-size: 4rem;
+    }
+    p {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.tablet} {
+    h1 {
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.tabletVertical} {
+    h1 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    h1 {
+      font-size: 2.2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+
+    .container {
+      width: 90%;
+      align-items: center;
+      text-align: center;
+    }
+
+    .children_names {
+      font-size: 4rem;
+    }
+  }
 `

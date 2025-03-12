@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const Button = styled.button`
-  color: #fff;
+  color: ${(props) => props.theme.color.secondary};
   cursor: pointer;
-  border: 1px solid ${(props) => props.theme.background.tertiary};
+  border: 1px solid ${(props) => props.theme.color.secondary};
   border-radius: 4px;
   padding: 1em 3em;
-  background: ${(props) => props.theme.background.tertiary};
+  background: ${(props) => props.theme.background.primary};
   transition: 0.2s;
 
   &:hover {
