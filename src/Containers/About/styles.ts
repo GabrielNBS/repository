@@ -32,7 +32,7 @@ export const AboutSection = styled.section`
   }
 
   @media ${({ theme }) => theme.device.mobile},
-    ${({ theme }) => theme.device.tabletVertical} {
+    ${({ theme }) => theme.device.tablet} {
     grid-template-columns: 1fr;
     height: 100vh;
     padding: 2rem 0;
@@ -57,11 +57,6 @@ export const AboutSection = styled.section`
       max-width: 25rem;
       width: 100%;
       margin: 0 auto;
-    }
-  }
-
-  @media ${({ theme }) => theme.device.tabletVertical} {
-    .card_description {
     }
   }
 `

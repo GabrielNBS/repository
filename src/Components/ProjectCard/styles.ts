@@ -46,20 +46,28 @@ export const Box = styled.section`
   justify-content: center;
 
   > div {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
     height: 100vh;
-    column-gap: 100px;
-    max-width: 1280px;
+
+    @media ${({ theme }) => theme.device.desktop},
+      ${({ theme }) => theme.device.notebook} {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    }
   }
 `
 
 export const DescriptionProjectBox = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   margin: 2rem 0;
   color: ${(props) => props.theme.color.primary};
+
+  @media ${({ theme }) => theme.device.desktop},
+    ${({ theme }) => theme.device.notebook} {
+    display: flex;
+  }
 
   h2 {
     ${GradientText}
@@ -96,73 +104,11 @@ export const VideoProjectBox = styled.div`
   max-width: 800px;
   margin: 0 auto;
 
-  .transformContainer {
-    display: block;
-    position: absolute;
-    width: 60px;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-      transform 1.5s ease-in-out,
-      opacity 1.5s ease-in-out;
-    z-index: 0;
-  }
-
-  @keyframes transformAnimation {
-    0% {
-      transform: translateX(0) translateY(0) rotateZ(0deg);
-    }
-    100% {
-      transform: translateX(var(--translateX)) translateY(var(--translateY))
-        rotateZ(-30deg);
-    }
-  }
-
-  .transformContainer img {
-    display: flex;
-    ${flyAnimation}
-    object-fit: cover;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  }
-
-  .transformContainer {
-    visibility: visible;
-    opacity: 1;
-    animation: transformAnimation 1.5s ease-in-out forwards;
-  }
-
-  .transformContainer:nth-child(1) {
-    --translateX: 30px;
-    --translateY: -330px;
-
-    img {
-      animation-delay: 0s;
-    }
-  }
-  .transformContainer:nth-child(2) {
-    --translateX: 100px;
-    --translateY: -300px;
-    img {
-      animation-delay: 0.4s;
-    }
-  }
-  .transformContainer:nth-child(3) {
-    --translateX: -100px;
-    --translateY: -300px;
-    animation-delay: 0.6s;
-  }
-  .transformContainer:nth-child(4) {
-    --translateX: -30px;
-    --translateY: -330px;
-    img {
-      animation-delay: 0.8s;
-    }
-  }
-
   img {
     display: flex;
     width: 100%;
-    height: auto;
+    height: 600px;
+    object-fit: contain;
   }
 
   video {

@@ -1,8 +1,8 @@
 const breakpoints = {
   desktop: '1279px',
-  tablet: '1023px',
-  tabletVertical: '767px',
-  mobile: '479px',
+  notebook: '1023px',
+  tablet: '767px',
+  mobile: '412px',
 }
 
 const darkTheme = {
@@ -44,9 +44,9 @@ const darkTheme = {
   breakpoints,
   device: {
     desktop: `(min-width: ${breakpoints.desktop})`,
-    tablet: `(min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.desktop})`,
-    tabletVertical: `(min-width: ${breakpoints.tabletVertical}) and (max-width: ${breakpoints.tablet})`,
-    mobile: ` (max-width: ${breakpoints.tabletVertical})`,
+    notebook: `(min-width: ${breakpoints.notebook}) and (max-width: ${breakpoints.desktop})`,
+    tablet: `(min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.notebook})`,
+    mobile: `(min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet})`,
   },
 }
 
