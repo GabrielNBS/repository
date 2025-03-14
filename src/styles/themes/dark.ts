@@ -43,10 +43,10 @@ const darkTheme = {
   },
   breakpoints,
   device: {
-    desktop: `(max-width: ${breakpoints.desktop})`,
-    tablet: `(max-width: ${breakpoints.tablet})`,
-    tabletVertical: `(max-width: ${breakpoints.tabletVertical})`,
-    mobile: `(max-width: ${breakpoints.mobile})`,
+    desktop: `(min-width: ${breakpoints.desktop})`,
+    tablet: `(min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.desktop})`,
+    tabletVertical: `(min-width: ${breakpoints.tabletVertical}) and (max-width: ${breakpoints.tablet})`,
+    mobile: ` (max-width: ${breakpoints.tabletVertical})`,
   },
 }
 

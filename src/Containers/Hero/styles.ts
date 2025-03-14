@@ -46,54 +46,64 @@ export const HeroSection = styled.main`
     }
   }
 
-  div.container {
+  .container {
     display: flex;
     flex-direction: column;
     position: relative;
   }
 
   @keyframes wave {
-    0% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
       background-position: 100% 50%;
     }
-    100% {
-      background-position: 0% 50%;
-    }
   }
 
-  @media ${({ theme }) => theme.device.laptop} {
+  @media ${({ theme }) => theme.device.desktop} {
     h1 {
       font-size: 4rem;
     }
     p {
-      font-size: 1.25rem;
+      font-size: 1.75rem;
     }
   }
 
   @media ${({ theme }) => theme.device.tablet} {
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
     }
     p {
-      font-size: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .container {
+      width: 90%;
+      align-items: center;
+      text-align: center;
     }
   }
 
   @media ${({ theme }) => theme.device.tabletVertical} {
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     p {
-      font-size: 0.875rem;
+      font-size: 1.2rem;
+    }
+
+    .container {
+      width: 90%;
+      align-items: center;
+      text-align: center;
     }
   }
 
   @media ${({ theme }) => theme.device.mobile} {
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
     }
     p {
       font-size: 1rem;

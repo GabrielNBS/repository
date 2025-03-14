@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 import { CardBox } from '../../Components/SkillCard/styles'
-import { centralize } from '../../keyframes/Centralize'
-import cards from '../../cards/cards'
 
 export const AboutSection = styled.section`
   position: relative;
@@ -12,6 +10,7 @@ export const AboutSection = styled.section`
 
   .card_description {
     display: flex;
+    padding: 0 0 0 3rem;
     align-self: center;
     flex-direction: column;
     color: ${(props) => props.theme.color.primary};
@@ -32,7 +31,8 @@ export const AboutSection = styled.section`
     gap: 1rem;
   }
 
-  @media ${({ theme }) => theme.device.mobile} {
+  @media ${({ theme }) => theme.device.mobile},
+    ${({ theme }) => theme.device.tabletVertical} {
     grid-template-columns: 1fr;
     height: 100vh;
     padding: 2rem 0;
@@ -54,6 +54,14 @@ export const AboutSection = styled.section`
       order: -1;
       padding: 0 1rem;
       text-align: center;
+      max-width: 25rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.tabletVertical} {
+    .card_description {
     }
   }
 `
