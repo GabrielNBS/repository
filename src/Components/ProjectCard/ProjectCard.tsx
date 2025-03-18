@@ -81,21 +81,18 @@ function ProjectCard({
           </S.DescriptionProjectBox>
 
           <S.VideoProjectBox>
-            <img
-              src={getMockupImage()}
-              alt={`Mockup ${screenType}`}
-              data-testid="mockup-image"
-            />
-            <video
-              src={videoUrl}
-              autoPlay
-              loop
-              muted
-              playsInline
-              aria-label={`Demo do projeto ${title}`}
-            >
-              Seu navegador não suporta o elemento vídeo
-            </video>
+            <div style={{ backgroundImage: `url(${getMockupImage()})` }}>
+              <video
+                src={videoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                aria-label={`Demo do projeto ${title}`}
+              >
+                Seu navegador não suporta o elemento vídeo
+              </video>
+            </div>
           </S.VideoProjectBox>
         </div>
       </S.Box>
