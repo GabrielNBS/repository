@@ -1,44 +1,46 @@
-import styled from 'styled-components'
-import { flyAnimation } from '../../keyframes/FlyAnimation'
+import styled, { css } from 'styled-components'
 import { GradientText } from '../../styles/GlobalStyle'
 
-export const ProjectsContainer = styled.div`
-  ${(props) => {
-    const projectBackgrounds = [
-      'EFood',
-      'EPlay',
-      'HojeTaDoce',
-      'ToDo',
-      'Spider-Verse',
-      'CloneDisney',
-    ]
+// Constantes reutilizáveis
+const PROJECT_IDS = [
+  'EFood',
+  'EPlay',
+  'HojeTaDoce',
+  'ToDo',
+  'Spider-Verse',
+  'CloneDisney',
+]
 
-    return projectBackgrounds
-      .map(
-        (project, index) => `
+// Estilos comuns para números de projeto
+const projectNumberStyle = css`
+  position: absolute;
+  top: 10%;
+  right: 0;
+  border-radius: 50% 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  font-size: 10rem;
+  color: transparent;
+`
+
+export const ProjectsContainer = styled.div`
+  ${({ theme }) =>
+    PROJECT_IDS.map(
+      (project, index) => css`
         #${project} {
           position: relative;
-        }
 
-        #${project}::after {
-          content: '${index + 1}';
-          position: absolute;
-          top: 10%;
-          right: 0;
-          border-radius: 50% 0 0 50%;
-          font-size: 10rem;
-          width: 150px;
-          height: 150px;
-          color: transparent;
-          -webkit-text-stroke: 2px rgba(${props.theme.shadow.primary});
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          &::after {
+            ${projectNumberStyle};
+            content: '${index + 1}';
+            -webkit-text-stroke: 2px rgba(${theme.shadow.primary});
+          }
         }
       `,
-      )
-      .join('')
-  }}
+    )}
 `
 
 export const Box = styled.section`
@@ -53,7 +55,9 @@ export const Box = styled.section`
     @media ${({ theme }) => theme.device.desktop},
       ${({ theme }) => theme.device.notebook} {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 1fr;
+      padding: 0 4rem;
+      gap: 2rem;
     }
   }
 `
@@ -63,7 +67,7 @@ export const DescriptionProjectBox = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 2rem 0;
-  color: ${(props) => props.theme.color.primary};
+  color: ${({ theme }) => theme.color.primary};
 
   @media ${({ theme }) => theme.device.desktop},
     ${({ theme }) => theme.device.notebook} {
@@ -75,7 +79,7 @@ export const DescriptionProjectBox = styled.div`
   }
 
   p {
-    filter: brightness(0.8);
+    opacity: 0.8;
   }
 
   ul {
@@ -90,7 +94,7 @@ export const DescriptionProjectBox = styled.div`
     }
   }
 
-  div {
+  > div {
     display: flex;
     gap: 1rem;
   }
@@ -98,6 +102,7 @@ export const DescriptionProjectBox = styled.div`
 
 export const VideoProjectBox = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
   align-items: center;
   position: relative;
