@@ -48,6 +48,7 @@ export const Box = styled.section`
   > div {
     display: flex;
     height: 100vh;
+    align-items: center;
 
     @media ${({ theme }) => theme.device.desktop},
       ${({ theme }) => theme.device.notebook} {
@@ -103,22 +104,52 @@ export const VideoProjectBox = styled.div`
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  height: 90vh; // Ocupa 90% da altura da tela
 
-  img {
-    display: flex;
+  picture {
+    position: relative;
     width: 100%;
-    height: 600px;
-    object-fit: contain;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-width: 90vw; // Limita a largura máxima
+      max-height: 75vh; // Limita a altura máxima
+    }
   }
 
   video {
-    background-color: inherit;
-    max-width: 100%;
-    width: 80%;
-    height: 425px;
-    object-fit: fill;
     position: absolute;
-    transform: translateY(-16px);
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 81%;
+    height: 44%;
+    object-fit: cover;
     border-radius: 1rem 1rem 0 0;
+    z-index: 2;
+    aspect-ratio: 16 / 9;
+
+    // Ajustes para mobile
+    @media ${({ theme }) => theme.device.mobile} {
+      width: 96%;
+      height: 82%;
+      top: 50%;
+      border-radius: 4rem;
+    }
+
+    // Ajustes para tablet
+    @media ${({ theme }) => theme.device.tablet} {
+      width: 95%;
+      height: 81%;
+      top: 50%;
+      border-radius: 2rem;
+    }
   }
 `

@@ -81,11 +81,15 @@ function ProjectCard({
           </S.DescriptionProjectBox>
 
           <S.VideoProjectBox>
-            <img
-              src={getMockupImage()}
-              alt={`Mockup ${screenType}`}
-              data-testid="mockup-image"
-            />
+            <picture>
+              <source srcSet={MacBookMockup} media="(min-width: 1024px)" />
+              <source srcSet={IPadMockup} media="(min-width: 768px)" />
+              <img
+                src={IPhoneMockup}
+                alt={`Mockup ${screenType}`}
+                data-testid="mockup-image"
+              />
+            </picture>
             <video
               src={videoUrl}
               autoPlay
