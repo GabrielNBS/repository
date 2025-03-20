@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Text } from '../../Components/Text/styles'
+import { centralize } from '../../keyframes/Centralize'
 
 export const ContactContainer = styled.section`
   display: flex;
@@ -12,7 +13,8 @@ export const ContactContainer = styled.section`
   gap: 1rem;
 
   ${Text} {
-    font-size: 5em;
+    text-align: center;
+    font-size: 5rem;
     font-weight: 900;
   }
 

@@ -2,14 +2,19 @@ import styled from 'styled-components'
 import { Text } from '../../Components/Text/styles'
 
 export const FooterContainer = styled.footer`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
   height: 3em;
   position: absolute;
   left: 0;
   bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+
+  @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
 
   ${Text} {
     font-size: 0.8em;
