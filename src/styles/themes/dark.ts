@@ -1,7 +1,7 @@
 const breakpoints = {
-  desktop: '1023px',
+  mobile: '320px', // Não precisa ser declarado (mobile-first)
   tablet: '768px',
-  mobile: '767px',
+  desktop: '1024px', // Valor ajustado
 }
 
 const darkTheme = {
@@ -42,9 +42,9 @@ const darkTheme = {
   },
   breakpoints,
   device: {
-    desktop: `(min-width: ${breakpoints.desktop})`,
-    tablet: `(min-width: ${breakpoints.tablet}) ,(max-width: ${breakpoints.desktop})`,
-    mobile: `(max-width: ${breakpoints.mobile})`,
+    mobile: `(max-width: ${parseInt(breakpoints.tablet) - 1}px)`, // <= 767px
+    tablet: `(min-width: ${breakpoints.tablet}) and (max-width: ${parseInt(breakpoints.desktop) - 1}px)`, // 768px-1023px
+    desktop: `(min-width: ${breakpoints.desktop})`, // >=1024px
   },
 }
 

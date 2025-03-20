@@ -86,21 +86,6 @@ export const HeroSection = styled.main`
     }
   }
 
-  @media ${({ theme }) => theme.device.tabletVertical} {
-    h1 {
-      font-size: 3rem;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-
-    .container {
-      width: 90%;
-      align-items: center;
-      text-align: center;
-    }
-  }
-
   @media ${({ theme }) => theme.device.mobile} {
     h1 {
       font-size: 2.5rem;

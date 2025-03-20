@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { GradientText } from '../../styles/GlobalStyle'
+import { centralize } from '../../keyframes/Centralize'
 
 // Constantes reutilizáveis
 const PROJECT_IDS = [
@@ -45,34 +46,18 @@ export const ProjectsContainer = styled.div`
 
 export const Box = styled.section`
   display: flex;
+  height: 100dvh;
   justify-content: center;
-
-  > div {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-
-    @media ${({ theme }) => theme.device.desktop},
-      ${({ theme }) => theme.device.notebook} {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 0 4rem;
-      gap: 2rem;
-    }
-  }
+  padding: 0 4rem;
+  gap: 2rem;
 `
 
 export const DescriptionProjectBox = styled.div`
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 2rem 0;
   color: ${({ theme }) => theme.color.primary};
-
-  @media ${({ theme }) => theme.device.desktop},
-    ${({ theme }) => theme.device.notebook} {
-    display: flex;
-  }
+  width: 50%;
 
   h2 {
     ${GradientText}
@@ -104,57 +89,57 @@ export const VideoProjectBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  align-items: center;
+  width: 50%;
+  height: 100%;
   position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  height: 90vh; // Ocupa 90% da altura da tela
 
-  picture {
-    position: relative;
+  div {
+    ${centralize}
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      max-width: 90vw; // Limita a largura máxima
-      max-height: 75vh; // Limita a altura máxima
-    }
-  }
-
-  video {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 81%;
-    height: 44%;
-    object-fit: cover;
-    border-radius: 1rem 1rem 0 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: red;
+    position: relative;
     z-index: 2;
-    aspect-ratio: 16 / 9;
+    padding-top: 206%;
 
-    // Ajustes para mobile
-    @media ${({ theme }) => theme.device.mobile} {
-      width: 96%;
-      height: 82%;
-      top: 50%;
-      border-radius: 4rem;
+    /* Tablet */
+    @media ${({ theme }) => theme.device.tablet} {
+      padding-top: 130%; // Mantém igual se for o mesmo que mobile
     }
 
-    // Ajustes para tablet
-    @media ${({ theme }) => theme.device.tablet} {
-      width: 95%;
-      height: 81%;
+    /* Desktop */
+    @media ${({ theme }) => theme.device.desktop} {
+      padding-top: 56.25%; // 16:9
+    }
+
+    &.videoContainer {
+      background-color: blue;
+      position: absolute;
       top: 50%;
-      border-radius: 2rem;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 1rem 1rem 0 0;
+      aspect-ratio: 16 / 9;
+      z-index: 1; // Alterado de -1 para 1
+
+      @media ${({ theme }) => theme.device.mobile} {
+        width: 92%;
+        height: 90%;
+      }
+
+      /* Tablet */
+      @media ${({ theme }) => theme.device.tablet} {
+        width: 92%;
+        height: 85%;
+      }
+
+      /* Desktop */
+      @media ${({ theme }) => theme.device.desktop} {
+        width: 74%;
+        height: 86%;
+      }
     }
   }
 `

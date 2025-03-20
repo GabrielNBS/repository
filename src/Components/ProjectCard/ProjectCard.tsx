@@ -62,7 +62,7 @@ function ProjectCard({
   return (
     <S.ProjectsContainer>
       <S.Box id={id}>
-        <div>
+        {screenType === 'desktop' && (
           <S.DescriptionProjectBox>
             <h2>{title}</h2>
             <p>{description}</p>
@@ -79,29 +79,12 @@ function ProjectCard({
               {github && <Button href={github}>Código</Button>}
             </div>
           </S.DescriptionProjectBox>
-
-          <S.VideoProjectBox>
-            <picture>
-              <source srcSet={MacBookMockup} media="(min-width: 1024px)" />
-              <source srcSet={IPadMockup} media="(min-width: 768px)" />
-              <img
-                src={IPhoneMockup}
-                alt={`Mockup ${screenType}`}
-                data-testid="mockup-image"
-              />
-            </picture>
-            <video
-              src={videoUrl}
-              autoPlay
-              loop
-              muted
-              playsInline
-              aria-label={`Demo do projeto ${title}`}
-            >
-              Seu navegador não suporta o elemento vídeo
-            </video>
-          </S.VideoProjectBox>
-        </div>
+        )}
+        <S.VideoProjectBox>
+          <div style={{ backgroundImage: `url(${getMockupImage()})` }}>
+            <div className="videoContainer"></div>
+          </div>
+        </S.VideoProjectBox>
       </S.Box>
     </S.ProjectsContainer>
   )
