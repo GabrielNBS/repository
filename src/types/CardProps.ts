@@ -7,7 +7,7 @@ interface TechsProps {
 
 export type CardProps = {
   id: string
-  videoUrl: string
+  mockups: string[]
   title: string
   description: string
   techs: TechsProps[]

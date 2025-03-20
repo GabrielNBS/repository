@@ -1,10 +1,27 @@
 import { FaReact } from 'react-icons/fa'
-import Efood from '../video/Efood_Page_Video.mp4'
-import EPlay from '../video/Eplay_Page_Video.mp4'
-import ToDo from '../video/Todo_Page_Video.mp4'
-import Spiderverse from '../video/Spiderverse_Page_Video.mp4'
-import HojeTaDoce from '../video/Htd_Page_Video.mp4'
-import CloneDisney from '../video/Clonedisney_Page_Video.mp4'
+import HTD_Mobile from '../Image/Mockups/Mobile/HTD-Mobile.svg'
+import HTD_Tablet from '../Image/Mockups/Tablet/HTD-Tablet.svg'
+import HTD_Desktop from '../Image/Mockups/Desktop/HTD-Desktop.svg'
+
+import EPlay_Mobile from '../Image/Mockups/Mobile/Eplay-Mobile.svg'
+import EPlay_Tablet from '../Image/Mockups/Tablet/Eplay-Tablet.svg'
+import EPlay_Desktop from '../Image/Mockups/Desktop/Eplay-Desktop.svg'
+
+import EFood_Mobile from '../Image/Mockups/Mobile/Efood-Mobile.svg'
+import EFood_Tablet from '../Image/Mockups/Tablet/Efood-Tablet.svg'
+import EFood_Desktop from '../Image/Mockups/Desktop/Efood-Desktop.svg'
+
+import ToDo_Mobile from '../Image/Mockups/Mobile/Todo-Mobile.svg'
+import ToDo_Tablet from '../Image/Mockups/Tablet/Todo-Tablet.svg'
+import ToDo_Desktop from '../Image/Mockups/Desktop/Todo-Desktop.svg'
+
+import SpiderVerse_Mobile from '../Image/Mockups/Mobile/Spiderverse-Mobile.svg'
+import SpiderVerse_Tablet from '../Image/Mockups/Tablet/Spiderverse-Tablet.svg'
+import SpiderVerse_Desktop from '../Image/Mockups/Desktop/Spiderverse-Desktop.svg'
+
+import CloneDisney_Mobile from '../Image/Mockups/Mobile/Disney-Mobile.svg'
+import CloneDisney_Tablet from '../Image/Mockups/Tablet/Disney-Tablet.svg'
+import CloneDisney_Desktop from '../Image/Mockups/Desktop/Disney-Desktop.svg'
 
 import {
   BootstrapIcon,
@@ -21,7 +38,11 @@ import {
 const projects = [
   {
     id: 'EFood',
-    videoUrl: Efood,
+    mockups: {
+      mobile: EFood_Mobile,
+      tablet: EFood_Tablet,
+      desktop: EFood_Desktop,
+    },
     title: 'E-Food',
     description:
       'Aplicação de delivery desenvolvida com React, responsiva e dinâmica, utilizando TypeScript, Styled-Components, Redux  e formik para controle e validação de formulários.',
@@ -36,7 +57,11 @@ const projects = [
   },
   {
     id: 'EPlay',
-    videoUrl: EPlay,
+    mockups: {
+      mobile: EPlay_Mobile,
+      tablet: EPlay_Tablet,
+      desktop: EPlay_Desktop,
+    },
     title: 'E-Play',
     description:
       'Plataforma de streaming de jogos com interface responsiva, construída em React, TypeScript, Styled-Components e Redux feito seguindo design desenvolvido no Figma.',
@@ -51,7 +76,11 @@ const projects = [
   },
   {
     id: 'HojeTaDoce',
-    videoUrl: HojeTaDoce,
+    mockups: {
+      mobile: HTD_Mobile,
+      tablet: HTD_Tablet,
+      desktop: HTD_Desktop,
+    },
     title: 'Hoje ta Doce',
     description:
       'Landing page para uma confeitaria, destacando produtos e serviços, desenvolvida em HTML, JavaScript e utilizando todos os recursos do Bootstrap para estilização e dinamismo da pagina.',
@@ -65,7 +94,11 @@ const projects = [
   },
   {
     id: 'ToDo',
-    videoUrl: ToDo,
+    mockups: {
+      mobile: ToDo_Mobile,
+      tablet: ToDo_Tablet,
+      desktop: ToDo_Desktop,
+    },
     title: 'To-Do',
     description:
       'Lista de tarefas interativa e responsiva, criada em HTML, CSS e JavaScript',
@@ -79,7 +112,11 @@ const projects = [
   },
   {
     id: 'Spider-Verse',
-    videoUrl: Spiderverse,
+    mockups: {
+      mobile: SpiderVerse_Mobile,
+      tablet: SpiderVerse_Tablet,
+      desktop: SpiderVerse_Desktop,
+    },
     title: 'LP Spider-verse',
     description:
       'Página promocional do Spider-verse, com design atrativo e responsivo, feita com Html, Sass e JavaScript.',
@@ -93,7 +130,11 @@ const projects = [
   },
   {
     id: 'CloneDisney',
-    videoUrl: CloneDisney,
+    mockups: {
+      mobile: CloneDisney_Mobile,
+      tablet: CloneDisney_Tablet,
+      desktop: CloneDisney_Desktop,
+    },
     title: 'Clone Disney Plus',
     description:
       'Clone responsivo da interface do Disney Plus, implementado com Html, Sass e JavaScript.',

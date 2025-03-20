@@ -3,11 +3,6 @@ import * as S from './styles'
 import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 
-// Importe todos os mockups
-import MacBookMockup from '../../Image/Mockups/MacBook15_mockup.png'
-import IPadMockup from '../../Image/Mockups/IPad_mockup.png'
-import IPhoneMockup from '../../Image/Mockups/IPhone16_mockup.png'
-
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>(
     'desktop',
@@ -40,7 +35,7 @@ function ProjectCard({
   title,
   description,
   techs,
-  videoUrl,
+  mockups,
   deploy,
   github,
 }: CardProps) {
@@ -49,41 +44,53 @@ function ProjectCard({
   const getMockupImage = () => {
     switch (screenType) {
       case 'desktop':
-        return MacBookMockup
+        return mockups[2]
       case 'tablet':
-        return IPadMockup
+        return mockups[1]
       case 'mobile':
-        return IPhoneMockup
+        return mockups[0]
       default:
-        return MacBookMockup
+        return mockups[2]
     }
   }
 
   return (
     <S.ProjectsContainer>
       <S.Box id={id}>
-        {screenType === 'desktop' && (
+        {/* Mostrar descrição em desktop e tablet */}
+        {screenType !== 'mobile' && (
           <S.DescriptionProjectBox>
-            <h2>{title}</h2>
-            <p>{description}</p>
-            <ul>
-              {techs.map((tech, index) => (
-                <li key={index}>
-                  <span>- {tech.name}</span>
-                </li>
-              ))}
-            </ul>
-
+            <>
+              <h2>{title}</h2>
+              <p>{description}</p>
+              <ul>
+                {techs.map((tech, index) => (
+                  <li key={index}>
+                    <span>- {tech.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
             <div>
               {deploy && <Button href={deploy}>Deploy</Button>}
               {github && <Button href={github}>Código</Button>}
             </div>
           </S.DescriptionProjectBox>
         )}
+
         <S.VideoProjectBox>
-          <div style={{ backgroundImage: `url(${getMockupImage()})` }}>
-            <div className="videoContainer"></div>
-          </div>
+          {screenType === 'mobile' && <h2>{title}</h2>}
+          <img
+            src={getMockupImage()}
+            alt={`Mockup ${screenType}`}
+            data-testid="mockup-image"
+          />
+          {screenType === 'mobile' && (
+            <div>
+              {deploy && <Button href={deploy}>Deploy</Button>}
+              {github && <Button href={github}>Código</Button>}
+            </div>
+          )}
         </S.VideoProjectBox>
       </S.Box>
     </S.ProjectsContainer>
