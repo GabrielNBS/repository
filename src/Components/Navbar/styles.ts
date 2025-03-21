@@ -87,7 +87,7 @@ export const HamburgerMenu = styled.div`
 export const MobileNav = styled.nav`
   position: absolute;
   height: 100vh;
-  width: 40%;
+  width: 50%;
   top: 0;
   right: 0;
   display: flex;
@@ -96,6 +96,7 @@ export const MobileNav = styled.nav`
   padding: 1rem;
   background-color: ${(props) => props.theme.background.secondary};
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  transition: right 0.5s ease-in-out;
 
   ul {
     flex-direction: column;

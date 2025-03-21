@@ -135,7 +135,6 @@ body {
   background-color: ${(props) => props.theme.background.primary};
   line-height: 1.6;
   color: #fff;
-  height: 100vh;
   font-family: "SF Pro Display";
   overflow: hidden;
 

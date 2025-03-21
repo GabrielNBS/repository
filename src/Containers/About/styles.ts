@@ -10,7 +10,6 @@ export const AboutSection = styled.section`
 
   .card_description {
     display: flex;
-    padding: 0 0 0 3rem;
     align-self: center;
     flex-direction: column;
     color: ${(props) => props.theme.color.primary};
@@ -35,7 +34,7 @@ export const AboutSection = styled.section`
     ${({ theme }) => theme.device.tablet} {
     grid-template-columns: 1fr;
     height: 100vh;
-    padding: 2rem 0;
+    padding: 0;
 
     .card_container {
       display: flex;

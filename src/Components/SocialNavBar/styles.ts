@@ -8,7 +8,6 @@ export const StyledWrapper = styled.div`
     justify-content: center;
     color: black;
     margin-top: 50px;
-    right: 24px;
   }
 
   .icon {

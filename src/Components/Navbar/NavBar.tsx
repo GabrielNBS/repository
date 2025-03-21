@@ -58,7 +58,10 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
             </S.HamburgerMenu>
             {isMenuOpen && (
               <>
-                <S.MobileNav ref={menuRef}>
+                <S.MobileNav
+                  style={{ right: isMenuOpen ? '0' : '-300px' }}
+                  ref={menuRef}
+                >
                   {renderMenuItems()}
                   <ThemeButtonChange toggleTheme={toggleTheme} />
                 </S.MobileNav>

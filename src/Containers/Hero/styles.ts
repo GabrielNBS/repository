@@ -6,7 +6,6 @@ export const HeroSection = styled.main`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  z-index: 5;
 
   .children_names {
     position: absolute;
