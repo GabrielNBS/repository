@@ -21,12 +21,12 @@ const darkTheme = {
   color: {
     primary: '#fff',
     secondary: '#ECDFCC',
-    tertiary: '255, 255 ,255, .8',
+    tertiary: '#000',
   },
   shadow: {
-    primary: '255, 255, 255, 0.2',
-    secondary: '255, 255, 255, 0.1',
-    tertiary: '255, 255, 255, 0.4',
+    primary: 'rgba(42, 47, 36, 1)', // #2a2f24
+    secondary: 'rgba(18, 21, 16, 1)', // #121510
+    tertiary: 'rgba(32, 39, 30, 1)', // #20271e
   },
   stackColor: {
     react: '#002244',

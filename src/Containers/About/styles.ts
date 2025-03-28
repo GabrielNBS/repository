@@ -28,6 +28,7 @@ export const AboutSection = styled.section`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    padding: 5rem 2rem 2rem 0;
   }
 
   @media ${({ theme }) => theme.device.mobile},

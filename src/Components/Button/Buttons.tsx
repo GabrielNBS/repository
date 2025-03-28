@@ -1,6 +1,7 @@
 import React from 'react'
 import { ButtonProps } from '../../types/ButtonProps'
 import { Button as PButton } from './styles'
+import { Text } from '../Text/styles'
 
 export default function Button({
   children,

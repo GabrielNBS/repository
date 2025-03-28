@@ -74,16 +74,8 @@ function ProjectCard({
             </ul>
           </>
           <div>
-            {deploy && (
-              <Button href={deploy}>
-                <Text>Deploy</Text>
-              </Button>
-            )}
-            {github && (
-              <Button href={github}>
-                <Text>Código</Text>
-              </Button>
-            )}
+            {deploy && <Button href={deploy}>Deploy</Button>}
+            {github && <Button href={github}>Código</Button>}
           </div>
         </S.DescriptionProjectBox>
       )}

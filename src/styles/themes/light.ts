@@ -21,12 +21,12 @@ const lightTheme = {
   color: {
     primary: '#000',
     secondary: '#7743DB',
-    tertiary: '0 ,0 ,0 , .8',
+    tertiary: '#fff',
   },
   shadow: {
-    primary: '0, 0, 0, 0.2',
-    secondary: '0, 0, 0, 0.1',
-    tertiary: '0, 0, 0, 0.4',
+    primary: 'rgba(232, 232, 232, 1)', // #e8e8e8
+    secondary: 'rgba(197, 197, 197, 1)', // #c5c5c5
+    tertiary: 'rgba(255, 255, 255, 1)', // #ffffff
   },
   stackColor: {
     react: '#99d6ff',
