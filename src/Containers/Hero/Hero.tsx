@@ -8,10 +8,10 @@ export default function Hero() {
     <S.HeroSection>
       <span className="children_names">真由美と沙織</span>
       <div className="container">
-        <Text as="h1">Olá, me chamo Gabriel</Text>
+        <Text as="hero">Olá, me chamo Gabriel</Text>
         <Text as="p">
           Crio interfaces intuitivas e responsivas explorando o melhor do
-          <span> desenvolvimento web</span>.
+          <strong> desenvolvimento web</strong>.
         </Text>
         <SocialNavBar />
       </div>

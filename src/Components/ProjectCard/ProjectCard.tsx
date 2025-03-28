@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import * as S from './styles'
 import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
+import { Text } from '../Text/styles'
 
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>(
@@ -55,45 +56,53 @@ function ProjectCard({
   }
 
   return (
-    <S.ProjectsContainer>
-      <S.Box id={id}>
-        {/* Mostrar descrição em desktop e tablet */}
-        {screenType !== 'mobile' && (
-          <S.DescriptionProjectBox>
-            <>
-              <h2>{title}</h2>
-              <p>{description}</p>
-              <ul>
-                {techs.map((tech, index) => (
-                  <li key={index}>
-                    <span>- {tech.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-            <div>
-              {deploy && <Button href={deploy}>Deploy</Button>}
-              {github && <Button href={github}>Código</Button>}
-            </div>
-          </S.DescriptionProjectBox>
-        )}
+    <S.Box id={id}>
+      {/* Mostrar descrição em desktop e tablet */}
+      {screenType !== 'mobile' && (
+        <S.DescriptionProjectBox>
+          <>
+            <Text as="h2">{title}</Text>
+            <Text as="p">{description}</Text>
+            <ul>
+              {techs.map((tech, index) => (
+                <li key={index}>
+                  <span>
+                    <Text>- {tech.name}</Text>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </>
+          <div>
+            {deploy && (
+              <Button href={deploy}>
+                <Text>Deploy</Text>
+              </Button>
+            )}
+            {github && (
+              <Button href={github}>
+                <Text>Código</Text>
+              </Button>
+            )}
+          </div>
+        </S.DescriptionProjectBox>
+      )}
 
-        <S.VideoProjectBox>
-          {screenType === 'mobile' && <h2>{title}</h2>}
-          <img
-            src={getMockupImage()}
-            alt={`Mockup ${screenType}`}
-            data-testid="mockup-image"
-          />
-          {screenType === 'mobile' && (
-            <div>
-              {deploy && <Button href={deploy}>Deploy</Button>}
-              {github && <Button href={github}>Código</Button>}
-            </div>
-          )}
-        </S.VideoProjectBox>
-      </S.Box>
-    </S.ProjectsContainer>
+      <S.VideoProjectBox>
+        {screenType === 'mobile' && <h2>{title}</h2>}
+        <img
+          src={getMockupImage()}
+          alt={`Mockup ${screenType}`}
+          data-testid="mockup-image"
+        />
+        {screenType === 'mobile' && (
+          <div>
+            {deploy && <Button href={deploy}>Deploy</Button>}
+            {github && <Button href={github}>Código</Button>}
+          </div>
+        )}
+      </S.VideoProjectBox>
+    </S.Box>
   )
 }
 

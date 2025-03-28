@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 import { Text } from '../../Components/Text/styles'
-import { centralize } from '../../keyframes/Centralize'
 
 export const ContactContainer = styled.section`
   display: flex;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -14,8 +13,6 @@ export const ContactContainer = styled.section`
 
   ${Text} {
     text-align: center;
-    font-size: 5rem;
-    font-weight: 900;
   }
 
   div {

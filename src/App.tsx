@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [activeElement, setActiveElement] = useState<number>(0)
   const sectionsRef = useRef<HTMLElement[]>([])
 
-  const currentTheme = theme ? darkTheme : lightTheme
+  const currentTheme = theme ? lightTheme : darkTheme
 
   const toggleTheme = () => {
     setTheme((prevTheme) => !prevTheme)

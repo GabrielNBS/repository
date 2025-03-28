@@ -6,7 +6,6 @@ export const FooterContainer = styled.footer`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 3em;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -17,7 +16,6 @@ export const FooterContainer = styled.footer`
   }
 
   ${Text} {
-    font-size: 0.8em;
     filter: opacity(0.5);
   }
 
@@ -28,6 +26,7 @@ export const FooterContainer = styled.footer`
     svg {
       color: ${(props) => props.theme.color.primary};
       font-size: 2rem;
+      filter: opacity(0.5);
     }
   }
 `

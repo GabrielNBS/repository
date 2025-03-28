@@ -137,25 +137,6 @@ body {
   color: #fff;
   font-family: "SF Pro Display";
   overflow: hidden;
-
-  h1, h2, h3 {
-    text-shadow:
-      1px 1px 2px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.15);
-  }
-
-  h2 {
-    font-size: clamp(32px, 4vw, 48px);
-  }
-
-  h3 {
-    font-size: clamp(24px, 3vw, 36px);
-  }
-
-  p,
-  li {
-    font-size: clamp(16px, 1.5vw, 18px);
-  }
 }
 
 a, li {

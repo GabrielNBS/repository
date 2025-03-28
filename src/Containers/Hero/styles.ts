@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const HeroSection = styled.main`
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -19,7 +19,6 @@ export const HeroSection = styled.main`
   }
 
   h1 {
-    font-size: 5rem;
     position: relative;
     display: inline-block;
     background: linear-gradient(
@@ -34,12 +33,11 @@ export const HeroSection = styled.main`
   }
 
   p {
-    font-size: 1.5rem;
     font-weight: 400;
     margin: 1;
     filter: brightness(0.8);
 
-    span {
+    strong {
       font-weight: 700;
       color: ${(props) => props.theme.color.tertiary};
     }
@@ -61,23 +59,7 @@ export const HeroSection = styled.main`
     }
   }
 
-  @media ${({ theme }) => theme.device.desktop} {
-    h1 {
-      font-size: 4rem;
-    }
-    p {
-      font-size: 1.75rem;
-    }
-  }
-
   @media ${({ theme }) => theme.device.tablet} {
-    h1 {
-      font-size: 3.5rem;
-    }
-    p {
-      font-size: 1.5rem;
-    }
-
     .container {
       width: 90%;
       align-items: center;
@@ -86,13 +68,6 @@ export const HeroSection = styled.main`
   }
 
   @media ${({ theme }) => theme.device.mobile} {
-    h1 {
-      font-size: 2.5rem;
-    }
-    p {
-      font-size: 1rem;
-    }
-
     .container {
       width: 90%;
       align-items: center;

@@ -1,26 +1,27 @@
 import styled from 'styled-components'
 import { Text } from '../Text/styles'
+import { Button } from '../Button/styles'
 
 export const Header = styled.header`
   display: flex;
   position: sticky;
-  height: 4rem;
   top: 0;
   left: 0;
+  height: 4rem;
   padding: 0 1rem;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
 
+  /* Pseudo-elemento para efeito de background */
   &::after {
-    display: flex;
     content: '';
     position: absolute;
     top: 0;
     right: 0;
     width: 0;
     height: 100%;
-    background-color: ${(props) => props.theme.color.secondary};
+    background-color: ${({ theme }) => theme.color.secondary};
     transition: width 0.2s ease-in-out;
   }
 
@@ -29,9 +30,10 @@ export const Header = styled.header`
     cursor: pointer;
   }
 
+  /* Hover padrão */
   a:hover,
   h1:hover {
-    color: ${(props) => props.theme.color.secondary};
+    color: ${({ theme }) => theme.color.secondary};
   }
 
   ul {
@@ -39,7 +41,7 @@ export const Header = styled.header`
     gap: 1rem;
 
     a {
-      color: ${(props) => props.theme.color.primary};
+      color: ${({ theme }) => theme.color.primary};
       transition: color 0.3s ease-in-out;
     }
   }
@@ -52,16 +54,17 @@ export const Header = styled.header`
 
     a,
     h1 {
-      color: ${(props) => props.theme.background.primary};
+      color: ${({ theme }) => theme.background.primary};
       transition: color 0.3s ease-in-out;
     }
 
     a:hover,
-    :hover {
-      color: ${(props) => props.theme.background.secondary};
+    &:hover {
+      color: ${({ theme }) => theme.background.secondary};
     }
   }
 
+  /* Ajuste para dispositivos mobile */
   @media ${({ theme }) => theme.device.mobile} {
     ${Text} {
       display: none;
@@ -70,6 +73,7 @@ export const Header = styled.header`
     flex-direction: row-reverse;
   }
 `
+
 export const HamburgerMenu = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,28 +85,37 @@ export const HamburgerMenu = styled.div`
   span {
     width: 100%;
     height: 0.25rem;
-    background-color: ${(props) => props.theme.color.primary};
+    background-color: ${({ theme }) => theme.color.primary};
   }
 `
-export const MobileNav = styled.nav`
+
+export const MobileNav = styled.nav<{ isOpen: boolean }>`
   position: absolute;
-  height: 100vh;
-  width: 50%;
   top: 0;
   right: 0;
+  width: 50%;
+  height: 100dvh;
   display: flex;
+  padding: 1rem;
+  justify-content: space-between;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
-  background-color: ${(props) => props.theme.background.secondary};
+  background-color: #3c3d37;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   transition: right 0.5s ease-in-out;
 
+  div:nth-child(2) {
+    margin: 0 auto;
+  }
+
   ul {
+    display: flex;
     flex-direction: column;
 
-    li {
-      font-size: 1.2rem;
+    ${Button} {
+      text-align: center;
+      color: white;
+      display: flex;
     }
   }
 `

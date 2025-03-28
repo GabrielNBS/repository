@@ -1,6 +1,6 @@
 import React from 'react'
 import * as S from './styles'
-import { FaCode } from 'react-icons/fa'
+import { Text } from '../Text/styles'
 import { CardSkillsProps } from '../../types/CardSkillsProps'
 
 export default function CardSkills({
@@ -12,8 +12,8 @@ export default function CardSkills({
     <S.CardBox>
       <div className="cardIcon">{React.createElement(icon)}</div>
       <div className="cardDescription">
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <Text as="h3">{title}</Text>
+        <Text>{description}</Text>
       </div>
     </S.CardBox>
   )

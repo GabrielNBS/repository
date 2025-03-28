@@ -3,7 +3,7 @@ import { CardBox } from '../../Components/SkillCard/styles'
 
 export const AboutSection = styled.section`
   position: relative;
-  height: 100vh;
+  height: 100dvh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 1rem;
@@ -33,7 +33,7 @@ export const AboutSection = styled.section`
   @media ${({ theme }) => theme.device.mobile},
     ${({ theme }) => theme.device.tablet} {
     grid-template-columns: 1fr;
-    height: 100vh;
+    height: 100dvh;
     padding: 0;
 
     .card_container {

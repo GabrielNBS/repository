@@ -7,10 +7,14 @@ import Footer from '../Footer'
 export default function Contact() {
   return (
     <S.ContactContainer>
-      <Text>ENTRE EM CONTATO</Text>
+      <Text as="hero">ENTRE EM CONTATO</Text>
       <div>
-        <Button>gabrielnbs.dev@gmail.com</Button>
-        <Button>Currículo</Button>
+        <Button as="a">
+          <Text>Mande um E-mail</Text>
+        </Button>
+        <Button as="a">
+          <Text>LinkedIn</Text>
+        </Button>
       </div>
       <Footer />
     </S.ContactContainer>

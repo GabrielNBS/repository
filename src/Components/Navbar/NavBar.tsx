@@ -3,6 +3,7 @@ import * as S from './styles'
 import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange'
 import { ThemeToggleProps } from '../../types/ThemesProps'
 import { Text } from '../Text/styles'
+import { Button } from '../Button/styles'
 
 const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -31,21 +32,6 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   }, [])
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-
-  const renderMenuItems = () => (
-    <ul>
-      <li>
-        <a href="">Projetos</a>
-      </li>
-      <li>
-        <a href="">Serviços</a>
-      </li>
-      <li>
-        <a href="">Contatos</a>
-      </li>
-    </ul>
-  )
-
   return (
     <>
       <S.Header className={isScrolled ? 'scrolled' : ''}>
@@ -58,11 +44,20 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
             </S.HamburgerMenu>
             {isMenuOpen && (
               <>
-                <S.MobileNav
-                  style={{ right: isMenuOpen ? '0' : '-300px' }}
-                  ref={menuRef}
-                >
-                  {renderMenuItems()}
+                <S.MobileNav isOpen={isMenuOpen} ref={menuRef}>
+                  <div>
+                    <ul>
+                      <li>
+                        <Button as="a">Linkedin</Button>
+                      </li>
+                      <li>
+                        <Button as="a">GitHub</Button>
+                      </li>
+                      <li>
+                        <Button as="a">WhatsApp</Button>
+                      </li>
+                    </ul>
+                  </div>
                   <ThemeButtonChange toggleTheme={toggleTheme} />
                 </S.MobileNav>
               </>
@@ -71,7 +66,7 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
         ) : (
           <>
             <Text as="h1">GNBS</Text>
-            <S.Header>{renderMenuItems()}</S.Header>
+            <S.Header></S.Header>
             <ThemeButtonChange toggleTheme={toggleTheme} />
           </>
         )}

@@ -10,7 +10,9 @@ import {
 export default function Footer() {
   return (
     <S.FooterContainer>
-      <Text>© 2024 Gabriel Nascimento. Todos os direitos reservados.</Text>
+      <Text as="label">
+        © 2024 Gabriel Nascimento. Todos os direitos reservados.
+      </Text>
       <ul>
         <li>
           <a href="">
