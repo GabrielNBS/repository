@@ -62,13 +62,17 @@ function ProjectCard({
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
           <>
-            <Text as="h2">{title}</Text>
-            <Text as="p">{description}</Text>
+            <Text as="h2" $variant="h2">
+              {title}
+            </Text>
+            <Text as="p" $variant="p">
+              {description}
+            </Text>
             <ul>
-              {techs.map((tech) => (
-                <li key={id}>
+              {techs.map((tech, index) => (
+                <li key={index}>
                   <span>
-                    <Text>- {tech.name}</Text>
+                    <Text $variant="p">- {tech.name}</Text>
                   </span>
                 </li>
               ))}
@@ -82,7 +86,11 @@ function ProjectCard({
       )}
 
       <S.VideoProjectBox>
-        {screenType === 'mobile' && <h2>{title}</h2>}
+        {screenType === 'mobile' && (
+          <Text as="h2" $variant="h2">
+            {title}
+          </Text>
+        )}
         <img
           src={getMockupImage()}
           alt={`Mockup ${screenType}`}

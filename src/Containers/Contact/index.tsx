@@ -7,7 +7,9 @@ import Footer from '../Footer'
 export default function Contact() {
   return (
     <S.ContactContainer>
-      <Text as="hero">ENTRE EM CONTATO</Text>
+      <Text as="h2" $variant="hero">
+        ENTRE EM CONTATO
+      </Text>
       <div>
         <Button as="a">
           <Text>Mande um E-mail</Text>

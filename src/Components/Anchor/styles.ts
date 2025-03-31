@@ -11,12 +11,12 @@ export const AnchorContainer = styled.div`
   z-index: 100;
 `
 
-export const AnchorDot = styled.div<{ active: boolean }>`
+export const AnchorDot = styled.div<{ $active: boolean }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background-color: ${(props) =>
-    props.active ? '#FFD700' : 'rgba(255, 255, 255, 0)'};
+    props.$active ? '#FFD700' : 'rgba(255, 255, 255, 0)'};
   transition: background-color 0.3s ease;
   cursor: pointer;
 

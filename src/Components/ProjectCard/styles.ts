@@ -51,7 +51,10 @@ export const DescriptionProjectBox = styled.div`
       margin: 1rem 0;
       gap: 0.5rem;
       font-style: italic;
-      font-weight: 600;
+
+      div {
+        font-weight: 700;
+      }
     }
   }
 

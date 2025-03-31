@@ -25,7 +25,7 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
       {sections.map((_, index) => (
         <S.AnchorDot
           key={index}
-          active={activeSection === index}
+          $active={activeSection === index}
           onClick={() => scrollToSection(index)}
         />
       ))}

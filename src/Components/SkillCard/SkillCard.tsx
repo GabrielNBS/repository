@@ -12,8 +12,10 @@ export default function CardSkills({
     <S.CardBox>
       <div className="cardIcon">{React.createElement(icon)}</div>
       <div className="cardDescription">
-        <Text as="h3">{title}</Text>
-        <Text>{description}</Text>
+        <Text as="h3" $variant="h2">
+          {title}
+        </Text>
+        <Text $variant="p">{description}</Text>
       </div>
     </S.CardBox>
   )

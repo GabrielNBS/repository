@@ -9,8 +9,8 @@ export const CardBox = styled.div`
   border-radius: 8px;
   backdrop-filter: blur(5px) brightness(1.1) saturate(1.5);
   box-shadow:
-    6px 6px 12px rgba(197, 197, 197, 1),
-    -6px -6px 12px rgba(255, 255, 255, 1);
+    6px 6px 12px ${(props) => props.theme.shadow.tertiary},
+    -6px -6px 12px ${(props) => props.theme.shadow.secondary};
   overflow: hidden;
 
   .cardIcon {

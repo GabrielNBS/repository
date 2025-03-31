@@ -34,7 +34,9 @@ export default function About() {
     <S.AboutSection>
       <S.DescriptionContainer>
         <S.TextContainer>
-          <Text as="h2">Como eu te ajudo</Text>
+          <Text as="h2" $variant="h2">
+            Como eu te ajudo
+          </Text>
           <Text>
             <strong>✨ Tudo começa com uma necessidade</strong> <br />
             Eu a transformo em interfaces que conectam, inspiram e entregam
