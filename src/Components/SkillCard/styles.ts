@@ -4,13 +4,13 @@ import { centralize } from '../../keyframes/Centralize'
 export const CardBox = styled.div`
   ${centralize}
   width: 100%;
+  height: 100%;
   flex-direction: column;
   border-radius: 8px;
   backdrop-filter: blur(5px) brightness(1.1) saturate(1.5);
   box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.2),
-    0 12px 24px rgba(0, 0, 0, 0.3);
+    6px 6px 12px rgba(197, 197, 197, 1),
+    -6px -6px 12px rgba(255, 255, 255, 1);
   overflow: hidden;
 
   .cardIcon {

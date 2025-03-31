@@ -32,30 +32,28 @@ const techs = [
 export default function About() {
   return (
     <S.AboutSection>
-      <div className="about_container">
-        <div className="description_container">
+      <S.DescriptionContainer>
+        <S.TextContainer>
           <Text as="h2">Como eu te ajudo</Text>
           <Text>
-            <strong>✨ Tudo começa com uma necessidade</strong>
+            <strong>✨ Tudo começa com uma necessidade</strong> <br />
             Eu a transformo em interfaces que conectam, inspiram e entregam
             resultados. Combinando tecnologia e design, crio experiências
             digitais que fazem a diferença utilizando tecnologias modernas como:
           </Text>
-        </div>
-        <div className="tech_container">
-          <div className="tech-carousel">
-            <ul>
-              {techs.map((tech, index) => (
-                <li key={index}>
-                  {tech.icon}
-                  {tech.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="card_container">
+        </S.TextContainer>
+        <S.TechsContainer>
+          <ul>
+            {techs.map((tech, index) => (
+              <li key={index}>
+                {tech.icon}
+                {tech.name}
+              </li>
+            ))}
+          </ul>
+        </S.TechsContainer>
+      </S.DescriptionContainer>
+      <S.CardContainer>
         {cards.map((card, index) => (
           <CardSkills
             key={index}
@@ -64,7 +62,7 @@ export default function About() {
             description={card.description}
           />
         ))}
-      </div>
+      </S.CardContainer>
     </S.AboutSection>
   )
 }
