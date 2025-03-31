@@ -33,6 +33,7 @@ const useScreenType = () => {
 
 function ProjectCard({
   id,
+  name,
   title,
   description,
   techs,
@@ -56,7 +57,7 @@ function ProjectCard({
   }
 
   return (
-    <S.Box id={id}>
+    <S.Box data-number={id} id={name}>
       {/* Mostrar descrição em desktop e tablet */}
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
@@ -64,8 +65,8 @@ function ProjectCard({
             <Text as="h2">{title}</Text>
             <Text as="p">{description}</Text>
             <ul>
-              {techs.map((tech, index) => (
-                <li key={index}>
+              {techs.map((tech) => (
+                <li key={id}>
                   <span>
                     <Text>- {tech.name}</Text>
                   </span>

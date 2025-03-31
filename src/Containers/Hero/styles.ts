@@ -12,7 +12,7 @@ export const HeroSection = styled.main`
     color: transparent;
     font-size: 104px;
     writing-mode: vertical-lr;
-    -webkit-text-stroke: 2px rgba(264, 264, 264, 0.1);
+    -webkit-text-stroke: 2px ${(props) => props.theme.shadow.primary};
     pointer-events: none;
     right: 50px;
     top: 1em;
@@ -39,7 +39,7 @@ export const HeroSection = styled.main`
 
     strong {
       font-weight: 700;
-      color: ${(props) => props.theme.color.tertiary};
+      color: ${(props) => props.theme.color.secondary};
     }
   }
 

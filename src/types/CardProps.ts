@@ -6,7 +6,8 @@ interface TechsProps {
 }
 
 export type CardProps = {
-  id: string
+  id: number
+  name: string
   mockups: string[]
   title: string
   description: string

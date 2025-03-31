@@ -9,6 +9,19 @@ export const Box = styled.section`
   justify-content: center;
   padding: 0 4rem;
   gap: 2rem;
+  position: relative;
+
+  &::before {
+    content: attr(data-number);
+    position: absolute;
+    background-color: transparent;
+    top: 1rem;
+    right: 1rem;
+    font-size: 8rem;
+    font-weight: bold;
+    -webkit-text-stroke: 2px ${(props) => props.theme.shadow.secondary};
+    opacity: 0.5;
+  }
 
   h2 {
     ${GradientText}

@@ -37,7 +37,8 @@ import {
 
 const projects = [
   {
-    id: 'EFood',
+    id: 1,
+    name: 'EFood',
     mockups: {
       mobile: EFood_Mobile,
       tablet: EFood_Tablet,
@@ -56,7 +57,8 @@ const projects = [
     github: 'https://github.com/repo-projeto1',
   },
   {
-    id: 'EPlay',
+    id: 2,
+    name: 'EPlay',
     mockups: {
       mobile: EPlay_Mobile,
       tablet: EPlay_Tablet,
@@ -75,7 +77,8 @@ const projects = [
     github: 'https://github.com/repo-projeto2',
   },
   {
-    id: 'HojeTaDoce',
+    id: 3,
+    name: 'HojeTaDoce',
     mockups: {
       mobile: HTD_Mobile,
       tablet: HTD_Tablet,
@@ -93,7 +96,8 @@ const projects = [
     github: 'https://github.com/repo-projeto2',
   },
   {
-    id: 'ToDo',
+    id: 4,
+    name: 'ToDo',
     mockups: {
       mobile: ToDo_Mobile,
       tablet: ToDo_Tablet,
@@ -111,7 +115,8 @@ const projects = [
     github: 'https://github.com/repo-projeto2',
   },
   {
-    id: 'Spider-Verse',
+    id: 5,
+    name: 'Spider-Verse',
     mockups: {
       mobile: SpiderVerse_Mobile,
       tablet: SpiderVerse_Tablet,
@@ -129,7 +134,8 @@ const projects = [
     github: 'https://github.com/repo-projeto2',
   },
   {
-    id: 'CloneDisney',
+    id: 6,
+    name: 'CloneDisney',
     mockups: {
       mobile: CloneDisney_Mobile,
       tablet: CloneDisney_Tablet,
