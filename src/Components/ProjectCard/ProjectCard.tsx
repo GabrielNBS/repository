@@ -62,15 +62,25 @@ function ProjectCard({
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
           <>
-            <Text as="h2" $variant="h2">
+            <Text
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              as="h2"
+              $variant="h2"
+            >
               {title}
             </Text>
-            <Text as="p" $variant="p">
+            <Text
+              data-aos="fade-right"
+              data-aos-duration="1500"
+              as="p"
+              $variant="p"
+            >
               {description}
             </Text>
             <ul>
               {techs.map((tech, index) => (
-                <li key={index}>
+                <li data-aos="fade-up" data-aos-duration="1500" key={index}>
                   <span>
                     <Text $variant="p">- {tech.name}</Text>
                   </span>
@@ -78,16 +88,21 @@ function ProjectCard({
               ))}
             </ul>
           </>
-          <div>
+          <div data-aos="flip-down" data-aos-duration="1500">
             {deploy && <Button href={deploy}>Deploy</Button>}
             {github && <Button href={github}>Código</Button>}
           </div>
         </S.DescriptionProjectBox>
       )}
 
-      <S.VideoProjectBox>
+      <S.VideoProjectBox data-aos="fade-left" data-aos-duration="1500">
         {screenType === 'mobile' && (
-          <Text as="h2" $variant="h2">
+          <Text
+            data-aos="fade-left"
+            data-aos-duration="1500"
+            as="h2"
+            $variant="h2"
+          >
             {title}
           </Text>
         )}
@@ -97,7 +112,7 @@ function ProjectCard({
           data-testid="mockup-image"
         />
         {screenType === 'mobile' && (
-          <div>
+          <div data-aos="flip-down" data-aos-duration="1500">
             {deploy && <Button href={deploy}>Deploy</Button>}
             {github && <Button href={github}>Código</Button>}
           </div>

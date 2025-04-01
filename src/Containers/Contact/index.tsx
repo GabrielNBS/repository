@@ -10,13 +10,9 @@ export default function Contact() {
       <Text as="h2" $variant="hero">
         ENTRE EM CONTATO
       </Text>
-      <div>
-        <Button as="a">
-          <Text>Mande um E-mail</Text>
-        </Button>
-        <Button as="a">
-          <Text>LinkedIn</Text>
-        </Button>
+      <div data-aos="fade-up" data-aos-duration="1500">
+        <Button as="a">Mande um E-mail</Button>
+        <Button as="a">LinkedIn</Button>
       </div>
       <Footer />
     </S.ContactContainer>

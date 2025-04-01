@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import GlobalStyle from './styles/GlobalStyle'
 import Header from './Components/Navbar/NavBar'
 import { ThemeProvider } from 'styled-components'
@@ -19,7 +21,31 @@ const App: React.FC = () => {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => !prevTheme)
+
+    // Aguarda um pequeno tempo antes de atualizar o AOS para evitar flickering
+    setTimeout(() => {
+      AOS.refresh()
+    }, 300)
   }
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true, // Evita que a animação seja repetida
+    })
+
+    const handleResize = () => {
+      AOS.refresh() // Atualiza AOS ao redimensionar a tela
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Atualiza o AOS apenas quando o tema mudar
+  useEffect(() => {
+    AOS.refresh()
+  }, [theme])
 
   useEffect(() => {
     const elements = document.querySelectorAll('main, section')
@@ -30,7 +56,9 @@ const App: React.FC = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Array.from(elements).indexOf(entry.target)
-            setActiveElement(index)
+            if (index !== activeElement) {
+              setActiveElement(index)
+            }
           }
         })
       },
@@ -43,7 +71,7 @@ const App: React.FC = () => {
     elements.forEach((section) => observer.observe(section))
 
     return () => observer.disconnect()
-  }, [])
+  }, [activeElement])
 
   useEffect(() => {
     const handleScroll = (event: WheelEvent) => {
@@ -56,7 +84,7 @@ const App: React.FC = () => {
           })
         }
       } else {
-        // Scroll up
+        // Scroll ups
         if (activeElement > 0) {
           sectionsRef.current[activeElement - 1].scrollIntoView({
             behavior: 'smooth',

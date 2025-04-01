@@ -48,6 +48,10 @@ export const TextContainer = styled.div`
     ${({ theme }) => theme.device.tablet} {
     text-align: center;
   }
+
+  h3 {
+    color: ${(props) => props.theme.color.secondary};
+  }
 `
 
 export const TechsContainer = styled.div`

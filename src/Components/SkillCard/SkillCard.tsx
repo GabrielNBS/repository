@@ -9,7 +9,7 @@ export default function CardSkills({
   description,
 }: CardSkillsProps) {
   return (
-    <S.CardBox>
+    <S.CardBox data-aos="fade-left" data-aos-duration="1500">
       <div className="cardIcon">{React.createElement(icon)}</div>
       <div className="cardDescription">
         <Text as="h3" $variant="h2">

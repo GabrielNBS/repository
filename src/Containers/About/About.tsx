@@ -34,11 +34,18 @@ export default function About() {
     <S.AboutSection>
       <S.DescriptionContainer>
         <S.TextContainer>
-          <Text as="h2" $variant="h2">
+          <Text data-aos="fade-right" as="h2" $variant="h2">
             Como eu te ajudo
           </Text>
-          <Text>
-            <strong>✨ Tudo começa com uma necessidade</strong> <br />
+          <Text
+            as="h3"
+            $variant="p"
+            data-aos="fade-right"
+            data-aos-duration="1200"
+          >
+            ✨ Tudo começa com uma necessidade
+          </Text>
+          <Text data-aos="fade-up" data-aos-duration="1500">
             Eu a transformo em interfaces que conectam, inspiram e entregam
             resultados. Combinando tecnologia e design, crio experiências
             digitais que fazem a diferença utilizando tecnologias modernas como:
@@ -47,7 +54,7 @@ export default function About() {
         <S.TechsContainer>
           <ul>
             {techs.map((tech, index) => (
-              <li key={index}>
+              <li data-aos="flip-up" data-aos-duration="1500" key={index}>
                 {tech.icon}
                 {tech.name}
               </li>

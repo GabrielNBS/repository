@@ -11,7 +11,7 @@ export default function Hero() {
         <Text as="h2" $variant="hero">
           Olá, me chamo Gabriel
         </Text>
-        <Text as="p" $variant="p">
+        <Text as="p" $variant="h3">
           Crio interfaces intuitivas e responsivas explorando o melhor do
           <strong> desenvolvimento web</strong>.
         </Text>
