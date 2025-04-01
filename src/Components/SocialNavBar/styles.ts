@@ -8,6 +8,10 @@ export const StyledWrapper = styled.div`
     justify-content: center;
     color: black;
     margin-top: 50px;
+
+    svg {
+      font-size: 2rem;
+    }
   }
 
   .icon {
@@ -80,19 +84,16 @@ export const StyledWrapper = styled.div`
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
   }
 
-  .wrapper .linkedin:hover,
   .wrapper .linkedin:hover .tooltip,
   .wrapper .linkedin:hover .tooltip::before {
     background: #0a66c2;
   }
 
-  .wrapper .github:hover,
   .wrapper .github:hover .tooltip,
   .wrapper .github:hover .tooltip::before {
     background: #181717;
   }
 
-  .wrapper .whatsapp:hover,
   .wrapper .whatsapp:hover .tooltip,
   .wrapper .whatsapp:hover .tooltip::before {
     background: #25d366;
