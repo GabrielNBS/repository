@@ -81,16 +81,22 @@ function ProjectCard({
             <ul>
               {techs.map((tech, index) => (
                 <li data-aos="fade-up" data-aos-duration="1500" key={index}>
-                  <span>
-                    <Text $variant="p">- {tech.name}</Text>
-                  </span>
+                  <Text $variant="p">{tech.name}</Text>
                 </li>
               ))}
             </ul>
           </>
           <div data-aos="flip-down" data-aos-duration="1500">
-            {deploy && <Button href={deploy}>Deploy</Button>}
-            {github && <Button href={github}>Código</Button>}
+            {deploy && (
+              <Button as="a" href={deploy}>
+                Deploy
+              </Button>
+            )}
+            {github && (
+              <Button as="a" href={github}>
+                Código
+              </Button>
+            )}
           </div>
         </S.DescriptionProjectBox>
       )}
@@ -113,8 +119,16 @@ function ProjectCard({
         />
         {screenType === 'mobile' && (
           <div data-aos="flip-down" data-aos-duration="1500">
-            {deploy && <Button href={deploy}>Deploy</Button>}
-            {github && <Button href={github}>Código</Button>}
+            {deploy && (
+              <Button as="a" href={deploy}>
+                Deploy
+              </Button>
+            )}
+            {github && (
+              <Button as="a" href={github}>
+                Código
+              </Button>
+            )}
           </div>
         )}
       </S.VideoProjectBox>

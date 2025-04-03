@@ -51,6 +51,7 @@ export const TextContainer = styled.div`
 
   h3 {
     color: ${(props) => props.theme.color.secondary};
+    margin-bottom: 1rem;
   }
 `
 

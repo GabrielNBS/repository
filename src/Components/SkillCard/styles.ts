@@ -47,10 +47,11 @@ export const CardBox = styled.div`
       font-weight: 300;
     }
 
-    h3 {
+    h2 {
       font-size: 1.5rem;
       font-weight: 900;
       z-index: 5;
+      margin-bottom: 0.5rem;
     }
   }
 `

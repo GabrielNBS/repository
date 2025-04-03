@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { centralize } from '../../keyframes/Centralize'
 
 export const StyledWrapper = styled.div`
   .wrapper {
@@ -55,6 +56,10 @@ export const StyledWrapper = styled.div`
     left: 50%;
     transform: translate(-50%) rotate(45deg);
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  a {
+    ${centralize}
   }
 
   .wrapper .icon:hover .tooltip {

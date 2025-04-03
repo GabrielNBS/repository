@@ -25,6 +25,7 @@ export const Box = styled.section`
 
   h2 {
     ${GradientText}
+    margin-bottom: 0.5rem;
   }
 
   @media ${({ theme }) => theme.device.mobile} {
@@ -39,8 +40,9 @@ export const DescriptionProjectBox = styled.div`
   color: ${({ theme }) => theme.color.primary};
   width: 100%;
 
-  p {
-    opacity: 0.8;
+  > p {
+    filter: contrast(0.5);
+    margin-bottom: 1rem;
   }
 
   ul {
@@ -48,10 +50,14 @@ export const DescriptionProjectBox = styled.div`
 
     li {
       display: flex;
+      align-items: center;
       margin: 1rem 0;
-      gap: 0.5rem;
       font-style: italic;
 
+      &::before {
+        content: '🔥';
+        margin-right: 0.5rem;
+      }
       p {
         font-weight: 700;
       }
