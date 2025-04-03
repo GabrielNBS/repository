@@ -1,25 +1,11 @@
 import styled, { keyframes } from 'styled-components'
 import { centralize } from '../../keyframes/Centralize'
 import { CardBox } from '../../Components/SkillCard/styles'
+import { FloatAnimation } from '../../keyframes/FloatAnimation'
+import { ScrollAnimation } from '../../keyframes/ScrollAnimation'
 
 const scrollAnimation = keyframes`
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-`
-const floatAnimation = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+
 `
 
 export const AboutSection = styled.section`
@@ -95,7 +81,7 @@ export const TechsContainer = styled.div`
       display: flex;
       flex-wrap: nowrap;
       width: max-content;
-      animation: ${scrollAnimation} 15s linear infinite;
+      ${ScrollAnimation}
       opacity: 0.4;
       margin-bottom: 2rem;
     }
@@ -124,7 +110,7 @@ export const CardContainer = styled.div`
     }
 
     .cardIcon {
-      animation: ${floatAnimation} 3s ease infinite;
+      ${FloatAnimation}
     }
   }
 

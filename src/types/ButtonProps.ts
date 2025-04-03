@@ -3,4 +3,5 @@ export interface ButtonProps {
   href?: string
   as?: 'a' | 'button'
   target?: string
+  rel?: string
 }
