@@ -2,6 +2,9 @@ import React from 'react'
 import * as S from './styles'
 import { Text } from '../../Components/Text/styles'
 import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar'
+import AnimatedText from '../../motion/AnimatedText'
+import FadeInText from '../../motion/FadeInText'
+import TypingLoop from '../../motion/TypingLoop'
 
 export default function Hero() {
   return (
@@ -9,11 +12,23 @@ export default function Hero() {
       <span className="children_names">真由美と沙織</span>
       <div className="container">
         <Text as="h2" $variant="hero">
-          Olá, me chamo Gabriel
+          <AnimatedText />
         </Text>
         <Text as="p" $variant="h3">
-          Crio interfaces intuitivas e responsivas explorando o melhor do
-          <strong> desenvolvimento web</strong>.
+          <FadeInText>
+            Crio interfaces intuitivas e responsivas explorando as melhores
+            praticas de:{' '}
+            <strong>
+              <TypingLoop
+                texts={[
+                  'Desenvolvimento.',
+                  'UI/UX.',
+                  'Acessibilidade.',
+                  'Responsividade.',
+                ]}
+              />
+            </strong>
+          </FadeInText>
         </Text>
         <SocialNavBar />
       </div>
