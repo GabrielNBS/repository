@@ -6,9 +6,8 @@ const breakpoints = {
 
 const darkTheme = {
   background: {
-    primary: '#181C14',
-    secondary: '#3C3D37',
-    tertiary: '#697565',
+    primary: '#02010a',
+    secondary: '#5a0303',
   },
   projectBackground: {
     project1: '#2a2a2a', // EPlay - Cinza escuro inicial
@@ -20,7 +19,7 @@ const darkTheme = {
   },
   color: {
     primary: '#fff',
-    secondary: '#ECDFCC',
+    secondary: '#700c0c',
     tertiary: '#000',
   },
   shadow: {
@@ -42,9 +41,9 @@ const darkTheme = {
   },
   breakpoints,
   device: {
-    mobile: `(max-width: ${breakpoints.tablet})`, //
+    mobile: `(max-width: ${breakpoints.tablet})`,
     tablet: `(min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.desktop})`,
-    desktop: `(min-width: ${breakpoints.desktop})`, //
+    desktop: `(min-width: ${breakpoints.desktop})`,
   },
 }
 

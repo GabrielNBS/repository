@@ -84,7 +84,7 @@ const projects = [
       tablet: HTD_Tablet,
       desktop: HTD_Desktop,
     },
-    title: 'Hoje ta Doce',
+    title: 'Hoje Ta Doce',
     description:
       'Landing page para uma confeitaria desenvolvida em HTML, JavaScript e Bootstrap, destacando produtos e serviços e utilizando todos os recursos do Bootstrap para estilização, responsividade e dinamismo da página.',
     techs: [

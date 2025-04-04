@@ -93,17 +93,12 @@ export const CardContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
 
-  > div {
-    transition: opacity 0.3s ease-in-out;
-    opacity: 1;
-  }
-
   &:has(> div:hover) > div {
-    opacity: 0.5;
+    filter: brightness(0.9);
   }
 
   &:has(> div:hover) > div:hover {
-    opacity: 1;
+    filter: brightness(1);
 
     ::before {
       width: 100%;

@@ -8,7 +8,6 @@ const lightTheme = {
   background: {
     primary: '#FFFBF5',
     secondary: '#F7EFE5',
-    tertiary: '#C3ACD0',
   },
   projectBackground: {
     project1: '#e0e0e0', // EPlay - Branco acinzentado mais suave
