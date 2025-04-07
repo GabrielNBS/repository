@@ -1,6 +1,6 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useBreakpoint } from '../hooks/useBreakpoint'
 
 type TypingLoopProps = {
   texts: string[]
@@ -9,6 +9,7 @@ type TypingLoopProps = {
 
 const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
   const [current, setCurrent] = useState(0)
+  const isMobile = useBreakpoint(1024)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,9 +22,10 @@ const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
   return (
     <div
       style={{
-        display: 'inline-block',
+        display: 'inline-flex',
         height: '2.5rem',
         width: '100%',
+        justifyContent: isMobile ? 'center' : 'flex-start',
         overflow: 'hidden',
         position: 'relative',
         verticalAlign: 'bottom',

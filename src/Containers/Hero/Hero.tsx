@@ -21,10 +21,10 @@ export default function Hero() {
             <strong>
               <TypingLoop
                 texts={[
-                  'Desenvolvimento.',
-                  'UI/UX.',
-                  'Acessibilidade.',
-                  'Responsividade.',
+                  'desenvolvimento.',
+                  'performance.',
+                  'ui/ux.',
+                  'acessibilidade.',
                 ]}
               />
             </strong>

@@ -17,6 +17,7 @@ export const HeroSection = styled.main`
     right: 50px;
     top: 1em;
   }
+
   p {
     font-weight: 400;
     margin: 1;
