@@ -17,21 +17,6 @@ export const HeroSection = styled.main`
     right: 50px;
     top: 1em;
   }
-
-  h1 {
-    position: relative;
-    display: inline-block;
-    background: linear-gradient(
-      to right,
-      ${(props) => props.theme.color.secondary},
-      ${(props) => props.theme.color.primary}
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: wave 5s linear infinite;
-  }
-
   p {
     font-weight: 400;
     margin: 1;

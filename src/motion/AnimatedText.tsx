@@ -8,7 +8,7 @@ const container = {
   visible: (i = 1) => ({
     opacity: 1,
     transition: {
-      staggerChildren: 0.05, // intervalo entre letras
+      staggerChildren: 0.05,
       delayChildren: 0.2 * i,
     },
   }),
@@ -31,9 +31,23 @@ const child = {
 
 export default function AnimatedText() {
   return (
-    <motion.div variants={container} initial="hidden" animate="visible">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+      }}
+    >
       {text.split('').map((char, index) => (
-        <motion.span key={index} variants={child}>
+        <motion.span
+          key={index}
+          variants={child}
+          style={{
+            display: 'inline-block',
+          }}
+        >
           {char === ' ' ? '\u00A0' : char}
         </motion.span>
       ))}

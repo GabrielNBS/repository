@@ -30,6 +30,7 @@ export const Box = styled.section`
 
   @media ${({ theme }) => theme.device.mobile} {
     display: block;
+    padding: 0 2rem;
   }
 `
 
@@ -54,10 +55,6 @@ export const DescriptionProjectBox = styled.div`
       margin: 1rem 0;
       font-style: italic;
 
-      &::before {
-        content: '🔥';
-        margin-right: 0.5rem;
-      }
       p {
         font-weight: 700;
       }
@@ -84,7 +81,7 @@ export const VideoProjectBox = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.5rem;
 
     > div {
       display: flex;

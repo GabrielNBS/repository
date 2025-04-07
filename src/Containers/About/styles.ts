@@ -4,10 +4,6 @@ import { CardBox } from '../../Components/SkillCard/styles'
 import { FloatAnimation } from '../../keyframes/FloatAnimation'
 import { ScrollAnimation } from '../../keyframes/ScrollAnimation'
 
-const scrollAnimation = keyframes`
-
-`
-
 export const AboutSection = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -91,7 +87,8 @@ export const TechsContainer = styled.div`
 export const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 1rem 0;
 
   &:has(> div:hover) > div {
     filter: brightness(0.9);

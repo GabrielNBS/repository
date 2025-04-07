@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { ToggleSwitch } from '../ThemeButtonChange/styles'
 
 export const Header = styled.header`
   display: flex;
@@ -7,7 +6,7 @@ export const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 4rem;
+  height: 5rem;
   padding: 0 1rem;
   justify-content: space-between;
   align-items: center;
@@ -27,6 +26,7 @@ export const Header = styled.header`
 
   &.scrolled {
     width: 15%;
+    height: 5rem;
     top: 2%;
     left: 2%;
     border-radius: 3rem;
@@ -39,16 +39,6 @@ export const Header = styled.header`
       border-radius: 3rem;
       width: 100%;
       z-index: -1;
-    }
-
-    h1 {
-      font-size: 2rem;
-      cursor: pointer;
-    }
-
-    a:hover,
-    h1:hover {
-      color: ${({ theme }) => theme.color.secondary};
     }
 
     ul {
