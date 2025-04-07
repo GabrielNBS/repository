@@ -1,4 +1,3 @@
-import { FaReact } from 'react-icons/fa'
 import HTD_Mobile from '../Image/Mockups/Mobile/HTD-Mobile.svg'
 import HTD_Tablet from '../Image/Mockups/Tablet/HTD-Tablet.svg'
 import HTD_Desktop from '../Image/Mockups/Desktop/HTD-Desktop.svg'

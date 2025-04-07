@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, css } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
 
 // Importando as fontes
 import Black from '../assets/fonts/Black.ttf'

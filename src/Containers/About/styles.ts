@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { centralize } from '../../keyframes/Centralize'
 import { CardBox } from '../../Components/SkillCard/styles'
 import { FloatAnimation } from '../../keyframes/FloatAnimation'

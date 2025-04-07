@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { Text } from '../../Components/Text/styles'
 import { Button } from '../../Components/Button/styles'
 import { centralize } from '../../keyframes/Centralize'
-import { FloatAnimation } from '../../keyframes/FloatAnimation'
 import { ShakeAnimation } from '../../keyframes/ShakeAnimation'
 
 export const ContactContainer = styled.section`
