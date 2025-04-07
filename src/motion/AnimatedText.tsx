@@ -1,7 +1,10 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
-const text = 'Olá, me chamo Gabriel'
+type AnimatedTextProps = {
+  text: string
+  delay?: number
+}
 
 const container = {
   hidden: { opacity: 0 },
@@ -29,12 +32,20 @@ const child = {
   },
 }
 
-export default function AnimatedText() {
+export default function AnimatedText({ text, delay = 1 }: AnimatedTextProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, {
+    once: false, // anima mais de uma vez só quando entra na tela
+    margin: '-100px', // dispara um pouco antes de aparecer totalmente
+  })
+
   return (
     <motion.div
+      ref={ref}
       variants={container}
+      custom={delay}
       initial="hidden"
-      animate="visible"
+      animate={isInView ? 'visible' : 'hidden'}
       style={{
         display: 'flex',
         flexWrap: 'wrap',

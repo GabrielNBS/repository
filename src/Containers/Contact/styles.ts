@@ -19,7 +19,7 @@ export const ContactContainer = styled.section`
     text-align: center;
   }
 
-  div {
+  div:nth-child(2) {
     display: flex;
     gap: 2rem;
 

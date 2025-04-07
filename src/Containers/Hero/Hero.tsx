@@ -12,7 +12,7 @@ export default function Hero() {
       <span className="children_names">真由美と沙織</span>
       <div className="container">
         <Text as="h2" $variant="hero">
-          <AnimatedText />
+          <AnimatedText text="Olá, sou o Gabriel" />
         </Text>
         <Text as="p" $variant="h3">
           <FadeInText>

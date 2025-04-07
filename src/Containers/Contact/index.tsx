@@ -4,12 +4,13 @@ import { Text } from '../../Components/Text/styles'
 import Button from '../../Components/Button/Buttons'
 import Footer from '../Footer'
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa'
+import AnimatedText from '../../motion/AnimatedText'
 
 export default function Contact() {
   return (
     <S.ContactContainer>
       <Text as="h2" $variant="hero">
-        ENTRE EM CONTATO
+        <AnimatedText text="Entre em contato" />
       </Text>
       <div data-aos="fade-up" data-aos-duration="1500">
         <Button
