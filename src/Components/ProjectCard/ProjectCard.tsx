@@ -3,6 +3,7 @@ import * as S from './styles'
 import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 import { Text } from '../Text/styles'
+import Modal from '../Modal'
 
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>(
@@ -42,6 +43,16 @@ function ProjectCard({
   github,
 }: CardProps) {
   const screenType = useScreenType()
+  const [showModal, setShowModal] = useState(false)
+
+  // Helpers para controlar o modal
+  function handleModalOpen() {
+    setShowModal(true)
+  }
+
+  function handleModalClose() {
+    setShowModal(false)
+  }
 
   const getMockupImage = () => {
     switch (screenType) {
@@ -58,34 +69,32 @@ function ProjectCard({
 
   return (
     <S.Box data-number={id} id={name}>
-      {/* Mostrar descrição em desktop e tablet */}
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
-          <>
-            <Text
-              data-aos="fade-right"
-              data-aos-duration="1000"
-              as="h2"
-              $variant="h2"
-            >
-              {title}
-            </Text>
-            <Text
-              data-aos="fade-right"
-              data-aos-duration="1500"
-              as="p"
-              $variant="p"
-            >
-              {description}
-            </Text>
-            <ul>
-              {techs.map((tech, index) => (
-                <li data-aos="fade-up" data-aos-duration="1500" key={index}>
-                  <Text $variant="p">{tech.name}</Text>
-                </li>
-              ))}
-            </ul>
-          </>
+          <Text
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            as="h2"
+            $variant="h2"
+          >
+            {title}
+          </Text>
+          <Text
+            data-aos="fade-right"
+            data-aos-duration="1500"
+            as="p"
+            $variant="p"
+          >
+            {description}
+          </Text>
+          <ul>
+            {techs.map((tech, index) => (
+              <li data-aos="fade-up" data-aos-duration="1500" key={index}>
+                <Text $variant="p">{tech.name}</Text>
+              </li>
+            ))}
+          </ul>
+
           <div data-aos="flip-down" data-aos-duration="1500">
             {deploy && (
               <Button as="a" href={deploy}>
@@ -102,36 +111,29 @@ function ProjectCard({
       )}
 
       <S.VideoProjectBox data-aos="fade-left" data-aos-duration="1500">
-        {screenType === 'mobile' && (
-          <Text
-            data-aos="fade-left"
-            data-aos-duration="1500"
-            as="h2"
-            $variant="h2"
-          >
-            {title}
-          </Text>
-        )}
         <img
           src={getMockupImage()}
           alt={`Mockup ${screenType}`}
           data-testid="mockup-image"
         />
         {screenType === 'mobile' && (
-          <div data-aos="flip-down" data-aos-duration="1500">
-            {deploy && (
-              <Button as="a" href={deploy}>
-                Deploy
-              </Button>
-            )}
-            {github && (
-              <Button as="a" href={github}>
-                Código
-              </Button>
-            )}
-          </div>
+          <>
+            <Button type="button" onClick={handleModalOpen}>
+              Saiba +
+            </Button>
+          </>
         )}
       </S.VideoProjectBox>
+      {showModal && (
+        <Modal
+          title={title}
+          description={description}
+          techs={techs}
+          deploy={deploy}
+          github={github}
+          onClose={handleModalClose}
+        />
+      )}
     </S.Box>
   )
 }

@@ -21,6 +21,11 @@ export const Box = styled.section`
     font-weight: bold;
     -webkit-text-stroke: 2px ${(props) => props.theme.shadow.secondary};
     opacity: 0.5;
+
+    @media ${({ theme }) => theme.device.mobile} {
+      top: 0;
+      font-size: 5rem;
+    }
   }
 
   h2 {
@@ -81,7 +86,7 @@ export const VideoProjectBox = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 2rem;
 
     > div {
       display: flex;

@@ -44,7 +44,7 @@ export const Header = styled.header`
   }
 
   &.scrolled {
-    width: 15%;
+    width: 20dvw;
     top: 2%;
     left: 2%;
     opacity: 0.95;

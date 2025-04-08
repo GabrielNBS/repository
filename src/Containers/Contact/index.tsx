@@ -12,7 +12,7 @@ export default function Contact() {
       <Text as="h2" $variant="hero">
         <AnimatedText text="Entre em contato" />
       </Text>
-      <div data-aos="fade-up" data-aos-duration="1500">
+      <div>
         <Button
           as="a"
           href="mailto:gabrielnbs.dev@gmail.com?subject=Contato&body=Olá, Gabriel! Gostaria de entrar em contato com você."

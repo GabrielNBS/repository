@@ -1,17 +1,28 @@
+// components/Button/index.tsx
 import React from 'react'
 import { ButtonProps } from '../../types/ButtonProps'
-import { Button as PButton } from './styles'
+import { Button as StyledButton } from './styles'
 
 export default function Button({
   children,
-  as = 'button',
-  target = '_blank',
   href,
+  target,
   rel,
+  as = 'button',
+  type = 'button',
+  onClick,
 }: ButtonProps) {
+  if (as === 'a') {
+    return (
+      <StyledButton as="a" href={href} target={target} rel={rel}>
+        {children}
+      </StyledButton>
+    )
+  }
+
   return (
-    <PButton rel={rel} href={href} target={target} as={as}>
+    <StyledButton as="button" type={type} onClick={onClick}>
       {children}
-    </PButton>
+    </StyledButton>
   )
 }

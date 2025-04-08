@@ -22,6 +22,10 @@ export const ContactContainer = styled.section`
     display: flex;
     gap: 2rem;
 
+    @media ${({ theme }) => theme.device.mobile} {
+      gap: 1rem;
+    }
+
     a {
       ${centralize}
       gap: .5rem;
