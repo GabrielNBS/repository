@@ -11,13 +11,15 @@ export const AboutSection = styled.section`
   width: 100%;
   padding: 0 4rem;
   gap: 1rem;
+  animation: all ease 0.2s;
 
   @media ${({ theme }) => theme.device.mobile},
     ${({ theme }) => theme.device.tablet} {
     display: flex;
     flex-direction: column;
     padding: 0;
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 0;
   }
 `
 export const DescriptionContainer = styled.div`
@@ -67,6 +69,7 @@ export const TechsContainer = styled.div`
 
       &:hover {
         filter: contrast(1.1);
+        transition: all ease 0.1s;
       }
     }
   }
@@ -89,13 +92,16 @@ export const CardContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 1rem 0;
+  transition: all ease 0.1s;
 
   &:has(> div:hover) > div {
-    filter: brightness(0.9);
+    filter: opacity(0.3);
+    transition: all ease 0.1s;
   }
 
   &:has(> div:hover) > div:hover {
-    filter: brightness(1);
+    filter: opacity(1);
+    transition: all ease 0.1s;
 
     ::before {
       width: 100%;

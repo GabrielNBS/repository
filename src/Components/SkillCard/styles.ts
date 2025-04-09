@@ -7,7 +7,6 @@ export const CardBox = styled.div`
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
-  backdrop-filter: blur(5px) brightness(1.1) saturate(1.5);
   box-shadow:
     6px 6px 12px ${(props) => props.theme.shadow.primary},
     -6px -6px 12px ${(props) => props.theme.shadow.secondary};
