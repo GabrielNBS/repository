@@ -6,26 +6,18 @@ const breakpoints = {
 
 const darkTheme = {
   background: {
-    primary: '#02010a',
-    secondary: '#5a0303',
-  },
-  projectBackground: {
-    project1: '#2a2a2a', // EPlay - Cinza escuro inicial
-    project2: '#FFB2B0', // EFood - Cinza um pouco mais claro
-    project3: '#e87fe5', // Hoje Tá Doce - Rosa escuro com tom vibrante
-    project4: '#4A2D29', // ToDo - Bege/marrom escuro
-    project5: '#4A1A67', // Spider-Verse - Roxo profundo
-    project6: '#2A396B', // Clone Disney - Azul escuro suave
+    primary: '#191716',
+    secondary: '#156064',
   },
   color: {
     primary: '#fff',
-    secondary: '#700c0c',
+    secondary: '#00c49a',
     tertiary: '#000',
   },
   shadow: {
-    primary: 'rgba(42, 47, 36, 1)', // #2a2f24
-    secondary: 'rgba(18, 21, 16, 1)', // #121510
-    tertiary: 'rgba(32, 39, 30, 1)', // #20271e
+    primary: 'rgba(0, 0, 0, 0.8)',
+    secondary: 'rgba(5, 5, 5, 0.6)',
+    tertiary: 'rgba(10, 10, 10, 0.4)',
   },
   stackColor: {
     react: '#002244',
