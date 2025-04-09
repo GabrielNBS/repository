@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useBreakpoint } from '../hooks/useBreakpoint'
+import { Text } from '../Components/Text/styles'
 
 type TypingLoopProps = {
   texts: string[]
@@ -43,7 +44,7 @@ const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
             whiteSpace: 'nowrap',
           }}
         >
-          {texts[current]}
+          <Text $variant="h3">{texts[current]}</Text>
         </motion.div>
       </AnimatePresence>
     </div>

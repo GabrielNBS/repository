@@ -14,22 +14,23 @@ export default function Hero() {
         <Text as="h2" $variant="hero">
           <AnimatedText text="Olá, sou o Gabriel" />
         </Text>
-        <Text as="p" $variant="h3">
-          <FadeInText>
+        <FadeInText>
+          <Text $variant="h3">
             Crio interfaces intuitivas e responsivas explorando as melhores
-            praticas de:{' '}
-            <strong>
-              <TypingLoop
-                texts={[
-                  'desenvolvimento.',
-                  'performance.',
-                  'ui/ux.',
-                  'acessibilidade.',
-                ]}
-              />
-            </strong>
-          </FadeInText>
-        </Text>
+            praticas de:
+          </Text>
+        </FadeInText>
+        <strong>
+          <TypingLoop
+            texts={[
+              'desenvolvimento.',
+              'performance.',
+              'ui/ux.',
+              'acessibilidade.',
+            ]}
+          />
+        </strong>
+
         <SocialNavBar />
       </div>
     </S.HeroSection>

@@ -1,11 +1,13 @@
 import styled from 'styled-components'
+import { Text } from '../../Components/Text/styles'
 
 export const HeroSection = styled.main`
-  width: 100vw;
   height: 100dvh;
   display: flex;
+  color: ${(props) => props.theme.color.primary};
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 
   .children_names {
     position: absolute;
@@ -18,21 +20,11 @@ export const HeroSection = styled.main`
     top: 1em;
   }
 
-  p {
-    font-weight: 400;
-    margin: 1;
-    filter: brightness(0.8);
-
-    strong {
+  strong {
+    ${Text} {
       font-weight: 700;
       color: ${(props) => props.theme.color.secondary};
     }
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
   }
 
   @keyframes wave {
