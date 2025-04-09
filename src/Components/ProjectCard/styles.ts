@@ -3,13 +3,19 @@ import { GradientText } from '../../styles/GlobalStyle'
 import { centralize } from '../../keyframes/Centralize'
 
 export const Box = styled.section`
-  height: 100dvh;
   display: grid;
+  height: 100dvh;
+  width: 100%;
   grid-template-columns: 40% 60%;
   justify-content: center;
   padding: 0 4rem;
   gap: 2rem;
   position: relative;
+
+  @media ${({ theme }) => theme.device.mobile} {
+    display: flex;
+    padding: 0;
+  }
 
   &::before {
     content: attr(data-number);
@@ -31,11 +37,6 @@ export const Box = styled.section`
   h2 {
     ${GradientText}
     margin-bottom: 0.5rem;
-  }
-
-  @media ${({ theme }) => theme.device.mobile} {
-    display: block;
-    padding: 0 2rem;
   }
 `
 

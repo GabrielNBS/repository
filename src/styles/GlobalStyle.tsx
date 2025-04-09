@@ -129,6 +129,7 @@ const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
@@ -136,7 +137,6 @@ body {
   line-height: 1.6;
   color: #fff;
   font-family: "SF Pro Display";
-  overflow: hidden;
 }
 
 a, li {
