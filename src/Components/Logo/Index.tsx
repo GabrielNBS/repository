@@ -35,13 +35,13 @@ const Container = styled.div`
   }
 `
 
-const Orbit = styled.div<{ delay?: string; hue?: string }>`
+const Orbit = styled.div<{ $delay?: string; $hue?: string }>`
   position: absolute;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   animation: ${rotate} 4s linear infinite;
-  animation-delay: ${(props) => props.delay || '0s'};
+  animation-delay: ${(props) => props.$delay || '0s'};
 
   &::before {
     content: '';
@@ -94,7 +94,7 @@ export default function Logo() {
         <span />
         <i />
       </Orbit>
-      <Orbit delay="-2s" hue="290deg">
+      <Orbit $delay="-2s" $hue="290deg">
         <span />
         <i />
       </Orbit>
