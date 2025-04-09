@@ -14,7 +14,6 @@ export const CardBox = styled.div`
 
   .cardIcon {
     ${centralize}
-
     align-self: center;
     background-color: ${(props) => props.theme.background.primary};
     width: 75px;
@@ -29,6 +28,10 @@ export const CardBox = styled.div`
 
     svg {
       color: ${(props) => props.theme.color.secondary};
+      @media ${(props) => props.theme.device.mobile} {
+        width: 35px;
+        height: 35px;
+      }
     }
   }
 

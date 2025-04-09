@@ -18,6 +18,7 @@ export const HeroSection = styled.main`
     pointer-events: none;
     right: 50px;
     top: 1em;
+    z-index: -2;
   }
 
   strong {

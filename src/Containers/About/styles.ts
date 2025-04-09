@@ -18,8 +18,7 @@ export const AboutSection = styled.section`
     display: flex;
     flex-direction: column;
     padding: 0;
-    justify-content: flex-end;
-    gap: 0;
+    justify-content: center;
   }
 `
 export const DescriptionContainer = styled.div`
@@ -69,7 +68,6 @@ export const TechsContainer = styled.div`
 
       &:hover {
         filter: contrast(1.1);
-        transition: all ease 0.1s;
       }
     }
   }

@@ -3,7 +3,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import GlobalStyle from './styles/GlobalStyle'
 import Header from './Components/Header'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import darkTheme from './styles/themes/dark'
 import lightTheme from './styles/themes/light'
 import Hero from './Containers/Hero/Hero'
@@ -12,21 +12,38 @@ import About from './Containers/About/About'
 import Contact from './Containers/Contact'
 import Anchor from './Components/Anchor'
 
+// Global extra para esconder scroll no desktop
+const ScrollLock = createGlobalStyle`
+  body {
+    ${({ disableScroll }: { disableScroll: boolean }) =>
+      disableScroll &&
+      `
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      `}
+  }
+`
+
 const App: React.FC = () => {
-  const [theme, setTheme] = useState(true) // Estado do tema (true = light, false = dark)
-  const [activeElement, setActiveElement] = useState<number>(0) // Índice da seção visível no momento
-  const sectionsRef = useRef<HTMLElement[]>([]) // Referência das seções para scroll automático
-  const touchStartY = useRef<number | null>(null) // Armazena a posição inicial do toque no mobile
+  const [theme, setTheme] = useState(true)
+  const [activeElement, setActiveElement] = useState<number>(0)
+  const sectionsRef = useRef<HTMLElement[]>([])
+  const isScrolling = useRef(false)
+  const isDesktop = useRef<boolean>(false)
+  const activeIndexRef = useRef<number>(0) // <--- Ref para corrigir problema do delay
 
-  const currentTheme = theme ? lightTheme : darkTheme // Seleciona tema baseado no estado
+  const currentTheme = theme ? lightTheme : darkTheme
 
-  // Alterna entre tema claro e escuro
   const toggleTheme = () => {
     setTheme((prevTheme) => !prevTheme)
-    setTimeout(() => AOS.refresh(), 300) // Atualiza as animações após mudança de tema
+    setTimeout(() => AOS.refresh(), 300)
   }
 
-  // Inicializa AOS (animações) e escuta redimensionamentos de tela
   useEffect(() => {
     AOS.init({ duration: 1000, once: true })
     const handleResize = () => AOS.refresh()
@@ -34,89 +51,89 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Atualiza AOS quando o tema mudar
   useEffect(() => {
     AOS.refresh()
   }, [theme])
 
-  // Prepara as seções e observa qual está visível com IntersectionObserver
   useEffect(() => {
+    isDesktop.current = window.matchMedia('(pointer: fine)').matches
+
     const elements = document.querySelectorAll('main, section')
     sectionsRef.current = Array.from(elements) as HTMLElement[]
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
             const index = Array.from(elements).indexOf(entry.target)
-            if (index !== activeElement) {
-              setActiveElement(index) // Atualiza índice da seção atual
+            if (index !== activeIndexRef.current) {
+              activeIndexRef.current = index
+              setActiveElement(index)
             }
           }
         })
       },
-      { root: null, threshold: 0.6 }, // 60% visível para considerar a seção ativa
+      { root: null, threshold: 0.6 },
     )
 
     elements.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [activeElement])
+  }, [])
 
-  // Adiciona lógica de scroll por seção via mouse e toque (mobile)
   useEffect(() => {
-    // Função para rolar até uma seção com base no índice
+    if (!isDesktop.current) return
+
     const scrollToSection = (index: number) => {
-      if (index >= 0 && index < sectionsRef.current.length) {
-        sectionsRef.current[index].scrollIntoView({ behavior: 'smooth' })
-      }
+      if (
+        isScrolling.current ||
+        index < 0 ||
+        index >= sectionsRef.current.length
+      )
+        return
+      isScrolling.current = true
+      activeIndexRef.current = index // Atualiza a ref imediatamente
+      setActiveElement(index) // Atualiza estado também
+      sectionsRef.current[index].scrollIntoView({ behavior: 'smooth' })
+
+      setTimeout(() => {
+        isScrolling.current = false
+      }, 1000)
     }
 
-    // Scroll via mouse (desktop)
-    const handleScroll = (event: WheelEvent) => {
+    const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
-      if (event.deltaY > 0) {
-        scrollToSection(activeElement + 1)
-      } else {
-        scrollToSection(activeElement - 1)
+      if (isScrolling.current) return
+      if (event.deltaY > 30) {
+        scrollToSection(activeIndexRef.current + 1)
+      } else if (event.deltaY < -30) {
+        scrollToSection(activeIndexRef.current - 1)
       }
     }
 
-    // Captura o início do swipe (mobile)
-    const handleTouchStart = (event: TouchEvent) => {
-      touchStartY.current = event.touches[0].clientY
-    }
-
-    // Captura o fim do swipe (mobile) e decide direção
-    const handleTouchEnd = (event: TouchEvent) => {
-      if (touchStartY.current === null) return
-      const touchEndY = event.changedTouches[0].clientY
-      const deltaY = touchStartY.current - touchEndY
-
-      if (deltaY > 50) {
-        scrollToSection(activeElement + 1) // Swipe para cima = próxima seção
-      } else if (deltaY < -50) {
-        scrollToSection(activeElement - 1) // Swipe para baixo = seção anterior
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isScrolling.current) return
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        scrollToSection(activeIndexRef.current + 1)
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        scrollToSection(activeIndexRef.current - 1)
       }
-
-      touchStartY.current = null
     }
 
-    // Adiciona os event listeners
-    window.addEventListener('wheel', handleScroll, { passive: false })
-    window.addEventListener('touchstart', handleTouchStart, { passive: false })
-    window.addEventListener('touchend', handleTouchEnd, { passive: false })
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('keydown', handleKeyDown)
 
-    // Remove os listeners ao desmontar
     return () => {
-      window.removeEventListener('wheel', handleScroll)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [activeElement])
+  }, [])
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
+      <ScrollLock disableScroll={isDesktop.current} />
       <Header toggleTheme={toggleTheme} />
       <Anchor activeSection={activeElement} />
       <Hero />
