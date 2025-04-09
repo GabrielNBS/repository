@@ -11,6 +11,7 @@ export const Box = styled.section`
   padding: 0 4rem;
   gap: 2rem;
   position: relative;
+  overflow-x: hidden;
 
   @media ${({ theme }) => theme.device.mobile} {
     display: flex;
