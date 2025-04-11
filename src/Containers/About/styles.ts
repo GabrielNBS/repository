@@ -8,6 +8,7 @@ export const AboutSection = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   height: 100dvh;
+  height: 100svh;
   width: 100%;
   padding: 0 4rem;
   gap: 1rem;
@@ -16,6 +17,7 @@ export const AboutSection = styled.section`
   @media ${({ theme }) => theme.device.mobile},
     ${({ theme }) => theme.device.tablet} {
     display: flex;
+    height: 100%;
     flex-direction: column;
     padding: 0;
     justify-content: center;
