@@ -12,15 +12,17 @@ export const AnchorContainer = styled.div`
 `
 
 export const AnchorDot = styled.div<{ $active: boolean }>`
-  width: 12px;
-  height: 12px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background-color: ${(props) =>
-    props.$active ? '#FFD700' : 'rgba(255, 255, 255, 0)'};
+    props.$active
+      ? (props) => props.theme.color.secondary
+      : 'rgba(70, 70, 70, 0.5)'};
   transition: background-color 0.3s ease;
   cursor: pointer;
 
   &:hover {
-    background-color: #f0ad4e;
+    background-color: ${(props) => props.theme.color.primary};
   }
 `

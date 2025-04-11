@@ -12,16 +12,14 @@ import About from './Containers/About/About'
 import Contact from './Containers/Contact'
 import Anchor from './Components/Anchor'
 
-// Global extra para esconder scroll no desktop
-const ScrollLock = createGlobalStyle`
+const ScrollLock = createGlobalStyle<{ disableScroll: boolean }>`
   body {
-    ${({ disableScroll }: { disableScroll: boolean }) =>
+    ${({ disableScroll }) =>
       disableScroll &&
       `
         overflow-y: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
-
         &::-webkit-scrollbar {
           display: none;
         }
@@ -32,10 +30,13 @@ const ScrollLock = createGlobalStyle`
 const App: React.FC = () => {
   const [theme, setTheme] = useState(true)
   const [activeElement, setActiveElement] = useState<number>(0)
+  const [isDesktop, setIsDesktop] = useState(
+    window.matchMedia('(pointer: fine)').matches,
+  )
+
   const sectionsRef = useRef<HTMLElement[]>([])
   const isScrolling = useRef(false)
-  const isDesktop = useRef<boolean>(false)
-  const activeIndexRef = useRef<number>(0) // <--- Ref para corrigir problema do delay
+  const activeIndexRef = useRef<number>(0)
 
   const currentTheme = theme ? lightTheme : darkTheme
 
@@ -56,8 +57,20 @@ const App: React.FC = () => {
   }, [theme])
 
   useEffect(() => {
-    isDesktop.current = window.matchMedia('(pointer: fine)').matches
+    const updateIsDesktop = () => {
+      const isNowDesktop = window.matchMedia('(pointer: fine)').matches
+      setIsDesktop(isNowDesktop)
+    }
 
+    const mediaQuery = window.matchMedia('(pointer: fine)')
+    mediaQuery.addEventListener('change', updateIsDesktop)
+
+    updateIsDesktop()
+
+    return () => mediaQuery.removeEventListener('change', updateIsDesktop)
+  }, [])
+
+  useEffect(() => {
     const elements = document.querySelectorAll('main, section')
     sectionsRef.current = Array.from(elements) as HTMLElement[]
 
@@ -81,7 +94,7 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (!isDesktop.current) return
+    if (!isDesktop) return
 
     const scrollToSection = (index: number) => {
       if (
@@ -91,8 +104,8 @@ const App: React.FC = () => {
       )
         return
       isScrolling.current = true
-      activeIndexRef.current = index // Atualiza a ref imediatamente
-      setActiveElement(index) // Atualiza estado também
+      activeIndexRef.current = index
+      setActiveElement(index)
       sectionsRef.current[index].scrollIntoView({ behavior: 'smooth' })
 
       setTimeout(() => {
@@ -128,12 +141,12 @@ const App: React.FC = () => {
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [isDesktop]) // Agora reativo!
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <ScrollLock disableScroll={isDesktop.current} />
+      <ScrollLock disableScroll={isDesktop} />
       <Header toggleTheme={toggleTheme} />
       <Anchor activeSection={activeElement} />
       <Hero />
