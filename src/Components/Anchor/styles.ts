@@ -9,6 +9,10 @@ export const AnchorContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   z-index: 100;
+
+  @media ${(props) => props.theme.device.mobile} {
+    display: none;
+  }
 `
 
 export const AnchorDot = styled.div<{ $active: boolean }>`

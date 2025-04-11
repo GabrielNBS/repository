@@ -71,6 +71,8 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    if (!isDesktop) return
+
     const elements = document.querySelectorAll('main, section')
     sectionsRef.current = Array.from(elements) as HTMLElement[]
 
@@ -90,11 +92,6 @@ const App: React.FC = () => {
     )
 
     elements.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!isDesktop) return
 
     const scrollToSection = (index: number) => {
       if (
@@ -138,10 +135,11 @@ const App: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      observer.disconnect()
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isDesktop]) // Agora reativo!
+  }, [isDesktop])
 
   return (
     <ThemeProvider theme={currentTheme}>
