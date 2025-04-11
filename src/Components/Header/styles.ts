@@ -57,7 +57,6 @@ export const Header = styled.header`
 
     @media ${({ theme }) => theme.device.mobile} {
       opacity: 0.85;
-      justify-content: center;
     }
   }
 `
