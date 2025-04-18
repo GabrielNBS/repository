@@ -36,7 +36,6 @@ export const Box = styled.section`
   }
 
   h2 {
-    ${GradientText}
     margin-bottom: 0.5rem;
   }
 `

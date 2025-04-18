@@ -14,4 +14,5 @@ export type CardProps = {
   techs: TechsProps[]
   deploy: string
   github: string
+  icon: string
 }

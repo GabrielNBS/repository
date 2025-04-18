@@ -16,6 +16,7 @@ export default function Projects() {
           mockups={Object.values(project.mockups)}
           deploy={project.deploy}
           github={project.github}
+          icon={project.icon}
         />
       ))}
     </>

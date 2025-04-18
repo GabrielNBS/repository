@@ -41,6 +41,7 @@ function ProjectCard({
   mockups,
   deploy,
   github,
+  icon,
 }: CardProps) {
   const screenType = useScreenType()
   const [showModal, setShowModal] = useState(false)
@@ -77,7 +78,7 @@ function ProjectCard({
             as="h2"
             $variant="h2"
           >
-            {title}
+            <span>{icon}</span> {title}
           </Text>
           <Text
             data-aos="fade-right"
