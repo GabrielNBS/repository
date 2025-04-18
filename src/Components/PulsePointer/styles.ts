@@ -1,5 +1,5 @@
 // Pulse.js
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { PulseAnimation } from '../../keyframes/PulseAnimation'
 
 export const PulseWrapper = styled.div`

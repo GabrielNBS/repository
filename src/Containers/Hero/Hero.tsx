@@ -5,6 +5,7 @@ import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar'
 import AnimatedText from '../../motion/AnimatedText'
 import FadeInText from '../../motion/FadeInText'
 import TypingLoop from '../../motion/TypingLoop'
+import { ScrollMouseIndicator } from '../../Components/ScrollMouseIndicator'
 
 export default function Hero() {
   return (
@@ -33,6 +34,7 @@ export default function Hero() {
 
         <SocialNavBar />
       </div>
+      <ScrollMouseIndicator />
     </S.HeroSection>
   )
 }
