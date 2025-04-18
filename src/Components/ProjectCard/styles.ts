@@ -81,7 +81,6 @@ export const VideoProjectBox = styled.div`
 
   img {
     width: 100%;
-    height: 70%;
     object-fit: contain;
   }
 
@@ -89,6 +88,7 @@ export const VideoProjectBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-width: 80%;
 
     > div {
       display: flex;
