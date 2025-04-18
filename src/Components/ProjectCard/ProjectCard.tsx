@@ -4,6 +4,7 @@ import Button from '../Button/Buttons'
 import { CardProps } from '../../types/CardProps'
 import { Text } from '../Text/styles'
 import Modal from '../Modal'
+import PulsePointer from '../PulsePointer'
 
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>(
@@ -91,6 +92,7 @@ function ProjectCard({
           <ul>
             {techs.map((tech, index) => (
               <li data-aos="fade-up" data-aos-duration="1500" key={index}>
+                <PulsePointer />
                 <Text $variant="p">{tech.name}</Text>
               </li>
             ))}
