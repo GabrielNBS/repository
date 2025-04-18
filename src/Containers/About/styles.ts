@@ -7,7 +7,7 @@ import { ScrollAnimation } from '../../keyframes/ScrollAnimation'
 export const AboutSection = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  height: 100dvh;
+  height: 100vh;
   height: 100svh;
   width: 100%;
   padding: 0 4rem;
