@@ -1,3 +1,3 @@
 export interface TextProps {
-  children: string
+  children: string;
 }

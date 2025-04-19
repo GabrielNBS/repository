@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { GradientText } from '../../styles/GlobalStyle'
-import { centralize } from '../../keyframes/Centralize'
+import styled from 'styled-components';
+import { GradientText } from '../../styles/GlobalStyle';
+import { centralize } from '../../keyframes/Centralize';
 
 export const Box = styled.section`
   display: grid;
@@ -38,7 +38,7 @@ export const Box = styled.section`
   h2 {
     margin-bottom: 0.5rem;
   }
-`
+`;
 
 export const DescriptionProjectBox = styled.div`
   display: flex;
@@ -72,7 +72,7 @@ export const DescriptionProjectBox = styled.div`
     display: flex;
     gap: 1rem;
   }
-`
+`;
 
 export const VideoProjectBox = styled.div`
   ${centralize}
@@ -95,4 +95,4 @@ export const VideoProjectBox = styled.div`
       gap: 2rem;
     }
   }
-`
+`;

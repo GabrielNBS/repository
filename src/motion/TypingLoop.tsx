@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useBreakpoint } from '../hooks/useBreakpoint'
-import { Text } from '../Components/Text/styles'
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useBreakpoint } from '../hooks/useBreakpoint';
+import { Text } from '../Components/Text/styles';
 
 type TypingLoopProps = {
-  texts: string[]
-  duration?: number
-}
+  texts: string[];
+  duration?: number;
+};
 
 const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
-  const [current, setCurrent] = useState(0)
-  const isMobile = useBreakpoint(1024)
+  const [current, setCurrent] = useState(0);
+  const isMobile = useBreakpoint(1024);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % texts.length)
-    }, duration)
+      setCurrent((prev) => (prev + 1) % texts.length);
+    }, duration);
 
-    return () => clearInterval(interval)
-  }, [texts.length, duration])
+    return () => clearInterval(interval);
+  }, [texts.length, duration]);
 
   return (
     <div
@@ -29,7 +29,7 @@ const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
         justifyContent: isMobile ? 'center' : 'flex-start',
         overflow: 'hidden',
         position: 'relative',
-        verticalAlign: 'bottom',
+        verticalAlign: 'bottom'
       }}
     >
       <AnimatePresence mode="wait">
@@ -41,14 +41,14 @@ const TypingLoop = ({ texts, duration = 3000 }: TypingLoopProps) => {
           transition={{ duration: 0.4, ease: 'easeInOut' }}
           style={{
             position: 'absolute',
-            whiteSpace: 'nowrap',
+            whiteSpace: 'nowrap'
           }}
         >
           <Text $variant="h3">{texts[current]}</Text>
         </motion.div>
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};
 
-export default TypingLoop
+export default TypingLoop;

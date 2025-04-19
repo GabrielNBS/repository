@@ -1,5 +1,5 @@
 // pulseKeyframes.js
-import { css, keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components';
 
 const pulseRing = keyframes`
   0% {
@@ -14,8 +14,8 @@ const pulseRing = keyframes`
     transform: scale(1.8);
     opacity: 0;
   }
-`
+`;
 
 export const PulseAnimation = css`
   animation: ${pulseRing} 1.8s ease-out infinite;
-`
+`;

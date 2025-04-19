@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { centralize } from '../../keyframes/Centralize'
+import styled from 'styled-components';
+import { centralize } from '../../keyframes/Centralize';
 
 export const StyledWrapper = styled.div`
   .wrapper {
@@ -103,4 +103,4 @@ export const StyledWrapper = styled.div`
   .wrapper .whatsapp:hover .tooltip::before {
     background: #25d366;
   }
-`
+`;

@@ -1,5 +1,5 @@
 // components/styles.ts
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -14,7 +14,7 @@ export const ModalOverlay = styled.div`
   align-items: center;
   z-index: 9999;
   padding: 1rem;
-`
+`;
 
 export const ModalContent = styled.div`
   background: ${(props) => props.theme.background.primary};
@@ -50,7 +50,7 @@ export const ModalContent = styled.div`
     margin-bottom: 1rem;
     padding-left: 1.2rem;
   }
-`
+`;
 
 export const ButtonGroup = styled.div`
   display: flex;
@@ -60,4 +60,4 @@ export const ButtonGroup = styled.div`
   a {
     text-decoration: none;
   }
-`
+`;

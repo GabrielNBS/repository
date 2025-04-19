@@ -1,11 +1,11 @@
-import React from 'react'
-import * as S from './styles'
-import { Text } from '../../Components/Text/styles'
-import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar'
-import AnimatedText from '../../motion/AnimatedText'
-import FadeInText from '../../motion/FadeInText'
-import TypingLoop from '../../motion/TypingLoop'
-import { ScrollMouseIndicator } from '../../Components/ScrollMouseIndicator'
+import React from 'react';
+import * as S from './styles';
+import { Text } from '../../Components/Text/styles';
+import SocialNavBar from '../../Components/SocialNavBar/SocialNavBar';
+import AnimatedText from '../../motion/AnimatedText';
+import FadeInText from '../../motion/FadeInText';
+import TypingLoop from '../../motion/TypingLoop';
+import { ScrollMouseIndicator } from '../../Components/ScrollMouseIndicator';
 
 export default function Hero() {
   return (
@@ -17,24 +17,16 @@ export default function Hero() {
         </Text>
         <FadeInText>
           <Text $variant="h3">
-            Crio interfaces intuitivas e responsivas explorando as melhores
-            praticas de:
+            Crio interfaces intuitivas e responsivas explorando as melhores praticas de:
           </Text>
         </FadeInText>
         <strong>
-          <TypingLoop
-            texts={[
-              'desenvolvimento.',
-              'performance.',
-              'ui/ux.',
-              'acessibilidade.',
-            ]}
-          />
+          <TypingLoop texts={['desenvolvimento.', 'performance.', 'ui/ux.', 'acessibilidade.']} />
         </strong>
 
         <SocialNavBar />
       </div>
       <ScrollMouseIndicator />
     </S.HeroSection>
-  )
+  );
 }

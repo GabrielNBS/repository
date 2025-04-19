@@ -1,5 +1,5 @@
-import React from 'react'
-import * as S from './styles'
+import React from 'react';
+import * as S from './styles';
 export default function Skills() {
   const skills = [
     'JavaScript',
@@ -11,8 +11,8 @@ export default function Skills() {
     'Sass',
     'Cypress',
     'Styled',
-    'Redux',
-  ]
+    'Redux'
+  ];
 
   return (
     <S.SkillContainer>
@@ -25,5 +25,5 @@ export default function Skills() {
         ))}
       </ul>
     </S.SkillContainer>
-  )
+  );
 }

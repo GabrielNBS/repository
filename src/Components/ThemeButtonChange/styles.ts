@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ToggleSwitch = styled.div`
   position: relative;
@@ -10,7 +10,7 @@ export const ToggleSwitch = styled.div`
   --link-hover: rgb(24, 94, 82);
   cursor: pointer;
   z-index: 11;
-`
+`;
 
 export const SwitchLabel = styled.label`
   position: absolute;
@@ -20,7 +20,7 @@ export const SwitchLabel = styled.label`
   border-radius: 12.5px;
   cursor: pointer;
   border: 1.5px solid var(--dark);
-`
+`;
 export const Slider = styled.span`
   position: absolute;
   width: 50%;
@@ -43,7 +43,7 @@ export const Slider = styled.span`
     -webkit-transition: 0.3s;
     transition: 0.3s;
   }
-`
+`;
 
 export const Checkbox = styled.input`
   position: absolute;
@@ -62,4 +62,4 @@ export const Checkbox = styled.input`
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-`
+`;

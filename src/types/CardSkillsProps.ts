@@ -1,7 +1,7 @@
-import { IconType } from 'react-icons'
+import { IconType } from 'react-icons';
 
 export type CardSkillsProps = {
-  icon: IconType
-  title: string
-  description: string
-}
+  icon: IconType;
+  title: string;
+  description: string;
+};

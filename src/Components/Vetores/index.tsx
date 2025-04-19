@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 interface SvgIconProps {
-  width?: string
-  height?: string
-  color?: string
+  width?: string;
+  height?: string;
+  color?: string;
 }
 
 const SvgContainer = styled.svg<SvgIconProps>`
   width: ${({ width }) => width || '24px'};
   height: ${({ height }) => height || '24px'};
   fill: ${({ color }) => color || 'currentColor'};
-`
+`;
 
 const ExampleSvg: React.FC<SvgIconProps> = ({ width, height, color }) => {
   return (
@@ -24,7 +24,7 @@ const ExampleSvg: React.FC<SvgIconProps> = ({ width, height, color }) => {
     >
       {/* Aqui você pode adicionar qualquer conteúdo SVG */}
     </SvgContainer>
-  )
-}
+  );
+};
 
-export default ExampleSvg
+export default ExampleSvg;

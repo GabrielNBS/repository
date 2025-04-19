@@ -1,3 +1,3 @@
 export interface ThemeToggleProps {
-  toggleTheme: () => void
+  toggleTheme: () => void;
 }

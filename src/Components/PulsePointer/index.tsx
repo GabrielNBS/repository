@@ -1,5 +1,5 @@
-import React from 'react'
-import * as S from './styles'
+import React from 'react';
+import * as S from './styles';
 
 function PulsePointer() {
   return (
@@ -7,7 +7,7 @@ function PulsePointer() {
       <S.PulseRing />
       <S.PulseCircle />
     </S.PulseWrapper>
-  )
+  );
 }
 
-export default PulsePointer
+export default PulsePointer;

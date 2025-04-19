@@ -1,12 +1,12 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 // === Animações ===
 
 const rotate = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-`
+`;
 
 // === Componentes ===
 
@@ -16,7 +16,7 @@ const LogoText = styled.h1`
   font-weight: 900;
   font-size: clamp(1rem, 2.5vw, 1.125rem);
   color: ${(props) => props.theme.color.primary};
-`
+`;
 
 const Container = styled.div`
   position: relative;
@@ -33,7 +33,7 @@ const Container = styled.div`
       transition: color 0.3s ease-in-out;
     }
   }
-`
+`;
 
 const Orbit = styled.div<{ $delay?: string; $hue?: string }>`
   position: absolute;
@@ -50,11 +50,7 @@ const Orbit = styled.div<{ $delay?: string; $hue?: string }>`
     left: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-      to top,
-      transparent,
-      ${(props) => props.theme.color.secondary}
-    );
+    background: linear-gradient(to top, transparent, ${(props) => props.theme.color.secondary});
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
   }
@@ -83,7 +79,7 @@ const Orbit = styled.div<{ $delay?: string; $hue?: string }>`
     border-radius: 50%;
     z-index: 100;
   }
-`
+`;
 
 // === Componente Principal ===
 
@@ -100,5 +96,5 @@ export default function Logo() {
       </Orbit>
       <LogoText>GN</LogoText>
     </Container>
-  )
+  );
 }

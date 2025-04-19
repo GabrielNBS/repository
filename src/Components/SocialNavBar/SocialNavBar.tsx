@@ -1,10 +1,6 @@
-import React from 'react'
-import { StyledWrapper } from './styles'
-import {
-  GithubIcon,
-  LinkedinIcon,
-  WhatsappIcon,
-} from '../../assets/icons/icons'
+import React from 'react';
+import { StyledWrapper } from './styles';
+import { GithubIcon, LinkedinIcon, WhatsappIcon } from '../../assets/icons/icons';
 
 function SocialNavBar() {
   return (
@@ -21,11 +17,7 @@ function SocialNavBar() {
           </a>
         </li>
         <li className="icon github">
-          <a
-            href="https://www.github.com/GabrielNBS"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://www.github.com/GabrielNBS" target="_blank" rel="noopener noreferrer">
             <span className="tooltip">github</span>
             <GithubIcon className="github" />
           </a>
@@ -42,7 +34,7 @@ function SocialNavBar() {
         </li>
       </ul>
     </StyledWrapper>
-  )
+  );
 }
 
-export default SocialNavBar
+export default SocialNavBar;

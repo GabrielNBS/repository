@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components';
 
 const float = keyframes`
   0% {
@@ -10,7 +10,7 @@ const float = keyframes`
   100% {
     transform: translateY(0);
   }
-`
+`;
 export const FloatAnimation = css`
   animation: ${float} 3s ease infinite;
-`
+`;

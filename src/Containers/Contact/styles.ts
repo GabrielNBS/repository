@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { Text } from '../../Components/Text/styles'
-import { Button } from '../../Components/Button/styles'
-import { centralize } from '../../keyframes/Centralize'
-import { ShakeAnimation } from '../../keyframes/ShakeAnimation'
+import styled from 'styled-components';
+import { Text } from '../../Components/Text/styles';
+import { Button } from '../../Components/Button/styles';
+import { centralize } from '../../keyframes/Centralize';
+import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const ContactContainer = styled.section`
   display: flex;
@@ -56,4 +56,4 @@ export const ContactContainer = styled.section`
       }
     }
   }
-`
+`;

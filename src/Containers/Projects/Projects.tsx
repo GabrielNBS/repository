@@ -1,6 +1,6 @@
-import React from 'react'
-import ProjectCard from '../../Components/ProjectCard/ProjectCard'
-import projects from '../../projects/projects'
+import React from 'react';
+import ProjectCard from '../../Components/ProjectCard/ProjectCard';
+import projects from '../../projects/projects';
 
 export default function Projects() {
   return (
@@ -20,5 +20,5 @@ export default function Projects() {
         />
       ))}
     </>
-  )
+  );
 }

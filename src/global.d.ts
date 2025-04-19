@@ -1,6 +1,6 @@
-declare module '*.ttf'
+declare module '*.ttf';
 declare module '*.png' {
-  const value: string
+  const value: string;
 
-  export default value
+  export default value;
 }

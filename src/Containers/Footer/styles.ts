@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Text } from '../../Components/Text/styles'
+import styled from 'styled-components';
+import { Text } from '../../Components/Text/styles';
 
 export const FooterContainer = styled.footer`
   display: flex;
@@ -29,4 +29,4 @@ export const FooterContainer = styled.footer`
       filter: opacity(0.5);
     }
   }
-`
+`;

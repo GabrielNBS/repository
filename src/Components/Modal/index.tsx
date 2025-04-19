@@ -1,32 +1,25 @@
-import React from 'react'
-import * as S from './styles'
-import Button from '../Button/Buttons'
+import React from 'react';
+import * as S from './styles';
+import Button from '../Button/Buttons';
 
 type Tech = {
-  name: string
-}
+  name: string;
+};
 
 type ModalProps = {
-  title: string
-  description: string
-  techs: Tech[]
-  deploy?: string
-  github?: string
-  onClose: () => void
-}
+  title: string;
+  description: string;
+  techs: Tech[];
+  deploy?: string;
+  github?: string;
+  onClose: () => void;
+};
 
-export default function Modal({
-  title,
-  description,
-  techs,
-  deploy,
-  github,
-  onClose,
-}: ModalProps) {
+export default function Modal({ title, description, techs, deploy, github, onClose }: ModalProps) {
   // Fecha o modal ao clicar fora dele
-  const handleOverlayClick = () => onClose()
+  const handleOverlayClick = () => onClose();
   // Impede o fechamento caso clique no conteúdo do modal
-  const handleContentClick = (e: React.MouseEvent) => e.stopPropagation()
+  const handleContentClick = (e: React.MouseEvent) => e.stopPropagation();
 
   return (
     <S.ModalOverlay onClick={handleOverlayClick}>
@@ -43,27 +36,17 @@ export default function Modal({
         </ul>
         <S.ButtonGroup>
           {deploy && (
-            <Button
-              as="a"
-              href={deploy}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Button as="a" href={deploy} target="_blank" rel="noopener noreferrer">
               Deploy
             </Button>
           )}
           {github && (
-            <Button
-              as="a"
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Button as="a" href={github} target="_blank" rel="noopener noreferrer">
               Código
             </Button>
           )}
         </S.ButtonGroup>
       </S.ModalContent>
     </S.ModalOverlay>
-  )
+  );
 }

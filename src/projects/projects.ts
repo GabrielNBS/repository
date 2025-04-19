@@ -1,26 +1,26 @@
-import HTD_Mobile from '../Image/Mockups/Mobile/HTD-Mobile.svg'
-import HTD_Tablet from '../Image/Mockups/Tablet/HTD-Tablet.svg'
-import HTD_Desktop from '../Image/Mockups/Desktop/HTD-Desktop.svg'
+import HTD_Mobile from '../Image/Mockups/Mobile/HTD-Mobile.svg';
+import HTD_Tablet from '../Image/Mockups/Tablet/HTD-Tablet.svg';
+import HTD_Desktop from '../Image/Mockups/Desktop/HTD-Desktop.svg';
 
-import EPlay_Mobile from '../Image/Mockups/Mobile/Eplay-Mobile.svg'
-import EPlay_Tablet from '../Image/Mockups/Tablet/Eplay-Tablet.svg'
-import EPlay_Desktop from '../Image/Mockups/Desktop/Eplay-Desktop.svg'
+import EPlay_Mobile from '../Image/Mockups/Mobile/Eplay-Mobile.svg';
+import EPlay_Tablet from '../Image/Mockups/Tablet/Eplay-Tablet.svg';
+import EPlay_Desktop from '../Image/Mockups/Desktop/Eplay-Desktop.svg';
 
-import EFood_Mobile from '../Image/Mockups/Mobile/Efood-Mobile.svg'
-import EFood_Tablet from '../Image/Mockups/Tablet/Efood-Tablet.svg'
-import EFood_Desktop from '../Image/Mockups/Desktop/Efood-Desktop.svg'
+import EFood_Mobile from '../Image/Mockups/Mobile/Efood-Mobile.svg';
+import EFood_Tablet from '../Image/Mockups/Tablet/Efood-Tablet.svg';
+import EFood_Desktop from '../Image/Mockups/Desktop/Efood-Desktop.svg';
 
-import ToDo_Mobile from '../Image/Mockups/Mobile/Todo-Mobile.svg'
-import ToDo_Tablet from '../Image/Mockups/Tablet/Todo-Tablet.svg'
-import ToDo_Desktop from '../Image/Mockups/Desktop/Todo-Desktop.svg'
+import ToDo_Mobile from '../Image/Mockups/Mobile/Todo-Mobile.svg';
+import ToDo_Tablet from '../Image/Mockups/Tablet/Todo-Tablet.svg';
+import ToDo_Desktop from '../Image/Mockups/Desktop/Todo-Desktop.svg';
 
-import SpiderVerse_Mobile from '../Image/Mockups/Mobile/Spiderverse-Mobile.svg'
-import SpiderVerse_Tablet from '../Image/Mockups/Tablet/Spiderverse-Tablet.svg'
-import SpiderVerse_Desktop from '../Image/Mockups/Desktop/Spiderverse-Desktop.svg'
+import SpiderVerse_Mobile from '../Image/Mockups/Mobile/Spiderverse-Mobile.svg';
+import SpiderVerse_Tablet from '../Image/Mockups/Tablet/Spiderverse-Tablet.svg';
+import SpiderVerse_Desktop from '../Image/Mockups/Desktop/Spiderverse-Desktop.svg';
 
-import CloneDisney_Mobile from '../Image/Mockups/Mobile/Disney-Mobile.svg'
-import CloneDisney_Tablet from '../Image/Mockups/Tablet/Disney-Tablet.svg'
-import CloneDisney_Desktop from '../Image/Mockups/Desktop/Disney-Desktop.svg'
+import CloneDisney_Mobile from '../Image/Mockups/Mobile/Disney-Mobile.svg';
+import CloneDisney_Tablet from '../Image/Mockups/Tablet/Disney-Tablet.svg';
+import CloneDisney_Desktop from '../Image/Mockups/Desktop/Disney-Desktop.svg';
 
 import {
   BootstrapIcon,
@@ -31,8 +31,8 @@ import {
   CssIcon,
   HtmlIcon,
   JavaScriptIcon,
-  SassIcon,
-} from '../assets/icons/icons'
+  SassIcon
+} from '../assets/icons/icons';
 
 const projects = [
   {
@@ -42,7 +42,7 @@ const projects = [
     mockups: {
       mobile: EFood_Mobile,
       tablet: EFood_Tablet,
-      desktop: EFood_Desktop,
+      desktop: EFood_Desktop
     },
     title: 'E-Food',
     description:
@@ -51,10 +51,10 @@ const projects = [
       { name: 'React', techIcon: ReactIcon },
       { name: 'TypeScript', techIcon: TypeScriptIcon },
       { name: 'Styled-Components', techIcon: StyledComponentsIcon },
-      { name: 'Redux', techIcon: ReduxIcon },
+      { name: 'Redux', techIcon: ReduxIcon }
     ],
     deploy: 'https://efoodv2.vercel.app',
-    github: 'https://github.com/GabrielNBS/eFood',
+    github: 'https://github.com/GabrielNBS/eFood'
   },
   {
     id: 2,
@@ -63,7 +63,7 @@ const projects = [
     mockups: {
       mobile: EPlay_Mobile,
       tablet: EPlay_Tablet,
-      desktop: EPlay_Desktop,
+      desktop: EPlay_Desktop
     },
     title: 'E-Play',
     description:
@@ -72,10 +72,10 @@ const projects = [
       { name: 'React', techIcon: ReactIcon },
       { name: 'TypeScript', techIcon: TypeScriptIcon },
       { name: 'Styled-Components', techIcon: StyledComponentsIcon },
-      { name: 'Redux', techIcon: ReduxIcon },
+      { name: 'Redux', techIcon: ReduxIcon }
     ],
     deploy: 'https://eplay-orpin-psi.vercel.app/',
-    github: 'https://github.com/GabrielNBS/eplay',
+    github: 'https://github.com/GabrielNBS/eplay'
   },
   {
     id: 3,
@@ -84,7 +84,7 @@ const projects = [
     mockups: {
       mobile: HTD_Mobile,
       tablet: HTD_Tablet,
-      desktop: HTD_Desktop,
+      desktop: HTD_Desktop
     },
     title: 'Hoje Ta Doce',
     description:
@@ -92,10 +92,10 @@ const projects = [
     techs: [
       { name: 'JavaScript', techIcon: JavaScriptIcon },
       { name: 'Bootstrap', techIcon: BootstrapIcon },
-      { name: 'HTML', techIcon: HtmlIcon },
+      { name: 'HTML', techIcon: HtmlIcon }
     ],
     deploy: 'https://htd-land-page.vercel.app/',
-    github: 'https://github.com/GabrielNBS/HTD-LandPage',
+    github: 'https://github.com/GabrielNBS/HTD-LandPage'
   },
   {
     id: 4,
@@ -104,7 +104,7 @@ const projects = [
     mockups: {
       mobile: ToDo_Mobile,
       tablet: ToDo_Tablet,
-      desktop: ToDo_Desktop,
+      desktop: ToDo_Desktop
     },
     title: 'To-Do',
     description:
@@ -113,10 +113,10 @@ const projects = [
       { name: 'JavaScript', techIcon: JavaScriptIcon },
       { name: 'Redux', techIcon: ReduxIcon },
       { name: 'Css', techIcon: CssIcon },
-      { name: 'HTML', techIcon: HtmlIcon },
+      { name: 'HTML', techIcon: HtmlIcon }
     ],
     deploy: 'https://to-do-seven-gamma.vercel.app/',
-    github: 'https://github.com/GabrielNBS/To-Do',
+    github: 'https://github.com/GabrielNBS/To-Do'
   },
   {
     id: 5,
@@ -125,7 +125,7 @@ const projects = [
     mockups: {
       mobile: SpiderVerse_Mobile,
       tablet: SpiderVerse_Tablet,
-      desktop: SpiderVerse_Desktop,
+      desktop: SpiderVerse_Desktop
     },
     title: 'LP Spider-verse',
     description:
@@ -133,10 +133,10 @@ const projects = [
     techs: [
       { name: 'HTML', techIcon: HtmlIcon },
       { name: 'Sass', techIcon: SassIcon },
-      { name: 'JavaScript', techIcon: JavaScriptIcon },
+      { name: 'JavaScript', techIcon: JavaScriptIcon }
     ],
     deploy: 'https://lp-spiderverse.vercel.app/',
-    github: 'https://github.com/GabrielNBS/LP_Miles_Morales',
+    github: 'https://github.com/GabrielNBS/LP_Miles_Morales'
   },
   {
     id: 6,
@@ -145,7 +145,7 @@ const projects = [
     mockups: {
       mobile: CloneDisney_Mobile,
       tablet: CloneDisney_Tablet,
-      desktop: CloneDisney_Desktop,
+      desktop: CloneDisney_Desktop
     },
     title: 'Clone Disney +',
     description:
@@ -153,11 +153,11 @@ const projects = [
     techs: [
       { name: 'HTML', techIcon: HtmlIcon },
       { name: 'Sass', techIcon: SassIcon },
-      { name: 'JavaScript', techIcon: JavaScriptIcon },
+      { name: 'JavaScript', techIcon: JavaScriptIcon }
     ],
     deploy: 'https://clone-disneyplus-eta.vercel.app/',
-    github: 'https://github.com/GabrielNBS/clone_disneyplus',
-  },
-]
+    github: 'https://github.com/GabrielNBS/clone_disneyplus'
+  }
+];
 
-export default projects
+export default projects;

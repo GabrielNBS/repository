@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { ToggleSwitch } from '../ThemeButtonChange/styles'
+import styled from 'styled-components';
+import { ToggleSwitch } from '../ThemeButtonChange/styles';
 
 export const Header = styled.header`
   position: sticky;
@@ -59,7 +59,7 @@ export const Header = styled.header`
       opacity: 0.85;
     }
   }
-`
+`;
 
 export const MenuButton = styled.button`
   display: none;
@@ -97,7 +97,7 @@ export const MenuButton = styled.button`
   span:nth-child(3) {
     bottom: 0.5rem;
   }
-`
+`;
 
 export const MobileNav = styled.nav`
   display: flex;
@@ -123,4 +123,4 @@ export const MobileNav = styled.nav`
   @media ${({ theme }) => theme.device.desktop} {
     display: none;
   }
-`
+`;

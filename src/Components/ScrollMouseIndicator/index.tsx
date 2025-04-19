@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const drawMouse = keyframes`
   0% {
@@ -12,7 +12,7 @@ const drawMouse = keyframes`
     transform: scaleY(1);
     box-shadow: 0 0 12px ${({ theme }) => theme.color.secondary}55;
   }
-`
+`;
 
 const dropDot = keyframes`
   0% {
@@ -26,7 +26,7 @@ const dropDot = keyframes`
     transform: translateY(10px);
     opacity: 0;
   }
-`
+`;
 
 const MouseContainer = styled.div`
   position: absolute;
@@ -45,7 +45,7 @@ const MouseContainer = styled.div`
   transform-origin: bottom;
   animation: ${drawMouse} 0.6s ease-out forwards;
   animation-delay: 0.2s;
-`
+`;
 
 const Dot = styled.div`
   width: 5px;
@@ -54,12 +54,12 @@ const Dot = styled.div`
   background-color: ${({ theme }) => theme.color.secondary};
   animation: ${dropDot} 1.6s ease-in-out infinite;
   animation-delay: 0.8s;
-`
+`;
 
 export const ScrollMouseIndicator = () => {
   return (
     <MouseContainer>
       <Dot />
     </MouseContainer>
-  )
-}
+  );
+};

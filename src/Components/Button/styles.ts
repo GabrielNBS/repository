@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Button = styled.button`
   display: inline-block;
@@ -78,4 +78,4 @@ export const Button = styled.button`
     font-size: 0.875rem;
     border-radius: 0.4rem;
   }
-`
+`;

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Text } from '../../Components/Text/styles'
+import styled from 'styled-components';
+import { Text } from '../../Components/Text/styles';
 
 export const HeroSection = styled.main`
   height: 100dvh;
@@ -57,4 +57,4 @@ export const HeroSection = styled.main`
       font-size: 4rem;
     }
   }
-`
+`;

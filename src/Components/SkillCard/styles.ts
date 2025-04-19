@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { centralize } from '../../keyframes/Centralize'
+import styled from 'styled-components';
+import { centralize } from '../../keyframes/Centralize';
 
 export const CardBox = styled.div`
   ${centralize}
@@ -56,4 +56,4 @@ export const CardBox = styled.div`
       margin-bottom: 0.5rem;
     }
   }
-`
+`;

@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { centralize } from '../../keyframes/Centralize'
-import { CardBox } from '../../Components/SkillCard/styles'
-import { FloatAnimation } from '../../keyframes/FloatAnimation'
-import { ScrollAnimation } from '../../keyframes/ScrollAnimation'
+import styled from 'styled-components';
+import { centralize } from '../../keyframes/Centralize';
+import { CardBox } from '../../Components/SkillCard/styles';
+import { FloatAnimation } from '../../keyframes/FloatAnimation';
+import { ScrollAnimation } from '../../keyframes/ScrollAnimation';
 
 export const AboutSection = styled.section`
   display: grid;
@@ -14,23 +14,21 @@ export const AboutSection = styled.section`
   gap: 1rem;
   animation: all ease 0.2s;
 
-  @media ${({ theme }) => theme.device.mobile},
-    ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
     display: flex;
     height: 100%;
     flex-direction: column;
     padding: 0;
     justify-content: center;
   }
-`
+`;
 export const DescriptionContainer = styled.div`
   ${centralize}
   flex-direction: column;
   gap: 2rem;
-`
+`;
 export const TextContainer = styled.div`
-  @media ${({ theme }) => theme.device.mobile},
-    ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
     text-align: center;
   }
 
@@ -38,7 +36,7 @@ export const TextContainer = styled.div`
     color: ${(props) => props.theme.color.secondary};
     margin-bottom: 1rem;
   }
-`
+`;
 
 export const TechsContainer = styled.div`
   overflow: hidden;
@@ -74,8 +72,7 @@ export const TechsContainer = styled.div`
     }
   }
 
-  @media ${({ theme }) => theme.device.mobile},
-    ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
     ul {
       display: flex;
       flex-wrap: nowrap;
@@ -85,7 +82,7 @@ export const TechsContainer = styled.div`
       margin-bottom: 2rem;
     }
   }
-`
+`;
 
 export const CardContainer = styled.div`
   display: grid;
@@ -112,8 +109,7 @@ export const CardContainer = styled.div`
     }
   }
 
-  @media ${({ theme }) => theme.device.mobile},
-    ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
     display: flex;
     overflow-x: scroll;
 
@@ -123,4 +119,4 @@ export const CardContainer = styled.div`
       flex-shrink: 0;
     }
   }
-`
+`;

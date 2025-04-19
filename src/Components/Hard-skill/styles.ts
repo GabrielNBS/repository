@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components'
-import { centralize } from '../../keyframes/Centralize'
+import styled, { css } from 'styled-components';
+import { centralize } from '../../keyframes/Centralize';
 
 export const skillItemStyles = css`
   ${centralize}
@@ -12,7 +12,7 @@ export const skillItemStyles = css`
     font-size: 16px;
     color: ${(props) => props.theme.color.primary};
   }
-`
+`;
 
 const skillListItemStyles = css`
   display: flex;
@@ -34,7 +34,7 @@ const skillListItemStyles = css`
     margin: 4px 0 0 4px;
     box-shadow: unset 0 4px 8px rgba(0, 0, 0, 0.8);
   }
-`
+`;
 
 export const SkillContainer = styled.div`
   width: 100%;
@@ -83,7 +83,7 @@ export const SkillContainer = styled.div`
     'html',
     'css',
     'cypress',
-    'bootstrap',
+    'bootstrap'
   ].map(
     (skill) => css`
       .${skill} {
@@ -94,6 +94,6 @@ export const SkillContainer = styled.div`
           filter: brightness(0.7);
         }
       }
-    `,
+    `
   )}
-`
+`;

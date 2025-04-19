@@ -1,6 +1,6 @@
-import React from 'react'
-import * as S from './styles'
-import { AnchorProps } from '../../types/AnchorProps'
+import React from 'react';
+import * as S from './styles';
+import { AnchorProps } from '../../types/AnchorProps';
 
 const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
   const sections = [
@@ -12,13 +12,13 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
     'HojeTaDoce',
     'ToDo',
     'Spider-Verse',
-    'CloneDisney',
-  ]
+    'CloneDisney'
+  ];
 
   const scrollToSection = (index: number) => {
-    const section = document.querySelectorAll('section, main')[index]
-    section?.scrollIntoView({ behavior: 'smooth' })
-  }
+    const section = document.querySelectorAll('section, main')[index];
+    section?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <S.AnchorContainer>
@@ -30,7 +30,7 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
         />
       ))}
     </S.AnchorContainer>
-  )
-}
+  );
+};
 
-export default Anchor
+export default Anchor;

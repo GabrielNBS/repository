@@ -1,3 +1,3 @@
 export interface AnchorProps {
-  activeSection: number
+  activeSection: number;
 }

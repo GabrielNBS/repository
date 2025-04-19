@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components';
 
 export const shake = keyframes`
   0% { transform: rotate(0deg); }
@@ -6,8 +6,8 @@ export const shake = keyframes`
   50% { transform: rotate(5deg); }
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
-`
+`;
 
 export const ShakeAnimation = css`
   animation: ${shake} 1s linear infinite;
-`
+`;

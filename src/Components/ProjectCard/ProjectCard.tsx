@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import * as S from './styles'
-import Button from '../Button/Buttons'
-import { CardProps } from '../../types/CardProps'
-import { Text } from '../Text/styles'
-import Modal from '../Modal'
-import PulsePointer from '../PulsePointer'
+import React, { useState, useEffect } from 'react';
+import * as S from './styles';
+import Button from '../Button/Buttons';
+import { CardProps } from '../../types/CardProps';
+import { Text } from '../Text/styles';
+import Modal from '../Modal';
+import PulsePointer from '../PulsePointer';
 
 const useScreenType = () => {
-  const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>(
-    'desktop',
-  )
+  const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
   useEffect(() => {
     const checkScreenSize = () => {
-      const width = window.innerWidth
+      const width = window.innerWidth;
 
       if (width >= 1024) {
-        setScreenType('desktop')
+        setScreenType('desktop');
       } else if (width >= 768) {
-        setScreenType('tablet')
+        setScreenType('tablet');
       } else {
-        setScreenType('mobile')
+        setScreenType('mobile');
       }
-    }
+    };
 
-    checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkScreenSize)
-  }, [])
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
-  return screenType
-}
+  return screenType;
+};
 
 function ProjectCard({
   id,
@@ -42,51 +40,41 @@ function ProjectCard({
   mockups,
   deploy,
   github,
-  icon,
+  icon
 }: CardProps) {
-  const screenType = useScreenType()
-  const [showModal, setShowModal] = useState(false)
+  const screenType = useScreenType();
+  const [showModal, setShowModal] = useState(false);
 
   // Helpers para controlar o modal
   function handleModalOpen() {
-    setShowModal(true)
+    setShowModal(true);
   }
 
   function handleModalClose() {
-    setShowModal(false)
+    setShowModal(false);
   }
 
   const getMockupImage = () => {
     switch (screenType) {
       case 'desktop':
-        return mockups[2]
+        return mockups[2];
       case 'tablet':
-        return mockups[1]
+        return mockups[1];
       case 'mobile':
-        return mockups[0]
+        return mockups[0];
       default:
-        return mockups[2]
+        return mockups[2];
     }
-  }
+  };
 
   return (
     <S.Box data-number={id} id={name}>
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
-          <Text
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            as="h2"
-            $variant="h2"
-          >
+          <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
             <span>{icon}</span> {title}
           </Text>
-          <Text
-            data-aos="fade-right"
-            data-aos-duration="1500"
-            as="p"
-            $variant="p"
-          >
+          <Text data-aos="fade-right" data-aos-duration="1500" as="p" $variant="p">
             {description}
           </Text>
           <ul>
@@ -114,11 +102,7 @@ function ProjectCard({
       )}
 
       <S.VideoProjectBox data-aos="fade-left" data-aos-duration="1500">
-        <img
-          src={getMockupImage()}
-          alt={`Mockup ${screenType}`}
-          data-testid="mockup-image"
-        />
+        <img src={getMockupImage()} alt={`Mockup ${screenType}`} data-testid="mockup-image" />
         {screenType === 'mobile' && (
           <>
             <Button type="button" onClick={handleModalOpen}>
@@ -138,7 +122,7 @@ function ProjectCard({
         />
       )}
     </S.Box>
-  )
+  );
 }
 
-export default ProjectCard
+export default ProjectCard;

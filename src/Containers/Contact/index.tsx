@@ -1,10 +1,10 @@
-import React from 'react'
-import * as S from './styles'
-import { Text } from '../../Components/Text/styles'
-import Button from '../../Components/Button/Buttons'
-import Footer from '../Footer'
-import { FaEnvelope, FaLinkedin } from 'react-icons/fa'
-import AnimatedText from '../../motion/AnimatedText'
+import React from 'react';
+import * as S from './styles';
+import { Text } from '../../Components/Text/styles';
+import Button from '../../Components/Button/Buttons';
+import Footer from '../Footer';
+import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import AnimatedText from '../../motion/AnimatedText';
 
 export default function Contact() {
   return (
@@ -32,5 +32,5 @@ export default function Contact() {
       </div>
       <Footer />
     </S.ContactContainer>
-  )
+  );
 }

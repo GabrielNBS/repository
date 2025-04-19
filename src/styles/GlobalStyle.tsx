@@ -1,21 +1,21 @@
-import { createGlobalStyle, css } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components';
 
 // Importando as fontes
-import Black from '../assets/fonts/Black.ttf'
-import BlackItalic from '../assets/fonts/BlackItalic.ttf'
-import BoldItalic from '../assets/fonts/BoldItalic.ttf'
-import Heavy from '../assets/fonts/Heavy.ttf'
-import HeavyItalic from '../assets/fonts/HeavyItalic.ttf'
-import Italic from '../assets/fonts/Italic.ttf'
-import Light from '../assets/fonts/Light.ttf'
-import LightItalic from '../assets/fonts/LightItalic.ttf'
-import Medium from '../assets/fonts/Medium.ttf'
-import MediumItalic from '../assets/fonts/MediumItalic.ttf'
-import RegularItalic from '../assets/fonts/RegularItalic.ttf'
-import SemiBold from '../assets/fonts/SemiBold.ttf'
-import SemiBoldItalic from '../assets/fonts/SemiBoldItalic.ttf'
-import ThinItalic from '../assets/fonts/ThinItalic.ttf'
-import UltraLightItalic from '../assets/fonts/UltraLightItalic.ttf'
+import Black from '../assets/fonts/Black.ttf';
+import BlackItalic from '../assets/fonts/BlackItalic.ttf';
+import BoldItalic from '../assets/fonts/BoldItalic.ttf';
+import Heavy from '../assets/fonts/Heavy.ttf';
+import HeavyItalic from '../assets/fonts/HeavyItalic.ttf';
+import Italic from '../assets/fonts/Italic.ttf';
+import Light from '../assets/fonts/Light.ttf';
+import LightItalic from '../assets/fonts/LightItalic.ttf';
+import Medium from '../assets/fonts/Medium.ttf';
+import MediumItalic from '../assets/fonts/MediumItalic.ttf';
+import RegularItalic from '../assets/fonts/RegularItalic.ttf';
+import SemiBold from '../assets/fonts/SemiBold.ttf';
+import SemiBoldItalic from '../assets/fonts/SemiBoldItalic.ttf';
+import ThinItalic from '../assets/fonts/ThinItalic.ttf';
+import UltraLightItalic from '../assets/fonts/UltraLightItalic.ttf';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -165,7 +165,7 @@ i {
 .active {
   display: flex;
 }
-`
+`;
 
 export const GradientText = css`
   color: ${(props) => props.theme.color.secondary};
@@ -190,6 +190,6 @@ export const GradientText = css`
       background-position: 0% 50%;
     }
   }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
