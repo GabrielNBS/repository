@@ -35,6 +35,7 @@ export const ModalContent = styled.div`
   }
 
   h2 {
+    justify-content: center;
     color: ${(props) => props.theme.color.secondary};
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -48,11 +49,16 @@ export const ModalContent = styled.div`
 
   ul {
     display: flex;
-    width: 70%;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
     justify-self: center;
+    margin-bottom: 2rem;
+
+    li {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -60,8 +66,11 @@ export const ButtonGroup = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  justify-content: center;
 
   a {
     text-decoration: none;
+    background-color: ${(props) => props.theme.color.secondary};
+    color: ${(props) => props.theme.color.tertiary};
   }
 `;

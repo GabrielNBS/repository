@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 import Button from '../Button/Buttons';
+import ListItem from '../TechSpanStyle';
 
 type Tech = {
   name: string;
@@ -31,7 +32,7 @@ export default function Modal({ title, description, techs, deploy, github, onClo
         <p>{description}</p>
         <ul>
           {techs.map((tech, index) => (
-            <li key={index}>{tech.name}</li>
+            <ListItem key={index}>{tech.name}</ListItem>
           ))}
         </ul>
         <S.ButtonGroup>
