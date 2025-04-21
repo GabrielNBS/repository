@@ -37,6 +37,9 @@ export const Box = styled.section`
 
   h2 {
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 `;
 
@@ -59,7 +62,6 @@ export const DescriptionProjectBox = styled.div`
       display: flex;
       align-items: center;
       margin: 1rem 0;
-      font-style: italic;
       gap: 0.5rem;
 
       p {

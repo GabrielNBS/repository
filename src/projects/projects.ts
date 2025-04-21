@@ -38,7 +38,6 @@ const projects = [
   {
     id: 1,
     name: 'EFood',
-    icon: '🍔',
     mockups: {
       mobile: EFood_Mobile,
       tablet: EFood_Tablet,
@@ -59,7 +58,6 @@ const projects = [
   {
     id: 2,
     name: 'EPlay',
-    icon: '🎮',
     mockups: {
       mobile: EPlay_Mobile,
       tablet: EPlay_Tablet,
@@ -80,7 +78,6 @@ const projects = [
   {
     id: 3,
     name: 'HojeTaDoce',
-    icon: '🍰',
     mockups: {
       mobile: HTD_Mobile,
       tablet: HTD_Tablet,
@@ -100,7 +97,6 @@ const projects = [
   {
     id: 4,
     name: 'ToDo',
-    icon: '📝',
     mockups: {
       mobile: ToDo_Mobile,
       tablet: ToDo_Tablet,
@@ -121,7 +117,6 @@ const projects = [
   {
     id: 5,
     name: 'Spider-Verse',
-    icon: '🕷️',
     mockups: {
       mobile: SpiderVerse_Mobile,
       tablet: SpiderVerse_Tablet,
@@ -141,7 +136,6 @@ const projects = [
   {
     id: 6,
     name: 'CloneDisney',
-    icon: '🎥',
     mockups: {
       mobile: CloneDisney_Mobile,
       tablet: CloneDisney_Tablet,

@@ -47,8 +47,12 @@ export const ModalContent = styled.div`
   }
 
   ul {
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-bottom: 1rem;
-    padding-left: 1.2rem;
+    justify-self: center;
   }
 `;
 

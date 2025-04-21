@@ -15,6 +15,7 @@ import {
   SiGit
 } from 'react-icons/si';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
+import ListItem from '../../Components/TechSpanStyle';
 
 const techs = [
   { icon: <SiNextdotjs size={20} />, name: 'Next.js' },
@@ -49,10 +50,10 @@ export default function About() {
         <S.TechsContainer>
           <ul>
             {techs.map((tech, index) => (
-              <li data-aos="flip-up" data-aos-duration="1500" key={index}>
+              <ListItem data-aos="flip-up" data-aos-duration="1500" key={index}>
                 {tech.icon}
                 {tech.name}
-              </li>
+              </ListItem>
             ))}
           </ul>
         </S.TechsContainer>

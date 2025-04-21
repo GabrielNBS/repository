@@ -31,17 +31,7 @@ const useScreenType = () => {
   return screenType;
 };
 
-function ProjectCard({
-  id,
-  name,
-  title,
-  description,
-  techs,
-  mockups,
-  deploy,
-  github,
-  icon
-}: CardProps) {
+function ProjectCard({ id, name, title, description, techs, mockups, deploy, github }: CardProps) {
   const screenType = useScreenType();
   const [showModal, setShowModal] = useState(false);
 
@@ -72,7 +62,8 @@ function ProjectCard({
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
           <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
-            <span>{icon}</span> {title}
+            <PulsePointer />
+            {title}
           </Text>
           <Text data-aos="fade-right" data-aos-duration="1500" as="p" $variant="p">
             {description}
@@ -80,7 +71,6 @@ function ProjectCard({
           <ul>
             {techs.map((tech, index) => (
               <li data-aos="fade-up" data-aos-duration="1500" key={index}>
-                <PulsePointer />
                 <Text $variant="p">{tech.name}</Text>
               </li>
             ))}
