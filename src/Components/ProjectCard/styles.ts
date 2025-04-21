@@ -96,5 +96,10 @@ export const VideoProjectBox = styled.div`
       display: flex;
       gap: 2rem;
     }
+
+    button {
+      background-color: ${(props) => props.theme.color.secondary};
+      color: ${(props) => props.theme.color.tertiary};
+    }
   }
 `;
