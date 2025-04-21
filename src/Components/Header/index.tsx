@@ -4,6 +4,7 @@ import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange';
 import { ThemeToggleProps } from '../../types/ThemesProps';
 import Logo from '../Logo/Index';
 import { AnimatePresence, motion } from 'framer-motion';
+import PdfArchiveLink from '../PdfArchiveLink';
 
 const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -87,6 +88,11 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
             <h1>
               <Logo />
             </h1>
+            <PdfArchiveLink
+              fileUrl={
+                'https://drive.google.com/file/d/1bRpQ3zr-xwYSj7WOrKoqUGCBlnRm_THC/view?usp=drive_link'
+              }
+            />
             <ThemeButtonChange toggleTheme={toggleTheme} />
           </S.MobileNav>
         )}
