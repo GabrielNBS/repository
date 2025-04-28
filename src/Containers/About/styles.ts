@@ -93,9 +93,22 @@ export const CardContainer = styled.div`
     }
   }
 
-  @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.mobile} {
     display: block;
-    margin: 0 auto;
+
+    ${CardBox} {
+      height: 400px;
+      width: 90%;
+      flex-shrink: 0;
+      margin-bottom: 1rem;
+      justify-self: center;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.tablet} {
+    display: flex;
+    overflow-x: scroll;
+    align-items: center;
 
     ${CardBox} {
       height: 400px;

@@ -15,8 +15,8 @@ const lightTheme = {
     tertiary: '#fff'
   },
   shadow: {
-    primary: 'rgba(232, 232, 232, .8)',
-    secondary: 'rgba(197, 197, 197, .6)',
+    primary: 'rgba(190, 190, 190, 0.6)',
+    secondary: 'rgba(255, 255, 255, 0.8);',
     tertiary: 'rgba(255, 255, 255, 4)'
   },
   stackColor: {

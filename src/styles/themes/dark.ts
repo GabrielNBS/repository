@@ -1,7 +1,7 @@
 const breakpoints = {
-  mobile: '767px', // Não precisa ser declarado (mobile-first)
+  mobile: '767px',
   tablet: '768px',
-  desktop: '1023px' // Valor ajustado
+  desktop: '1023px'
 };
 
 const darkTheme = {
@@ -15,8 +15,8 @@ const darkTheme = {
     tertiary: '#000'
   },
   shadow: {
-    primary: 'rgba(0, 0, 0, 0.8)',
-    secondary: 'rgba(5, 5, 5, 0.6)',
+    primary: 'rgba(29, 19, 17, 0.6)',
+    secondary: 'rgba(18, 15, 15, 0.8)',
     tertiary: 'rgba(10, 10, 10, 0.4)'
   },
   stackColor: {

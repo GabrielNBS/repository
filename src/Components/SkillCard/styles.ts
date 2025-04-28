@@ -8,8 +8,8 @@ export const CardBox = styled.div`
   flex-direction: column;
   border-radius: 8px;
   box-shadow:
-    6px 6px 12px ${(props) => props.theme.shadow.primary},
-    -6px -6px 12px ${(props) => props.theme.shadow.secondary};
+    15px 15px 30px ${(props) => props.theme.shadow.primary},
+    15px 15px 30px ${(props) => props.theme.shadow.secondary};
   overflow: hidden;
 
   .cardIcon {
