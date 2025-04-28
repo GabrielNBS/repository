@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Text } from '../../Components/Text/styles';
 
 export const HeroSection = styled.main`
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   color: ${(props) => props.theme.color.primary};
   justify-content: flex-start;

@@ -136,7 +136,7 @@ html, body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  height: 100dvh;
+  height: 100vh;
   overscroll-behavior-y: contain;
   font-family: "SF Pro Display";
   background: ${(props) => props.theme.background.primary};
@@ -146,12 +146,12 @@ html, body {
     scroll-snap-type: y mandatory;
     scroll-snap-stop: always;
     overflow-y: auto;
-    height: 100dvh;
+    height: 100vh;
   }
 
   section {
     scroll-snap-align: start;
-    height: 100dvh;
+    height: 100vh;
   }
 
 a, li {

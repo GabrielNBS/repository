@@ -7,7 +7,7 @@ import { ScrollAnimation } from '../../keyframes/ScrollAnimation';
 export const AboutSection = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  height: 100dvh;
+  height: 100vh;
   width: 100%;
   padding: 0 4rem;
   gap: 1rem;
@@ -67,19 +67,25 @@ export const CardContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 1rem 0;
-  transition: all ease 0.1s;
 
-  &:has(> div:hover) > div {
-    filter: opacity(0.3);
-    transition: all ease 0.1s;
+  > div {
+    transition: filter 2s ease-in-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:has(> div:hover) > div {
+      filter: opacity(0.3);
+    }
   }
 
   &:has(> div:hover) > div:hover {
     filter: opacity(1);
-    transition: all ease 0.1s;
+    transition: filter 0.3s ease-in-out;
 
-    ::before {
+    &::before {
       width: 100%;
+
+      transition: filter 0.3s ease-in-out;
     }
 
     .cardIcon {
@@ -88,13 +94,14 @@ export const CardContainer = styled.div`
   }
 
   @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
-    display: flex;
-    overflow-x: scroll;
+    display: block;
+    margin: 0 auto;
 
     ${CardBox} {
       height: 400px;
       width: 300px;
       flex-shrink: 0;
+      margin-bottom: 1rem;
     }
   }
 `;
