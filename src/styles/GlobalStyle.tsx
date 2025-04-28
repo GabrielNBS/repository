@@ -139,6 +139,7 @@ html, body {
   height: 100%;
   overscroll-behavior-y: contain;
   font-family: "SF Pro Display";
+  background: ${(props) => props.theme.background.primary};
   }
 
   main {
