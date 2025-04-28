@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ToggleSwitch } from '../ThemeButtonChange/styles';
+import { StyledWrapper } from '../ThemeButtonChange/styles';
 
 export const Header = styled.header`
   position: fixed;
@@ -22,7 +22,7 @@ export const Header = styled.header`
       display: none;
     }
 
-    ${ToggleSwitch} {
+    ${StyledWrapper} {
       display: none;
     }
   }

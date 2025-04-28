@@ -1,6 +1,6 @@
 import React from 'react';
-import * as S from './styles';
 import { ThemeToggleProps } from '../../types/ThemesProps';
+import { StyledWrapper } from './styles';
 
 const ChangeThemeCheckbox: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const handleCheckboxChange = () => {
@@ -8,12 +8,12 @@ const ChangeThemeCheckbox: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   };
 
   return (
-    <S.ToggleSwitch>
-      <S.SwitchLabel>
-        <S.Checkbox type="checkbox" onChange={handleCheckboxChange} />
-        <S.Slider />
-      </S.SwitchLabel>
-    </S.ToggleSwitch>
+    <StyledWrapper>
+      <label className="switch">
+        <input type="checkbox" className="input__check" onChange={handleCheckboxChange} />
+        <span className="slider" />
+      </label>
+    </StyledWrapper>
   );
 };
 
