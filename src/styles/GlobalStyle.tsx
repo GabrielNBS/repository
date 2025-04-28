@@ -132,12 +132,26 @@ const GlobalStyle = createGlobalStyle`
 }
 
 
-body {
-  background-color: ${(props) => props.theme.background.primary};
-  line-height: 1.6;
-  color: #fff;
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  height: 100%;
+  overscroll-behavior-y: contain;
   font-family: "SF Pro Display";
-}
+  }
+
+  main {
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+  section {
+    scroll-snap-align: start;
+    height: 100vh;
+  }
 
 a, li {
   text-decoration: none;
