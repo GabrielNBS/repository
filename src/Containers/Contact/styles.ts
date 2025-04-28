@@ -8,7 +8,7 @@ export const ContactContainer = styled.section`
   display: flex;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -4,7 +4,7 @@ import { centralize } from '../../keyframes/Centralize';
 
 export const Box = styled.section`
   display: grid;
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   grid-template-columns: 40% 60%;
   justify-content: center;
