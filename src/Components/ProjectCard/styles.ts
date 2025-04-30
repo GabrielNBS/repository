@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { GradientText } from '../../styles/GlobalStyle';
 import { centralize } from '../../keyframes/Centralize';
+import { FloatAnimation } from '../../keyframes/FloatAnimation';
+import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const Box = styled.section`
   display: grid;
@@ -73,6 +75,17 @@ export const DescriptionProjectBox = styled.div`
   > div {
     display: flex;
     gap: 1rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      &:hover svg {
+        ${ShakeAnimation}
+      }
+    }
   }
 `;
 
@@ -80,6 +93,7 @@ export const VideoProjectBox = styled.div`
   ${centralize}
   width: 100%;
   height: 100%;
+  ${FloatAnimation}
 
   img {
     width: 100%;

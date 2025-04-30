@@ -15,8 +15,8 @@ export const Button = styled.button`
   background: ${(props) => props.theme.background.secondary};
   color: ${(props) => props.theme.color.primary};
   box-shadow:
-    4px 4px 10px ${(props) => props.theme.shadow.secondary},
-    -4px -4px 10px ${(props) => props.theme.shadow.tertiary};
+    12px 12px 24px ${(props) => props.theme.shadow.primary},
+    -12px -12px 24px ${(props) => props.theme.shadow.secondary};
 
   &:hover {
     color: ${(props) => props.theme.color.tertiary};
@@ -25,8 +25,8 @@ export const Button = styled.button`
 
   &:active {
     box-shadow:
-      inset 3px 3px 8px ${(props) => props.theme.shadow.secondary},
-      inset -3px -3px 8px ${(props) => props.theme.shadow.tertiary};
+      inset 12px 12px 24px ${(props) => props.theme.shadow.primary},
+      inset -12px -12px 24px ${(props) => props.theme.shadow.secondary};
   }
 
   &:focus-visible {

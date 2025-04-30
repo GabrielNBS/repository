@@ -11,7 +11,8 @@ import {
   FaLaptopCode,
   FaPuzzlePiece,
   FaServer,
-  FaRocket
+  FaRocket,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
 import { SiStyledcomponents, SiTypescript, SiCypress, SiRedux } from 'react-icons/si';
 import styled from 'styled-components';
@@ -22,6 +23,8 @@ export const ReactIcon = styled(FaReact)`
     color: #61dafb;
   }
 `;
+
+export const LinkIcon = styled(FaExternalLinkAlt)``;
 
 export const BootstrapIcon = styled(FaBootstrap)`
   color: ${(props) => props.theme.color.primary};

@@ -32,11 +32,13 @@ export const Header = styled.header`
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background-color: ${({ theme }) => theme.color.secondary};
+    background-color: ${({ theme }) => theme.background.primary};
+    filter: contrast(1.1);
     opacity: 0;
     transform: scale(0.95);
     z-index: -1;
     transition: all 0.3s ease;
+    box-shadow: 15px 15px 30px ${(props) => props.theme.shadow.primary};
 
     @media ${({ theme }) => theme.device.mobile} {
       display: none;
@@ -44,7 +46,7 @@ export const Header = styled.header`
   }
 
   &.scrolled {
-    width: 20dvw;
+    width: 24dvw;
     top: 2%;
     left: 2%;
     opacity: 0.95;

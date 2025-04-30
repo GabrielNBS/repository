@@ -25,7 +25,6 @@ const LogoWrapper = styled.div`
   justify-content: center;
   height: 200px;
   border-radius: 1rem;
-  padding: 2rem;
   cursor: pointer;
 `;
 
@@ -35,7 +34,7 @@ const AnimatedSVG = styled.svg`
   path,
   text {
     fill: none;
-    stroke: black;
+    stroke: ${(props) => props.theme.color.primary};
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;

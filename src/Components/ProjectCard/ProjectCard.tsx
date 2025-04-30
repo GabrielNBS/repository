@@ -5,6 +5,9 @@ import { CardProps } from '../../types/CardProps';
 import { Text } from '../Text/styles';
 import Modal from '../Modal';
 import PulsePointer from '../PulsePointer';
+import SquishyText from '../../motion/SquishyText';
+import { GithubIcon, LinkIcon } from '../../assets/icons/icons';
+import { FaGithub } from 'react-icons/fa6';
 
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
@@ -63,9 +66,9 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
         <S.DescriptionProjectBox>
           <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
             <PulsePointer />
-            {title}
+            <SquishyText text={title} />
           </Text>
-          <Text data-aos="fade-right" data-aos-duration="1500" as="p" $variant="p">
+          <Text as="p" $variant="p">
             {description}
           </Text>
           <ul>
@@ -79,12 +82,12 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
           <div data-aos="flip-down" data-aos-duration="1500">
             {deploy && (
               <Button as="a" href={deploy}>
-                Deploy
+                <LinkIcon /> Site
               </Button>
             )}
             {github && (
               <Button as="a" href={github}>
-                Código
+                <FaGithub /> Código
               </Button>
             )}
           </div>
