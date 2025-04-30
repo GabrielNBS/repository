@@ -17,7 +17,7 @@ const darkTheme = {
   shadow: {
     primary: 'rgba(29, 19, 17, 0.6)',
     secondary: 'rgba(18, 15, 15, 0.8)',
-    tertiary: 'rgba(10, 10, 10, 0.4)'
+    tertiary: 'rgba(100, 100, 100, 0.2)'
   },
   stackColor: {
     react: '#002244',

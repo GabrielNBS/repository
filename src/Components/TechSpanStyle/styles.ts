@@ -11,8 +11,8 @@ export const StyledListItem = styled.li`
   border: 1px solid ${(props) => props.theme.background.primary};
   font-weight: 700;
   box-shadow:
-    6px 6px 12px ${(props) => props.theme.shadow.secondary},
-    -6px -6px 12px ${(props) => props.theme.shadow.tertiary};
+    6px 6px 12px ${(props) => props.theme.shadow.primary},
+    -6px -6px 12px ${(props) => props.theme.shadow.secondary};
   transition: all 0.4s ease;
   gap: 0.5rem;
   cursor: pointer;

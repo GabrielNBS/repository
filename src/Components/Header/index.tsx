@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as S from './styles';
 import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange';
 import { ThemeToggleProps } from '../../types/ThemesProps';
-import Logo from '../Logo/Index';
 import { AnimatePresence, motion } from 'framer-motion';
 import PdfArchiveLink from '../PdfArchiveLink';
+import Logo from '../Logo/Index';
 
 const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);

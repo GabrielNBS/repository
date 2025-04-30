@@ -1,100 +1,59 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-// === Animações ===
-
-const rotate = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+const svgDraw = keyframes`
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
 `;
 
-// === Componentes ===
-
-const LogoText = styled.h1`
-  position: relative;
-  z-index: 10;
-  font-weight: 900;
-  font-size: clamp(1rem, 2.5vw, 1.125rem);
-  color: ${(props) => props.theme.color.primary};
-`;
-
-const Container = styled.div`
-  position: relative;
-  width: 50px;
-  height: 50px;
+const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
+  border-radius: 1rem;
+  padding: 2rem;
   cursor: pointer;
-
-  &:hover {
-    ${LogoText} {
-      color: ${(props) => props.theme.color.secondary};
-      transition: color 0.3s ease-in-out;
-    }
-  }
 `;
 
-const Orbit = styled.div<{ $delay?: string; $hue?: string }>`
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  animation: ${rotate} 4s linear infinite;
-  animation-delay: ${(props) => props.$delay || '0s'};
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to top, transparent, ${(props) => props.theme.color.secondary});
-    border-top-left-radius: 100px;
-    border-bottom-left-radius: 100px;
-  }
-
-  span {
-    position: absolute;
-    inset: 12px;
-    background: ${(props) => props.theme.background.primary};
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  i {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
-    background: ${(props) => props.theme.color.secondary};
-    box-shadow:
-      0 0 10px ${(props) => props.theme.color.secondary},
-      0 0 20px ${(props) => props.theme.color.secondary},
-      0 0 30px ${(props) => props.theme.color.secondary},
-      0 0 40px ${(props) => props.theme.color.secondary};
-    border-radius: 50%;
-    z-index: 100;
+const AnimatedSVG = styled.svg`
+  width: 80px;
+  height: 40px;
+  path,
+  text {
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: ${svgDraw} 6s ease-in-out infinite;
   }
 `;
-
-// === Componente Principal ===
 
 export default function Logo() {
   return (
-    <Container>
-      <Orbit>
-        <span />
-        <i />
-      </Orbit>
-      <Orbit $delay="-2s" $hue="290deg">
-        <span />
-        <i />
-      </Orbit>
-      <LogoText>GN</LogoText>
-    </Container>
+    <LogoWrapper aria-label="Logo SVG animada">
+      <AnimatedSVG viewBox="0 0 90 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0V70.338H89.521V0H0ZM19.184 53.481L12.79 47.085L19.184 40.691L25.578 34.2971C25.578 34.2971 21.681 30.4 19.184 27.903C16.687 25.406 12.79 21.509 12.79 21.509L15.987 18.3115L19.184 15.114L28.7755 24.7055L38.367 34.2971L28.7755 43.889L19.184 53.481Z" />
+        <text x="45" y="35" fontSize="24" dominantBaseline="middle" fill="aliceblue">
+          G
+        </text>
+      </AnimatedSVG>
+    </LogoWrapper>
   );
 }

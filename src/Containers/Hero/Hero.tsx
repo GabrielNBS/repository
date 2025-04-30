@@ -23,7 +23,6 @@ export default function Hero() {
         <strong>
           <TypingLoop texts={['desenvolvimento.', 'performance.', 'ui/ux.', 'acessibilidade.']} />
         </strong>
-
         <SocialNavBar />
       </div>
       <ScrollMouseIndicator />

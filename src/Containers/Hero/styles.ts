@@ -2,10 +2,8 @@ import styled from 'styled-components';
 import { Text } from '../../Components/Text/styles';
 
 export const HeroSection = styled.main`
-  height: 100vh;
   display: flex;
-  color: ${(props) => props.theme.color.primary};
-  justify-content: flex-start;
+  height: 100vh;
   align-items: center;
   position: relative;
 
@@ -14,17 +12,17 @@ export const HeroSection = styled.main`
     color: transparent;
     font-size: 104px;
     writing-mode: vertical-lr;
-    -webkit-text-stroke: 2px ${(props) => props.theme.shadow.primary};
+    -webkit-text-stroke: 2px ${(props) => props.theme.shadow.tertiary};
     pointer-events: none;
     right: 50px;
     top: 1em;
-    z-index: -2;
   }
 
   strong {
     ${Text} {
       font-weight: 700;
       color: ${(props) => props.theme.color.secondary};
+      z-index: 1;
     }
   }
 

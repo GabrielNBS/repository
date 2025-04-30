@@ -20,6 +20,13 @@ import UltraLightItalic from '../assets/fonts/UltraLightItalic.ttf';
 const GlobalStyle = createGlobalStyle`
 
 @font-face {
+  font-family: 'Gothic Expanded One';
+  src: url('https://fonts.gstatic.com/s/gothicexpandedone/v1/ijwOs5juQtsyxkYfQx8zQ0kW9xkW9xkW.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'SF Pro Display';
   src: url(${Black}) format('truetype');
   font-weight: 900;
