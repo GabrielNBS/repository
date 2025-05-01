@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { centralize } from '../../keyframes/Centralize';
-import { CardBox } from '../../Components/SkillCard/styles';
+import { CardBox } from '../../Components/Card/styles';
 import { FloatAnimation } from '../../keyframes/FloatAnimation';
 import { ScrollAnimation } from '../../keyframes/ScrollAnimation';
 
@@ -69,7 +69,7 @@ export const CardContainer = styled.div`
   padding: 1rem 0;
 
   > div {
-    transition: filter 2s ease-in-out;
+    transition: filter 0.5s ease-in-out;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -84,13 +84,29 @@ export const CardContainer = styled.div`
 
     &::before {
       width: 100%;
-
       transition: filter 0.3s ease-in-out;
     }
 
     .cardIcon {
       ${FloatAnimation}
     }
+  }
+
+  /* 🌊 Delays personalizados por card */
+  > div:nth-child(1) .wave {
+    animation-delay: 0s;
+  }
+
+  > div:nth-child(2) .wave {
+    animation-delay: 5s;
+  }
+
+  > div:nth-child(3) .wave {
+    animation-delay: 10s;
+  }
+
+  > div:nth-child(4) .wave {
+    animation-delay: 15s;
   }
 
   @media ${({ theme }) => theme.device.mobile} {

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 import cards from '../../cards/cards';
-import CardSkills from '../../Components/SkillCard/SkillCard';
+import CardSkills from '../../Components/Card';
 import { Text } from '../../Components/Text/styles';
 
 import {

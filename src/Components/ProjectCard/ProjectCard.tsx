@@ -6,7 +6,7 @@ import { Text } from '../Text/styles';
 import Modal from '../Modal';
 import PulsePointer from '../PulsePointer';
 import SquishyText from '../../motion/SquishyText';
-import { GithubIcon, LinkIcon } from '../../assets/icons/icons';
+import { LinkIcon } from '../../assets/icons/icons';
 import { FaGithub } from 'react-icons/fa6';
 
 const useScreenType = () => {

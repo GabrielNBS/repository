@@ -4,19 +4,19 @@ export const Button = styled.button`
   display: inline-block;
   position: relative;
   overflow: hidden;
-  z-index: 1;
   padding: 0.7rem 1.7rem;
   font-size: clamp(0.875rem, 1.5vw, 1.125rem); // Adaptativo
   font-weight: 700;
   border-radius: 0.5em;
   border: 1px solid ${(props) => props.theme.shadow.primary};
   cursor: pointer;
-  transition: all 0.3s ease;
   background: ${(props) => props.theme.background.secondary};
   color: ${(props) => props.theme.color.primary};
   box-shadow:
     12px 12px 24px ${(props) => props.theme.shadow.primary},
     -12px -12px 24px ${(props) => props.theme.shadow.secondary};
+  transition: all 0.3s ease;
+  z-index: 1;
 
   &:hover {
     color: ${(props) => props.theme.color.tertiary};
