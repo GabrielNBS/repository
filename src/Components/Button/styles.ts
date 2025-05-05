@@ -8,7 +8,7 @@ export const Button = styled.button`
   font-size: clamp(0.875rem, 1.5vw, 1.125rem); // Adaptativo
   font-weight: 700;
   border-radius: 0.5em;
-  border: 1px solid ${(props) => props.theme.shadow.primary};
+  border: 1px solid transparent;
   cursor: pointer;
   background: ${(props) => props.theme.background.secondary};
   color: ${(props) => props.theme.color.primary};

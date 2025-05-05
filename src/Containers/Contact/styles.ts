@@ -38,22 +38,13 @@ export const ContactContainer = styled.section`
     }
 
     ${Button}:nth-child(1) {
-      &:hover {
-        border: #d14836;
-      }
-
-      &::after {
-        background-color: #d14836;
-      }
+      background-color: ${(props) => props.theme.background.primary};
     }
 
     ${Button}:nth-child(2) {
-      &:hover {
-        border: #0077b5;
-      }
-      &::after {
-        background-color: #0077b5;
-      }
+      border: #0077b5;
+      background-color: #0077b5;
+      color: #fff;
     }
   }
 `;

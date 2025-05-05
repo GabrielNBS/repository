@@ -4,13 +4,13 @@ import { Text } from '../../Components/Text/styles';
 import Button from '../../Components/Button/Buttons';
 import Footer from '../Footer';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
-import AnimatedText from '../../motion/AnimatedText';
+import SquishyText from '../../motion/SquishyText';
 
 export default function Contact() {
   return (
     <S.ContactContainer>
       <Text as="h2" $variant="hero">
-        <AnimatedText text="Entre em contato" />
+        <SquishyText text="Entre em contato" />
       </Text>
       <div>
         <Button

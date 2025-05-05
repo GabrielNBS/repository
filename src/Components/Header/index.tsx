@@ -3,8 +3,8 @@ import * as S from './styles';
 import ThemeButtonChange from '../ThemeButtonChange/ThemeButtonChange';
 import { ThemeToggleProps } from '../../types/ThemesProps';
 import { AnimatePresence, motion } from 'framer-motion';
-import PdfArchiveLink from '../PdfArchiveLink';
 import Logo from '../Logo/Index';
+import Button from '../Button/Buttons';
 
 const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,11 +88,15 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
             <h1>
               <Logo />
             </h1>
-            <PdfArchiveLink
-              fileUrl={
+            <Button
+              as="a"
+              href={
                 'https://drive.google.com/file/d/1bRpQ3zr-xwYSj7WOrKoqUGCBlnRm_THC/view?usp=drive_link'
               }
-            />
+              download
+            >
+              📄 Currículo
+            </Button>
             <ThemeButtonChange toggleTheme={toggleTheme} />
           </S.MobileNav>
         )}

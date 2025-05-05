@@ -45,10 +45,9 @@ export const CardBox = styled.div`
     font-weight: 600;
 
     svg {
-      width: 3rem;
-      height: 3rem;
-      margin-top: -1em;
-      padding-bottom: 1em;
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 1rem;
     }
   }
 

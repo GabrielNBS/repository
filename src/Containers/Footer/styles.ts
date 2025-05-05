@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Text } from '../../Components/Text/styles';
+import { Button } from '../../Components/Button/styles';
 
 export const FooterContainer = styled.footer`
   display: flex;
@@ -9,6 +10,14 @@ export const FooterContainer = styled.footer`
   position: absolute;
   left: 0;
   bottom: 0;
+
+  .btn-container {
+    display: none;
+  }
+
+  ${Button} {
+    margin-bottom: 0.5rem;
+  }
 
   @media ${({ theme }) => theme.device.mobile} {
     flex-direction: column-reverse;

@@ -92,25 +92,10 @@ export const CardContainer = styled.div`
     }
   }
 
-  /* 🌊 Delays personalizados por card */
-  > div:nth-child(1) .wave {
-    animation-delay: 0s;
-  }
-
-  > div:nth-child(2) .wave {
-    animation-delay: 5s;
-  }
-
-  > div:nth-child(3) .wave {
-    animation-delay: 10s;
-  }
-
-  > div:nth-child(4) .wave {
-    animation-delay: 15s;
-  }
-
   @media ${({ theme }) => theme.device.mobile} {
-    display: block;
+    display: flex;
+    overflow-x: scroll;
+    padding: 0;
 
     ${CardBox} {
       height: 400px;

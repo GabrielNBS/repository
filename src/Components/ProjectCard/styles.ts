@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import { GradientText } from '../../styles/GlobalStyle';
 import { centralize } from '../../keyframes/Centralize';
 import { FloatAnimation } from '../../keyframes/FloatAnimation';
 import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const Box = styled.section`
   display: grid;
-  min-height: 100vh;
+  max-height: 100vh;
   width: 100%;
   grid-template-columns: 40% 60%;
   justify-content: center;
@@ -91,13 +90,18 @@ export const DescriptionProjectBox = styled.div`
 
 export const VideoProjectBox = styled.div`
   ${centralize}
-  width: 100%;
-  height: 100%;
-  ${FloatAnimation}
+  max-width: 100%;
+  height: auto;
 
   img {
     width: 100%;
     object-fit: contain;
+    ${FloatAnimation}
+
+    @media ${({ theme }) => theme.device.mobile} {
+      min-width: 300px;
+      max-width: 350px;
+    }
   }
 
   @media ${({ theme }) => theme.device.mobile} {

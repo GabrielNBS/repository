@@ -79,7 +79,7 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
             ))}
           </ul>
 
-          <div data-aos="flip-down" data-aos-duration="1500">
+          <div data-aos="zoom-out-down" data-aos-duration="1500">
             {deploy && (
               <Button as="a" href={deploy}>
                 <LinkIcon /> Site

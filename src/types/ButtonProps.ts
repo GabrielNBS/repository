@@ -8,6 +8,7 @@ export type ButtonProps =
       rel?: string;
       onClick?: never;
       type?: never;
+      download?: boolean;
     }
   | {
       children: React.ReactNode;
@@ -17,4 +18,5 @@ export type ButtonProps =
       href?: never;
       target?: never;
       rel?: never;
+      download?: never;
     };

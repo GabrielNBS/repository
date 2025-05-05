@@ -10,11 +10,12 @@ export default function Button({
   rel,
   as = 'button',
   type = 'button',
-  onClick
+  onClick,
+  download
 }: ButtonProps) {
   if (as === 'a') {
     return (
-      <StyledButton as="a" href={href} target={target} rel={rel}>
+      <StyledButton as="a" href={href} target={target} rel={rel} download={download}>
         {children}
       </StyledButton>
     );
