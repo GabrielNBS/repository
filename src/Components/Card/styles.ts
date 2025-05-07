@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 interface CardBoxProps {
-  delay?: string;
+  $delay?: string;
 }
 
 export const CardBox = styled.div<CardBoxProps>`
@@ -44,7 +44,7 @@ export const CardBox = styled.div<CardBoxProps>`
     );
     border-radius: 40%;
     animation: wave 55s infinite linear;
-    animation-delay: ${(props) => props.delay || '0s'};
+    animation-delay: ${(props) => props.$delay || '0s'};
   }
 
   .playing .wave:nth-child(2) {
@@ -54,7 +54,7 @@ export const CardBox = styled.div<CardBoxProps>`
   .wave:nth-child(2) {
     top: 210px;
     animation-duration: 50s;
-    animation-delay: ${(props) => props.delay || '0s'};
+    animation-delay: ${(props) => props.$delay || '0s'};
   }
 
   .playing .wave:nth-child(3) {
@@ -63,7 +63,7 @@ export const CardBox = styled.div<CardBoxProps>`
   .wave:nth-child(3) {
     top: 210px;
     animation-duration: 45s;
-    animation-delay: ${(props) => props.delay || '0s'};
+    animation-delay: ${(props) => props.$delay || '0s'};
   }
 
   .infotop {

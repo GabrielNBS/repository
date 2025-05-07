@@ -6,7 +6,7 @@ import { CardBox } from './styles';
 
 export default function CardSkills({ icon, title, description, delay }: CardSkillsProps) {
   return (
-    <CardBox delay={delay}>
+    <CardBox $delay={delay}>
       <div className="e-card playing">
         <div className="image" />
         <div className="wave" />

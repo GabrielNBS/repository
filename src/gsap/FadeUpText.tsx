@@ -40,13 +40,13 @@ const FadeUpText: React.FC<FadeUpTextProps> = ({ text, className }) => {
   }, []);
 
   return (
-    <div
+    <span
       ref={textRef}
       className={`overflow-hidden leading-[1.5] ${className ?? ''}`}
       aria-label={text}
     >
       {text}
-    </div>
+    </span>
   );
 };
 
