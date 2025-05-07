@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from './styles';
 import { Text } from '../../Components/Text/styles';
-import { Button } from '../../Components/Button/styles';
 
 export default function Footer() {
   const getCurrentYear = () => new Date().getFullYear();

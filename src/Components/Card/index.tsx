@@ -4,9 +4,9 @@ import { Text } from '../Text/styles';
 import { CardSkillsProps } from '../../types/CardSkillsProps';
 import { CardBox } from './styles';
 
-export default function CardSkills({ icon, title, description }: CardSkillsProps) {
+export default function CardSkills({ icon, title, description, delay }: CardSkillsProps) {
   return (
-    <CardBox>
+    <CardBox delay={delay}>
       <div className="e-card playing">
         <div className="image" />
         <div className="wave" />

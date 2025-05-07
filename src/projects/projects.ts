@@ -65,7 +65,7 @@ const projects = [
     },
     title: 'E-Play',
     description:
-      'Plataforma de streaming de jogos com interface responsiva, Projeto de e-commerce para games desenvolvido com React, tipagem forte com TypeScript, Styled-Components empregando as melhores práticas de CSS-in-JS, Redux para gerenciamento de estado e evitar prop-drilling na aplicação, Formik para controle e validação de formulários e design pixel perfect a partir de base no Figma.',
+      'Plataforma de streaming de jogos com interface responsiva desenvolvida com React, tipagem forte com TypeScript, Styled-Components empregando as melhores práticas de CSS-in-JS, Redux para gerenciamento de estado e evitar prop-drilling na aplicação, Formik para controle e validação de formulários e design pixel perfect a partir de base no Figma.',
     techs: [
       { name: 'React', techIcon: ReactIcon },
       { name: 'TypeScript', techIcon: TypeScriptIcon },

@@ -62,6 +62,7 @@ export default function About() {
         {cards.map((card, index) => (
           <CardSkills
             key={index}
+            delay={`${index * 1}s`}
             icon={card.icon}
             title={card.title}
             description={card.description}

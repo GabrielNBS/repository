@@ -4,4 +4,5 @@ export type CardSkillsProps = {
   icon: IconType;
   title: string;
   description: string;
+  delay: string;
 };

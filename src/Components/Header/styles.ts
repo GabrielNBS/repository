@@ -107,7 +107,7 @@ export const MobileNav = styled.nav`
   justify-content: space-around;
   align-items: center;
   position: fixed;
-  height: 100vh;
+  height: 100dvh;
   width: 80%;
   max-width: 300px;
   top: 0;

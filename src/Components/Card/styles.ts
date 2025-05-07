@@ -1,6 +1,11 @@
+// CardBox.ts
 import styled from 'styled-components';
 
-export const CardBox = styled.div`
+interface CardBoxProps {
+  delay?: string;
+}
+
+export const CardBox = styled.div<CardBoxProps>`
   h2 {
     font-size: clamp(2rem, 3vw, 1.75rem);
   }
@@ -15,6 +20,11 @@ export const CardBox = styled.div`
     height: 100%;
     border-radius: 16px;
     overflow: hidden;
+  }
+
+  .playing .wave {
+    border-radius: 40%;
+    animation: wave 4s infinite linear;
   }
 
   .wave {
@@ -32,6 +42,28 @@ export const CardBox = styled.div`
       #5b42f3 60%,
       #00ddeb
     );
+    border-radius: 40%;
+    animation: wave 55s infinite linear;
+    animation-delay: ${(props) => props.delay || '0s'};
+  }
+
+  .playing .wave:nth-child(2) {
+    animation-duration: 6s;
+  }
+
+  .wave:nth-child(2) {
+    top: 210px;
+    animation-duration: 50s;
+    animation-delay: ${(props) => props.delay || '0s'};
+  }
+
+  .playing .wave:nth-child(3) {
+    animation-duration: 8s;
+  }
+  .wave:nth-child(3) {
+    top: 210px;
+    animation-duration: 45s;
+    animation-delay: ${(props) => props.delay || '0s'};
   }
 
   .infotop {
@@ -49,37 +81,6 @@ export const CardBox = styled.div`
       height: 3.5rem;
       margin-bottom: 1rem;
     }
-  }
-
-  .wave:nth-child(2),
-  .wave:nth-child(3) {
-    top: 210px;
-  }
-
-  .playing .wave {
-    border-radius: 40%;
-    animation: wave 3000ms infinite linear;
-  }
-
-  .wave {
-    border-radius: 40%;
-    animation: wave 55s infinite linear;
-  }
-
-  .playing .wave:nth-child(2) {
-    animation-duration: 4000ms;
-  }
-
-  .wave:nth-child(2) {
-    animation-duration: 50s;
-  }
-
-  .playing .wave:nth-child(3) {
-    animation-duration: 5000ms;
-  }
-
-  .wave:nth-child(3) {
-    animation-duration: 45s;
   }
 
   @keyframes wave {
