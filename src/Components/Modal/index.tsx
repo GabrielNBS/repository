@@ -3,14 +3,10 @@ import * as S from './styles';
 import Button from '../Button/Buttons';
 import ListItem from '../TechSpanStyle';
 
-type Tech = {
-  name: string;
-};
-
 type ModalProps = {
   title: string;
   description: string;
-  techs: Tech[];
+  techs: string[];
   deploy?: string;
   github?: string;
   onClose: () => void;
@@ -32,7 +28,7 @@ export default function Modal({ title, description, techs, deploy, github, onClo
         <p>{description}</p>
         <ul>
           {techs.map((tech, index) => (
-            <ListItem key={index}>{tech.name}</ListItem>
+            <ListItem key={index}>{tech}</ListItem>
           ))}
         </ul>
         <S.ButtonGroup>

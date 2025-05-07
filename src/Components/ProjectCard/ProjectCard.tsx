@@ -75,7 +75,7 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
           <ul>
             {techs.map((tech, index) => (
               <li data-aos="fade-up" data-aos-duration="1500" key={index}>
-                <Text $variant="p">{tech.name}</Text>
+                <Text $variant="p">{tech}</Text>
               </li>
             ))}
           </ul>

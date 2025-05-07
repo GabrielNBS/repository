@@ -12,7 +12,7 @@ export default function Projects() {
           key={index}
           title={project.title}
           description={project.description}
-          techs={project.techs}
+          techs={project.techs.map((tech) => tech.name)}
           mockups={Object.values(project.mockups)}
           deploy={project.deploy}
           github={project.github}

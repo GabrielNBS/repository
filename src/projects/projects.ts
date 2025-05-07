@@ -22,18 +22,6 @@ import CloneDisney_Mobile from '../Image/Mockups/Mobile/Disney-Mobile.svg';
 import CloneDisney_Tablet from '../Image/Mockups/Tablet/Disney-Tablet.svg';
 import CloneDisney_Desktop from '../Image/Mockups/Desktop/Disney-Desktop.svg';
 
-import {
-  BootstrapIcon,
-  ReactIcon,
-  ReduxIcon,
-  StyledComponentsIcon,
-  TypeScriptIcon,
-  CssIcon,
-  HtmlIcon,
-  JavaScriptIcon,
-  SassIcon
-} from '../assets/icons/icons';
-
 const projects = [
   {
     id: 1,
@@ -47,10 +35,10 @@ const projects = [
     description:
       'Aplicação de delivery desenvolvida com React, utilizando tipagem forte com TypeScript e Styled-Components, seguindo as melhores práticas de CSS-in-JS. O gerenciamento de estado é realizado com Redux, eliminando o problema de prop-drilling, e o controle e validação de formulários são implementados com Formik e Yup.',
     techs: [
-      { name: 'React', techIcon: ReactIcon },
-      { name: 'TypeScript', techIcon: TypeScriptIcon },
-      { name: 'Styled-Components', techIcon: StyledComponentsIcon },
-      { name: 'Redux', techIcon: ReduxIcon }
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'Styled-Components' },
+      { name: 'Redux' }
     ],
     deploy: 'https://efoodv2.vercel.app',
     github: 'https://github.com/GabrielNBS/eFood'
@@ -67,10 +55,10 @@ const projects = [
     description:
       'Plataforma de streaming de jogos com interface responsiva desenvolvida com React, tipagem forte com TypeScript, Styled-Components empregando as melhores práticas de CSS-in-JS, Redux para gerenciamento de estado e evitar prop-drilling na aplicação, Formik para controle e validação de formulários e design pixel perfect a partir de base no Figma.',
     techs: [
-      { name: 'React', techIcon: ReactIcon },
-      { name: 'TypeScript', techIcon: TypeScriptIcon },
-      { name: 'Styled-Components', techIcon: StyledComponentsIcon },
-      { name: 'Redux', techIcon: ReduxIcon }
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'Styled-Components' },
+      { name: 'Redux' }
     ],
     deploy: 'https://eplay-orpin-psi.vercel.app/',
     github: 'https://github.com/GabrielNBS/eplay'
@@ -86,11 +74,7 @@ const projects = [
     title: 'Hoje Ta Doce',
     description:
       'Landing page para uma confeitaria desenvolvida em HTML, JavaScript e Bootstrap, destacando produtos e serviços e utilizando todos os recursos do Bootstrap para estilização, responsividade e dinamismo da página.',
-    techs: [
-      { name: 'JavaScript', techIcon: JavaScriptIcon },
-      { name: 'Bootstrap', techIcon: BootstrapIcon },
-      { name: 'HTML', techIcon: HtmlIcon }
-    ],
+    techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
     deploy: 'https://htd-land-page.vercel.app/',
     github: 'https://github.com/GabrielNBS/HTD-LandPage'
   },
@@ -105,12 +89,7 @@ const projects = [
     title: 'To-Do',
     description:
       'Lista de tarefas interativa e responsiva, desenvolvida com HTML, CSS e JavaScript, com um robusto gerenciamento de estado via Redux. A aplicação permite adicionar, editar, filtrar e excluir tarefas, proporcionando uma experiência de usuário dinâmica e intuitiva com uma interface limpa e design moderno.',
-    techs: [
-      { name: 'JavaScript', techIcon: JavaScriptIcon },
-      { name: 'Redux', techIcon: ReduxIcon },
-      { name: 'Css', techIcon: CssIcon },
-      { name: 'HTML', techIcon: HtmlIcon }
-    ],
+    techs: [{ name: 'JavaScript' }, { name: 'Redux' }, { name: 'Css' }, { name: 'HTML' }],
     deploy: 'https://to-do-seven-gamma.vercel.app/',
     github: 'https://github.com/GabrielNBS/To-Do'
   },
@@ -125,11 +104,7 @@ const projects = [
     title: 'LP Spider-verse',
     description:
       'Página promocional do Spider-Verse, Desenvolvida com HTML, Sass para estilização avançada e modularizada, e JavaScript para adicionar interatividade. A página foi criada para oferecer uma experiência imersiva, explorando transições suaves e elementos gráficos que capturam a essência do multiverso.',
-    techs: [
-      { name: 'HTML', techIcon: HtmlIcon },
-      { name: 'Sass', techIcon: SassIcon },
-      { name: 'JavaScript', techIcon: JavaScriptIcon }
-    ],
+    techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://lp-spiderverse.vercel.app/',
     github: 'https://github.com/GabrielNBS/LP_Miles_Morales'
   },
@@ -144,11 +119,7 @@ const projects = [
     title: 'Clone Disney +',
     description:
       'Clone responsivo da interface do Disney Plus, desenvolvido com HTML, Sass para um estilo moderno e reutilizável, e JavaScript para funcionalidades dinâmicas, como transições suaves, carrosséis interativos e navegação intuitiva. O projeto foca na experiência do usuário, proporcionando uma interface fluida e responsiva em diferentes telas.',
-    techs: [
-      { name: 'HTML', techIcon: HtmlIcon },
-      { name: 'Sass', techIcon: SassIcon },
-      { name: 'JavaScript', techIcon: JavaScriptIcon }
-    ],
+    techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://clone-disneyplus-eta.vercel.app/',
     github: 'https://github.com/GabrielNBS/clone_disneyplus'
   }

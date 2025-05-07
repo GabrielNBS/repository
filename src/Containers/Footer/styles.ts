@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Text } from '../../Components/Text/styles';
 import { Button } from '../../Components/Button/styles';
+import { centralize } from '../../keyframes/Centralize';
+import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const FooterContainer = styled.footer`
   display: flex;
@@ -16,7 +18,17 @@ export const FooterContainer = styled.footer`
   }
 
   ${Button} {
+    ${centralize}
     margin-bottom: 0.5rem;
+    background-color: transparent;
+    box-shadow: none;
+    gap: 0.5rem;
+
+    &:hover {
+      svg {
+        ${ShakeAnimation}
+      }
+    }
   }
 
   @media ${({ theme }) => theme.device.mobile} {
