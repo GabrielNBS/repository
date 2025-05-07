@@ -1,20 +1,13 @@
 import {
-  FaReact,
-  FaBootstrap,
   FaGithub,
   FaLinkedinIn,
-  FaJs,
   FaWhatsapp,
-  FaHtml5,
-  FaCss3,
-  FaSass,
   FaLaptopCode,
   FaPuzzlePiece,
   FaServer,
   FaRocket,
   FaExternalLinkAlt
 } from 'react-icons/fa';
-import { SiStyledcomponents, SiTypescript, SiCypress, SiRedux } from 'react-icons/si';
 import styled from 'styled-components';
 
 export const LinkIcon = styled(FaExternalLinkAlt)``;
