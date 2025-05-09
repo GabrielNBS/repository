@@ -11,13 +11,19 @@ function SocialNavBar() {
             href="https://www.linkedin.com/in/gabrielnascimento-dev/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Link para Linkedin"
           >
             <span className="tooltip">linkedin</span>
             <LinkedinIcon className="linkedin" />
           </a>
         </li>
         <li className="icon github">
-          <a href="https://www.github.com/GabrielNBS" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.github.com/GabrielNBS"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="link para Github"
+          >
             <span className="tooltip">github</span>
             <GithubIcon className="github" />
           </a>
@@ -27,6 +33,7 @@ function SocialNavBar() {
             href="https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato."
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Link para Whatsapp"
           >
             <span className="tooltip">whatsapp</span>
             <WhatsappIcon className="whatsapp" />

@@ -22,9 +22,14 @@ export const AnchorDot = styled.div<{ $active: boolean }>`
   background-color: ${(props) =>
     props.$active ? (props) => props.theme.color.secondary : 'rgba(70, 70, 70, 0.5)'};
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+  border: none;
+  opacity: ${(props) => (props.$active ? 1 : 0.2)};
 
   &:hover {
     background-color: ${(props) => props.theme.color.primary};
+    opacity: 1;
   }
 `;

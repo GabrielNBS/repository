@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './styles';
-import Button from '../Button/Buttons';
+import Button from '../Button';
 import { CardProps } from '../../types/CardProps';
 import { Text } from '../Text/styles';
 import Modal from '../Modal';
@@ -9,7 +9,9 @@ import SquishyText from '../../motion/SquishyText';
 import { LinkIcon } from '../../assets/icons/icons';
 import { FaGithub } from 'react-icons/fa6';
 import FadeUpText from '../../gsap/FadeUpText';
+import CustomImage from '../CustomImage';
 
+// Hook para detectar o tipo de tela (desktop, tablet ou mobile)
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
@@ -26,28 +28,41 @@ const useScreenType = () => {
       }
     };
 
+    // Checa no carregamento e adiciona listener de resize
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
 
+    // Remove listener ao desmontar
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   return screenType;
 };
 
-function ProjectCard({ id, name, title, description, techs, mockups, deploy, github }: CardProps) {
+function ProjectContainer({
+  id,
+  name,
+  title,
+  description,
+  techs,
+  mockups,
+  deploy,
+  github
+}: CardProps) {
   const screenType = useScreenType();
   const [showModal, setShowModal] = useState(false);
 
-  // Helpers para controlar o modal
+  // Abre o modal
   function handleModalOpen() {
     setShowModal(true);
   }
 
+  // Fecha o modal
   function handleModalClose() {
     setShowModal(false);
   }
 
+  // Retorna a imagem mockup de acordo com o tipo de tela
   const getMockupImage = () => {
     switch (screenType) {
       case 'desktop':
@@ -63,6 +78,7 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
 
   return (
     <S.Box data-number={id} id={name}>
+      {/* Exibe conteúdo textual apenas para telas maiores que mobile */}
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
           <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
@@ -81,14 +97,14 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
           </ul>
 
           <div data-aos="zoom-out-up" data-aos-duration="1500">
-            {deploy && (
-              <Button as="a" href={deploy}>
-                <LinkIcon /> Site
+            {github && (
+              <Button as="a" href={github} aria-label={`Ver código de ${title} no GitHub`}>
+                <FaGithub /> Código
               </Button>
             )}
-            {github && (
-              <Button as="a" href={github}>
-                <FaGithub /> Código
+            {deploy && (
+              <Button as="a" href={deploy} aria-label={`Ver site do projeto ${title}`}>
+                <LinkIcon /> Site
               </Button>
             )}
           </div>
@@ -96,15 +112,24 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
       )}
 
       <S.VideoProjectBox data-aos="fade-left" data-aos-duration="1500">
-        <img src={getMockupImage()} alt={`Mockup ${screenType}`} data-testid="mockup-image" />
+        <CustomImage
+          src={getMockupImage()}
+          alt={`Mockup ${screenType}`}
+          data-testid="mockup-image"
+          aria-label={`Imagem mockup do projeto ${title} para ${screenType}`}
+        />
         {screenType === 'mobile' && (
-          <>
-            <Button type="button" onClick={handleModalOpen}>
-              Saiba +
-            </Button>
-          </>
+          <Button
+            type="button"
+            onClick={handleModalOpen}
+            aria-label={`Abrir detalhes do projeto ${title}`}
+          >
+            Saiba +
+          </Button>
         )}
       </S.VideoProjectBox>
+
+      {/* Modal aberto apenas em mobile */}
       {showModal && (
         <Modal
           title={title}
@@ -119,4 +144,4 @@ function ProjectCard({ id, name, title, description, techs, mockups, deploy, git
   );
 }
 
-export default ProjectCard;
+export default ProjectContainer;

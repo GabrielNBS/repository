@@ -16,9 +16,13 @@ export default function Footer() {
         <Button
           as="a"
           href={
-            'https://drive.google.com/file/d/1bRpQ3zr-xwYSj7WOrKoqUGCBlnRm_THC/view?usp=drive_link'
+            'https://drive.google.com/file/d/1imdMjeR3JvDvgaC-wAOIj6a0K6yYu0O_/view?usp=drive_link'
           }
           download
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Currículo"
+          title="Currículo"
         >
           <HiDocumentMagnifyingGlass />
           Currículo

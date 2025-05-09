@@ -10,7 +10,8 @@ export const Button = styled.button`
   border-radius: 0.5em;
   border: 1px solid transparent;
   cursor: pointer;
-  background: ${(props) => props.theme.background.secondary};
+  background: ${(props) => props.theme.background.primary};
+  filter: contrast(1.1);
   color: ${(props) => props.theme.color.primary};
   box-shadow:
     12px 12px 24px ${(props) => props.theme.shadow.primary},

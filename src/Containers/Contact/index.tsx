@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 import { Text } from '../../Components/Text/styles';
-import Button from '../../Components/Button/Buttons';
+import Button from '../../Components/Button';
 import Footer from '../Footer';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 import SquishyText from '../../motion/SquishyText';

@@ -15,6 +15,7 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
     'CloneDisney'
   ];
 
+  // Função que realiza o scroll suave até a seção correspondente ao índice clicado
   const scrollToSection = (index: number) => {
     const section = document.querySelectorAll('section, main')[index];
     section?.scrollIntoView({ behavior: 'smooth' });
@@ -22,10 +23,12 @@ const Anchor: React.FC<AnchorProps> = ({ activeSection }) => {
 
   return (
     <S.AnchorContainer>
-      {sections.map((_, index) => (
+      {sections.map((sectionName, index) => (
         <S.AnchorDot
+          as="button"
           key={index}
           $active={activeSection === index}
+          aria-label={`Ir para a seção ${sectionName}`}
           onClick={() => scrollToSection(index)}
         />
       ))}

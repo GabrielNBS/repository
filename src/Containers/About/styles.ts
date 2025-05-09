@@ -67,6 +67,7 @@ export const CardContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 1rem 0;
+  cursor: pointer;
 
   > div {
     transition: filter 0.5s ease-in-out;
@@ -98,7 +99,7 @@ export const CardContainer = styled.div`
     padding: 0;
 
     ${CardBox} {
-      height: 400px;
+      height: 500px;
       width: 90%;
       flex-shrink: 0;
       margin-bottom: 1rem;

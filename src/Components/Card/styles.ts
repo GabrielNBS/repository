@@ -8,6 +8,11 @@ interface CardBoxProps {
 export const CardBox = styled.div<CardBoxProps>`
   h2 {
     font-size: clamp(2rem, 3vw, 1.75rem);
+    color: ${(props) => props.theme.color.primary};
+  }
+
+  p {
+    color: ${(props) => props.theme.color.primary};
   }
 
   .e-card {
@@ -39,7 +44,7 @@ export const CardBox = styled.div<CardBoxProps>`
     background: linear-gradient(
       744deg,
       ${(props) => props.theme.color.secondary},
-      #5b42f3 60%,
+      ${(props) => props.theme.background.secondary} 60%,
       #00ddeb
     );
     border-radius: 40%;
@@ -80,6 +85,7 @@ export const CardBox = styled.div<CardBoxProps>`
       width: 3.5rem;
       height: 3.5rem;
       margin-bottom: 1rem;
+      color: ${(props) => props.theme.color.primary};
     }
   }
 

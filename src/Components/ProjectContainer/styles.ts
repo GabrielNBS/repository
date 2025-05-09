@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { centralize } from '../../keyframes/Centralize';
-import { FloatAnimation } from '../../keyframes/FloatAnimation';
 import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const Box = styled.section`
@@ -85,6 +84,12 @@ export const DescriptionProjectBox = styled.div`
         ${ShakeAnimation}
       }
     }
+
+    a:nth-child(2) {
+      svg {
+        ${ShakeAnimation}
+      }
+    }
   }
 `;
 
@@ -92,17 +97,6 @@ export const VideoProjectBox = styled.div`
   ${centralize}
   max-width: 100%;
   height: auto;
-
-  img {
-    width: 100%;
-    object-fit: contain;
-    ${FloatAnimation}
-
-    @media ${({ theme }) => theme.device.mobile} {
-      min-width: 300px;
-      max-width: 350px;
-    }
-  }
 
   @media ${({ theme }) => theme.device.mobile} {
     display: flex;

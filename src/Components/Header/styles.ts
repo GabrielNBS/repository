@@ -10,7 +10,7 @@ export const Header = styled.header`
   padding: 0 1rem;
   display: flex;
   border-radius: 1rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   z-index: 10;
   background-color: transparent;
@@ -112,7 +112,8 @@ export const MobileNav = styled.nav`
   max-width: 300px;
   top: 0;
   left: 0;
-  background-color: ${({ theme }) => theme.background.secondary};
+  background-color: ${({ theme }) => theme.background.primary};
+  filter: contrast(1.1);
   border-radius: 0 1rem 1rem 0;
   z-index: 3;
   padding: 2rem 1rem;
@@ -120,6 +121,21 @@ export const MobileNav = styled.nav`
 
   h1 {
     font-size: 1.5rem;
+  }
+
+  li {
+    margin: 1rem 0;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: ${(props) => props.theme.color.primary};
+    svg {
+      margin: 0 0.5rem;
+    }
   }
 
   @media ${({ theme }) => theme.device.desktop} {
