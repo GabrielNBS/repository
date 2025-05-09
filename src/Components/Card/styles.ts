@@ -13,6 +13,7 @@ export const CardBox = styled.div<CardBoxProps>`
 
   p {
     color: ${(props) => props.theme.color.primary};
+    padding: 0 0.5rem;
   }
 
   .e-card {

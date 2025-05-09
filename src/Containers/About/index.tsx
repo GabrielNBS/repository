@@ -36,7 +36,7 @@ export default function About() {
       <S.DescriptionContainer>
         <S.TextContainer>
           <Text data-aos="fade-right" as="h2" $variant="h2">
-            Como eu te ajudo
+            Como eu te ajudo?
           </Text>
           <Text as="h3" $variant="p" data-aos="fade-right" data-aos-duration="1200">
             ✨ Tudo começa com uma necessidade
