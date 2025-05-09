@@ -23,7 +23,7 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: auto;
   border-radius: 1rem;
   cursor: pointer;
 `;

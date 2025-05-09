@@ -63,23 +63,9 @@ const projects = [
     deploy: 'https://eplay-orpin-psi.vercel.app/',
     github: 'https://github.com/GabrielNBS/eplay'
   },
+
   {
     id: 3,
-    name: 'HojeTaDoce',
-    mockups: {
-      mobile: HTD_Mobile,
-      tablet: HTD_Tablet,
-      desktop: HTD_Desktop
-    },
-    title: 'Hoje Ta Doce',
-    description:
-      'Landing page para uma confeitaria desenvolvida em HTML, JavaScript e Bootstrap, destacando produtos e serviços e utilizando todos os recursos do Bootstrap para estilização, responsividade e dinamismo da página.',
-    techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
-    deploy: 'https://htd-land-page.vercel.app/',
-    github: 'https://github.com/GabrielNBS/HTD-LandPage'
-  },
-  {
-    id: 4,
     name: 'ToDo',
     mockups: {
       mobile: ToDo_Mobile,
@@ -109,7 +95,7 @@ const projects = [
     github: 'https://github.com/GabrielNBS/LP_Miles_Morales'
   },
   {
-    id: 6,
+    id: 5,
     name: 'CloneDisney',
     mockups: {
       mobile: CloneDisney_Mobile,
@@ -122,6 +108,21 @@ const projects = [
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://clone-disneyplus-eta.vercel.app/',
     github: 'https://github.com/GabrielNBS/clone_disneyplus'
+  },
+  {
+    id: 6,
+    name: 'HojeTaDoce',
+    mockups: {
+      mobile: HTD_Mobile,
+      tablet: HTD_Tablet,
+      desktop: HTD_Desktop
+    },
+    title: 'Hoje Ta Doce',
+    description:
+      'Landing page para uma confeitaria desenvolvida em HTML, JavaScript e Bootstrap, destacando produtos e serviços e utilizando todos os recursos do Bootstrap para estilização, responsividade e dinamismo da página.',
+    techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
+    deploy: 'https://htd-land-page.vercel.app/',
+    github: 'https://github.com/GabrielNBS/HTD-LandPage'
   }
 ];
 

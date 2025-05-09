@@ -9,7 +9,7 @@ import { ScrollMouseIndicator } from '../../Components/ScrollMouseIndicator';
 
 export default function Main() {
   return (
-    <S.HeroSection>
+    <S.HeroSection id="home">
       <span className="children_names">真由美と沙織</span>
       <div className="container">
         <Text as="h2" $variant="hero">

@@ -8,7 +8,6 @@ import PulsePointer from '../PulsePointer';
 import SquishyText from '../../motion/SquishyText';
 import { LinkIcon } from '../../assets/icons/icons';
 import { FaGithub } from 'react-icons/fa6';
-import FadeUpText from '../../gsap/FadeUpText';
 import CustomImage from '../CustomImage';
 
 // Hook para detectar o tipo de tela (desktop, tablet ou mobile)
@@ -85,8 +84,8 @@ function ProjectContainer({
             <PulsePointer />
             <SquishyText text={title} />
           </Text>
-          <Text id="description" as="p" $variant="p">
-            <FadeUpText text={description} />
+          <Text id="description" as="p" $variant="p" data-aos="fade-up" data-aos-duration="1200">
+            {description}
           </Text>
           <ul>
             {techs.map((tech, index) => (
@@ -98,12 +97,24 @@ function ProjectContainer({
 
           <div data-aos="zoom-out-up" data-aos-duration="1500">
             {github && (
-              <Button as="a" href={github} aria-label={`Ver código de ${title} no GitHub`}>
+              <Button
+                as="a"
+                href={github}
+                aria-label={`Ver código de ${title} no GitHub`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FaGithub /> Código
               </Button>
             )}
             {deploy && (
-              <Button as="a" href={deploy} aria-label={`Ver site do projeto ${title}`}>
+              <Button
+                as="a"
+                href={deploy}
+                aria-label={`Ver site do projeto ${title}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LinkIcon /> Site
               </Button>
             )}

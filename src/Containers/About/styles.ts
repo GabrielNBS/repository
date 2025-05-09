@@ -75,7 +75,7 @@ export const CardContainer = styled.div`
 
   @media (hover: hover) and (pointer: fine) {
     &:has(> div:hover) > div {
-      filter: opacity(0.3);
+      filter: opacity(0.3) blur(3px);
     }
   }
 

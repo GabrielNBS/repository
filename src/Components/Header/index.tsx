@@ -58,10 +58,14 @@ const NavBar: React.FC<ThemeToggleProps> = ({ toggleTheme }) => {
     };
   }, [mobileMenuOpen]);
 
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       <S.Header className={`${isScrolled ? 'scrolled' : ''}`}>
-        <h1>
+        <h1 onClick={handleClick} aria-label="Logo">
           <Logo />
         </h1>
         <ThemeButtonChange toggleTheme={toggleTheme} />

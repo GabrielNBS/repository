@@ -48,9 +48,9 @@ export default function About() {
           </Text>
         </S.TextContainer>
         <S.TechsContainer>
-          <ul>
+          <ul data-aos="flip-up" data-aos-duration="1500">
             {techs.map((tech, index) => (
-              <ListItem data-aos="flip-up" data-aos-duration="1500" key={index}>
+              <ListItem key={index}>
                 {tech.icon}
                 {tech.name}
               </ListItem>
@@ -58,7 +58,7 @@ export default function About() {
           </ul>
         </S.TechsContainer>
       </S.DescriptionContainer>
-      <S.CardContainer>
+      <S.CardContainer data-aos="fade-up" data-aos-duration="1500">
         {cards.map((card, index) => (
           <CardSkills
             key={index}
