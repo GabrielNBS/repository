@@ -29,6 +29,10 @@ export const DescriptionContainer = styled.div`
 export const TextContainer = styled.div`
   @media ${({ theme }) => theme.device.mobile}, ${({ theme }) => theme.device.tablet} {
     text-align: center;
+
+    p {
+      padding: 0 0.5rem;
+    }
   }
 
   h3 {
