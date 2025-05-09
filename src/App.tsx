@@ -10,6 +10,7 @@ import About from './Containers/About';
 import Contact from './Containers/Contact';
 import Anchor from './Components/Anchor';
 import AOS from 'aos';
+import ScrollToTopButton from './Components/ScrollToTopButton';
 
 // Estilo global condicional para bloquear o scroll vertical (usado para scroll por seção em desktop)
 const ScrollLock = createGlobalStyle<{ disableScroll: boolean }>`
@@ -179,6 +180,7 @@ const App: React.FC = () => {
       <About />
       <Projects />
       <Contact />
+      <ScrollToTopButton />
     </ThemeProvider>
   );
 };
