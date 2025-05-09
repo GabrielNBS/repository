@@ -16,7 +16,10 @@ const FadeUpText: React.FC<FadeUpTextProps> = ({ text, className }) => {
 
   useEffect(() => {
     if (textRef.current) {
-      splitRef.current = new SplitText(textRef.current, { type: 'lines' });
+      splitRef.current = new SplitText(textRef.current, {
+        type: 'lines',
+        linesClass: 'split-line'
+      });
 
       const animation = gsap.from(splitRef.current.lines, {
         y: 100,
