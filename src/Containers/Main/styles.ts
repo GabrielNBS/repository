@@ -3,7 +3,7 @@ import { Text } from '../../Components/Text/styles';
 
 export const HeroSection = styled.main`
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   align-items: center;
   position: relative;
 
