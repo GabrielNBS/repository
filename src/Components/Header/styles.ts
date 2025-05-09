@@ -10,7 +10,7 @@ export const Header = styled.header`
   padding: 0 1rem;
   display: flex;
   border-radius: 1rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   z-index: 10;
   background-color: transparent;
