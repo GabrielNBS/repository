@@ -7,4 +7,5 @@ export type CardProps = {
   techs: string[];
   deploy: string;
   github: string;
+  isNew?: boolean;
 };

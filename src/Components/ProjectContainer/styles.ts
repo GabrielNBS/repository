@@ -4,7 +4,7 @@ import { ShakeAnimation } from '../../keyframes/ShakeAnimation';
 
 export const Box = styled.section`
   display: grid;
-  max-height: 100vh;
+  height: 100dvh;
   width: 100%;
   grid-template-columns: 40% 60%;
   justify-content: center;
@@ -39,6 +39,7 @@ export const Box = styled.section`
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 `;
@@ -57,11 +58,14 @@ export const DescriptionProjectBox = styled.div`
 
   ul {
     margin: 0 0 3rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 
     li {
       display: flex;
       align-items: center;
-      margin: 1rem 0;
+      margin: 0;
       gap: 0.5rem;
 
       p {

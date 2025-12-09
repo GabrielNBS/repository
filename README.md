@@ -1,4 +1,3 @@
-
 # 💼 Gabriel Nascimento Portfolio — Meu Portfólio Interativo
 
 Este é o repositório do meu portfólio pessoal, construído com foco em animações modernas, responsividade adaptativa e tecnologias atuais do front-end. O projeto foi pensado para demonstrar minhas habilidades com interfaces ricas, interações visuais e código limpo e modular.
@@ -33,8 +32,8 @@ Este é o repositório do meu portfólio pessoal, construído com foco em anima�
 
 ## 🖼️ Screenshots
 
-| Desktop (Mockup) | Mobile (Mockup) |
-|------------------|-----------------|
+| Desktop (Mockup)                                    | Mobile (Mockup)                                   |
+| --------------------------------------------------- | ------------------------------------------------- |
 | ![desktop-screenshot](./public/screens/desktop.png) | ![mobile-screenshot](./public/screens/mobile.png) |
 
 ---
@@ -73,7 +72,6 @@ src/
 
 ---
 
-
 ## 🌍 Deploy
 
 O projeto está disponível em produção via:
@@ -104,4 +102,3 @@ Se você estiver vendo esse repositório como recrutador: obrigado pela visita!
 Esse projeto foi feito com carinho e atenção aos detalhes. Qualquer dúvida, estou à disposição! 😊
 
 ---
-

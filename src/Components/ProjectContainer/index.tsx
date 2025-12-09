@@ -9,8 +9,9 @@ import SquishyText from '../../motion/SquishyText';
 import { LinkIcon } from '../../assets/icons/icons';
 import { FaGithub } from 'react-icons/fa6';
 import CustomImage from '../CustomImage';
+import LinkPreview from '../LinkPreview';
+import NewProjectTag from '../Tag';
 
-// Hook para detectar o tipo de tela (desktop, tablet ou mobile)
 const useScreenType = () => {
   const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
@@ -27,11 +28,9 @@ const useScreenType = () => {
       }
     };
 
-    // Checa no carregamento e adiciona listener de resize
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
 
-    // Remove listener ao desmontar
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
@@ -46,22 +45,20 @@ function ProjectContainer({
   techs,
   mockups,
   deploy,
-  github
+  github,
+  isNew = false
 }: CardProps) {
   const screenType = useScreenType();
   const [showModal, setShowModal] = useState(false);
 
-  // Abre o modal
   function handleModalOpen() {
     setShowModal(true);
   }
 
-  // Fecha o modal
   function handleModalClose() {
     setShowModal(false);
   }
 
-  // Retorna a imagem mockup de acordo com o tipo de tela
   const getMockupImage = () => {
     switch (screenType) {
       case 'desktop':
@@ -77,13 +74,15 @@ function ProjectContainer({
 
   return (
     <S.Box data-number={id} id={name}>
-      {/* Exibe conteúdo textual apenas para telas maiores que mobile */}
       {screenType !== 'mobile' && (
         <S.DescriptionProjectBox>
-          <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
-            <PulsePointer />
-            <SquishyText text={title} />
-          </Text>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <Text data-aos="fade-right" data-aos-duration="1000" as="h2" $variant="h2">
+              <PulsePointer />
+              <SquishyText text={title} />
+            </Text>
+            {isNew && <NewProjectTag />}
+          </div>
           <Text id="description" as="p" $variant="p" data-aos="fade-up" data-aos-duration="1200">
             {description}
           </Text>
@@ -95,28 +94,36 @@ function ProjectContainer({
             ))}
           </ul>
 
-          <div data-aos="zoom-out-up" data-aos-duration="1500">
+          <div
+            data-aos="zoom-out-up"
+            data-aos-duration="1500"
+            style={{ display: 'flex', gap: '1rem', overflow: 'visible' }}
+          >
             {github && (
-              <Button
-                as="a"
-                href={github}
-                aria-label={`Ver código de ${title} no GitHub`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FaGithub /> Código
-              </Button>
+              <LinkPreview type="github">
+                <Button
+                  as="a"
+                  href={github}
+                  aria-label={`Ver código de ${title} no GitHub`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaGithub /> Código
+                </Button>
+              </LinkPreview>
             )}
             {deploy && (
-              <Button
-                as="a"
-                href={deploy}
-                aria-label={`Ver site do projeto ${title}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <LinkIcon /> Site
-              </Button>
+              <LinkPreview type="deploy" image={mockups[2]} url={deploy} title={title}>
+                <Button
+                  as="a"
+                  href={deploy}
+                  aria-label={`Ver site do projeto ${title}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <LinkIcon /> Site
+                </Button>
+              </LinkPreview>
             )}
           </div>
         </S.DescriptionProjectBox>
@@ -140,7 +147,6 @@ function ProjectContainer({
         )}
       </S.VideoProjectBox>
 
-      {/* Modal aberto apenas em mobile */}
       {showModal && (
         <Modal
           title={title}

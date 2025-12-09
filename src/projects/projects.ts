@@ -2,6 +2,10 @@ import HTD_Mobile from '../Image/Mockups/Mobile/HTD-Mobile.svg';
 import HTD_Tablet from '../Image/Mockups/Tablet/HTD-Tablet.svg';
 import HTD_Desktop from '../Image/Mockups/Desktop/HTD-Desktop.svg';
 
+import Regula_Mobile from '../Image/Mockups/Mobile/Regula-Mobile.png';
+import Regula_Tablet from '../Image/Mockups/Tablet/Regula-Tablet.png';
+import Regula_Desktop from '../Image/Mockups/Desktop/Regula-Desktop.png';
+
 import EPlay_Mobile from '../Image/Mockups/Mobile/Eplay-Mobile.svg';
 import EPlay_Tablet from '../Image/Mockups/Tablet/Eplay-Tablet.svg';
 import EPlay_Desktop from '../Image/Mockups/Desktop/Eplay-Desktop.svg';
@@ -25,6 +29,30 @@ import CloneDisney_Desktop from '../Image/Mockups/Desktop/Disney-Desktop.svg';
 const projects = [
   {
     id: 1,
+    name: 'Regula - Dashboard e PDV',
+    mockups: {
+      mobile: Regula_Mobile,
+      tablet: Regula_Tablet,
+      desktop: Regula_Desktop
+    },
+    title: 'Regula - Dashboard e PDV',
+    description:
+      'Dashboard administrativo e PDV completo com arquitetura escalável em React e Context API. Apresenta interface refinada usando Radix UI, formulários multi-step complexos e visualização de dados interativa. Integra gestão financeira, controle granular de estoque e precificação inteligente, combinando regras de negócio robustas com uma experiência de usuário excepcional para tomada de decisão estratégica',
+    techs: [
+      { name: 'Next.js' },
+      { name: 'TypeScript' },
+      { name: 'Tailwind' },
+      { name: 'Radix UI' },
+      { name: 'Zod' },
+      { name: 'React Hook Form' },
+      { name: 'Context' }
+    ],
+    deploy: 'https://regula-mocha.vercel.app/',
+    github: 'https://github.com/GabrielNBS/dashboard',
+    isNew: true
+  },
+  {
+    id: 2,
     name: 'EFood',
     mockups: {
       mobile: EFood_Mobile,
@@ -44,7 +72,7 @@ const projects = [
     github: 'https://github.com/GabrielNBS/eFood'
   },
   {
-    id: 2,
+    id: 3,
     name: 'EPlay',
     mockups: {
       mobile: EPlay_Mobile,
@@ -65,7 +93,7 @@ const projects = [
   },
 
   {
-    id: 3,
+    id: 4,
     name: 'ToDo',
     mockups: {
       mobile: ToDo_Mobile,
@@ -80,7 +108,7 @@ const projects = [
     github: 'https://github.com/GabrielNBS/To-Do'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Spider-Verse',
     mockups: {
       mobile: SpiderVerse_Mobile,
@@ -95,7 +123,7 @@ const projects = [
     github: 'https://github.com/GabrielNBS/LP_Miles_Morales'
   },
   {
-    id: 5,
+    id: 6,
     name: 'CloneDisney',
     mockups: {
       mobile: CloneDisney_Mobile,
@@ -110,7 +138,7 @@ const projects = [
     github: 'https://github.com/GabrielNBS/clone_disneyplus'
   },
   {
-    id: 6,
+    id: 7,
     name: 'HojeTaDoce',
     mockups: {
       mobile: HTD_Mobile,

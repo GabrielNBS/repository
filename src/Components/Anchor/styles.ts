@@ -6,7 +6,7 @@ export const AnchorContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   top: 50%;
-  left: 20px;
+  right: 20px;
   transform: translateY(-50%);
   z-index: 100;
 
