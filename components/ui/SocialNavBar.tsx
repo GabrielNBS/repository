@@ -1,62 +1,80 @@
-'use client';
+"use client";
 
-import { motion } from 'motion/react';
-import { FaGithub, FaLinkedinIn, FaWhatsapp, FaInstagram } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { motion } from "motion/react";
+import { FaGithub, FaLinkedinIn, FaWhatsapp, FaInstagram, FaTwitter } from "react-icons/fa";
+
+const SOCIAL_LINKS = [
+  {
+    icon: FaGithub,
+    href: "https://www.github.com/GabrielNBS",
+    label: "GitHub",
+  },
+  {
+    icon: FaInstagram,
+    href: "#",
+    label: "Instagram",
+  },
+  {
+    icon: FaTwitter,
+    href: "#",
+    label: "Twitter",
+  },
+  {
+    icon: FaLinkedinIn,
+    href: "https://www.linkedin.com/in/gabrielnascimento-dev/",
+    label: "LinkedIn",
+  },
+  {
+    icon: FaWhatsapp,
+    href: "https://wa.me/+5532984286600",
+    label: "WhatsApp",
+  },
+];
 
 export default function SocialNavBar() {
-  const socialLinks = [
-    {
-      href: 'https://www.github.com/GabrielNBS',
-      icon: FaGithub,
-      label: 'GitHub'
-    },
-    {
-      href: 'https://www.linkedin.com/in/gabrielnascimento-dev/',
-      icon: FaLinkedinIn,
-      label: 'LinkedIn'
-    },
-    {
-      href: 'https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato.',
-      icon: FaWhatsapp,
-      label: 'WhatsApp'
-    }
-  ];
-
   return (
     <>
-      {/* Left Side - Social Icons */}
+      {/* Left Sidebar: Social Icons */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="fixed left-6 lg:left-10 bottom-0 z-40 hidden md:flex flex-col items-center gap-6"
+        transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+        className="fixed bottom-0 left-6 xl:left-12 z-40 hidden lg:flex flex-col items-center gap-8"
       >
-        <ul className="flex flex-col gap-5 items-center list-none p-0 m-0">
-          {socialLinks.map((social) => (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-foreground/60 hover:text-accent hover:-translate-y-1 transition-all duration-300 block p-1"
-                aria-label={social.label}
-              >
-                <social.icon size={20} />
-              </a>
-            </li>
+        <div className="flex flex-col gap-6">
+          {SOCIAL_LINKS.map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              className="text-foreground/40 hover:text-accent transition-all duration-300 block"
+              whileHover={{ y: -4, color: "var(--color-accent)" }}
+            >
+              <social.icon size={22} />
+            </motion.a>
           ))}
-        </ul>
-        <div className="w-[1px] h-24 bg-foreground/30" />
+        </div>
+        <div className="w-[1px] h-24 xl:h-32 bg-foreground/20" />
       </motion.div>
 
-      {/* Right Side - Email */}
+      {/* Right Sidebar: Email */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-        className="fixed right-6 lg:right-10 bottom-0 z-40 hidden md:flex flex-col items-center gap-6"
-      ></motion.div>
+        transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+        className="fixed bottom-0 right-6 xl:right-12 z-40 hidden lg:flex flex-col items-center gap-8"
+      >
+        <a
+          href="mailto:gabrielnbs.dev@gmail.com"
+          className="text-foreground/40 hover:text-accent font-mono text-sm tracking-[0.2em] [writing-mode:vertical-rl] transition-all duration-300 hover:-translate-y-2 block"
+        >
+          gabrielnbs.dev@gmail.com
+        </a>
+        <div className="w-[1px] h-24 xl:h-32 bg-foreground/20" />
+      </motion.div>
     </>
   );
 }
+

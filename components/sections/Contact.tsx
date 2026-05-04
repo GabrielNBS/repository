@@ -8,14 +8,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="flex relative w-full h-screen flex-col justify-center items-center gap-4 overflow-hidden"
+      className="section-standard flex flex-col justify-center items-center gap-4 overflow-hidden"
     >
       <div className="max-w-4xl text-center px-4 z-10">
-        <FadeInText>
-          <span className="text-accent font-mono text-fluid-sm mb-4 block tracking-widest uppercase">
-            Oportunidades
-          </span>
-        </FadeInText>
+        <h2 className="text-[clamp(3rem,6vw,5rem)] font-black text-foreground text-center mb-6">
+          <SquishyText text="Entre em contato" className="justify-center" />
+        </h2>
+
 
         <h2 className="text-fluid-2xl font-black text-foreground mb-6 leading-tight">
           <SquishyText text="Pronto para o próximo desafio?" className="justify-center" />
