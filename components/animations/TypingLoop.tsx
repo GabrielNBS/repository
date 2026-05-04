@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 
 type TypingLoopProps = {
   texts: string[];
@@ -21,24 +21,19 @@ export default function TypingLoop({ texts, duration = 3000 }: TypingLoopProps) 
   }, [texts.length, duration]);
 
   return (
-    <div
-      className="inline-flex h-10 w-full overflow-hidden relative align-bottom"
-      style={{ justifyContent: isMobile ? "center" : "flex-start" }}
-    >
+    <span className="inline-flex h-[1.6em] min-w-[200px] overflow-hidden relative align-baseline">
       <AnimatePresence mode="wait">
-        <motion.div
+        <motion.span
           key={texts[current]}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: "0%", opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
+          initial={{ y: '100%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
           className="absolute whitespace-nowrap"
         >
-          <span className="text-[clamp(1.5rem,3vw,1.75rem)] font-medium leading-relaxed text-foreground">
-            {texts[current]}
-          </span>
-        </motion.div>
+          <span className="font-bold text-accent">{texts[current]}</span>
+        </motion.span>
       </AnimatePresence>
-    </div>
+    </span>
   );
 }

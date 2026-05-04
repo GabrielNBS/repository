@@ -2,6 +2,14 @@
 
 /* ===== THEME TOKENS ===== */
 @theme {
+  /* Fluid Typography */
+  --text-fluid-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --text-fluid-sm: clamp(0.875rem, 1.5vw, 1.125rem);
+  --text-fluid-base: clamp(1rem, 2.5vw, 1.125rem);
+  --text-fluid-lg: clamp(1.5rem, 3vw, 1.75rem);
+  --text-fluid-xl: clamp(2rem, 4vw, 2.5rem);
+  --text-fluid-2xl: clamp(3rem, 6vw, 5rem);
+
   /* Light theme (default) */
   --color-background: #fffbf5;
   --color-background-secondary: #f7efe5;

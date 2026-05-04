@@ -1,8 +1,8 @@
-import SocialNavBar from "@/components/ui/SocialNavBar";
-import AnimatedText from "@/components/animations/AnimatedText";
-import FadeInText from "@/components/animations/FadeInText";
-import TypingLoop from "@/components/animations/TypingLoop";
-import ScrollMouseIndicator from "@/components/ui/ScrollMouseIndicator";
+import AnimatedText from '@/components/animations/AnimatedText';
+import FadeInText from '@/components/animations/FadeInText';
+import TypingLoop from '@/components/animations/TypingLoop';
+import ScrollMouseIndicator from '@/components/ui/ScrollMouseIndicator';
+import Button from '@/components/ui/Button';
 
 export default function Hero() {
   return (
@@ -15,30 +15,27 @@ export default function Hero() {
         真由美と沙織
       </span>
 
-      <div className="container max-[767px]:w-[90%] max-[767px]:text-center max-[1023px]:w-[90%] max-[1023px]:text-center">
-        <h2 className="text-[clamp(3rem,6vw,5rem)] font-black leading-relaxed text-foreground">
-          <AnimatedText text="Olá, sou o Gabriel" />
-        </h2>
-
-        <FadeInText>
-          <h3 className="text-[clamp(1.5rem,3vw,1.75rem)] font-medium leading-relaxed text-foreground">
-            Crio interfaces intuitivas e responsivas, explorando as melhores
-            práticas de:
-          </h3>
-        </FadeInText>
-
-        <strong className="block text-accent">
-          <TypingLoop
-            texts={[
-              "desenvolvimento.",
-              "performance.",
-              "UI/UX.",
-              "acessibilidade.",
-            ]}
-          />
-        </strong>
-
-        <SocialNavBar />
+      <div className="container px-6 md:px-12 flex flex-col gap-10 max-w-4xl max-[1023px]:text-center">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-fluid-2xl font-black leading-tight text-foreground">
+            <AnimatedText text="Olá, sou o Gabriel" />
+          </h2>
+          <FadeInText delay={0.4}>
+            <h3 className="text-fluid-lg font-medium leading-relaxed text-foreground/70">
+              Desenvolvedor front-end especializado em criar interfaces web intuitivas e
+              responsivas, explorando as melhores práticas de{' '}
+              <TypingLoop
+                texts={[
+                  'desenvolvimento.',
+                  'performance.',
+                  'UI/UX.',
+                  'acessibilidade.',
+                  'pixel-perfect.'
+                ]}
+              />
+            </h3>
+          </FadeInText>
+        </div>
       </div>
 
       <ScrollMouseIndicator />

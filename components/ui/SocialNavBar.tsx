@@ -1,82 +1,62 @@
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
+'use client';
+
+import { motion } from 'motion/react';
+import { FaGithub, FaLinkedinIn, FaWhatsapp, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function SocialNavBar() {
-  const links = [
+  const socialLinks = [
     {
-      href: "https://www.linkedin.com/in/gabrielnascimento-dev/",
-      label: "Link para Linkedin",
-      tooltip: "linkedin",
-      icon: FaLinkedinIn,
-      hoverColor: "#0a66c2",
-    },
-    {
-      href: "https://www.github.com/GabrielNBS",
-      label: "Link para Github",
-      tooltip: "github",
+      href: 'https://www.github.com/GabrielNBS',
       icon: FaGithub,
-      hoverColor: "#181717",
+      label: 'GitHub'
     },
     {
-      href: "https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato.",
-      label: "Link para Whatsapp",
-      tooltip: "whatsapp",
-      icon: FaWhatsapp,
-      hoverColor: "#25d366",
+      href: 'https://www.linkedin.com/in/gabrielnascimento-dev/',
+      icon: FaLinkedinIn,
+      label: 'LinkedIn'
     },
+    {
+      href: 'https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato.',
+      icon: FaWhatsapp,
+      label: 'WhatsApp'
+    }
   ];
 
   return (
-    <div>
-      <ul className="inline-flex list-none h-[120px] justify-center mt-[50px] [&_svg]:text-[2rem]">
-        {links.map((link) => (
-          <li
-            key={link.tooltip}
-            className="group relative bg-transparent rounded-full mx-2.5 w-[50px] h-[50px] text-lg flex justify-center items-center flex-col cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]"
-            style={{
-              boxShadow: `0 10px 10px rgba(var(--color-shadow-secondary))`,
-            }}
-          >
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-              className="flex justify-center items-center"
-            >
-              <span
-                className="absolute top-0 text-sm text-white py-[5px] px-2 rounded-[5px]
-                opacity-0 pointer-events-none
-                transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]
-                group-hover:-top-[45px] group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
-                before:absolute before:content-[''] before:h-2 before:w-2 before:-bottom-[3px]
-                before:left-1/2 before:-translate-x-1/2 before:rotate-45
-                before:transition-all before:duration-300 before:ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]"
-                style={
-                  {
-                    backgroundColor: "#fff",
-                    "--hover-color": link.hoverColor,
-                  } as React.CSSProperties
-                }
+    <>
+      {/* Left Side - Social Icons */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        className="fixed left-6 lg:left-10 bottom-0 z-40 hidden md:flex flex-col items-center gap-6"
+      >
+        <ul className="flex flex-col gap-5 items-center list-none p-0 m-0">
+          {socialLinks.map((social) => (
+            <li key={social.label}>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-foreground/60 hover:text-accent hover:-translate-y-1 transition-all duration-300 block p-1"
+                aria-label={social.label}
               >
-                <style>{`
-                  .group:hover .tooltip-${link.tooltip} {
-                    background-color: ${link.hoverColor} !important;
-                  }
-                  .group:hover .tooltip-${link.tooltip}::before {
-                    background-color: ${link.hoverColor} !important;
-                  }
-                `}</style>
-                <span className={`tooltip-${link.tooltip}`}>{link.tooltip}</span>
-              </span>
-              <link.icon className="text-foreground text-[1.2em]" />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+                <social.icon size={20} />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="w-[1px] h-24 bg-foreground/30" />
+      </motion.div>
+
+      {/* Right Side - Email */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="fixed right-6 lg:right-10 bottom-0 z-40 hidden md:flex flex-col items-center gap-6"
+      ></motion.div>
+    </>
   );
 }

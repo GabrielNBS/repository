@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="flex justify-around items-center w-full absolute left-0 bottom-0 max-[767px]:flex-col-reverse max-[767px]:gap-4">
-      <label className="text-[clamp(0.75rem,2vw,0.875rem)] font-semibold text-foreground opacity-50">
+      <label className="text-fluid-xs font-semibold text-foreground opacity-50">
         © {getCurrentYear()} Gabriel Nascimento. Todos os direitos reservados.
       </label>
 

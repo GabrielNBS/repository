@@ -1,14 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import Logo from "@/components/ui/Logo";
-import ThemeToggle from "@/components/ui/ThemeToggle";
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import Logo from '@/components/ui/Logo';
+import { cn } from '@/lib/utils';
+import ThemeToggle from '@/components/ui/ThemeToggle';
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,34 +33,29 @@ export default function Header() {
       if (mobileMenuOpen) setIsMobileMenuOpen(false);
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [mobileMenuOpen]);
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full h-20 px-4 flex rounded-2xl justify-between items-center z-10
-        bg-transparent transition-all duration-300 will-change-transform
-        before:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:bg-background
-        before:contrast-110 before:opacity-0 before:scale-95 before:z-[-1] before:transition-all before:duration-300
-        before:shadow-[15px_15px_30px_var(--color-shadow-primary)]
-        max-[767px]:before:hidden
-        ${isScrolled ? "!w-[24dvw] !top-[2%] !left-[2%] opacity-95 before:!opacity-100 before:!scale-100 max-[767px]:!w-full max-[767px]:!left-0 max-[767px]:!opacity-85" : ""}`}
+        className={cn(
+          'fixed top-0 left-0 w-full h-20 px-8! flex justify-between items-center z-50 transition-all duration-300 will-change-[width,top,left] box-border',
+          isScrolled
+            ? 'w-[24dvw]! top-[2%]! left-[2%]! bg-background shadow-lg rounded-2xl opacity-95 max-[767px]:w-full! max-[767px]:left-0! max-[767px]:top-0!'
+            : 'bg-transparent'
+        )}
       >
-        <h1
-          onClick={handleClick}
-          aria-label="Logo"
-          className="cursor-pointer max-[767px]:hidden"
-        >
+        <h1 onClick={handleClick} aria-label="Logo" className="cursor-pointer max-[767px]:hidden">
           <Logo />
         </h1>
 
@@ -101,9 +93,9 @@ export default function Header() {
             className="flex flex-col justify-around items-center fixed h-dvh w-4/5 max-w-[300px]
             top-0 left-0 bg-background contrast-110 rounded-r-2xl z-[3] p-8
             shadow-[2px_0_15px_rgba(0,0,0,0.3)] min-[1023px]:hidden"
-            initial={{ x: "-100%", opacity: 0 }}
-            animate={{ x: "0%", opacity: 1 }}
-            exit={{ x: "-100%", opacity: 0 }}
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={{ x: '0%', opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
             transition={{ duration: 0.3 }}
             aria-label="Menu de navegação mobile"
           >
@@ -115,20 +107,20 @@ export default function Header() {
               <ul>
                 {[
                   {
-                    href: "https://www.linkedin.com/in/gabrielnascimento-dev/",
-                    label: "Linkedin",
-                    icon: FaLinkedinIn,
+                    href: 'https://www.linkedin.com/in/gabrielnascimento-dev/',
+                    label: 'Linkedin',
+                    icon: FaLinkedinIn
                   },
                   {
-                    href: "https://www.github.com/GabrielNBS",
-                    label: "GitHub",
-                    icon: FaGithub,
+                    href: 'https://www.github.com/GabrielNBS',
+                    label: 'GitHub',
+                    icon: FaGithub
                   },
                   {
-                    href: "https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato.",
-                    label: "Whatsapp",
-                    icon: FaWhatsapp,
-                  },
+                    href: 'https://wa.me/+5532984286600?text=Olá!%20Gostaria%20de%20entrar%20em%20contato.',
+                    label: 'Whatsapp',
+                    icon: FaWhatsapp
+                  }
                 ].map((link) => (
                   <li key={link.label} className="my-4">
                     <a

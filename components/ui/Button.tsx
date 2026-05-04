@@ -27,7 +27,7 @@ export default function Button({
 }: ButtonComponentProps) {
   const baseClasses = cn(
     "inline-block relative overflow-hidden px-[1.7rem] py-[0.7rem]",
-    "text-[clamp(0.875rem,1.5vw,1.125rem)] font-bold rounded-[0.5em]",
+    "text-fluid-sm font-bold rounded-[0.5em]",
     "border border-transparent cursor-pointer",
     "bg-background contrast-110 text-foreground",
     "shadow-[12px_12px_24px_var(--color-shadow-primary),-12px_-12px_24px_var(--color-shadow-secondary)]",

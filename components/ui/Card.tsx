@@ -61,7 +61,7 @@ export default function Card({ icon: Icon, title, description, delay }: CardProp
           <div className="cardIcon [&_svg]:w-14 [&_svg]:h-14 [&_svg]:mx-auto [&_svg]:mb-4 [&_svg]:text-white group-hover:animate-[float_3s_ease-in-out_infinite]">
             <Icon />
           </div>
-          <h2 className="text-[clamp(2rem,3vw,1.75rem)] font-bold text-white">
+          <h2 className="text-fluid-xl font-bold text-white">
             {title}
           </h2>
           <br />

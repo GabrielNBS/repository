@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
-import Button from "@/components/ui/Button";
-import Modal from "@/components/ui/Modal";
-import PulsePointer from "@/components/ui/PulsePointer";
-import SquishyText from "@/components/animations/SquishyText";
-import CustomImage from "@/components/ui/CustomImage";
-import LinkPreview from "@/components/ui/LinkPreview";
-import Tag from "@/components/ui/Tag";
-import { FaGithub } from "react-icons/fa6";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import Button from '@/components/ui/Button';
+import Modal from '@/components/ui/Modal';
+import PulsePointer from '@/components/ui/PulsePointer';
+import SquishyText from '@/components/animations/SquishyText';
+import CustomImage from '@/components/ui/CustomImage';
+import LinkPreview from '@/components/ui/LinkPreview';
+import Tag from '@/components/ui/Tag';
+import { FaGithub } from 'react-icons/fa6';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 type ProjectCardProps = {
   id: number;
@@ -32,18 +32,18 @@ type ProjectCardProps = {
 };
 
 function useScreenType() {
-  const [screenType, setScreenType] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [screenType, setScreenType] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
-      if (width >= 1024) setScreenType("desktop");
-      else if (width >= 768) setScreenType("tablet");
-      else setScreenType("mobile");
+      if (width >= 1024) setScreenType('desktop');
+      else if (width >= 768) setScreenType('tablet');
+      else setScreenType('mobile');
     };
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   return screenType;
@@ -59,46 +59,53 @@ export default function ProjectCard({
   deploy,
   github,
   isNew = false,
-  bgColor,
+  bgColor
 }: ProjectCardProps) {
   const screenType = useScreenType();
   const [showModal, setShowModal] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    // Animar a entrada do mockup amarrado ao scroll (scrub) com efeito 3D estilo "abertura de tela"
-    gsap.set(mockupRef.current, {
-      transformPerspective: 1200,
-      transformOrigin: "bottom center",
-    });
+  useGSAP(
+    () => {
+      // 1. Configurar perspectiva do mockup
+      gsap.set(mockupRef.current, {
+        transformPerspective: 1200,
+        transformOrigin: 'bottom center'
+      });
 
-    gsap.from(mockupRef.current, {
-      y: 120,
-      scale: 0.85,
-      rotationX: -60, // Gira a imagem como se fosse a tampa de um notebook abrindo
-      opacity: 0,
-      ease: "power1.out",
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 85%",
-        end: "top 20%",
-        scrub: 1,
-      },
-    });
-  }, { scope: sectionRef });
+      gsap.from(mockupRef.current, {
+        y: 120,
+        scale: 0.85,
+        rotationX: -60,
+        opacity: 0,
+        ease: 'power1.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          scrub: 1
+        }
+      });
+    },
+    { scope: sectionRef }
+  );
 
   const getMockupImage = () => {
     switch (screenType) {
-      case "desktop": return mockups[2];
-      case "tablet": return mockups[1];
-      case "mobile": return mockups[0];
-      default: return mockups[2];
+      case 'desktop':
+        return mockups[2];
+      case 'tablet':
+        return mockups[1];
+      case 'mobile':
+        return mockups[0];
+      default:
+        return mockups[2];
     }
   };
 
   return (
-    <section
+    <div
       ref={sectionRef}
       data-number={id}
       data-bg-color={bgColor}
@@ -110,27 +117,25 @@ export default function ProjectCard({
       [&_h2]:mb-2 [&_h2]:flex [&_h2]:items-center [&_h2]:flex-wrap [&_h2]:gap-4"
     >
       {/* Description (hidden on mobile) */}
-      {screenType !== "mobile" && (
+      {screenType !== 'mobile' && (
         <div className="flex flex-col justify-center text-foreground w-full [&>p]:contrast-50 [&>p]:mb-4">
           <div className="flex items-center gap-4">
-            <h2 className="text-[clamp(2rem,4vw,2.5rem)] font-bold">
+            <h2 className="text-fluid-xl font-bold">
               <PulsePointer />
               <SquishyText text={title} />
             </h2>
             {isNew && <Tag />}
           </div>
 
-          <p className="text-[clamp(1rem,2.5vw,1.125rem)] leading-relaxed">
-            {description}
-          </p>
+          <p className="text-fluid-base leading-relaxed">{description}</p>
 
-          <ul className="flex flex-wrap gap-4 mb-12">
-            {techs.map((tech, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <p className="text-[clamp(1rem,2.5vw,1.125rem)] font-bold">{tech}</p>
-              </li>
+          <div className="flex flex-wrap gap-2 pt-2">
+            {techs.map((tech) => (
+              <Tag key={tech}>
+                <p className="text-fluid-base font-bold">{tech}</p>
+              </Tag>
             ))}
-          </ul>
+          </div>
 
           <div className="flex gap-4 overflow-visible">
             {github && (
@@ -169,11 +174,8 @@ export default function ProjectCard({
         className="flex justify-center items-center max-w-full h-auto
         max-[767px]:flex-col max-[767px]:gap-8 max-[767px]:max-w-[80%]"
       >
-        <CustomImage
-          src={getMockupImage()}
-          alt={`Mockup ${screenType} do projeto ${title}`}
-        />
-        {screenType === "mobile" && (
+        <CustomImage src={getMockupImage()} alt={`Mockup ${screenType} do projeto ${title}`} />
+        {screenType === 'mobile' && (
           <Button
             as="button"
             onClick={() => setShowModal(true)}
@@ -195,6 +197,6 @@ export default function ProjectCard({
           onClose={() => setShowModal(false)}
         />
       )}
-    </section>
+    </div>
   );
 }
