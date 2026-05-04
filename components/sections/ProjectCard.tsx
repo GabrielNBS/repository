@@ -103,10 +103,10 @@ export default function ProjectCard({
       data-number={id}
       data-bg-color={bgColor}
       id={name}
-      className="grid h-dvh w-full grid-cols-[40%_60%] justify-center px-16 gap-8 relative overflow-hidden project-section
+      className="section-standard grid grid-cols-[40%_60%] justify-center gap-8 project-section
       before:content-[attr(data-number)] before:absolute before:bg-transparent before:top-4 before:right-4
       before:text-[8rem] before:font-bold before:[-webkit-text-stroke:2px_var(--color-shadow-secondary)] before:opacity-50
-      max-[767px]:flex max-[767px]:px-0 max-[767px]:before:top-0 max-[767px]:before:text-[5rem]
+      max-[1023px]:flex max-[1023px]:flex-col max-[767px]:before:top-0 max-[767px]:before:text-[5rem]
       [&_h2]:mb-2 [&_h2]:flex [&_h2]:items-center [&_h2]:flex-wrap [&_h2]:gap-4"
     >
       {/* Description (hidden on mobile) */}

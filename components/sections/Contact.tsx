@@ -5,7 +5,7 @@ import { FaEnvelope, FaLinkedin } from "react-icons/fa";
 
 export default function Contact() {
   return (
-    <section className="flex relative w-full h-screen flex-col justify-center items-center gap-4">
+    <section className="section-standard flex flex-col justify-center items-center gap-4">
       <h2 className="text-[clamp(3rem,6vw,5rem)] font-black text-foreground text-center">
         <SquishyText text="Entre em contato" className="justify-center" />
       </h2>

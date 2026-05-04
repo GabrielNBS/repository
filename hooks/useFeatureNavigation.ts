@@ -1,25 +1,22 @@
 import { useState, useCallback } from 'react';
+import { Project } from '@/data/projects';
 
-interface NavItem {
-	id: string | number;
-}
-
-export const useFeatureNavigation = <T extends NavItem>(items: T[]) => {
-	const [activeId, setActiveId] = useState<string>(String(items[0].id));
+export const useFeatureNavigation = (projects: Project[]) => {
+	const [activeId, setActiveId] = useState<string>(String(projects[0].id));
 
 	const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-		const currentIndex = items.findIndex(item => String(item.id) === activeId);
+		const currentIndex = projects.findIndex(p => String(p.id) === activeId);
 		
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			const nextIndex = (currentIndex + 1) % items.length;
-			setActiveId(String(items[nextIndex].id));
+			const nextIndex = (currentIndex + 1) % projects.length;
+			setActiveId(String(projects[nextIndex].id));
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
-			const prevIndex = (currentIndex - 1 + items.length) % items.length;
-			setActiveId(String(items[prevIndex].id));
+			const prevIndex = (currentIndex - 1 + projects.length) % projects.length;
+			setActiveId(String(projects[prevIndex].id));
 		}
-	}, [activeId, items]);
+	}, [activeId, projects]);
 
 	return {
 		activeId,

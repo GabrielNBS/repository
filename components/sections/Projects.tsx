@@ -1,16 +1,7 @@
 import projects from "@/data/projects";
 import ProjectCard from "./ProjectCard";
-import ProjectsShowcase from "./ProjectsShowcase";
 
-interface ProjectsProps {
-  variation?: "list" | "showcase";
-}
-
-export default function Projects({ variation = "showcase" }: ProjectsProps) {
-  if (variation === "showcase") {
-    return <ProjectsShowcase />;
-  }
-
+export default function Projects() {
   return (
     <>
       {projects.map((project, index) => (

@@ -29,8 +29,8 @@ const techs = [
 export default function About() {
   return (
     <section
-      className="grid grid-cols-2 h-screen w-full px-16 gap-4
-      max-[1023px]:flex max-[1023px]:h-auto max-[1023px]:flex-col max-[1023px]:p-0 max-[1023px]:justify-center"
+      className="section-standard grid grid-cols-2 gap-4
+      max-[1023px]:flex max-[1023px]:flex-col max-[1023px]:justify-center"
     >
       {/* Description side */}
       <div className="flex flex-col justify-center items-center gap-8">
