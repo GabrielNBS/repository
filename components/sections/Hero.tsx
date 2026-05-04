@@ -6,7 +6,7 @@ import ScrollMouseIndicator from "@/components/ui/ScrollMouseIndicator";
 
 export default function Hero() {
   return (
-    <main id="home" className="section-standard flex items-center">
+    <main id="home" className="container section-standard flex items-center">
       <span
         className="absolute text-transparent text-[104px] [writing-mode:vertical-lr]
         [-webkit-text-stroke:2px_var(--color-shadow-tertiary)] pointer-events-none right-[50px] top-[1em]
@@ -15,7 +15,10 @@ export default function Hero() {
         真由美と沙織
       </span>
 
-      <div className="container max-[1023px]:text-center">
+      <div className=" max-[1023px]:text-center">
+        <span className="text-accent font-mono text-sm tracking-widest uppercase mb-4 block">
+          Designer & Desenvolvedor Frontend
+        </span>
         <h2 className="text-[clamp(3rem,6vw,5rem)] font-black leading-relaxed text-foreground">
           <AnimatedText text="Olá, sou o Gabriel" />
         </h2>
@@ -27,7 +30,7 @@ export default function Hero() {
           </h3>
         </FadeInText>
 
-        <strong className="block text-accent">
+        <strong className="block">
           <TypingLoop
             texts={[
               "desenvolvimento.",

@@ -34,7 +34,7 @@ export default function TypingLoop({ texts, duration = 3000 }: TypingLoopProps) 
           transition={{ duration: 0.4, ease: "easeInOut" }}
           className="absolute whitespace-nowrap"
         >
-          <span className="text-[clamp(1.5rem,3vw,1.75rem)] font-medium leading-relaxed text-foreground">
+          <span className="text-[clamp(1.5rem,3vw,1.75rem)] font-medium leading-relaxed text-accent">
             {texts[current]}
           </span>
         </motion.div>
