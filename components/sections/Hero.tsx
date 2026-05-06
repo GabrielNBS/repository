@@ -1,6 +1,6 @@
 import AnimatedText from '@/components/animations/AnimatedText';
 import FadeInText from '@/components/animations/FadeInText';
-import TypingLoop from '@/components/animations/TypingLoop';
+import RotatingText from '@/components/animations/RotatingText';
 import ScrollMouseIndicator from '@/components/ui/ScrollMouseIndicator';
 import SocialNavBar from '@/components/ui/SocialNavBar';
 
@@ -27,7 +27,7 @@ export default function Hero() {
             <h3 className="text-fluid-lg font-medium leading-relaxed text-foreground/70">
               Desenvolvedor front-end especializado em criar interfaces web intuitivas e
               responsivas, explorando as melhores práticas de{' '}
-              <TypingLoop
+              <RotatingText
                 texts={[
                   'desenvolvimento.',
                   'performance.',
@@ -35,6 +35,13 @@ export default function Hero() {
                   'acessibilidade.',
                   'pixel-perfect.'
                 ]}
+                mainClassName="text-accent overflow-visible inline-flex"
+                staggerDuration={0.025}
+                splitBy="characters"
+                auto={true}
+                rotationInterval={3000}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                elementLevelClassName="text-[clamp(1.5rem,3vw,1.75rem)] font-medium"
               />
             </h3>
           </FadeInText>

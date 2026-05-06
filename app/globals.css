@@ -24,300 +24,313 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
-/* ===== DARK THEME ===== */
-.dark {
-  --color-background: #191716;
-  --color-background-secondary: #156064;
-  --color-foreground: #fff;
-  --color-accent: #00c49a;
-  --color-tertiary: #000;
-  --color-shadow-primary: rgba(29, 19, 17, 0.6);
-  --color-shadow-secondary: rgba(18, 15, 15, 0.8);
-  --color-shadow-tertiary: rgba(100, 100, 100, 0.2);
-}
-
 /* ===== BASE STYLES ===== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  .dark {
+    --color-background: #191716;
+    --color-background-secondary: #156064;
+    --color-foreground: #fff;
+    --color-accent: #00c49a;
+    --color-tertiary: #000;
+    --color-shadow-primary: rgba(29, 19, 17, 0.6);
+    --color-shadow-secondary: rgba(18, 15, 15, 0.8);
+    --color-shadow-tertiary: rgba(100, 100, 100, 0.2);
+  }
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    scroll-behavior: smooth;
+    height: 100vh;
+    overscroll-behavior-y: contain;
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    transition: color 0.3s ease;
+  }
+
+  a,
+  li {
+    text-decoration: none;
+    list-style: none;
+    color: inherit;
+  }
 }
 
-html,
-body {
-  scroll-behavior: smooth;
-  height: 100vh;
-  overscroll-behavior-y: contain;
-  font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  transition: color 0.3s ease;
-}
+/* ===== COMPONENT STYLES ===== */
+@layer components {
+  .container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-a,
-li {
-  text-decoration: none;
-  list-style: none;
-  color: inherit;
-}
-
-.container {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.section-standard {
-  width: 100%;
-  min-height: 100dvh;
-  position: relative;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  overflow: hidden;
-}
-
-@media (max-width: 1023px) {
   .section-standard {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    width: 100%;
+    min-height: 100dvh;
+    position: relative;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    .section-standard {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section-standard {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  i {
+    font-size: 1.2rem;
+    border-radius: 8px;
+  }
+
+  .gradient-text {
+    color: var(--color-accent);
+    background: linear-gradient(
+      45deg,
+      var(--color-foreground),
+      var(--color-accent)
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientAnimation 3s ease infinite;
   }
 }
 
-@media (max-width: 767px) {
-  .section-standard {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+/* ===== UTILITIES & KEYFRAMES ===== */
+@layer utilities {
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
-}
 
-i {
-  font-size: 1.2rem;
-  border-radius: 8px;
-}
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-/* ===== GRADIENT TEXT UTILITY ===== */
-.gradient-text {
-  color: var(--color-accent);
-  background: linear-gradient(45deg, var(--color-foreground), var(--color-accent));
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientAnimation 3s ease infinite;
-}
+  @keyframes pulse-pointer {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.7;
+    }
+    70% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
 
-/* ===== KEYFRAMES ===== */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
+  @keyframes wave {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes pulse-pointer {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.7;
+  @keyframes scroll-horizontal {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
-  70% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-}
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
+  @keyframes shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+    75% {
+      transform: rotate(-5deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
-@keyframes wave {
-  0% {
-    transform: rotate(0deg);
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-@keyframes scroll-horizontal {
-  from {
-    transform: translateX(0);
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
-  to {
-    transform: translateX(-50%);
-  }
-}
 
-@keyframes shake {
-  0% {
-    transform: rotate(0deg);
+  @keyframes svgDraw {
+    0% {
+      stroke-dashoffset: 1000;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
   }
-  25% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
-  75% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+  @keyframes drawMouse {
+    0% {
+      opacity: 0;
+      box-shadow: 0 0 0 transparent;
+    }
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 12px
+        color-mix(in srgb, var(--color-accent) 33%, transparent);
+    }
   }
-  100% {
-    background-position: 200% 0;
-  }
-}
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
+  @keyframes dropDot {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
   }
-  50% {
-    opacity: 0.5;
-  }
-}
 
-@keyframes svgDraw {
-  0% {
-    stroke-dashoffset: 1000;
-    opacity: 0;
+  @keyframes toggle-float {
+    0%,
+    100% {
+      transform: translateY(-10px) rotateX(15deg) rotateY(-20deg);
+    }
+    50% {
+      transform: translateY(0px) rotateX(15deg) rotateY(-20deg);
+    }
   }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
 
-@keyframes drawMouse {
-  0% {
-    opacity: 0;
-    box-shadow: 0 0 0 transparent;
-  }
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 33%, transparent);
-  }
-}
-
-@keyframes dropDot {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-}
-
-@keyframes toggle-float {
-  0%,
-  100% {
-    transform: translateY(-10px) rotateX(15deg) rotateY(-20deg);
-  }
-  50% {
-    transform: translateY(0px) rotateX(15deg) rotateY(-20deg);
-  }
-}
-
-@keyframes waveGradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+  @keyframes waveGradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 }
 
 /* ===== FONT FACES ===== */
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+@layer base {
+  @font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/Heavy.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
 }
 
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/Heavy.ttf") format("truetype");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}

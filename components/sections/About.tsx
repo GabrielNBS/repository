@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import Image from "next/image";
-import { ArrowRight, Download, Users, Briefcase, Calendar } from "lucide-react";
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { ArrowRight, Download } from 'lucide-react';
 import {
   SiNextdotjs,
   SiRedux,
@@ -15,6 +15,8 @@ import {
 } from 'react-icons/si';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import TechSpan from '@/components/ui/TechSpan';
+import SpotlightCard from '@/components/animations/SpotlightCard';
+import InteractiveStatIcon from '@/components/ui/InteractiveStatIcon';
 
 const techs = [
   { icon: <SiNextdotjs size={20} />, name: 'Next.js' },
@@ -31,13 +33,16 @@ const techs = [
 
 export default function About() {
   const stats = [
-    { icon: <Calendar className="w-5 h-5" />, value: "[12+]", label: "anos de experiência" },
-    { icon: <Briefcase className="w-5 h-5" />, value: "[40+]", label: "projetos entregues" },
-    { icon: <Users className="w-5 h-5" />, value: "[98%]", label: "de clientes recorrentes" },
+    { type: 'calendar' as const, value: '[12+]', label: 'anos de experiência' },
+    { type: 'briefcase' as const, value: '[40+]', label: 'projetos entregues' },
+    { type: 'users' as const, value: '[98%]', label: 'de clientes recorrentes' }
   ];
 
   return (
-    <section id="about" className="section-standard min-h-screen flex items-center py-20 relative overflow-hidden bg-background">
+    <section
+      id="about"
+      className="section-standard min-h-screen flex items-center py-20 relative overflow-hidden bg-background"
+    >
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 -z-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
@@ -51,10 +56,10 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.95, x: -20 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
               className="relative group"
             >
-              <div className="relative z-10 rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl border border-foreground/5">
+              <div className="relative z-10 rounded-3xl overflow-hidden aspect-4/5 shadow-2xl border border-foreground/5">
                 <Image
                   src="/images/avatar.png"
                   alt="Developer Avatar"
@@ -62,22 +67,24 @@ export default function About() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -bottom-8 -left-8 -z-10 w-48 h-48 border-2 border-accent/20 rounded-3xl animate-pulse" />
               <div className="absolute -top-8 -right-8 -z-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 transition-colors duration-700" />
-              
+
               {/* Floating badge */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-4 top-1/4 z-20 bg-background/80 backdrop-blur-md border border-foreground/10 px-4 py-2 rounded-xl shadow-xl hidden md:block"
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -right-6 top-1/10 z-20 bg-background/90 backdrop-blur-xl border border-foreground/10 px-6 py-3 rounded-2xl shadow-2xl hidden md:block"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-bold uppercase tracking-tighter">Disponível para Projetos</span>
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-tighter">
+                    Disponível para Projetos
+                  </span>
                 </div>
               </motion.div>
             </motion.div>
@@ -87,54 +94,127 @@ export default function About() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
               className="flex flex-col gap-12"
             >
               <div className="space-y-8 text-lg md:text-xl text-foreground/70 leading-relaxed font-light">
                 <p>
-                  Trabalho na interseção entre design e código. Comecei como designer,
-                  migrei para o frontend e nunca mais separei os dois. Hoje entrego
-                  componentes que respeitam o sistema de design e funcionam em produção —
-                  sem renegociar pixel por pixel com o time de dev.
+                  Trabalho na interseção entre design e código. Comecei como designer, migrei para o
+                  frontend e nunca mais separei os dois. Hoje entrego componentes que respeitam o
+                  sistema de design e funcionam em produção — sem renegociar pixel por pixel com o
+                  time de dev.
                 </p>
                 <p>
-                  Já colaborei com empresas como <span className="text-foreground font-bold">[Empresa A]</span>, 
-                  <span className="text-foreground font-bold"> [Empresa B]</span> e 
-                  <span className="text-foreground font-bold"> [Empresa C]</span>,
-                  em projetos que somam mais de <span className="text-foreground font-bold">[X]</span> usuários ativos.
+                  Já colaborei com empresas como{' '}
+                  <span className="text-foreground font-bold">[Empresa A]</span>,
+                  <span className="text-foreground font-bold"> [Empresa B]</span> e
+                  <span className="text-foreground font-bold"> [Empresa C]</span>, em projetos que
+                  somam mais de <span className="text-foreground font-bold">[X]</span> usuários
+                  ativos.
                 </p>
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {stats.map((stat, idx) => (
-                  <div key={idx} className="flex flex-col gap-3 p-8 rounded-3xl bg-foreground/5 border border-foreground/10 hover:border-accent/40 hover:bg-foreground/[0.07] transition-all duration-300 group">
-                    <div className="text-accent group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
-                      {stat.icon}
-                    </div>
+                  <SpotlightCard
+                    key={idx}
+                    className="flex flex-col gap-3 p-8 rounded-3xl bg-foreground/5 border border-foreground/10 hover:border-accent/40 hover:bg-foreground/[0.07] transition-all duration-300 group"
+                    spotlightColor="color-mix(in srgb, var(--color-accent), transparent 80%)"
+                  >
+                    <InteractiveStatIcon type={stat.type} />
                     <div>
-                      <div className="text-3xl font-black text-foreground tracking-tighter">{stat.value}</div>
-                      <div className="text-sm text-foreground/50 font-medium uppercase tracking-wider">{stat.label}</div>
+                      <div className="text-3xl font-black text-foreground tracking-tighter">
+                        {stat.value}
+                      </div>
+                      <div className="text-sm text-foreground/50 font-medium uppercase tracking-wider">
+                        {stat.label}
+                      </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 ))}
               </div>
 
               {/* CTA Section */}
               <div className="flex flex-wrap items-center gap-8 pt-6">
-                <button className="px-10 py-5 bg-accent text-white rounded-2xl font-bold flex items-center gap-3 hover:bg-accent/90 transition-all shadow-2xl shadow-accent/30 hover:-translate-y-1.5 active:scale-95 cursor-pointer">
-                  Ver projetos <ArrowRight className="w-5 h-5" />
-                </button>
-                <a href="#" className="flex items-center gap-2 font-bold text-foreground/80 hover:text-accent transition-all group relative">
+                <motion.button
+                  whileHover="hover"
+                  whileTap={{ scale: 0.98 }}
+                  title="Ver projetos"
+                  aria-label="Ver projetos"
+                  className="px-10 py-5 bg-accent text-white rounded-2xl font-bold flex items-center gap-3 shadow-2xl shadow-accent/30 cursor-pointer"
+                >
+                  Ver projetos
+                  <motion.span
+                    variants={{
+                      hover: { x: 5 }
+                    }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.span>
+                </motion.button>
+                <motion.a
+                  href="#"
+                  initial="initial"
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="flex items-center gap-2 font-bold text-foreground/80 hover:text-accent transition-all group relative"
+                  title="Baixar currículo"
+                  aria-label="Baixar currículo"
+                >
                   <span>Baixar currículo</span>
-                  <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
-                </a>
+                  <div className="w-4 h-4 relative flex items-center justify-center">
+                    <motion.svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      variants={{
+                        tap: { scale: 0.8 }
+                      }}
+                    >
+                      <motion.path
+                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        variants={{
+                          initial: { pathLength: 0, opacity: 0 },
+                          hover: { pathLength: 1, opacity: 1 }
+                        }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      />
+                      <motion.polyline
+                        points="7 10 12 15 17 10"
+                        variants={{
+                          initial: { pathLength: 0, opacity: 0 },
+                          hover: { pathLength: 1, opacity: 1 }
+                        }}
+                        transition={{ duration: 0.3, delay: 0.2, ease: 'easeInOut' }}
+                      />
+                      <motion.line
+                        x1="12"
+                        y1="15"
+                        x2="12"
+                        y2="3"
+                        variants={{
+                          initial: { pathLength: 0, opacity: 0 },
+                          hover: { pathLength: 1, opacity: 1 }
+                        }}
+                        transition={{ duration: 0.3, delay: 0.4, ease: 'easeInOut' }}
+                      />
+                    </motion.svg>
+                  </div>
+                </motion.a>
               </div>
-              
+
               {/* Techs list */}
               <div className="pt-12 border-t border-foreground/5">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/30 mb-6">Tecnologias</p>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/30 mb-6">
+                  Tecnologias
+                </p>
                 <div className="overflow-hidden py-4 w-full relative">
                   <ul className="flex gap-4 flex-wrap overflow-wrap-break-word">
                     {techs.map((tech, index) => (

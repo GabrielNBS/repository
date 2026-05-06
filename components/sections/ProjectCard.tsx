@@ -17,6 +17,7 @@ import LinkPreview from '@/components/ui/LinkPreview';
 import Tag from '@/components/ui/Tag';
 import { FaGithub } from 'react-icons/fa6';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import TechSpan from '../ui/TechSpan';
 
 type ProjectCardProps = {
   id: number;
@@ -131,9 +132,9 @@ export default function ProjectCard({
 
           <div className="flex flex-wrap gap-2 pt-2">
             {techs.map((tech) => (
-              <Tag key={tech}>
+              <TechSpan key={tech}>
                 <p className="text-fluid-base font-bold">{tech}</p>
-              </Tag>
+              </TechSpan>
             ))}
           </div>
 
