@@ -45,9 +45,6 @@ export default function Home() {
     document.body.style.overflowY = 'auto';
     document.body.style.scrollbarWidth = 'none';
 
-    const isDark = document.documentElement.classList.contains('dark');
-    const defaultColor = isDark ? '#191716' : '#fffbf5';
-
     // 1. Seções Verticais (unidades de snap e background)
     const verticalSections = gsap.utils.toArray(
       '#home, #about, .project-section, #contact'
@@ -66,20 +63,6 @@ export default function Home() {
             setActiveElement(index);
           }
         }
-      });
-
-      // Transição de Background
-      const bgColor = section.getAttribute('data-bg-color') || defaultColor;
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top 65%',
-        end: 'top 35%',
-        scrub: true,
-        onEnter: () =>
-          gsap.to(document.documentElement, { '--color-background': bgColor, duration: 0.5 }),
-        onEnterBack: () =>
-          gsap.to(document.documentElement, { '--color-background': bgColor, duration: 0.5 })
       });
     });
 

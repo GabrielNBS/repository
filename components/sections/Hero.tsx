@@ -15,7 +15,7 @@ export default function Hero() {
         真由美と沙織
       </span>
 
-      <div className="container px-6 md:px-12 flex flex-col gap-10 max-w-4xl max-[1023px]:text-center">
+      <div className=" px-6 md:px-12 flex flex-col gap-10 max-w-4xl max-[1023px]:text-center">
         <div className="flex flex-col gap-4">
           <span className="text-accent font-mono text-sm tracking-widest uppercase mb-4 block">
             Designer & Desenvolvedor Frontend

@@ -4,7 +4,7 @@ import ProjectCard from "./ProjectCard";
 export default function Projects() {
   return (
     <section id="projects" className="w-full">
-      <div className="flex flex-col">
+      <div className="container flex flex-col">
         {projects.map((project, index) => (
           <div key={index} className="w-full">
             <ProjectCard

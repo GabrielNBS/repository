@@ -1,6 +1,29 @@
 @import "tailwindcss";
 
 /* ===== THEME TOKENS ===== */
+:root {
+  /* Light theme (default) */
+  --theme-background: #fffbf5;
+  --theme-background-secondary: #f7efe5;
+  --theme-foreground: #000;
+  --theme-accent: #7743db;
+  --theme-tertiary: #fff;
+  --theme-shadow-primary: rgba(190, 190, 190, 0.6);
+  --theme-shadow-secondary: rgba(255, 255, 255, 0.8);
+  --theme-shadow-tertiary: rgba(121, 121, 121, 0.2);
+}
+
+.dark {
+  --theme-background: #191716;
+  --theme-background-secondary: #156064;
+  --theme-foreground: #fff;
+  --theme-accent: #00c49a;
+  --theme-tertiary: #000;
+  --theme-shadow-primary: rgba(29, 19, 17, 0.6);
+  --theme-shadow-secondary: rgba(18, 15, 15, 0.8);
+  --theme-shadow-tertiary: rgba(100, 100, 100, 0.2);
+}
+
 @theme {
   /* Fluid Typography */
   --text-fluid-xs: clamp(0.75rem, 2vw, 0.875rem);
@@ -10,15 +33,15 @@
   --text-fluid-xl: clamp(2rem, 4vw, 2.5rem);
   --text-fluid-2xl: clamp(3rem, 6vw, 5rem);
 
-  /* Light theme (default) */
-  --color-background: #fffbf5;
-  --color-background-secondary: #f7efe5;
-  --color-foreground: #000;
-  --color-accent: #7743db;
-  --color-tertiary: #fff;
-  --color-shadow-primary: rgba(190, 190, 190, 0.6);
-  --color-shadow-secondary: rgba(255, 255, 255, 0.8);
-  --color-shadow-tertiary: rgba(121, 121, 121, 0.2);
+  /* Theme Colors */
+  --color-background: var(--theme-background);
+  --color-background-secondary: var(--theme-background-secondary);
+  --color-foreground: var(--theme-foreground);
+  --color-accent: var(--theme-accent);
+  --color-tertiary: var(--theme-tertiary);
+  --color-shadow-primary: var(--theme-shadow-primary);
+  --color-shadow-secondary: var(--theme-shadow-secondary);
+  --color-shadow-tertiary: var(--theme-shadow-tertiary);
 
   --font-sans: "SF Pro Display", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -26,17 +49,6 @@
 
 /* ===== BASE STYLES ===== */
 @layer base {
-  .dark {
-    --color-background: #191716;
-    --color-background-secondary: #156064;
-    --color-foreground: #fff;
-    --color-accent: #00c49a;
-    --color-tertiary: #000;
-    --color-shadow-primary: rgba(29, 19, 17, 0.6);
-    --color-shadow-secondary: rgba(18, 15, 15, 0.8);
-    --color-shadow-tertiary: rgba(100, 100, 100, 0.2);
-  }
-
   *,
   *::before,
   *::after {
@@ -78,6 +90,8 @@
     position: relative;
     padding-left: 4rem;
     padding-right: 4rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
     overflow: hidden;
   }
 
@@ -287,6 +301,21 @@
     }
     50% {
       background-position: 100% 50%;
+    }
+  }
+
+  @keyframes smoke-morph {
+    0% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+      transform: translate(5px, -5px) scale(1.1);
+    }
+    100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      transform: translate(-2px, 2px) scale(0.9);
     }
   }
 }

@@ -34,7 +34,7 @@ export default function CustomImage({ src, alt, className }: CustomImageProps) {
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          className={`w-full h-[600px] object-contain animate-[float_3s_ease_infinite] z-[2] relative
+          className={`w-full h-[600px] object-contain animate-[float_3s_ease_infinite] z-[2] relative will-change-transform
             max-[767px]:min-w-[300px] max-[767px]:max-w-[350px]
             transition-opacity duration-500 ease-in-out
             ${loaded ? "opacity-100" : "opacity-0"} ${className || ""}`}
@@ -46,7 +46,7 @@ export default function CustomImage({ src, alt, className }: CustomImageProps) {
           width={1280}
           height={720}
           onLoad={() => setLoaded(true)}
-          className={`w-full h-[600px] object-contain animate-[float_3s_ease_infinite] z-[2] relative
+          className={`w-full h-[600px] object-contain animate-[float_3s_ease_infinite] z-[2] relative will-change-transform
             max-[767px]:min-w-[300px] max-[767px]:max-w-[350px]
             transition-opacity duration-500 ease-in-out
             ${loaded ? "opacity-100" : "opacity-0"} ${className || ""}`}

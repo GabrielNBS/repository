@@ -13,7 +13,6 @@ import Modal from '@/components/ui/Modal';
 import PulsePointer from '@/components/ui/PulsePointer';
 import SquishyText from '@/components/animations/SquishyText';
 import CustomImage from '@/components/ui/CustomImage';
-import LinkPreview from '@/components/ui/LinkPreview';
 import Tag from '@/components/ui/Tag';
 import { FaGithub } from 'react-icons/fa6';
 import { FaExternalLinkAlt } from 'react-icons/fa';
@@ -72,7 +71,8 @@ export default function ProjectCard({
       // 1. Configurar perspectiva do mockup
       gsap.set(mockupRef.current, {
         transformPerspective: 1200,
-        transformOrigin: 'bottom center'
+        transformOrigin: 'bottom center',
+        willChange: 'transform, opacity'
       });
 
       gsap.from(mockupRef.current, {
@@ -80,12 +80,13 @@ export default function ProjectCard({
         scale: 0.85,
         rotationX: -60,
         opacity: 0,
-        ease: 'power1.out',
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
           end: 'top 20%',
-          scrub: 1
+          scrub: 0.5,
+          toggleActions: 'play none none reverse'
         }
       });
     },
@@ -111,7 +112,7 @@ export default function ProjectCard({
       data-number={id}
       data-bg-color={bgColor}
       id={name}
-      className="section-standard grid grid-cols-[40%_60%] justify-center gap-8 project-section
+      className="section-standard grid grid-cols-[45%_55%] items-center justify-center gap-12 project-section
       before:content-[attr(data-number)] before:absolute before:bg-transparent before:top-4 before:right-4
       before:text-[8rem] before:font-bold before:[-webkit-text-stroke:2px_var(--color-shadow-secondary)] before:opacity-50
       max-[1023px]:flex max-[1023px]:flex-col max-[767px]:before:top-0 max-[767px]:before:text-[5rem]
@@ -119,7 +120,7 @@ export default function ProjectCard({
     >
       {/* Description (hidden on mobile) */}
       {screenType !== 'mobile' && (
-        <div className="flex flex-col justify-center text-foreground w-full [&>p]:contrast-50 [&>p]:mb-4">
+        <div className="flex flex-col justify-center gap-6 text-foreground w-full">
           <div className="flex items-center gap-4">
             <h2 className="text-fluid-xl font-bold">
               <PulsePointer />
@@ -128,9 +129,9 @@ export default function ProjectCard({
             {isNew && <Tag />}
           </div>
 
-          <p className="text-fluid-base leading-relaxed">{description}</p>
+          <p className="text-fluid-base leading-relaxed opacity-60">{description}</p>
 
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-2">
             {techs.map((tech) => (
               <TechSpan key={tech}>
                 <p className="text-fluid-base font-bold">{tech}</p>
@@ -140,7 +141,6 @@ export default function ProjectCard({
 
           <div className="flex gap-4 overflow-visible">
             {github && (
-              <LinkPreview type="github">
                 <Button
                   as="a"
                   href={github}
@@ -150,10 +150,8 @@ export default function ProjectCard({
                 >
                   <FaGithub className="inline mr-1" /> Código
                 </Button>
-              </LinkPreview>
             )}
             {deploy && (
-              <LinkPreview type="deploy" image={mockups[2]} url={deploy} title={title}>
                 <Button
                   as="a"
                   href={deploy}
@@ -163,7 +161,6 @@ export default function ProjectCard({
                 >
                   <FaExternalLinkAlt className="inline mr-1" /> Site
                 </Button>
-              </LinkPreview>
             )}
           </div>
         </div>

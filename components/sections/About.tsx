@@ -41,7 +41,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="section-standard min-h-screen flex items-center py-20 relative overflow-hidden bg-background"
+      className="container section-standard min-h-screen flex items-center  relative overflow-hidden bg-background"
     >
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />

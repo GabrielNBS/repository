@@ -49,7 +49,7 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 left-0 w-full h-20 px-8! flex justify-between items-center z-50 transition-all duration-300 will-change-[width,top,left] box-border',
+          'fixed top-0 left-0 w-full h-20 px-8! flex justify-between items-center z-50 transition-[width,top,left,background-color,opacity,border-radius] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[width,top,left,background-color,opacity,border-radius] box-border',
           isScrolled
             ? 'w-[24dvw]! top-[2%]! left-[2%]! bg-background shadow-lg rounded-2xl opacity-95 max-[767px]:w-full! max-[767px]:left-0! max-[767px]:top-0!'
             : 'bg-transparent'
