@@ -1,8 +1,6 @@
-export function cn(...classes: (string | undefined | false | null)[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-export function useReducedMotion() {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }

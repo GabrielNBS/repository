@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useTheme } from "@/components/layout/ThemeProvider";
+import { useTheme } from '@/components/layout/ThemeProvider';
 
 export default function ThemeToggle() {
   const { toggleTheme } = useTheme();
@@ -10,17 +10,17 @@ export default function ThemeToggle() {
       <label
         className="switch relative inline-block w-[3.5em] h-[2em] text-[17px]"
         style={{
-          transformStyle: "preserve-3d",
-          perspective: "500px",
-          animation: "toggle-float 3s infinite",
+          transformStyle: 'preserve-3d',
+          perspective: '500px',
+          animation: 'toggle-float 3s infinite'
         }}
       >
         {/* Blur glow behind the toggle */}
         <span
           className="absolute w-full h-full left-0 top-0 rounded-[50px] -z-1"
           style={{
-            filter: "blur(20px)",
-            backgroundColor: "var(--color-background-secondary)",
+            filter: 'blur(20px)',
+            backgroundColor: 'var(--color-background-secondary)',
             backgroundImage: `
               radial-gradient(at 21% 46%, var(--color-accent) 0px, transparent 50%),
               radial-gradient(at 23% 25%, var(--color-foreground) 0px, transparent 50%),
@@ -28,7 +28,7 @@ export default function ThemeToggle() {
               radial-gradient(at 86% 87%, var(--color-foreground) 0px, transparent 50%),
               radial-gradient(at 99% 41%, var(--color-accent) 0px, transparent 50%),
               radial-gradient(at 55% 24%, var(--color-foreground) 0px, transparent 50%)
-            `,
+            `
           }}
         />
 
@@ -56,13 +56,13 @@ export default function ThemeToggle() {
           peer-checked:translate-x-[1.5em]"
           style={{
             boxShadow:
-              "rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset, rgba(0, 0, 0, 0.09) 0px -1px 15px -8px",
-            backgroundColor: "var(--color-accent)",
+              'rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset, rgba(0, 0, 0, 0.09) 0px -1px 15px -8px',
+            backgroundColor: 'var(--color-accent)',
             backgroundImage: `
               radial-gradient(at 81% 39%, var(--color-accent) 0px, transparent 50%),
               radial-gradient(at 11% 72%, var(--color-foreground) 0px, transparent 50%),
               radial-gradient(at 23% 20%, var(--color-accent) 0px, transparent 50%)
-            `,
+            `
           }}
         />
       </label>

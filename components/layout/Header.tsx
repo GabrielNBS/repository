@@ -6,6 +6,7 @@ import Logo from '@/components/ui/Logo';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import GlassSurface from '@/components/ui/GlassSurface';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,25 +50,45 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 left-0 w-full h-20 px-8! flex justify-between items-center z-50 transition-[width,top,left,background-color,opacity,border-radius] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[width,top,left,background-color,opacity,border-radius] box-border',
+          'fixed top-0 left-0 w-full h-20 z-50 transition-[width,top,left,background-color,border-radius] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[width,top,left,background-color,border-radius] box-border',
           isScrolled
-            ? 'w-[24dvw]! top-[2%]! left-[2%]! bg-background shadow-lg rounded-2xl opacity-95 max-[767px]:w-full! max-[767px]:left-0! max-[767px]:top-0!'
+            ? 'w-[24dvw]! top-[2%]! left-[2%]! shadow-lg rounded-2xl max-[767px]:w-full! max-[767px]:left-0! max-[767px]:top-0!'
             : 'bg-transparent'
         )}
       >
-        <h1 onClick={handleClick} aria-label="Logo" className="cursor-pointer max-[767px]:hidden">
-          <Logo />
-        </h1>
-
-        <div className="max-[767px]:hidden">
-          <ThemeToggle />
+        <div 
+          className="absolute inset-0 -z-10 overflow-hidden rounded-[inherit] transition-opacity duration-500 pointer-events-none" 
+          style={{ opacity: isScrolled ? 1 : 0 }}
+        >
+          <GlassSurface
+            width="100%"
+            height="100%"
+            borderRadius={isScrolled ? 16 : 0}
+            displace={15}
+            distortionScale={-150}
+            redOffset={5}
+            greenOffset={15}
+            blueOffset={25}
+            brightness={60}
+            opacity={0.8}
+            mixBlendMode="screen"
+          />
         </div>
 
-        <button
-          onClick={handleToggleMenu}
-          aria-label="Menu mobile"
-          className="hidden max-[767px]:flex flex-col bg-transparent w-10 h-10 justify-center items-center border-none cursor-pointer relative z-[5]"
-        >
+        <div className="w-full h-full px-8! flex justify-between items-center box-border">
+          <h1 onClick={handleClick} aria-label="Logo" className="cursor-pointer max-[767px]:hidden">
+            <Logo />
+          </h1>
+
+          <div className="max-[767px]:hidden">
+            <ThemeToggle />
+          </div>
+
+          <button
+            onClick={handleToggleMenu}
+            aria-label="Menu mobile"
+            className="hidden max-[767px]:flex flex-col bg-transparent w-10 h-10 justify-center items-center border-none cursor-pointer relative z-[5]"
+          >
           <motion.span
             className="absolute w-full h-[5px] rounded-sm bg-foreground top-2"
             animate={mobileMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
@@ -84,6 +105,7 @@ export default function Header() {
             transition={{ duration: 0.2 }}
           />
         </button>
+        </div>
       </header>
 
       <AnimatePresence>

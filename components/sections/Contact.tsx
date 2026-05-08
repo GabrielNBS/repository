@@ -1,5 +1,5 @@
 import Button from '@/components/ui/Button';
-import SquishyText from '@/components/animations/SquishyText';
+import GradientText from '@/components/ui/GradientText';
 import FadeInText from '@/components/animations/FadeInText';
 import Footer from './Footer';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
@@ -12,12 +12,12 @@ export default function Contact() {
     >
       <div className="max-w-4xl text-center px-4 z-10">
         <h2 className="text-[clamp(3rem,6vw,5rem)] font-black text-foreground text-center mb-6">
-          <SquishyText text="Entre em contato" className="justify-center" />
+          <GradientText colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]} animationSpeed={3} showBorder={false}>Entre em contato</GradientText>
         </h2>
 
 
         <h2 className="text-fluid-2xl font-black text-foreground mb-6 leading-tight">
-          <SquishyText text="Pronto para o próximo desafio?" className="justify-center" />
+          <GradientText colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]} animationSpeed={3} showBorder={false}>Pronto para o próximo desafio?</GradientText>
         </h2>
 
         <FadeInText>
