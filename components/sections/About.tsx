@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from '../ui/ScrollReveal';
 
 const services = [
   {
@@ -43,12 +44,14 @@ export default function About() {
     >
       <div>
         <p className="text-accent text-label font-label mb-4 tracking-widest uppercase">Sobre</p>
-        <h2
+        <ScrollReveal
           id="about-title"
           className="text-display font-heading max-w-[12ch] tracking-normal max-md:max-w-[11ch]"
+          animation='word'
+          as='h2'
         >
           Design limpo com base tecnica.
-        </h2>
+        </ScrollReveal>
       </div>
       <div className="self-end">
         <p className="text-muted text-body">

@@ -11,18 +11,35 @@ if (typeof window !== 'undefined') {
 }
 
 export interface ScrollRevealProps {
+  /** Conteúdo ou string a ser animada. Se for string e a animação for 'word' ou 'letter', ela será dividida dinamicamente. */
   children: React.ReactNode;
+  /** Identificador único opcional para o elemento DOM. */
+  id?: string;
+  /** Tipo de animação predefinida:
+   * - 'fade-up': Desliza para cima com fade-in.
+   * - 'fade-down': Desliza para baixo com fade-in.
+   * - 'scale': Aumenta a escala levemente com fade-in.
+   * - 'word': Divide o texto e revela palavra por palavra (com máscara).
+   * - 'letter': Divide o texto e revela caractere por caractere.
+   */
   animation?: 'fade-up' | 'fade-down' | 'scale' | 'word' | 'letter';
+  /** Duração total da animação em segundos (padrão: 0.8). */
   duration?: number;
+  /** Atraso inicial antes da animação começar em segundos (padrão: 0). */
   delay?: number;
+  /** Intervalo/atraso (stagger) entre a animação de cada palavra ou letra (em segundos). */
   stagger?: number;
+  /** Se for `true` (padrão), a animação roda apenas uma vez quando o elemento entra na tela. Se `false`, reverte a animação ao sair do viewport. */
   once?: boolean;
+  /** Classes CSS de estilização do elemento que irá hospedar o texto. */
   className?: string;
+  /** A tag HTML que envelopa o conteúdo (padrão: 'div'). Ex: 'h2', 'p', 'span', etc. */
   as?: 'div' | 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
 export default function ScrollReveal({
   children,
+  id,
   animation = 'fade-up',
   duration = 0.8,
   delay = 0,
@@ -31,7 +48,7 @@ export default function ScrollReveal({
   className = '',
   as: Component = 'div',
 }: ScrollRevealProps) {
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -101,29 +118,34 @@ export default function ScrollReveal({
   };
 
   return (
-    <Component ref={containerRef} className={className}>
+    <Component id={id} ref={containerRef} className={className}>
       {renderContent()}
     </Component>
   );
 }
 
 // Subcomponentes auxiliares estáticos
+/** Revela o conteúdo deslizando para cima com fade-in ao rolar a página. */
 ScrollReveal.FadeUp = function ScrollRevealFadeUp(props: Omit<ScrollRevealProps, 'animation'>) {
   return <ScrollReveal {...props} animation="fade-up" />;
 };
 
+/** Revela o conteúdo deslizando para baixo com fade-in ao rolar a página. */
 ScrollReveal.FadeDown = function ScrollRevealFadeDown(props: Omit<ScrollRevealProps, 'animation'>) {
   return <ScrollReveal {...props} animation="fade-down" />;
 };
 
+/** Revela o conteúdo aplicando um zoom suave com fade-in ao rolar a página. */
 ScrollReveal.Scale = function ScrollRevealScale(props: Omit<ScrollRevealProps, 'animation'>) {
   return <ScrollReveal {...props} animation="scale" />;
 };
 
+/** Divide a string e revela o conteúdo palavra por palavra (com máscara) ao rolar a página. */
 ScrollReveal.Word = function ScrollRevealWord(props: Omit<ScrollRevealProps, 'animation'>) {
   return <ScrollReveal {...props} animation="word" />;
 };
 
+/** Divide a string e revela o conteúdo caractere por caractere ao rolar a página. */
 ScrollReveal.Letter = function ScrollRevealLetter(props: Omit<ScrollRevealProps, 'animation'>) {
   return <ScrollReveal {...props} animation="letter" />;
 };
