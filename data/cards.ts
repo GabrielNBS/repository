@@ -1,42 +1,34 @@
-import {
-  FaLaptopCode,
-  FaPuzzlePiece,
-  FaServer,
-  FaRocket,
-} from "react-icons/fa";
-import { IconType } from "react-icons";
-
 export interface CardData {
-  icon: IconType;
+  icon: 'code' | 'api' | 'rocket' | 'components';
   title: string;
   description: string;
 }
 
 const cards: CardData[] = [
   {
-    icon: FaLaptopCode,
-    title: "Desenvolvimento de Software",
+    icon: 'code',
+    title: 'Desenvolvimento de Software',
     description:
-      "Criação de sites e aplicações web totalmente responsivas, com navegação fluida e design moderno.",
+      'Criacao de sites e aplicacoes web responsivas, com navegacao fluida e design moderno.'
   },
   {
-    icon: FaServer,
-    title: "Integração com APIs e Gerenciamento",
+    icon: 'api',
+    title: 'Integracao com APIs e Gerenciamento',
     description:
-      "Consumo e manipulação de APIs REST e gerenciamento de estados globais em aplicações escaláveis.",
+      'Consumo e manipulacao de APIs REST e gerenciamento de estados globais em aplicacoes escalaveis.'
   },
   {
-    icon: FaRocket,
-    title: "Performance e Otimização de Sites",
+    icon: 'rocket',
+    title: 'Performance e Otimizacao de Sites',
     description:
-      "Implementação de técnicas para melhorar a performance, como carregamento assíncrono, otimização de assets e SEO básico.",
+      'Implementacao de tecnicas para melhorar performance, carregamento de assets e SEO basico.'
   },
   {
-    icon: FaPuzzlePiece,
-    title: "Componentes UI e Design Personalizado",
+    icon: 'components',
+    title: 'Componentes UI e Design Personalizado',
     description:
-      "Desenvolvimento de bibliotecas de componentes reutilizáveis com foco em consistência visual e acessibilidade, além de temas personalizados (dark mode, etc.).",
-  },
+      'Componentes reutilizaveis com foco em consistencia visual, acessibilidade e temas personalizados.'
+  }
 ];
 
 export default cards;
