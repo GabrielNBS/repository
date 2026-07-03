@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { animateFadeIn, animateSplitText } from '@/animations';
 import { ArrowIcon } from '@/components/ui/Icons';
@@ -43,6 +44,92 @@ export default function Hero() {
       ease: 'power2.out'
     });
 
+    // 5. Animação das Pétalas de Sakura (Flutuação contínua - Vento Zen)
+    gsap.to('.sakura-petal-1', {
+      y: '+=25',
+      x: '+=15',
+      rotation: '+=45',
+      duration: 5.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to('.sakura-petal-2', {
+      y: '-=20',
+      x: '-=12',
+      rotation: '-=35',
+      duration: 6.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to('.sakura-petal-3', {
+      y: '+=30',
+      x: '-=15',
+      rotation: '+=50',
+      duration: 7.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to('.sakura-petal-4', {
+      y: '-=15',
+      x: '+=20',
+      rotation: '-=40',
+      duration: 6.0,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    // 6. Animação de Paralax com ScrollTrigger
+    gsap.to('.sakura-petal-1', {
+      yPercent: 120,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('.sakura-petal-2', {
+      yPercent: -80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('.sakura-petal-3', {
+      yPercent: 150,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('.sakura-petal-4', {
+      yPercent: -120,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
     return () => {
       if (splitInstance) splitInstance.revert();
     };
@@ -51,10 +138,47 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="min-h-hero-min w-site gap-grid py-hero-start pb-hero-end mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] items-center max-lg:grid-cols-2 max-md:min-h-auto max-md:grid-cols-1 max-md:pt-10"
+      className="relative overflow-hidden min-h-hero-min w-site gap-grid py-hero-start pb-hero-end mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] items-center max-lg:grid-cols-2 max-md:min-h-auto max-md:grid-cols-1 max-md:pt-10"
       aria-labelledby="hero-title"
     >
-      <div className="relative col-span-full flex flex-col items-center gap-6 text-center">
+      {/* Sakura Petals */}
+      <svg
+        className="sakura-petal-1 absolute top-[15%] left-[6%] w-[22px] h-[22px] pointer-events-none fill-current select-none opacity-45"
+        style={{ color: 'var(--color-accent)', filter: 'brightness(1.15) saturate(0.85)' }}
+        viewBox="-10 0 40 40"
+        aria-hidden="true"
+      >
+        <path d="M10,0 C18,8 22,18 20,25 C18,30 14,32 10,30 C6,32 2,30 0,25 C-2,18 2,8 10,0 Z" />
+      </svg>
+
+      <svg
+        className="sakura-petal-2 absolute top-[72%] left-[22%] w-[26px] h-[26px] pointer-events-none fill-current select-none opacity-30"
+        style={{ color: 'var(--color-accent)', filter: 'brightness(1.15) saturate(0.85)', transform: 'rotate(45deg)' }}
+        viewBox="-10 0 40 40"
+        aria-hidden="true"
+      >
+        <path d="M10,0 C18,6 24,14 22,23 C20,28 16,30 10,27 C4,30 0,28 -2,23 C-4,14 2,6 10,0 Z" />
+      </svg>
+
+      <svg
+        className="sakura-petal-3 absolute top-[18%] right-[12%] w-[28px] h-[28px] pointer-events-none fill-current select-none opacity-35"
+        style={{ color: 'var(--color-accent)', filter: 'brightness(1.15) saturate(0.85)', transform: 'rotate(-30deg)' }}
+        viewBox="-10 0 40 40"
+        aria-hidden="true"
+      >
+        <path d="M10,0 C18,8 22,18 20,25 C18,30 14,32 10,30 C6,32 2,30 0,25 C-2,18 2,8 10,0 Z" />
+      </svg>
+
+      <svg
+        className="sakura-petal-4 absolute top-[65%] right-[8%] w-[24px] h-[24px] pointer-events-none fill-current select-none opacity-40"
+        style={{ color: 'var(--color-accent)', filter: 'brightness(1.15) saturate(0.85)', transform: 'rotate(110deg)' }}
+        viewBox="-10 0 40 40"
+        aria-hidden="true"
+      >
+        <path d="M10,0 C17,7 21,15 19,22 C17,27 13,29 10,26 C7,29 3,27 1,22 C-1,15 3,7 10,0 Z" />
+      </svg>
+
+      <div className="relative col-span-full flex flex-col items-center gap-6 text-center z-10">
         <p className="hero-label text-accent text-note absolute top-1.5 left-[-3.6rem] m-0 rotate-180 font-bold tracking-[0.06em] uppercase [writing-mode:vertical-rl] max-lg:hidden">
           Front-end developer
         </p>
