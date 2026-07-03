@@ -48,6 +48,9 @@ export default function TransitionProvider({ children }: { children: React.React
     gsap.set(overlayRef.current, { display: 'flex', pointerEvents: 'auto' });
     
     if (isFirstLoad) {
+      // Desativa o scroll no início da intro
+      document.body.style.overflow = 'hidden';
+
       // 1. Primeira entrada: portas fechadas, conteúdo oculto e escala reduzida
       gsap.set(leftPanelRef.current, { xPercent: 0 });
       gsap.set(rightPanelRef.current, { xPercent: 0 });
@@ -62,6 +65,8 @@ export default function TransitionProvider({ children }: { children: React.React
         onComplete: () => {
           gsap.set(overlayRef.current, { display: 'none', pointerEvents: 'none' });
           setIsFirstLoad(false);
+          // Restaura o scroll
+          document.body.style.overflow = '';
         }
       });
 
@@ -138,6 +143,7 @@ export default function TransitionProvider({ children }: { children: React.React
       gsap.set(contentWrapperRef.current, { opacity: 1 });
       gsap.set(overlayRef.current, { display: 'none', pointerEvents: 'none' });
       document.documentElement.style.scrollBehavior = '';
+      document.body.style.overflow = '';
     }
   }, { dependencies: [isFirstLoad], revertOnUpdate: true });
 
@@ -158,6 +164,8 @@ export default function TransitionProvider({ children }: { children: React.React
 
     // Desativa o scroll suave global imediatamente para que o salto na nova rota seja instantâneo sob o overlay
     document.documentElement.style.scrollBehavior = 'auto';
+    // Desativa o scroll durante a transição
+    document.body.style.overflow = 'hidden';
 
     contextSafe(() => {
       gsap.set(overlayRef.current, { display: 'flex', pointerEvents: 'auto' });
@@ -234,6 +242,8 @@ export default function TransitionProvider({ children }: { children: React.React
           gsap.set(contentWrapperRef.current, { pointerEvents: 'auto' });
           // Restaura o scroll behavior para o padrão (smooth)
           document.documentElement.style.scrollBehavior = '';
+          // Restaura o scroll
+          document.body.style.overflow = '';
           
           // Desativa a pendência de forma assíncrona após as portas se abrirem
           setTimeout(() => {

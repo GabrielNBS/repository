@@ -6,76 +6,115 @@ import TransitionLink from '@/components/ui/TransitionLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animateFadeIn, animateSplitText } from '@/animations';
 import projects from '@/data/projects';
 import { ArrowIcon, ExternalIcon } from '@/components/ui/Icons';
 
 export default function Projects() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const desktopShowcaseRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (typeof window === 'undefined') return;
 
-    const container = containerRef.current;
-    if (!container) return;
+    const section = sectionRef.current;
+    const desktopShowcase = desktopShowcaseRef.current;
+    if (!section) return;
 
     // Register plugin inside hook to ensure it's client-only
     gsap.registerPlugin(ScrollTrigger);
 
-    // autoAlpha cuida de opacity + visibility juntos,
-    // então o bloco "some" de verdade (não fica clicável nem sobreposto)
-    projects.forEach((_, i) => {
-      if (i === 0) {
-        gsap.set(`.text-block-${i}`, { autoAlpha: 1, y: 0 });
-      } else {
-        gsap.set(`.text-block-${i}`, { autoAlpha: 0, y: 30 });
-      }
-    });
-
-    const tl = gsap.timeline({
+    // 1. Animação do cabeçalho da seção
+    animateFadeIn('.projects-label', {
+      y: 20,
       scrollTrigger: {
-        trigger: container,
-        start: 'top 72px',
-        end: 'bottom bottom',
-        scrub: 1, // pequeno smoothing evita "pular" frames em scroll rápido
+        trigger: '.projects-label',
+        start: 'top 90%',
       }
     });
 
-    const OUT_DURATION = 0.35;
-    const IN_DURATION = 0.35;
-    const GAP = 0.3; // silêncio garantido entre sumir e aparecer
-
-    for (let i = 0; i < projects.length - 1; i++) {
-      const outStart = i;
-      const outEnd = outStart + OUT_DURATION;
-      const inStart = outEnd + GAP; // só começa a entrar depois que o outgoing TERMINOU + gap
-
-      // saída: some completamente antes de qualquer coisa começar a entrar
-      tl.to(`.text-block-${i}`, {
-        autoAlpha: 0,
-        y: -30,
-        ease: 'power3.in',
-        duration: OUT_DURATION,
-      }, outStart);
-
-      // entrada: só dispara depois do outgoing já ter zerado
-      tl.to(`.text-block-${i + 1}`, {
-        autoAlpha: 1,
-        y: 0,
-        ease: 'power3.out',
-        duration: IN_DURATION,
-      }, inStart);
+    const projectsTitle = section.querySelector('#projects-title');
+    let splitInstance: { revert: () => void } | null = null;
+    if (projectsTitle) {
+      splitInstance = animateSplitText(projectsTitle, {
+        scrollTrigger: {
+          trigger: projectsTitle,
+          start: 'top 85%',
+          toggleActions: 'play reverse play reverse',
+          scrub: true
+        }
+      });
     }
 
+    // 2. Timeline complexa de scroll para Desktop
+    if (desktopShowcase) {
+      projects.forEach((_, i) => {
+        if (i === 0) {
+          gsap.set(`.text-block-${i}`, { autoAlpha: 1, y: 0 });
+        } else {
+          gsap.set(`.text-block-${i}`, { autoAlpha: 0, y: 30 });
+        }
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: desktopShowcase,
+          start: 'top 72px',
+          end: 'bottom bottom',
+          scrub: 1,
+        }
+      });
+
+      const OUT_DURATION = 0.35;
+      const IN_DURATION = 0.35;
+      const GAP = 0.3;
+
+      for (let i = 0; i < projects.length - 1; i++) {
+        const outStart = i;
+        const outEnd = outStart + OUT_DURATION;
+        const inStart = outEnd + GAP;
+
+        tl.to(`.text-block-${i}`, {
+          autoAlpha: 0,
+          y: -30,
+          ease: 'power3.in',
+          duration: OUT_DURATION,
+        }, outStart);
+
+        tl.to(`.text-block-${i + 1}`, {
+          autoAlpha: 1,
+          y: 0,
+          ease: 'power3.out',
+          duration: IN_DURATION,
+        }, inStart);
+      }
+    }
+
+    // 3. Animação dos Cards Mobile (Estética Shoji alternada: direita/esquerda)
+    const mobileCards = Array.from(section.querySelectorAll<HTMLElement>('.project-card-mobile'));
+    mobileCards.forEach((card, idx) => {
+      const direction = idx % 2 === 0 ? -40 : 40;
+      animateFadeIn(card, {
+        x: direction,
+        y: 0,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+        }
+      });
+    });
+
     return () => {
+      if (splitInstance) splitInstance.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, { scope: containerRef });
+  }, { scope: sectionRef });
 
   return (
-    <section id="projects" className="py-section">
+    <section id="projects" className="py-section" ref={sectionRef}>
       {/* Section Header */}
       <div className="w-site mx-auto mb-heading-gap">
-        <p className="text-accent text-label font-label mb-4 tracking-widest uppercase">
+        <p className="projects-label text-accent text-label font-label mb-4 tracking-widest uppercase">
           Projetos
         </p>
         <h2
@@ -87,7 +126,7 @@ export default function Projects() {
       </div>
 
       {/* Desktop GSAP Pinned Showcase with Natural Image Scroll */}
-      <div className="hidden lg:flex w-site mx-auto gap-grid relative items-start" ref={containerRef}>
+      <div className="hidden lg:flex w-site mx-auto gap-grid relative items-start" ref={desktopShowcaseRef}>
         {/* Left Column: Fixed Text Content */}
         <div className="w-[45%] sticky top-[72px] h-[calc(100vh-72px)] flex flex-col justify-center z-10">
           <div className="relative h-[60vh] flex flex-col justify-center">
@@ -173,7 +212,7 @@ export default function Projects() {
             <article
               key={project.slug}
               id={project.slug}
-              className="border-line hover:shadow-soft flex flex-col overflow-hidden rounded-md border bg-[rgb(255,255,255,0.74)] transition-all duration-180 hover:-translate-y-1 hover:border-[rgb(24,24,27,0.28)]"
+              className="project-card-mobile border-line hover:shadow-soft flex flex-col overflow-hidden rounded-md border bg-[rgb(255,255,255,0.74)] transition-all duration-180 hover:-translate-y-1 hover:border-[rgb(24,24,27,0.28)]"
             >
               <TransitionLink
                 href={`/projects/${project.slug}`}
