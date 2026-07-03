@@ -12,36 +12,64 @@ Portfolio front-end premium, moderno e minimalista, com influencia japonesa cont
 - Evite cliches japoneses: sem kanjis decorativos, templos, samurais, anime ou ornamentos sem funcao.
 - Valorize projetos por screenshots reais, mockups grandes e descricoes curtas.
 
-## Tokens
+## Token Source
 
-- Background: `#f7f7f5`
-- Surface: `#ffffff`
+`app/globals.css` declara os tokens Tailwind v4 dentro de `@theme`. `styles.json` documenta os mesmos valores para referencia de agentes e futuras alteracoes. Ao criar UI nova, prefira utilitarios semanticos como `w-site`, `gap-grid`, `py-section`, `text-body`, `text-display`, `font-heading` e `font-ui` antes de usar valores arbitrarios.
+
+## Color Tokens
+
+- Canvas: `#f7f7f5`
+- Paper: `#ffffff`
 - Ink: `#18181b`
 - Muted text: `#68645f`
-- Border: `#dedbd4`
+- Border line: `#dedbd4`
 - Soft band: `#eeece7`
 - Accent: `#a43f2f`
 - Accent dark: `#7f2d22`
-- Radius small: `6px`
-- Radius medium: `8px`
-- Shadow soft: `0 24px 70px rgb(24 24 27 / 0.08)`
-- Content width: `1180px`
 
-## Typography
+## Spacing Tokens
 
-Use Inter or system sans fallback. Keep headings heavy, compact and direct. Do not scale text with viewport width beyond controlled `clamp()` ranges. Body text should stay calm, readable and concise.
+- `w-site`: largura principal, `min(1180px, calc(100% - 2rem))`.
+- `gap-grid`: gap estrutural entre colunas, `clamp(1.25rem, 3vw, 3rem)`.
+- `py-section`: respiro padrao de secoes, `clamp(5rem, 10vw, 9rem)`.
+- `py-section-tight`: respiro compacto para transicoes/cases, `clamp(3rem, 7vw, 5rem)`.
+- `min-h-hero-min`: altura minima do hero da home, `calc(86svh - 4.25rem)`.
+- `min-h-case-hero-min`: altura minima do hero de case, `calc(88svh - 4.25rem)`.
+- `py-hero-start` / `pb-hero-end`: respiro vertical especifico do hero.
+- `mb-heading-gap`: separacao entre cabecalho de secao e conteudo.
+- `p-card` / `p-card-body`: padding de cards e corpo de cards.
+- `pl-contact-indent`: indentacao da coluna de contato.
+- `min-h-touch`: altura minima para botoes e alvos clicaveis.
+- `min-h-bridge`, `min-h-bridge-band`, `min-h-service-card`: alturas semanticas de links de transicao, faixa editorial e cards de servico.
+- `gap-action-gap`, `gap-link-gap`, `px-button-x`, `py-button-y`, `px-tag-x`, `py-tag-y`: tokens de chrome para botoes, links e tags.
 
-- Hero heading: large, tight line-height, max 11-12 characters per line.
-- Section headings: strong but smaller than hero.
-- Body copy: neutral, 1.6-1.75 line-height.
-- UI labels: small, bold and direct.
+## Typography Tokens
+
+Use Inter or system sans fallback. Keep headings heavy, compact and direct. Body text should stay calm, readable and concise.
+
+- `text-hero`: hero da home.
+- `text-case-hero`: titulo de paginas internas.
+- `text-display`: headings principais de secoes.
+- `text-case-display`: heading de problema/solucao em cases.
+- `text-bridge`: texto editorial em faixa de ligacao.
+- `text-body`: corpo principal com line-height `1.75`.
+- `text-summary`: metadados destacados de case.
+- `text-nav`, `text-nav-mobile`, `text-ui`, `text-link`, `text-label`, `text-tag`, `text-index`, `text-note`, `text-title`: escala de textos de interface.
+
+## Font Weight Tokens
+
+- `font-heading`: `760`, para H1/H2 grandes.
+- `font-title`: `720`, para H3 e titulos de card.
+- `font-nav`: `650`, para navegacao.
+- `font-ui`: `760`, para botoes e CTAs.
+- `font-label`: `800`, para labels, indices e metadados pequenos.
 
 ## Components
 
-- Navbar: sticky, compact, neutral surface, pill container allowed only for nav grouping.
-- Buttons: 6px radius, clear primary/secondary states, short labels.
+- Navbar: sticky, compacta, superficie neutra, pill container permitido apenas para agrupar navegacao.
+- Buttons: 6px radius, `min-h-touch`, `px-button-x`, `py-button-y`, labels curtos.
 - Project cards: 8px radius max, screenshot-first, no nested card treatment.
-- Tags: small outlined pills for technology only.
+- Tags: use `text-tag`, `px-tag-x`, `py-tag-y`.
 - Case pages: use the same identity, with project accent colors only as restrained contextual variation.
 - Scroll-to-top: fixed circular utility control.
 
