@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import TransitionProvider from '@/components/ui/TransitionProvider';
 
 export const metadata: Metadata = {
   title: 'Gabriel NBS | Portfolio Front-end',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <TransitionProvider>{children}</TransitionProvider>
+      </body>
     </html>
   );
 }
+
