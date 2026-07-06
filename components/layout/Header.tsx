@@ -75,7 +75,7 @@ export default function Header() {
         <span>Gabriel NBS</span>
       </TransitionLink>
       <nav
-        className="gap-nav-gap p-nav-pad max-sm:p-nav-pad-sm relative inline-flex items-center rounded-full border border-[rgb(222,219,212,0.82)] bg-[rgb(255,255,255,0.72)] shadow-[0_10px_30px_rgb(24,24,27,0.05)] max-md:grid max-md:w-full max-md:grid-cols-3 max-md:gap-1 max-sm:gap-0.5"
+        className="gap-nav-gap p-nav-pad max-sm:p-nav-pad-sm relative inline-flex items-center rounded-full border border-[rgb(222,219,212,0.82)] bg-[rgb(255,255,255,0.72)] shadow-[0_10px_30px_rgb(24,24,27,0.05)] max-md:grid max-md:w-full max-md:grid-cols-4 max-md:gap-1 max-sm:gap-0.5"
         aria-label="Navegacao principal"
         onMouseLeave={handleMouseLeave}
       >
@@ -102,7 +102,13 @@ export default function Header() {
         >
           Projetos
         </TransitionLink>
-
+        <TransitionLink
+          href="/recrutadores"
+          onMouseEnter={handleMouseEnter}
+          className="text-muted hover:text-paper focus-visible:text-paper px-nav-x py-nav-y text-nav font-nav max-sm:px-nav-x-sm max-sm:py-nav-y-sm max-sm:text-nav-mobile relative z-10 rounded-full transition-colors duration-180 max-md:min-w-0 max-md:justify-center max-md:text-center"
+        >
+          Para recrutadores
+        </TransitionLink>
         <TransitionLink
           href="/#contact"
           onMouseEnter={handleMouseEnter}
