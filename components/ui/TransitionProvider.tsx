@@ -4,6 +4,9 @@ import React, { createContext, useContext, useState, useRef, useEffect } from 'r
 import { usePathname, useRouter } from 'next/navigation';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import dynamic from 'next/dynamic';
+
+const SplashCursor = dynamic(() => import('@/components/ui/SplashCursor'), { ssr: false });
 
 interface TransitionContextProps {
   navigate: (href: string) => void;
@@ -352,6 +355,7 @@ export default function TransitionProvider({ children }: { children: React.React
           </div>
         )}
       </div>
+      <SplashCursor />
     </TransitionContext.Provider>
   );
 }

@@ -84,6 +84,28 @@
   --font-weight-label: 800;
 }
 
+@layer components {
+  .bamboo-divider {
+    @apply w-px relative;
+
+    background: linear-gradient(to bottom, transparent, rgba(82, 68, 54, 0.15) 20%, rgba(82, 68, 54, 0.15) 80%, transparent);
+  }
+
+  .bamboo-progress {
+    @apply absolute inset-x-0 top-0 w-full origin-top;
+
+    background-color: #524436;
+  }
+
+  .bamboo-divider::after {
+    content: '';
+
+    @apply absolute top-1/2 left-[-4px] h-[2px] w-[9px] -translate-y-1/2 z-10;
+
+    background-color: #524436;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -126,5 +148,3 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
-
-
