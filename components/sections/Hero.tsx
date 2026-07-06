@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { animateFadeIn, animateSplitText } from '@/animations';
 import { ArrowIcon } from '@/components/ui/Icons';
 import { PETALS, SIZE_PX, SIZE_PARALLAX_SPEED } from '../../assets/Petals.config';
+import { ButtonLink } from '../ui/Button';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -149,19 +150,21 @@ export default function Hero() {
           </p>
         </div>
         <div className="hero-actions mt-4 flex flex-wrap justify-center gap-3">
-          <a
-            className="bg-ink text-paper hover:bg-accent-dark min-h-touch gap-action-gap px-button-x py-button-y text-ui font-ui inline-flex items-center justify-center rounded-sm border border-transparent transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full"
+          <ButtonLink
             href="#projects"
+            variant="filled"
+            intent="primary"
           >
             Ver projetos
             <ArrowIcon />
-          </a>
-          <a
-            className="border-line text-ink hover:border-ink min-h-touch gap-action-gap px-button-x py-button-y text-ui font-ui inline-flex items-center justify-center rounded-sm border bg-[rgb(255,255,255,0.72)] transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full"
+          </ButtonLink>
+          <ButtonLink
             href="#contact"
+            variant="outlined"
+            intent="secondary"
           >
             Contato
-          </a>
+          </ButtonLink>
         </div>
       </div>
     </section>
