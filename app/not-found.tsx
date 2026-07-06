@@ -1,4 +1,4 @@
-import TransitionLink from '@/components/ui/TransitionLink';
+import { ButtonLink } from '@/components/ui/Button';
 
 export default function NotFound() {
   return (
@@ -8,12 +8,13 @@ export default function NotFound() {
         Pagina nao encontrada.
       </h1>
       <p className="text-muted text-body">O caminho acessado nao existe ou foi movido.</p>
-      <TransitionLink
+      <ButtonLink
         href="/"
-        className="bg-ink text-paper hover:bg-accent-dark min-h-touch gap-action-gap px-button-x py-button-y text-ui font-ui inline-flex items-center justify-center rounded-sm border border-transparent transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full"
+        variant="filled"
+        intent="primary"
       >
         Voltar
-      </TransitionLink>
+      </ButtonLink>
     </main>
   );
 }

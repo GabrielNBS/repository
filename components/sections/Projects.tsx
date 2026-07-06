@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
+import { ButtonLink } from '@/components/ui/Button';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -160,22 +161,24 @@ export default function Projects() {
                 </div>
 
                 <div className="flex flex-wrap gap-3 mt-4">
-                  <TransitionLink
-                    className="bg-ink text-paper hover:bg-accent-dark min-h-touch gap-action-gap px-button-x py-button-y text-ui font-ui inline-flex items-center justify-center rounded-sm border border-transparent transition-all duration-180 hover:-translate-y-0.5"
+                  <ButtonLink
                     href={`/projects/${project.slug}`}
+                    variant="filled"
+                    intent="primary"
                   >
                     Ver projeto
                     <ArrowIcon />
-                  </TransitionLink>
-                  <a
-                    className="border-line text-ink hover:border-ink min-h-touch gap-action-gap px-button-x py-button-y text-ui font-ui inline-flex items-center justify-center rounded-sm border bg-[rgb(255,255,255,0.72)] transition-all duration-180 hover:-translate-y-0.5"
+                  </ButtonLink>
+                  <ButtonLink
                     href={project.deploy}
                     target="_blank"
                     rel="noreferrer"
+                    variant="outlined"
+                    intent="secondary"
                   >
                     Deploy
                     <ExternalIcon />
-                  </a>
+                  </ButtonLink>
                 </div>
               </div>
             ))}
@@ -245,22 +248,24 @@ export default function Projects() {
                   ))}
                 </div>
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
-                  <TransitionLink
-                    className="text-ink gap-link-gap text-link inline-flex items-center font-extrabold transition-all duration-180 hover:-translate-y-0.5"
+                  <ButtonLink
                     href={`/projects/${project.slug}`}
+                    variant="text"
+                    intent="primary"
                   >
                     Ver projeto
                     <ArrowIcon />
-                  </TransitionLink>
-                  <a
-                    className="text-muted gap-link-gap text-link inline-flex items-center font-extrabold transition-all duration-180 hover:-translate-y-0.5"
+                  </ButtonLink>
+                  <ButtonLink
                     href={project.deploy}
                     target="_blank"
                     rel="noreferrer"
+                    variant="text"
+                    intent="secondary"
                   >
                     Deploy
                     <ExternalIcon />
-                  </a>
+                  </ButtonLink>
                 </div>
               </div>
             </article>

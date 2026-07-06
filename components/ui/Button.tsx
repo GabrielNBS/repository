@@ -1,8 +1,11 @@
+'use client';
+
 import React, { type ComponentProps, useRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTransition } from "./TransitionProvider";
 
 export type ButtonVariant = "filled" | "outlined" | "text";
 export type ButtonIntent = "primary" | "secondary";
@@ -123,15 +126,48 @@ export function ButtonLink({
   disabled,
   href,
   children,
+  onClick,
   ...props
 }: ButtonLinkProps) {
   const styles = getButtonStyles({ variant, intent, disabled });
   const containerRef = useButtonAnimation(disabled);
   
+  let navigate: ((href: string) => void) | undefined;
+  try {
+    const trans = useTransition();
+    navigate = trans.navigate;
+  } catch {
+    // Ignora se o provider não estiver disponível
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+    
+    if (e.defaultPrevented) return;
+
+    // Se houver transição de página interna válida, intercepta e usa o TransitionProvider
+    if (
+      !disabled &&
+      navigate &&
+      href &&
+      !href.toString().startsWith("http") &&
+      !href.toString().startsWith("#") &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      !e.shiftKey &&
+      e.button === 0
+    ) {
+      e.preventDefault();
+      navigate(href.toString());
+    }
+  };
+
   if (disabled) {
     return (
       <span
-        ref={containerRef}
+        ref={containerRef as React.RefObject<HTMLSpanElement | null>}
         className={cn(styles, className)}
         {...props}
       >
@@ -142,9 +178,10 @@ export function ButtonLink({
 
   return (
     <Link
-      ref={containerRef}
+      ref={containerRef as unknown as React.Ref<HTMLAnchorElement>}
       href={href}
       className={cn(styles, className)}
+      onClick={handleClick}
       {...props}
     >
       {renderChildren(children)}
@@ -167,7 +204,7 @@ export function Button({
   
   return (
     <button
-      ref={containerRef}
+      ref={containerRef as React.RefObject<HTMLButtonElement | null>}
       type={type}
       disabled={disabled}
       className={cn(getButtonStyles({ variant, intent, disabled }), className)}

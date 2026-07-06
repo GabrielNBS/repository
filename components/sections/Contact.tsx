@@ -2,8 +2,11 @@
 
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { animateFadeIn, animateSplitText } from '@/animations';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitText from 'gsap/SplitText';
 import { MailIcon, PinIcon } from '@/components/ui/Icons';
+import { Button } from '@/components/ui/Button';
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/GabrielNBS' },
@@ -15,51 +18,60 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === 'undefined' || !sectionRef.current) return;
 
-    // 1. Animação do Rótulo/Label
-    animateFadeIn('.contact-label', {
-      y: 20,
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    const hasProjects = !!document.getElementById('projects');
+
+    // 1. Timeline principal com Scrub e Pin
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.contact-label',
-        start: 'top 90%'
+        trigger: sectionRef.current,
+        start: 'top bottom', // Quando o topo do contato toca a base da tela
+        end: 'top top',    // Até o topo do contato ocupar toda a tela
+        scrub: 0.8,
+        pin: hasProjects ? '#projects' : undefined,
+        pinSpacing: false,
       }
     });
 
-    // 2. Animação do Título (SplitText)
+    // 2. Animação de entrada do Rótulo (Contato)
+    tl.fromTo('.contact-label',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, ease: 'power2.out', duration: 0.4 },
+      0.1
+    );
+
+    // 3. Animação de entrada do Título (SplitText)
     const titleEl = sectionRef.current.querySelector('#contact-title');
-    let splitInstance: { revert: () => void } | null = null;
+    let splitInstance: SplitText | null = null;
     if (titleEl) {
-      splitInstance = animateSplitText(titleEl, {
-        scrollTrigger: {
-          trigger: titleEl,
-          start: 'top 85%',
-          toggleActions: 'play reverse play reverse',
-          scrub: true
-        }
-      });
+      splitInstance = new SplitText(titleEl, { type: 'words' });
+      tl.from(splitInstance.words,
+        {
+          opacity: 0,
+          y: 30,
+          stagger: 0.05,
+          duration: 0.6,
+          ease: 'power2.out'
+        },
+        0.15
+      );
     }
 
-    // 3. Animação das Colunas - Equilíbrio/Yin-Yang
-    animateFadeIn('.contact-info', {
-      x: -45,
-      y: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: '.contact-info',
-        start: 'top 85%'
-      }
-    });
+    // 4. Animação das Colunas (Informações de Contato e Formulário)
+    tl.fromTo('.contact-info',
+      { opacity: 0, x: -30, y: 30 },
+      { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.7 },
+      0.3
+    );
 
-    animateFadeIn('.contact-form-container', {
-      x: 45,
-      y: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: '.contact-form-container',
-        start: 'top 85%'
-      }
-    });
+    tl.fromTo('.contact-form-container',
+      { opacity: 0, x: 30, y: 30 },
+      { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.7 },
+      0.3
+    );
 
     return () => {
       if (splitInstance) splitInstance.revert();
@@ -70,9 +82,16 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="border-line w-site gap-grid py-section mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] border-t max-lg:grid-cols-2 max-md:grid-cols-1"
-      aria-labelledby="contact-title"
+      className="w-full relative z-20"
+      style={{
+        background:
+          'linear-gradient(90deg, rgb(24 24 27 / 0.035) 1px, transparent 1px) 0 0 / 64px 64px, linear-gradient(0deg, rgb(24 24 27 / 0.025) 1px, transparent 1px) 0 0 / 64px 64px, var(--color-canvas)',
+      }}
     >
+      <div
+        className="border-line w-site gap-grid py-section mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] border-t max-lg:grid-cols-2 max-md:grid-cols-1"
+        aria-labelledby="contact-title"
+      >
       <div className="contact-info flex flex-col gap-6 justify-between pr-4">
         <div>
           <p className="contact-label text-accent text-label font-label mb-4 tracking-[0.1em] uppercase">
@@ -169,15 +188,18 @@ export default function Contact() {
                 required
               />
             </div>
-            <button
+            <Button
               type="submit"
-              className="bg-ink text-paper hover:bg-accent-dark min-h-touch px-6 py-2.5 text-ui font-ui inline-flex items-center justify-center rounded-sm border border-transparent transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full w-fit self-start cursor-pointer font-bold mt-2"
+              variant="filled"
+              intent="primary"
+              className="w-fit self-start mt-2"
             >
               Enviar
-            </button>
+            </Button>
           </form>
         </div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

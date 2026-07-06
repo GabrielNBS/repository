@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import TransitionLink from '@/components/ui/TransitionLink';
+import { ButtonLink } from '@/components/ui/Button';
 import { notFound } from 'next/navigation';
 import projects, { getProjectBySlug } from '@/data/projects';
 import Header from '@/components/layout/Header';
@@ -71,13 +72,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             }}
           />
           <div className="w-site mx-auto py-16 md:py-24">
-            <TransitionLink
+            <ButtonLink
               href={`/#${project.slug}`}
-              className="back-link group inline-flex items-center gap-[0.45rem] text-muted text-[0.86rem] font-extrabold transition-all duration-180 hover:-translate-y-0.5"
+              variant="text"
+              intent="secondary"
+              className="back-link group"
             >
               <ArrowLeftIcon />
               Voltar
-            </TransitionLink>
+            </ButtonLink>
 
             <div className="project-meta mt-10 flex flex-col gap-6">
               <div className="flex items-center gap-3">
@@ -103,24 +106,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </p>
 
               <div className="project-actions flex flex-wrap gap-3 pt-2">
-                <a
-                  className="inline-flex items-center justify-center min-h-[2.8rem] gap-[0.55rem] rounded-sm border border-transparent text-[0.9rem] font-[760] px-6 py-[0.82rem] transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full bg-ink text-paper hover:bg-accent-dark"
+                <ButtonLink
                   href={project.deploy}
                   target="_blank"
                   rel="noreferrer"
+                  variant="filled"
+                  intent="primary"
                 >
                   Deploy
                   <ExternalIcon />
-                </a>
-                <a
-                  className="inline-flex items-center justify-center min-h-[2.8rem] gap-[0.55rem] rounded-sm border border-line text-[0.9rem] font-[760] px-6 py-[0.82rem] transition-all duration-180 hover:-translate-y-0.5 max-sm:w-full bg-[rgb(255,255,255,0.72)] text-ink hover:border-ink"
+                </ButtonLink>
+                <ButtonLink
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
+                  variant="outlined"
+                  intent="secondary"
                 >
                   <GithubIcon />
                   Codigo
-                </a>
+                </ButtonLink>
               </div>
             </div>
           </div>
