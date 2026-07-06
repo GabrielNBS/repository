@@ -40,12 +40,6 @@ export default function Hero() {
         ease: 'power2.out'
       });
 
-      // 4. Animação dos Botões
-      animateFadeIn('.hero-actions', {
-        y: 15,
-        duration: 0.8,
-        ease: 'power2.out'
-      });
 
       // Usuário pediu menos movimento: pula o flutuar contínuo e o parallax
       if (prefersReducedMotion) return;
@@ -132,10 +126,10 @@ export default function Hero() {
       ))}
 
       <div className="relative z-10 col-span-full flex flex-col items-center gap-6 text-center">
-        <p className="hero-label text-accent text-note absolute top-1.5 left-[-3.6rem] m-0 rotate-180 font-bold tracking-[0.06em] uppercase [writing-mode:vertical-rl] max-lg:hidden">
-          Front-end developer
-        </p>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative">
+          <span className="hero-label text-accent text-note font-bold tracking-[0.12em] uppercase mb-3 block text-center xl:absolute xl:left-[-3.6rem] xl:top-1.5 xl:m-0 xl:[writing-mode:vertical-rl] xl:[text-orientation:upright]">
+            Front-end developer
+          </span>
           <h1
             id="hero-title"
             ref={titleRef}

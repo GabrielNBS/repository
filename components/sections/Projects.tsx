@@ -51,9 +51,9 @@ export default function Projects() {
     if (desktopShowcase) {
       projects.forEach((_, i) => {
         if (i === 0) {
-          gsap.set(`.text-block-${i}`, { autoAlpha: 1, y: 0 });
+          gsap.set(`.text-block-${i}`, { autoAlpha: 1, y: 0, filter: 'blur(0px)' });
         } else {
-          gsap.set(`.text-block-${i}`, { autoAlpha: 0, y: 30 });
+          gsap.set(`.text-block-${i}`, { autoAlpha: 0, y: 30, filter: 'blur(10px)' });
         }
       });
 
@@ -78,6 +78,7 @@ export default function Projects() {
         tl.to(`.text-block-${i}`, {
           autoAlpha: 0,
           y: -30,
+          filter: 'blur(10px)',
           ease: 'power3.in',
           duration: OUT_DURATION,
         }, outStart);
@@ -85,6 +86,7 @@ export default function Projects() {
         tl.to(`.text-block-${i + 1}`, {
           autoAlpha: 1,
           y: 0,
+          filter: 'blur(0px)',
           ease: 'power3.out',
           duration: IN_DURATION,
         }, inStart);

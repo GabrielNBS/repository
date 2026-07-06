@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Header from '@/components/layout/Header';
 import RecruitersLanding from '@/components/sections/RecruitersLanding';
 import ScrollTop from '@/components/ui/ScrollTop';
 
@@ -11,8 +10,7 @@ export const metadata: Metadata = {
 
 export default function RecruitersPage() {
   return (
-    <main id="top" className="min-h-screen overflow-x-clip lg:h-screen lg:overflow-hidden">
-      <Header />
+    <main id="top" className="min-h-screen overflow-x-clip lg:h-screen lg:overflow-hidden bg-canvas">
       <RecruitersLanding />
       <ScrollTop />
     </main>

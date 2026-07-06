@@ -2,9 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitText from 'gsap/SplitText';
+import { animateFadeIn, animateSplitText } from '@/animations';
 import { MailIcon, PinIcon } from '@/components/ui/Icons';
 import { Button } from '@/components/ui/Button';
 
@@ -18,60 +16,51 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    if (typeof window === 'undefined' || !sectionRef.current) return;
+    if (!sectionRef.current) return;
 
-    gsap.registerPlugin(ScrollTrigger, SplitText);
-
-    const hasProjects = !!document.getElementById('projects');
-
-    // 1. Timeline principal com Scrub e Pin
-    const tl = gsap.timeline({
+    // 1. Animação do Rótulo/Label
+    animateFadeIn('.contact-label', {
+      y: 20,
       scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top bottom', // Quando o topo do contato toca a base da tela
-        end: 'top top',    // Até o topo do contato ocupar toda a tela
-        scrub: 0.8,
-        pin: hasProjects ? '#projects' : undefined,
-        pinSpacing: false,
+        trigger: '.contact-label',
+        start: 'top 90%'
       }
     });
 
-    // 2. Animação de entrada do Rótulo (Contato)
-    tl.fromTo('.contact-label',
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, ease: 'power2.out', duration: 0.4 },
-      0.1
-    );
-
-    // 3. Animação de entrada do Título (SplitText)
+    // 2. Animação do Título (SplitText)
     const titleEl = sectionRef.current.querySelector('#contact-title');
-    let splitInstance: SplitText | null = null;
+    let splitInstance: { revert: () => void } | null = null;
     if (titleEl) {
-      splitInstance = new SplitText(titleEl, { type: 'words' });
-      tl.from(splitInstance.words,
-        {
-          opacity: 0,
-          y: 30,
-          stagger: 0.05,
-          duration: 0.6,
-          ease: 'power2.out'
-        },
-        0.15
-      );
+      splitInstance = animateSplitText(titleEl, {
+        scrollTrigger: {
+          trigger: titleEl,
+          start: 'top 85%',
+          toggleActions: 'play reverse play reverse',
+          scrub: true
+        }
+      });
     }
 
-    // 4. Animação das Colunas (Informações de Contato e Formulário)
-    tl.fromTo('.contact-info',
-      { opacity: 0, x: -30, y: 30 },
-      { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.7 },
-      0.3
-    );
+    // 3. Animação das Colunas - Equilíbrio/Yin-Yang
+    animateFadeIn('.contact-info', {
+      x: -45,
+      y: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.contact-info',
+        start: 'top 85%'
+      }
+    });
 
-    tl.fromTo('.contact-form-container',
-      { opacity: 0, x: 30, y: 30 },
-      { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.7 },
-      0.3
-    );
+    animateFadeIn('.contact-form-container', {
+      x: 45,
+      y: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.contact-form-container',
+        start: 'top 85%'
+      }
+    });
 
     return () => {
       if (splitInstance) splitInstance.revert();
@@ -82,16 +71,9 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="w-full relative z-20"
-      style={{
-        background:
-          'linear-gradient(90deg, rgb(24 24 27 / 0.035) 1px, transparent 1px) 0 0 / 64px 64px, linear-gradient(0deg, rgb(24 24 27 / 0.025) 1px, transparent 1px) 0 0 / 64px 64px, var(--color-canvas)',
-      }}
+      className="border-line w-site gap-grid py-section mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] border-t max-lg:grid-cols-2 max-md:grid-cols-1"
+      aria-labelledby="contact-title"
     >
-      <div
-        className="border-line w-site gap-grid py-section mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] border-t max-lg:grid-cols-2 max-md:grid-cols-1"
-        aria-labelledby="contact-title"
-      >
       <div className="contact-info flex flex-col gap-6 justify-between pr-4">
         <div>
           <p className="contact-label text-accent text-label font-label mb-4 tracking-[0.1em] uppercase">
@@ -199,7 +181,6 @@ export default function Contact() {
           </form>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }

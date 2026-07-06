@@ -1,14 +1,86 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TransitionLink from '@/components/ui/TransitionLink';
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+interface NavCardProps {
+  href: string;
+  kanji: string;
+  jpTitle: string;
+  title: string;
+  desc: string;
+  delayClass: string;
+  isOpen: boolean;
+}
 
+function NavCard({ href, kanji, jpTitle, title, desc, delayClass, isOpen }: NavCardProps) {
+  return (
+    <TransitionLink
+      href={href}
+      className={`group relative border border-line bg-canvas/30 rounded-md p-4 overflow-hidden block transition-all duration-300 hover:border-accent hover:bg-canvas/80 ${
+        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      } ${delayClass} transition-all duration-500 ease-out`}
+    >
+      {/* Kanji de Fundo / Marca d'água */}
+      <span className="absolute -right-2 -bottom-6 text-7xl font-serif font-bold text-line/20 select-none pointer-events-none group-hover:text-accent/10 transition-colors duration-300">
+        {kanji}
+      </span>
+      <div className="relative z-10 flex flex-col justify-between h-full">
+        <div>
+          <span className="text-[0.62rem] font-bold text-accent tracking-[0.15em] uppercase block mb-1">
+            {jpTitle}
+          </span>
+          <h3 className="text-[1.05rem] font-heading font-bold text-ink group-hover:text-accent transition-colors duration-200">
+            {title}
+          </h3>
+        </div>
+        <p className="text-[0.78rem] text-muted mt-2 leading-relaxed max-w-[22ch]">
+          {desc}
+        </p>
+      </div>
+    </TransitionLink>
+  );
+}
+
+function RecruiterCard({ isOpen, delayClass }: { isOpen: boolean; delayClass: string }) {
+  return (
+    <TransitionLink
+      href="/recrutadores"
+      className={`group relative border border-accent/30 bg-accent/[0.02] rounded-md p-4 overflow-hidden block transition-all duration-300 hover:border-accent hover:bg-accent/[0.06] ${
+        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      } ${delayClass} transition-all duration-500 ease-out`}
+    >
+      {/* Kanji de Fundo */}
+      <span className="absolute -right-2 -bottom-6 text-7xl font-serif font-bold text-accent/5 select-none pointer-events-none group-hover:text-accent/12 transition-colors duration-300">
+        招
+      </span>
+      <div className="relative z-10">
+        <span className="text-[0.62rem] font-bold text-accent tracking-[0.15em] uppercase block mb-1">
+          Saitō / 採用
+        </span>
+        <h3 className="text-[1.05rem] font-heading font-bold text-accent group-hover:text-accent-dark transition-colors duration-200 flex items-center gap-1.5">
+          Para Recrutadores 
+          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </h3>
+        <p className="text-[0.78rem] text-muted mt-2 leading-relaxed max-w-[24ch]">
+          Resumo profissional, competências e download de CV.
+        </p>
+      </div>
+    </TransitionLink>
+  );
+}
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  // Monitora scroll para ajustar opacidade fora do Hero
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 150);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -17,106 +89,196 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const [hoverStyle, setHoverStyle] = useState<React.CSSProperties>({
-    opacity: 0,
-    left: 0,
-    width: 0,
-    height: 0,
-    top: 0
-  });
-  const [isNavHovered, setIsNavHovered] = useState(false);
-  const [transitionEnabled, setTransitionEnabled] = useState(false);
+  // Fechar no clique fora do menu ou gatilho
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sheetRef.current &&
+        !sheetRef.current.contains(event.target as Node) &&
+        triggerRef.current &&
+        !triggerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = e.currentTarget;
-    setHoverStyle({
-      opacity: 1,
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      height: el.offsetHeight,
-      top: el.offsetTop
-    });
+  // Fechar ao pressionar a tecla Escape
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
-    if (!isNavHovered) {
-      setIsNavHovered(true);
-      setTransitionEnabled(false);
-      setTimeout(() => {
-        setTransitionEnabled(true);
-      }, 20);
+  const handleMouseEnter = () => {
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current);
     }
+    setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
-    setHoverStyle((prev) => ({
-      ...prev,
-      opacity: 0
-    }));
-    setIsNavHovered(false);
-    setTransitionEnabled(false);
+    closeTimeout.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 280); // Tolerância de transição
+  };
+
+  const toggleMenu = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
-    <header
-      className={`w-site sticky top-0 z-30 mx-auto flex items-center justify-between transition-all duration-300 ${
-        isScrolled
-          ? 'top-4 rounded-2xl px-4 py-3 shadow-sm backdrop-blur-sm'
-          : 'py-4 backdrop-blur-sm'
-      }`}
-    >
-      <TransitionLink
-        href="/#top"
-        className="gap-brand-gap text-ui inline-flex items-center font-bold tracking-normal"
-        aria-label="Voltar ao topo"
-      >
-        <span
-          className="border-accent h-5 w-5 rounded-full border-2 border-l-transparent"
-          aria-hidden="true"
-        />
-        <span>Gabriel NBS</span>
-      </TransitionLink>
-      <nav
-        className="gap-nav-gap p-nav-pad max-sm:p-nav-pad-sm relative inline-flex items-center rounded-full border border-[rgb(222,219,212,0.82)] bg-[rgb(255,255,255,0.72)] shadow-[0_10px_30px_rgb(24,24,27,0.05)] max-md:grid max-md:w-full max-md:grid-cols-4 max-md:gap-1 max-sm:gap-0.5"
-        aria-label="Navegacao principal"
+    <>
+      {/* Botão de Controle (Kanji "和" - Harmonia) no canto superior direito */}
+      <div
+        ref={triggerRef}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={toggleMenu}
+        className={`fixed top-6 right-6 sm:right-8 z-50 flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-paper/60 backdrop-blur-sm border border-line/40 select-none cursor-pointer transition-all duration-300 shadow-sm ${
+          isOpen
+            ? 'opacity-100 scale-105 border-accent/40'
+            : isScrolled
+            ? 'opacity-35 hover:opacity-100 hover:scale-105'
+            : 'opacity-100 hover:scale-105'
+        }`}
+        aria-label="Menu de Navegação"
+        aria-expanded={isOpen}
       >
+        <span className="text-xl sm:text-2xl font-serif font-bold text-ink select-none tracking-normal leading-none">
+          和
+        </span>
+        <span className="text-[0.62rem] font-bold text-muted tracking-[0.1em] uppercase select-none pr-1">
+          Menu
+        </span>
+      </div>
+
+      {/* Backdrop de Fundo com Blur sutil */}
+      <div
+        className={`fixed inset-0 bg-ink/15 backdrop-blur-xs z-40 transition-opacity duration-500 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Sheet Lateral (Painel de Navegação) */}
+      <div
+        ref={sheetRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={`fixed top-0 right-0 h-screen w-full sm:w-[420px] bg-paper border-l border-line/80 shadow-2xl flex flex-col justify-between p-6 sm:p-8 z-45 transition-transform duration-500 ease-out transform ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Topo do Sheet: Nome e Descrição */}
         <div
-          className="bg-ink pointer-events-none absolute rounded-full"
-          style={{
-            ...hoverStyle,
-            transition: transitionEnabled
-              ? 'left 240ms cubic-bezier(0.25, 1, 0.5, 1), width 240ms cubic-bezier(0.25, 1, 0.5, 1), opacity 240ms cubic-bezier(0.25, 1, 0.5, 1), height 240ms cubic-bezier(0.25, 1, 0.5, 1), top 240ms cubic-bezier(0.25, 1, 0.5, 1)'
-              : 'opacity 240ms cubic-bezier(0.25, 1, 0.5, 1)'
-          }}
-        />
-        <TransitionLink
-          href="/#about"
-          onMouseEnter={handleMouseEnter}
-          className="text-muted hover:text-paper focus-visible:text-paper px-nav-x py-nav-y text-nav font-nav max-sm:px-nav-x-sm max-sm:py-nav-y-sm max-sm:text-nav-mobile relative z-10 rounded-full transition-colors duration-180 max-md:min-w-0 max-md:justify-center max-md:text-center"
+          className={`transition-all duration-500 ease-out ${
+            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          } delay-100`}
         >
-          Sobre
-        </TransitionLink>
-        <TransitionLink
-          href="/#projects"
-          onMouseEnter={handleMouseEnter}
-          className="text-muted hover:text-paper focus-visible:text-paper px-nav-x py-nav-y text-nav font-nav max-sm:px-nav-x-sm max-sm:py-nav-y-sm max-sm:text-nav-mobile relative z-10 rounded-full transition-colors duration-180 max-md:min-w-0 max-md:justify-center max-md:text-center"
+          <div className="flex justify-between items-start">
+            <TransitionLink
+              href="/#top"
+              className="inline-block hover:text-accent transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <h2 className="text-xl font-heading font-bold text-ink tracking-tight">
+                Gabriel NBS
+              </h2>
+            </TransitionLink>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-muted hover:text-ink transition-colors p-1"
+              aria-label="Fechar menu"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-current stroke-[1.8] fill-none">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <p className="text-[0.8rem] text-muted mt-2 leading-relaxed max-w-[280px]">
+            Interfaces com clareza, ritmo e precisão. Desenvolvedor Front-end & Designer.
+          </p>
+        </div>
+
+        {/* Centro do Sheet: Cards de Seção */}
+        <div className="flex-1 my-auto py-8">
+          <span
+            className={`text-[0.62rem] font-bold text-muted tracking-[0.15em] uppercase mb-4 block transition-all duration-500 ease-out ${
+              isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            } delay-120`}
+          >
+            Navegação / 導
+          </span>
+
+          <div className="grid grid-cols-1 gap-3.5" onClick={() => setIsOpen(false)}>
+            <NavCard
+              href="/#about"
+              kanji="私"
+              jpTitle="Watashi / 経歴"
+              title="Sobre"
+              desc="Filosofia, história e percurso zen."
+              delayClass="delay-150"
+              isOpen={isOpen}
+            />
+            <NavCard
+              href="/#projects"
+              kanji="作"
+              jpTitle="Sakuhin / 作品"
+              title="Projetos"
+              desc="Portfólio de experimentos e produtos reais."
+              delayClass="delay-200"
+              isOpen={isOpen}
+            />
+            <NavCard
+              href="/#contact"
+              kanji="信"
+              jpTitle="Renraku / 連絡"
+              title="Contato"
+              desc="Vamos conversar e construir algo juntos."
+              delayClass="delay-250"
+              isOpen={isOpen}
+            />
+            <RecruiterCard isOpen={isOpen} delayClass="delay-300" />
+          </div>
+        </div>
+
+        {/* Base do Sheet: Redes Sociais */}
+        <div
+          className={`flex items-center justify-between border-t border-line/60 pt-6 transition-all duration-500 ease-out ${
+            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          } delay-350`}
         >
-          Projetos
-        </TransitionLink>
-        <TransitionLink
-          href="/recrutadores"
-          onMouseEnter={handleMouseEnter}
-          className="text-muted hover:text-paper focus-visible:text-paper px-nav-x py-nav-y text-nav font-nav max-sm:px-nav-x-sm max-sm:py-nav-y-sm max-sm:text-nav-mobile relative z-10 rounded-full transition-colors duration-180 max-md:min-w-0 max-md:justify-center max-md:text-center"
-        >
-          Para recrutadores
-        </TransitionLink>
-        <TransitionLink
-          href="/#contact"
-          onMouseEnter={handleMouseEnter}
-          className="text-muted hover:text-paper focus-visible:text-paper px-nav-x py-nav-y text-nav font-nav max-sm:px-nav-x-sm max-sm:py-nav-y-sm max-sm:text-nav-mobile relative z-10 rounded-full transition-colors duration-180 max-md:min-w-0 max-md:justify-center max-md:text-center"
-        >
-          Contato
-        </TransitionLink>
-      </nav>
-    </header>
+          <div className="flex gap-4">
+            <a
+              href="https://github.com/GabrielNBS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.78rem] font-bold text-muted hover:text-accent transition-colors"
+            >
+              GitHub ↗
+            </a>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.78rem] font-bold text-muted hover:text-accent transition-colors"
+            >
+              LinkedIn ↗
+            </a>
+          </div>
+          <span className="text-[0.68rem] text-muted font-medium">
+            © {new Date().getFullYear()}
+          </span>
+        </div>
+      </div>
+    </>
   );
 }
