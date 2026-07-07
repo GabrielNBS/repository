@@ -91,7 +91,7 @@ export default function Header() {
   // Monitora scroll para ajustar opacidade fora do Hero
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 150);
+      setIsScrolled(window.scrollY > 200);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -146,19 +146,81 @@ export default function Header() {
 
   return (
     <>
-      {/* Botão de Controle (Kanji "和" - Harmonia) no canto superior esquerdo com Sumi-e */}
+      {/* Nav Tradicional para Desktop (Sticky no topo) com Liquid Glass */}
+      <header
+        className={`sticky top-0 z-40 m-auto hidden w-full max-w-[1024px] transition-all duration-500 md:block ${
+          isScrolled
+            ? 'bg-paper/75 border-line/20 top-5 w-full border-b py-8 shadow-xs transition-all duration-500'
+            : 'border-b border-transparent bg-transparent py-5 shadow-none'
+        }`}
+        style={
+          isScrolled
+            ? {
+                backdropFilter: 'blur(16px) url(#liquid-glass)',
+                WebkitBackdropFilter: 'blur(16px) url(#liquid-glass)'
+              }
+            : {
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none'
+              }
+        }
+      >
+        <div className="w-site mx-auto flex items-center justify-between">
+          <TransitionLink href="/#top" className="group flex items-center gap-2.5 select-none">
+            <span className="text-ink group-hover:text-accent font-serif text-xl leading-none font-bold transition-colors duration-300">
+              和
+            </span>
+            <span className="text-ink font-heading text-nav group-hover:text-accent tracking-widest uppercase transition-colors duration-300">
+              Gabriel NBS
+            </span>
+          </TransitionLink>
+
+          <nav className="flex items-center gap-6">
+            <TransitionLink
+              href="/#about"
+              className="text-muted hover:text-accent text-nav font-nav tracking-wide transition-colors duration-200"
+            >
+              Sobre
+            </TransitionLink>
+            <TransitionLink
+              href="/#projects"
+              className="text-muted hover:text-accent text-nav font-nav tracking-wide transition-colors duration-200"
+            >
+              Projetos
+            </TransitionLink>
+            <TransitionLink
+              href="/#contact"
+              className="text-muted hover:text-accent text-nav font-nav tracking-wide transition-colors duration-200"
+            >
+              Contato
+            </TransitionLink>
+            <TransitionLink
+              href="/recrutadores"
+              className="border-accent/30 bg-accent/2 hover:border-accent hover:bg-accent/6 text-accent rounded border px-3.5 py-1.5 text-[0.72rem] font-bold tracking-widest uppercase transition-all duration-300"
+            >
+              Para Recrutadores
+            </TransitionLink>
+          </nav>
+        </div>
+      </header>
+
+      {/* Botão de Controle (Kanji "和" - Harmonia) no canto superior esquerdo com Sumi-e e Liquid Glass (Apenas Mobile) */}
       <div
         ref={triggerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={toggleMenu}
-        className={`bg-paper/60 border-line/40 fixed top-6 left-6 z-40 flex cursor-pointer items-center gap-2.5 border px-3.5 py-2.5 shadow-sm backdrop-blur-sm transition-all duration-300 select-none ${
+        className={`border-line/40 fixed top-6 left-6 z-40 flex cursor-pointer items-center gap-2.5 border px-3.5 py-2.5 shadow-sm transition-all duration-300 select-none md:hidden ${
           isOpen
-            ? 'border-accent/40 scale-105 opacity-100'
+            ? 'border-accent/40 bg-paper/85 scale-105 opacity-100'
             : isScrolled
-              ? 'opacity-35 hover:scale-105 hover:opacity-100'
-              : 'opacity-100 hover:scale-105'
+              ? 'bg-paper/60 opacity-35 hover:scale-105 hover:opacity-100'
+              : 'bg-paper/60 opacity-100 hover:scale-105'
         }`}
+        style={{
+          backdropFilter: 'blur(12px) url(#liquid-glass)',
+          WebkitBackdropFilter: 'blur(12px) url(#liquid-glass)'
+        }}
         aria-label="Menu de Navegação"
         aria-expanded={isOpen}
       >
@@ -174,22 +236,27 @@ export default function Header() {
         <BrushStroke ref={pathRef} className="text-accent/90" />
       </div>
 
-      {/* Backdrop de Fundo com Blur sutil */}
+      {/* Backdrop de Fundo com Blur sutil (Apenas Mobile) */}
       <div
-        className={`bg-ink/15 fixed inset-0 z-40 backdrop-blur-xs transition-opacity duration-500 ${
+        className={`bg-ink/15 fixed inset-0 z-40 backdrop-blur-xs transition-opacity duration-500 md:hidden ${
           isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Sheet Lateral (Painel de Navegação) */}
+      {/* Sheet Lateral (Painel de Navegação) com Liquid Glass (Apenas Mobile) */}
       <div
         ref={sheetRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={`bg-paper border-line/80 fixed top-0 left-0 z-45 flex h-screen w-full transform flex-col justify-between border-l p-6 shadow-2xl transition-transform duration-500 ease-out sm:w-[420px] sm:p-8 ${
+        className={`border-line/80 fixed top-0 left-0 z-45 flex h-screen w-full transform flex-col justify-between border-l p-6 shadow-2xl transition-transform duration-500 ease-out sm:w-[420px] sm:p-8 md:hidden ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
+        style={{
+          backdropFilter: 'blur(20px) url(#liquid-glass)',
+          WebkitBackdropFilter: 'blur(20px) url(#liquid-glass)',
+          backgroundColor: 'rgba(255, 255, 255, 0.75)'
+        }}
       >
         {/* Topo do Sheet: Nome e Descrição */}
         <div
@@ -292,6 +359,64 @@ export default function Header() {
           </span>
         </div>
       </div>
+
+      {/* Definição do Filtro SVG Liquid Glass com iluminação, refração e ondulação dinâmica */}
+      <svg className="pointer-events-none absolute -z-50 h-0 w-0 opacity-0" aria-hidden="true">
+        <defs>
+          <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%">
+            {/* Frequência do fractal noise animada para simular ondulação lenta da refração */}
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.015 0.02"
+              numOctaves="2"
+              result="noise"
+            >
+              <animate
+                attributeName="baseFrequency"
+                values="0.015 0.02; 0.011 0.028; 0.018 0.015; 0.015 0.02"
+                dur="24s"
+                repeatCount="indefinite"
+              />
+            </feTurbulence>
+
+            {/* Suavização leve das ondas de turbulência */}
+            <feGaussianBlur in="noise" stdDeviation="5" result="blurredNoise" />
+
+            {/* Deslocamento físico refrativo do conteúdo por trás */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="blurredNoise"
+              scale="20"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="displaced"
+            />
+
+            {/* Iluminação especular simulando feixes de luz 3D na superfície do vidro */}
+            <feSpecularLighting
+              in="blurredNoise"
+              specularExponent="45"
+              specularConstant="1.6"
+              surfaceScale="5"
+              lightingColor="#ffffff"
+              result="light"
+            >
+              <feDistantLight azimuth="135" elevation="60" />
+            </feSpecularLighting>
+
+            {/* Composição fina do brilho 3D de luz com a distorção refrativa de fundo */}
+            <feComposite
+              in="light"
+              in2="displaced"
+              operator="arithmetic"
+              k1="0.4"
+              k2="1.0"
+              k3="0.8"
+              k4="0"
+            />
+          </filter>
+        </defs>
+      </svg>
     </>
   );
 }

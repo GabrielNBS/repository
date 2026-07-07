@@ -217,9 +217,71 @@ export default function Hero() {
 
       <div className="relative z-10 col-span-full flex flex-col items-center gap-6">
         <div className="relative flex flex-col">
-          <span className="hero-label text-accent text-note top-2 -left-6 mb-3 block font-bold tracking-[0.12em] uppercase xl:absolute xl:rotate-180 xl:[writing-mode:vertical-rl]">
-            Front-end developer
-          </span>
+          {/* Talismã Japonês (Ofuda/Omamori) no topo esquerdo do Hero */}
+          {/* Versão Vertical para Desktop (xl e acima) */}
+          <div className="hero-label absolute -left-14 top-0 z-10 hidden xl:block select-none">
+            <svg
+              width="36"
+              height="200"
+              viewBox="0 0 36 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-accent drop-shadow-[0_2px_4px_rgba(0,0,0,0.04)]"
+            >
+              {/* Papel de Fundo */}
+              <rect x="1" y="1" width="34" height="198" rx="2" fill="var(--color-paper)" stroke="currentColor" strokeWidth="1.2" />
+              
+              {/* Linha de borda interna decorativa tracejada tradicional */}
+              <rect x="4" y="4" width="28" height="192" rx="1" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 2" opacity="0.75" />
+              
+              {/* Detalhe do topo do talismã (furo/nó do amuleto) */}
+              <circle cx="18" cy="12" r="2.5" fill="none" stroke="currentColor" strokeWidth="1" />
+              <path d="M18 6V9.5" stroke="currentColor" strokeWidth="1" />
+              <path d="M14 6H22" stroke="currentColor" strokeWidth="0.8" />
+              
+              {/* Texto "FRONT-END DEVELOPER" vertical */}
+              <text
+                x="18"
+                y="105"
+                fill="currentColor"
+                fontSize="6.8"
+                fontWeight="800"
+                fontFamily="inherit"
+                letterSpacing="0.25em"
+                textAnchor="middle"
+                style={{ writingMode: 'vertical-rl' }}
+              >
+                FRONT-END DEVELOPER
+              </text>
+              
+              {/* Carimbo de assinatura vermelha (Ensō/Inkan) na base do talismã */}
+              <g transform="translate(9, 168)" opacity="0.85">
+                <rect x="0.5" y="0.5" width="17" height="17" rx="1" stroke="currentColor" strokeWidth="1" fill="none" />
+                <text x="9" y="12.5" fill="currentColor" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="serif">
+                  印
+                </text>
+              </g>
+            </svg>
+          </div>
+
+          {/* Versão Horizontal para Mobile e Tablet (menor que xl) */}
+          <div className="hero-label border-accent/40 bg-paper shadow-xs mb-5 flex w-fit items-center gap-2.5 rounded-sm border px-3.5 py-1.5 select-none xl:hidden">
+            {/* Símbolo do nó do talismã */}
+            <div className="flex items-center gap-1">
+              <span className="text-accent text-[0.62rem]">和</span>
+              <div className="bg-accent/40 h-3 w-px" />
+            </div>
+            
+            {/* Texto */}
+            <span className="text-accent font-mono text-[0.68rem] font-bold tracking-[0.15em] uppercase">
+              Front-end developer
+            </span>
+            
+            {/* Selo/Símbolo do talismã na direita */}
+            <div className="border-accent/60 text-accent/80 flex h-4.5 w-4.5 items-center justify-center rounded-sm border text-[0.45rem] font-bold">
+              印
+            </div>
+          </div>
           <h1
             id="hero-title"
             ref={titleRef}

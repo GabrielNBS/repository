@@ -53,22 +53,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <ProjectAnimator>
-      <main 
-        id="top" 
-        className="min-h-screen overflow-x-clip" 
-        style={{ 
-          '--project-bg': project.bgColor, 
-          '--project-accent': project.accent 
-        } as React.CSSProperties}
+      <main
+        id="top"
+        className="min-h-screen overflow-x-clip"
+        style={
+          {
+            '--project-bg': project.bgColor,
+            '--project-accent': project.accent
+          } as React.CSSProperties
+        }
       >
-        <Header />
-
         {/* Hero */}
-        <section className="relative overflow-hidden border-b border-line">
+        <section className="border-line relative overflow-hidden border-b">
           <div
             className="absolute inset-0 -z-10 opacity-[0.035]"
             style={{
-              backgroundImage: `radial-gradient(circle at 80% 20%, var(--project-accent) 0, transparent 60%)`,
+              backgroundImage: `radial-gradient(circle at 80% 20%, var(--project-accent) 0, transparent 60%)`
             }}
           />
           <div className="w-site mx-auto py-16 md:py-24">
@@ -89,19 +89,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   style={{ backgroundColor: 'var(--project-accent)' }}
                   aria-hidden="true"
                 />
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted font-bold">
+                <span className="text-muted font-mono text-xs font-bold tracking-[0.2em] uppercase">
                   {project.role} · {project.year}
                 </span>
               </div>
 
-              <h1 className="project-title max-w-3xl text-balance text-[clamp(2.45rem,5.5vw,4.85rem)] font-heading leading-[1.05] tracking-tight">
+              <h1 className="project-title font-heading max-w-3xl text-[clamp(2.45rem,5.5vw,4.85rem)] leading-[1.05] tracking-tight text-balance">
                 {project.name}
-                <span className="block text-muted font-normal mt-2 text-[clamp(1.25rem,2.8vw,2.15rem)]">
+                <span className="text-muted mt-2 block text-[clamp(1.25rem,2.8vw,2.15rem)] font-normal">
                   {project.subtitle}
                 </span>
               </h1>
 
-              <p className="project-desc max-w-2xl text-pretty text-[clamp(1.05rem,1.6vw,1.15rem)] leading-[1.75] text-muted">
+              <p className="project-desc text-muted max-w-2xl text-[clamp(1.05rem,1.6vw,1.15rem)] leading-[1.75] text-pretty">
                 {project.summary}
               </p>
 
@@ -132,9 +132,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </section>
 
         {/* Cover */}
-        <section className="border-b border-line">
+        <section className="border-line border-b">
           <div className="w-site mx-auto py-12 md:py-16">
-            <div className="project-cover relative aspect-[16/9] overflow-hidden rounded-md border border-line bg-[var(--project-bg)] shadow-soft">
+            <div className="project-cover border-line shadow-soft relative aspect-[16/9] overflow-hidden rounded-md border bg-[var(--project-bg)]">
               <Image
                 src={project.mockups.desktop}
                 alt={`Preview desktop do projeto ${project.name}`}
@@ -153,14 +153,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Sidebar */}
             <aside className="project-sidebar flex flex-col gap-10 lg:sticky lg:top-24 lg:self-start">
               <div className="flex flex-col gap-3">
-                <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-muted">
+                <h2 className="text-muted text-xs font-bold tracking-[0.15em] uppercase">
                   Tecnologias
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {project.techs.map((tech) => (
                     <span
                       key={tech.name}
-                      className="border border-line rounded-full text-muted text-[0.75rem] font-bold px-[0.58rem] py-[0.35rem] bg-paper"
+                      className="border-line text-muted bg-paper rounded-full border px-[0.58rem] py-[0.35rem] text-[0.75rem] font-bold"
                     >
                       {tech.name}
                     </span>
@@ -171,26 +171,30 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <hr className="border-line" />
 
               <div className="flex flex-col gap-3">
-                <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-muted">
+                <h2 className="text-muted text-xs font-bold tracking-[0.15em] uppercase">
                   Detalhes
                 </h2>
                 <dl className="flex flex-col gap-2 text-sm">
                   <div className="flex justify-between gap-4">
                     <dt className="text-muted font-medium">Ano</dt>
-                    <dd className="font-bold text-ink">{project.year}</dd>
+                    <dd className="text-ink font-bold">{project.year}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-muted font-medium">Funcao</dt>
-                    <dd className="font-bold text-ink">{project.role}</dd>
+                    <dd className="text-ink font-bold">{project.role}</dd>
                   </div>
                 </dl>
               </div>
 
               <hr className="border-line" />
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center gap-3">
                 {/* Círculo estilo Ensō estático do projeto */}
-                <svg viewBox="0 0 100 100" className="h-9 w-9 select-none opacity-70" aria-hidden="true">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="h-9 w-9 opacity-70 select-none"
+                  aria-hidden="true"
+                >
                   <circle
                     cx="50"
                     cy="50"
@@ -204,43 +208,54 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     transform="rotate(-90 50 50)"
                   />
                 </svg>
-                <span className="text-sm font-bold text-muted">
-                  Destaque Visual
-                </span>
+                <span className="text-muted text-sm font-bold">Destaque Visual</span>
+                <ButtonLink
+                  href={`/#${project.slug}`}
+                  variant="text"
+                  intent="secondary"
+                  className="back-link group mt-6"
+                >
+                  <ArrowLeftIcon />
+                  Voltar
+                </ButtonLink>
               </div>
             </aside>
 
             {/* Main content */}
             <div className="flex flex-col gap-16">
               <div className="project-content-block flex flex-col gap-4">
-                <h2 className="text-2xl font-heading tracking-tight text-ink">
-                  Problema
-                </h2>
-                <p className="text-pretty text-[clamp(1rem,1.6vw,1.13rem)] leading-[1.75] text-muted">
+                <h2 className="font-heading text-ink text-2xl tracking-tight">Problema</h2>
+                <p className="text-muted text-[clamp(1rem,1.6vw,1.13rem)] leading-[1.75] text-pretty">
                   {project.problem}
                 </p>
               </div>
 
               <div className="project-content-block flex flex-col gap-4">
-                <h2 className="text-2xl font-heading tracking-tight text-ink">
-                  Solucao
-                </h2>
-                <p className="text-pretty text-[clamp(1rem,1.6vw,1.13rem)] leading-[1.75] text-muted">
+                <h2 className="font-heading text-ink text-2xl tracking-tight">Solucao</h2>
+                <p className="text-muted text-[clamp(1rem,1.6vw,1.13rem)] leading-[1.75] text-pretty">
                   {project.solution}
                 </p>
               </div>
 
               <div className="project-content-block flex flex-col gap-6">
-                <h2 className="text-2xl font-heading tracking-tight text-ink">
-                  Galeria
-                </h2>
+                <h2 className="font-heading text-ink text-2xl tracking-tight">Galeria</h2>
                 <div className="gallery-grid grid grid-cols-2 gap-4 max-md:grid-cols-1">
                   {project.gallery.map((image, index) => (
                     <figure
                       key={image}
-                      className={index === 0 ? 'gallery-item flex flex-col gap-3 col-span-2 max-md:col-span-1' : 'gallery-item flex flex-col gap-3'}
+                      className={
+                        index === 0
+                          ? 'gallery-item col-span-2 flex flex-col gap-3 max-md:col-span-1'
+                          : 'gallery-item flex flex-col gap-3'
+                      }
                     >
-                      <div className={index === 0 ? 'relative aspect-[16/8] max-md:aspect-[4/3] overflow-hidden rounded-md border border-line bg-paper shadow-soft' : 'relative aspect-[16/11] max-md:aspect-[4/3] overflow-hidden rounded-md border border-line bg-paper shadow-soft'}>
+                      <div
+                        className={
+                          index === 0
+                            ? 'border-line bg-paper shadow-soft relative aspect-[16/8] overflow-hidden rounded-md border max-md:aspect-[4/3]'
+                            : 'border-line bg-paper shadow-soft relative aspect-[16/11] overflow-hidden rounded-md border max-md:aspect-[4/3]'
+                        }
+                      >
                         <Image
                           src={image}
                           alt={`Galeria do projeto ${project.name}`}
@@ -258,40 +273,40 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </section>
 
         {/* Prev / Next */}
-        <section className="border-t border-line">
-          <div className="w-site mx-auto grid grid-cols-2 gap-px bg-line max-sm:grid-cols-1">
+        <section className="border-line border-t">
+          <div className="w-site bg-line mx-auto grid grid-cols-2 gap-px max-sm:grid-cols-1">
             <TransitionLink
               href={`/projects/${prevProject.slug}`}
-              className="group flex items-center justify-between gap-4 bg-paper p-8 transition-all duration-180 hover:bg-soft md:p-10"
+              className="group bg-paper hover:bg-soft flex items-center justify-between gap-4 p-8 transition-all duration-180 md:p-10"
             >
               <div className="flex flex-col gap-1">
-                <span className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-muted font-bold">
+                <span className="text-muted flex items-center gap-2 text-xs font-bold tracking-[0.15em] uppercase">
                   <span className="transition-transform group-hover:-translate-x-0.5">
                     <ArrowLeftIcon />
                   </span>
                   Anterior
                 </span>
-                <span className="text-lg font-heading tracking-tight text-ink">
+                <span className="font-heading text-ink text-lg tracking-tight">
                   {prevProject.name}
                 </span>
               </div>
-              <span className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-muted">
+              <span className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <ExternalIcon />
               </span>
             </TransitionLink>
 
             <TransitionLink
               href={`/projects/${nextProject.slug}`}
-              className="group flex items-center justify-between gap-4 bg-paper p-8 transition-all duration-180 hover:bg-soft sm:text-right md:p-10"
+              className="group bg-paper hover:bg-soft flex items-center justify-between gap-4 p-8 transition-all duration-180 sm:text-right md:p-10"
             >
               <span className="transition-transform group-hover:translate-x-0.5 sm:order-2">
                 <ArrowIcon />
               </span>
               <div className="flex flex-col gap-1 sm:items-end">
-                <span className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-muted font-bold sm:flex-row-reverse">
+                <span className="text-muted flex items-center gap-2 text-xs font-bold tracking-[0.15em] uppercase sm:flex-row-reverse">
                   Proximo
                 </span>
-                <span className="text-lg font-heading tracking-tight text-ink">
+                <span className="font-heading text-ink text-lg tracking-tight">
                   {nextProject.name}
                 </span>
               </div>

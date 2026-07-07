@@ -74,9 +74,25 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="border-line w-site gap-grid py-section mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] border-t max-lg:grid-cols-2 max-md:grid-cols-1"
+      className="border-line w-site gap-grid py-section relative mx-auto grid grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] overflow-hidden border-t max-lg:grid-cols-2 max-md:grid-cols-1"
       aria-labelledby="contact-title"
     >
+      {/* Vídeo de Fundo (Koi Fish) integrado ao canvas */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 object-cover opacity-[0.22] mix-blend-multiply transition-opacity duration-500"
+      >
+        <source src="/video/Stop_motion_watercolor_koi_fish.webm" type="video/webm" />
+        <source src="/video/Stop_motion_watercolor_koi_fish.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlays de gradiente para suavizar e integrar o vídeo com as bordas do projeto */}
+      <div className="from-canvas via-transparent to-canvas pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r" />
+      <div className="from-canvas via-transparent to-canvas pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b" />
+
       <div className="contact-info flex flex-col justify-between gap-6 pr-4">
         <div>
           <span className="contact-label text-accent text-label font-label mb-4 tracking-[0.1em] uppercase">

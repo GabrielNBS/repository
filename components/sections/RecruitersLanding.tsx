@@ -27,7 +27,7 @@ function DownloadIcon() {
 
 function GithubIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.193 22 16.44 22 12.017 22 6.484 17.522 2 12 2z" />
     </svg>
   );
@@ -35,7 +35,7 @@ function GithubIcon() {
 
 function LinkedinIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
     </svg>
   );
@@ -43,7 +43,7 @@ function LinkedinIcon() {
 
 function XIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
@@ -53,7 +53,7 @@ function MapRouteIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-4 h-4 fill-none stroke-current stroke-[1.8]"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -68,7 +68,7 @@ function BarChartIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-4 h-4 fill-none stroke-current stroke-[1.8]"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -83,7 +83,7 @@ function ThunderIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-4 h-4 fill-none stroke-current stroke-[1.8]"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -96,7 +96,7 @@ function ClipboardIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-4 h-4 fill-none stroke-current stroke-[1.8]"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -110,7 +110,7 @@ function MessageIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3.5 h-3.5 fill-none stroke-current stroke-[1.8]"
+      className="h-3.5 w-3.5 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -123,7 +123,7 @@ function TargetIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3.5 h-3.5 fill-none stroke-current stroke-[1.8]"
+      className="h-3.5 w-3.5 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -138,7 +138,7 @@ function QualityIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3.5 h-3.5 fill-none stroke-current stroke-[1.8]"
+      className="h-3.5 w-3.5 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -151,7 +151,7 @@ function DesignIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3.5 h-3.5 fill-none stroke-current stroke-[1.8]"
+      className="h-3.5 w-3.5 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -165,7 +165,7 @@ function CheckIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[2.2]"
+      className="h-3 w-3 fill-none stroke-current stroke-[2.2]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -178,7 +178,7 @@ function MonitorIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -193,7 +193,7 @@ function FileIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -207,7 +207,7 @@ function DashboardIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -223,7 +223,7 @@ function CartIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -238,7 +238,7 @@ function CloudIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -251,7 +251,7 @@ function ApiIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -265,7 +265,7 @@ function EyeIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -279,7 +279,7 @@ function UserIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -293,7 +293,7 @@ function RocketIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -308,7 +308,7 @@ function BookIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="w-3 h-3 fill-none stroke-current stroke-[1.8]"
+      className="h-3 w-3 fill-none stroke-current stroke-[1.8]"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -348,30 +348,45 @@ export default function RecruitersLanding() {
   return (
     <section
       ref={rootRef}
-      className="w-site mx-auto p-4 md:p-6 lg:h-screen lg:max-h-screen lg:flex lg:flex-col lg:justify-between lg:gap-4 lg:box-border overflow-y-auto lg:overflow-hidden"
+      className="mx-auto w-dvw overflow-y-auto p-4 md:p-6 lg:box-border lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:justify-between lg:gap-4 lg:overflow-hidden"
     >
       {/* Bento Grid Principal */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 lg:grid-rows-12 gap-4 lg:flex-1 lg:min-h-0">
-        
+      <div className="grid grid-cols-1 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-12 lg:grid-rows-12">
         {/* Card 1: Introdução */}
-        <div className="recruiter-block lg:col-span-8 lg:row-span-5 border border-line bg-paper/60 rounded-xl p-5 md:p-6 flex flex-col justify-between relative overflow-hidden">
-          <div className="border-accent/5 absolute -bottom-10 -left-10 h-32 w-32 rounded-full border-[12px] border-r-transparent pointer-events-none" />
+        <div className="recruiter-block border-line bg-paper/60 relative flex flex-col justify-between overflow-hidden rounded-xl border p-5 md:p-6 lg:col-span-8 lg:row-span-5">
+          <div className="border-accent/5 pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full border-[12px] border-r-transparent" />
           <div>
-            <span className="text-accent text-[0.7rem] font-label tracking-[0.1em] uppercase mb-2 block">
+          <div className="recruiter-block border-accent/40 bg-paper shadow-xs mb-4 flex w-fit items-center gap-2.5 rounded-sm border px-3.5 py-1.5 select-none">
+            {/* Símbolo do nó do talismã */}
+            <div className="flex items-center gap-1">
+              <span className="text-accent text-[0.62rem]">和</span>
+              <div className="bg-accent/40 h-3 w-px" />
+            </div>
+            
+            {/* Texto */}
+            <span className="text-accent font-mono text-[0.68rem] font-bold tracking-[0.15em] uppercase">
               Para recrutadores
             </span>
-            <h1 className="text-xl md:text-2xl lg:text-[1.8rem] xl:text-3xl font-heading leading-tight tracking-normal text-ink max-w-[20ch]">
+            
+            {/* Selo/Símbolo do talismã na direita (招 - Convidar/Recrutar) */}
+            <div className="border-accent/60 text-accent/80 flex h-4.5 w-4.5 items-center justify-center rounded-sm border text-[0.45rem] font-bold">
+              招
+            </div>
+          </div>
+            <h1 className="font-heading text-ink max-w-[20ch] text-xl leading-tight tracking-normal md:text-2xl lg:text-[1.8rem] xl:text-3xl">
               Soluções completas, entregues com propósito.
             </h1>
-            <p className="text-muted text-xs md:text-sm mt-3 leading-relaxed max-w-[560px]">
-              Atuo unindo estratégia, design e tecnologia para criar produtos digitais com foco em desempenho, experiência do usuário e impacto real. Abaixo estão informações que podem ajudar na sua avaliação.
+            <p className="text-muted mt-3 max-w-[560px] text-xs leading-relaxed md:text-sm">
+              Atuo unindo estratégia, design e tecnologia para criar produtos digitais com foco em
+              desempenho, experiência do usuário e impacto real. Abaixo estão informações que podem
+              ajudar na sua avaliação.
             </p>
           </div>
-          
-          <div className="flex flex-wrap gap-3 mt-6 lg:mt-0 relative z-10">
+
+          <div className="relative z-10 mt-6 flex flex-wrap gap-3 lg:mt-0">
             <TransitionLink
               href="/#projects"
-              className="bg-ink text-paper hover:bg-accent-dark min-h-touch gap-2 px-4 py-2.5 text-xs font-ui inline-flex items-center justify-center rounded-sm border border-transparent transition-all duration-180"
+              className="bg-ink text-paper hover:bg-accent-dark min-h-touch font-ui inline-flex items-center justify-center gap-2 rounded-sm border border-transparent px-4 py-2.5 text-xs transition-all duration-180"
             >
               Ver projetos
               <ArrowIcon />
@@ -379,7 +394,7 @@ export default function RecruitersLanding() {
             <a
               href="/cv-gabriel-nbs.pdf"
               download
-              className="border-line text-ink hover:border-ink hover:bg-soft min-h-touch gap-2 px-4 py-2.5 text-xs font-ui inline-flex items-center justify-center rounded-sm border bg-paper/50 transition-all duration-180"
+              className="border-line text-ink hover:border-ink hover:bg-soft min-h-touch font-ui bg-paper/50 inline-flex items-center justify-center gap-2 rounded-sm border px-4 py-2.5 text-xs transition-all duration-180"
             >
               Baixar CV
               <DownloadIcon />
@@ -388,10 +403,10 @@ export default function RecruitersLanding() {
         </div>
 
         {/* Card 2: Identidade */}
-        <div className="recruiter-block lg:col-span-4 lg:row-span-5 border border-line bg-paper/70 rounded-xl p-5 md:p-6 flex flex-col justify-between relative overflow-hidden">
-          <div className="border-accent/10 absolute -top-8 -right-8 h-24 w-24 rounded-full border-[8px] border-l-transparent pointer-events-none" />
-          
-          <div className="flex items-center gap-4 relative z-10">
+        <div className="recruiter-block border-line bg-paper/70 relative flex flex-col justify-between overflow-hidden rounded-xl border p-5 md:p-6 lg:col-span-4 lg:row-span-5">
+          <div className="border-accent/10 pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full border-[8px] border-l-transparent" />
+
+          <div className="relative z-10 flex items-center gap-4">
             <div className="bg-soft border-line relative h-14 w-14 shrink-0 overflow-hidden rounded-full border shadow-inner">
               <Image
                 src="/images/avatar.png"
@@ -402,31 +417,36 @@ export default function RecruitersLanding() {
               />
             </div>
             <div className="min-w-0">
-              <h2 className="font-heading text-lg leading-tight tracking-normal text-ink">
+              <h2 className="font-heading text-ink text-lg leading-tight tracking-normal">
                 Gabriel NBS
               </h2>
-              <p className="text-accent text-[0.65rem] font-bold mt-0.5 tracking-wider uppercase">
+              <p className="text-accent mt-0.5 text-[0.65rem] font-bold tracking-wider uppercase">
                 Desenvolvedor & Designer
               </p>
-              <p className="text-muted text-[0.7rem] gap-1 mt-1 inline-flex items-center">
+              <p className="text-muted mt-1 inline-flex items-center gap-1 text-[0.7rem]">
                 <PinIcon />
                 São Paulo, Brasil
               </p>
             </div>
           </div>
 
-          <p className="text-muted text-xs leading-relaxed mt-4 relative z-10">
-            Desenvolvo experiências digitais completas, unindo interface, performance e código limpo para transformar ideias em produtos reais.
+          <p className="text-muted relative z-10 mt-4 text-xs leading-relaxed">
+            Desenvolvo experiências digitais completas, unindo interface, performance e código limpo
+            para transformar ideias em produtos reais.
           </p>
 
-          <div className="mt-4 border-t border-line pt-4 relative z-10">
-            <span className="text-accent text-[0.65rem] font-label tracking-[0.08em] uppercase mb-2 block">
+          <div className="border-line relative z-10 mt-4 border-t pt-4">
+            <span className="text-accent font-label mb-2 block text-[0.65rem] tracking-[0.08em] uppercase">
               Conecte-se comigo
             </span>
             <div className="flex gap-2">
               {[
                 { icon: <GithubIcon />, href: 'https://github.com/GabrielNBS', label: 'GitHub' },
-                { icon: <LinkedinIcon />, href: 'https://www.linkedin.com/in/gabriel-nbs/', label: 'LinkedIn' },
+                {
+                  icon: <LinkedinIcon />,
+                  href: 'https://www.linkedin.com/in/gabriel-nbs/',
+                  label: 'LinkedIn'
+                },
                 { icon: <XIcon />, href: 'https://x.com/', label: 'X' }
               ].map((social) => (
                 <a
@@ -435,7 +455,7 @@ export default function RecruitersLanding() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
-                  className="border-line text-muted hover:text-ink hover:border-ink w-9 h-9 flex items-center justify-center rounded-md border bg-canvas/30 hover:bg-canvas transition-colors duration-180"
+                  className="border-line text-muted hover:text-ink hover:border-ink bg-canvas/30 hover:bg-canvas flex h-9 w-9 items-center justify-center rounded-md border transition-colors duration-180"
                 >
                   {social.icon}
                 </a>
@@ -445,15 +465,17 @@ export default function RecruitersLanding() {
         </div>
 
         {/* Card 3: Trajetória */}
-        <div className="recruiter-block lg:col-span-3 lg:row-span-5 border border-line bg-paper/70 rounded-xl p-5 flex flex-col justify-between overflow-hidden">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-accent bg-accent/10 p-1 rounded">
+        <div className="recruiter-block border-line bg-paper/70 flex flex-col justify-between overflow-hidden rounded-xl border p-5 lg:col-span-3 lg:row-span-5">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="text-accent bg-accent/10 rounded p-1">
               <MapRouteIcon />
             </div>
-            <span className="text-muted text-[0.65rem] font-label tracking-[0.08em] uppercase">MINHA TRAJETÓRIA</span>
+            <span className="text-muted font-label text-[0.65rem] tracking-[0.08em] uppercase">
+              MINHA TRAJETÓRIA
+            </span>
           </div>
-          
-          <div className="relative border-l border-line ml-3 mt-1 space-y-4 flex-1 flex flex-col justify-center">
+
+          <div className="border-line relative mt-1 ml-3 flex flex-1 flex-col justify-center space-y-4 border-l">
             {[
               {
                 date: '2024 – Atual',
@@ -472,25 +494,27 @@ export default function RecruitersLanding() {
               }
             ].map((item, idx) => (
               <div key={idx} className="relative pl-5">
-                <span className="bg-accent absolute -left-[4.5px] top-1.5 h-2 w-2 rounded-full" />
-                <span className="text-accent text-[0.65rem] font-bold block">{item.date}</span>
-                <h4 className="text-ink text-xs font-bold leading-tight mt-0.5">{item.role}</h4>
-                <p className="text-muted text-[0.65rem] mt-0.5 leading-snug">{item.desc}</p>
+                <span className="bg-accent absolute top-1.5 -left-[4.5px] h-2 w-2 rounded-full" />
+                <span className="text-accent block text-[0.65rem] font-bold">{item.date}</span>
+                <h4 className="text-ink mt-0.5 text-xs leading-tight font-bold">{item.role}</h4>
+                <p className="text-muted mt-0.5 text-[0.65rem] leading-snug">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Card 4: Números */}
-        <div className="recruiter-block lg:col-span-3 lg:row-span-5 border border-line bg-paper/70 rounded-xl p-5 flex flex-col justify-between overflow-hidden">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-accent bg-accent/10 p-1 rounded">
+        <div className="recruiter-block border-line bg-paper/70 flex flex-col justify-between overflow-hidden rounded-xl border p-5 lg:col-span-3 lg:row-span-5">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="text-accent bg-accent/10 rounded p-1">
               <BarChartIcon />
             </div>
-            <span className="text-muted text-[0.65rem] font-label tracking-[0.08em] uppercase">NÚMEROS QUE IMPORTAM</span>
+            <span className="text-muted font-label text-[0.65rem] tracking-[0.08em] uppercase">
+              NÚMEROS QUE IMPORTAM
+            </span>
           </div>
-          
-          <div className="space-y-3.5 mt-1 pl-1 flex-1 flex flex-col justify-center">
+
+          <div className="mt-1 flex flex-1 flex-col justify-center space-y-3.5 pl-1">
             {[
               { num: '+ 25', label: 'Projetos entregues' },
               { num: '+ 4', label: 'Anos de experiência' },
@@ -498,7 +522,9 @@ export default function RecruitersLanding() {
               { num: '+ 18k', label: 'Usuários impactados' }
             ].map((stat, idx) => (
               <div key={idx} className="flex items-baseline gap-2">
-                <span className="text-accent text-lg xl:text-xl font-heading font-bold leading-none w-12 shrink-0">{stat.num}</span>
+                <span className="text-accent font-heading w-12 shrink-0 text-lg leading-none font-bold xl:text-xl">
+                  {stat.num}
+                </span>
                 <span className="text-muted text-[0.65rem] leading-snug">{stat.label}</span>
               </div>
             ))}
@@ -506,15 +532,17 @@ export default function RecruitersLanding() {
         </div>
 
         {/* Card 5: Como Trabalho */}
-        <div className="recruiter-block lg:col-span-3 lg:row-span-5 border border-line bg-paper/70 rounded-xl p-5 flex flex-col justify-between overflow-hidden">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-accent bg-accent/10 p-1 rounded">
+        <div className="recruiter-block border-line bg-paper/70 flex flex-col justify-between overflow-hidden rounded-xl border p-5 lg:col-span-3 lg:row-span-5">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="text-accent bg-accent/10 rounded p-1">
               <ThunderIcon />
             </div>
-            <span className="text-muted text-[0.65rem] font-label tracking-[0.08em] uppercase">COMO TRABALHO</span>
+            <span className="text-muted font-label text-[0.65rem] tracking-[0.08em] uppercase">
+              COMO TRABALHO
+            </span>
           </div>
-          
-          <div className="space-y-3 mt-1 pl-1 flex-1 flex flex-col justify-center">
+
+          <div className="mt-1 flex flex-1 flex-col justify-center space-y-3 pl-1">
             {[
               {
                 icon: <MessageIcon />,
@@ -538,11 +566,11 @@ export default function RecruitersLanding() {
               }
             ].map((work, idx) => (
               <div key={idx} className="flex gap-2.5">
-                <div className="text-accent mt-0.5 shrink-0 bg-accent/5 p-0.5 rounded-sm w-5 h-5 flex items-center justify-center">
+                <div className="text-accent bg-accent/5 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-sm p-0.5">
                   {work.icon}
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-ink text-[0.7rem] font-bold leading-tight">{work.title}</h4>
+                  <h4 className="text-ink text-[0.7rem] leading-tight font-bold">{work.title}</h4>
                   <p className="text-muted text-[0.65rem] leading-snug">{work.desc}</p>
                 </div>
               </div>
@@ -551,15 +579,17 @@ export default function RecruitersLanding() {
         </div>
 
         {/* Card 6: Para Esta Vaga */}
-        <div className="recruiter-block lg:col-span-3 lg:row-span-5 border border-line bg-paper/70 rounded-xl p-5 flex flex-col justify-between overflow-hidden">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-accent bg-accent/10 p-1 rounded">
+        <div className="recruiter-block border-line bg-paper/70 flex flex-col justify-between overflow-hidden rounded-xl border p-5 lg:col-span-3 lg:row-span-5">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="text-accent bg-accent/10 rounded p-1">
               <ClipboardIcon />
             </div>
-            <span className="text-muted text-[0.65rem] font-label tracking-[0.08em] uppercase">PARA ESTA VAGA</span>
+            <span className="text-muted font-label text-[0.65rem] tracking-[0.08em] uppercase">
+              PARA ESTA VAGA
+            </span>
           </div>
-          
-          <div className="space-y-2.5 mt-1 pl-1 flex-1 flex flex-col justify-center">
+
+          <div className="mt-1 flex flex-1 flex-col justify-center space-y-2.5 pl-1">
             {[
               { label: 'Disponibilidade', val: 'Início imediato' },
               { label: 'Modelo', val: 'Remoto ou híbrido' },
@@ -567,11 +597,11 @@ export default function RecruitersLanding() {
               { label: 'Interesses', val: 'Front-end, UX/UI e performance' }
             ].map((job, idx) => (
               <div key={idx} className="flex gap-2">
-                <div className="text-accent mt-0.5 shrink-0 bg-accent/10 p-0.5 rounded-full w-3.5 h-3.5 flex items-center justify-center">
+                <div className="text-accent bg-accent/10 mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full p-0.5">
                   <CheckIcon />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-ink text-[0.7rem] font-bold leading-tight">{job.label}</h4>
+                  <h4 className="text-ink text-[0.7rem] leading-tight font-bold">{job.label}</h4>
                   <p className="text-muted text-[0.65rem] leading-snug">{job.val}</p>
                 </div>
               </div>
@@ -580,11 +610,12 @@ export default function RecruitersLanding() {
         </div>
 
         {/* Card 7: Áreas de Atuação & Diferenciais */}
-        <div className="recruiter-block lg:col-span-12 lg:row-span-2 border border-line bg-paper/70 rounded-xl p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8 overflow-hidden">
-          
+        <div className="recruiter-block border-line bg-paper/70 flex flex-col justify-between gap-4 overflow-hidden rounded-xl border p-4 lg:col-span-12 lg:row-span-2 lg:flex-row lg:items-center lg:gap-8">
           {/* Áreas de Atuação */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-accent text-[0.65rem] font-label tracking-[0.08em] uppercase mb-2">ÁREAS DE ATUAÇÃO</h3>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-accent font-label mb-2 text-[0.65rem] tracking-[0.08em] uppercase">
+              ÁREAS DE ATUAÇÃO
+            </h3>
             <div className="flex flex-wrap gap-2">
               {[
                 { label: 'Web Apps', icon: <MonitorIcon /> },
@@ -596,7 +627,7 @@ export default function RecruitersLanding() {
               ].map((area) => (
                 <span
                   key={area.label}
-                  className="border-line text-muted px-2.5 py-1 text-[0.65rem] rounded-full border font-medium bg-paper flex items-center gap-1.5 hover:border-accent hover:text-ink transition-colors duration-180 cursor-default"
+                  className="border-line text-muted bg-paper hover:border-accent hover:text-ink flex cursor-default items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.65rem] font-medium transition-colors duration-180"
                 >
                   <span className="text-accent">{area.icon}</span>
                   {area.label}
@@ -606,11 +637,13 @@ export default function RecruitersLanding() {
           </div>
 
           {/* Divisor vertical no desktop */}
-          <div className="hidden lg:block h-8 w-px bg-line shrink-0" />
+          <div className="bg-line hidden h-8 w-px shrink-0 lg:block" />
 
           {/* Diferenciais */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-accent text-[0.65rem] font-label tracking-[0.08em] uppercase mb-2">DIFERENCIAIS</h3>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-accent font-label mb-2 text-[0.65rem] tracking-[0.08em] uppercase">
+              DIFERENCIAIS
+            </h3>
             <div className="flex flex-wrap gap-2">
               {[
                 { label: 'Visão de produto', icon: <EyeIcon /> },
@@ -620,7 +653,7 @@ export default function RecruitersLanding() {
               ].map((dif) => (
                 <span
                   key={dif.label}
-                  className="border-line text-muted px-2.5 py-1 text-[0.65rem] rounded-full border font-medium bg-paper flex items-center gap-1.5 hover:border-accent hover:text-ink transition-colors duration-180 cursor-default"
+                  className="border-line text-muted bg-paper hover:border-accent hover:text-ink flex cursor-default items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.65rem] font-medium transition-colors duration-180"
                 >
                   <span className="text-accent">{dif.icon}</span>
                   {dif.label}
@@ -628,31 +661,38 @@ export default function RecruitersLanding() {
               ))}
             </div>
           </div>
-
         </div>
-
       </div>
 
       {/* Footer Fixo e Compacto no Fim */}
       <div className="recruiter-block mt-4 lg:mt-0">
-        <div className="grid grid-cols-3 divide-x divide-line border border-line rounded-md bg-paper overflow-hidden text-center shadow-sm">
+        <div className="divide-line border-line bg-paper grid grid-cols-3 divide-x overflow-hidden rounded-md border text-center shadow-sm">
           <TransitionLink
             href="/"
-            className="hover:bg-soft py-3 text-[0.75rem] font-ui transition-colors duration-180 block text-muted hover:text-ink group"
+            className="hover:bg-soft font-ui text-muted hover:text-ink group block py-3 text-[0.75rem] transition-colors duration-180"
           >
-            Sobre <span className="inline-block translate-x-0 group-hover:translate-x-1 transition-transform duration-180 ml-1">→</span>
+            Sobre{' '}
+            <span className="ml-1 inline-block translate-x-0 transition-transform duration-180 group-hover:translate-x-1">
+              →
+            </span>
           </TransitionLink>
           <TransitionLink
             href="/#projects"
-            className="hover:bg-soft py-3 text-[0.75rem] font-ui transition-colors duration-180 block text-muted hover:text-ink group"
+            className="hover:bg-soft font-ui text-muted hover:text-ink group block py-3 text-[0.75rem] transition-colors duration-180"
           >
-            Projetos <span className="inline-block translate-x-0 group-hover:translate-x-1 transition-transform duration-180 ml-1">→</span>
+            Projetos{' '}
+            <span className="ml-1 inline-block translate-x-0 transition-transform duration-180 group-hover:translate-x-1">
+              →
+            </span>
           </TransitionLink>
           <TransitionLink
             href="/#contact"
-            className="hover:bg-soft py-3 text-[0.75rem] font-ui transition-colors duration-180 block text-muted hover:text-ink group"
+            className="hover:bg-soft font-ui text-muted hover:text-ink group block py-3 text-[0.75rem] transition-colors duration-180"
           >
-            Contato <span className="inline-block translate-x-0 group-hover:translate-x-1 transition-transform duration-180 ml-1">→</span>
+            Contato{' '}
+            <span className="ml-1 inline-block translate-x-0 transition-transform duration-180 group-hover:translate-x-1">
+              →
+            </span>
           </TransitionLink>
         </div>
       </div>
