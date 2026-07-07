@@ -86,9 +86,15 @@
 
 @layer components {
   .bamboo-divider {
-    @apply w-px relative;
+    @apply relative w-px;
 
-    background: linear-gradient(to bottom, transparent, rgba(82, 68, 54, 0.15) 20%, rgba(82, 68, 54, 0.15) 80%, transparent);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(82, 68, 54, 0.15) 20%,
+      rgba(82, 68, 54, 0.15) 80%,
+      transparent
+    );
   }
 
   .bamboo-progress {
@@ -100,7 +106,7 @@
   .bamboo-divider::after {
     content: '';
 
-    @apply absolute top-1/2 left-[-4px] h-[2px] w-[9px] -translate-y-1/2 z-10;
+    @apply absolute top-1/2 left-[-4px] z-10 h-[2px] w-[9px] -translate-y-1/2;
 
     background-color: #524436;
   }
@@ -147,4 +153,8 @@ svg {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.font-script {
+  font-family: var(--font-kaushan-script), serif;
 }

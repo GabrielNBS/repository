@@ -63,7 +63,9 @@ function ColorRevealMockup({ src, alt, priority = false }: ColorRevealMockupProp
     const imgRatio = imgWidth / imgHeight;
     const containerRatio = canvasWidth / canvasHeight;
 
-    let sx = 0, sWidth = imgWidth, sHeight = imgHeight;
+    let sx = 0,
+      sWidth = imgWidth,
+      sHeight = imgHeight;
     const sy = 0;
     if (imgRatio > containerRatio) {
       sWidth = imgHeight * containerRatio;
@@ -155,7 +157,7 @@ function ColorRevealMockup({ src, alt, priority = false }: ColorRevealMockupProp
       isLoopingRef.current = true;
       hasDrawnStaticRef.current = false;
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
-      
+
       const renderFrame = () => {
         const splats = splatsRef.current;
         const canvas = canvasRef.current;
@@ -168,7 +170,7 @@ function ColorRevealMockup({ src, alt, priority = false }: ColorRevealMockupProp
           animationFrameId.current = null;
           return;
         }
-        
+
         const needsRender = splats.length > 0;
         if (!needsRender) {
           if (!hasDrawnStaticRef.current) {
@@ -194,7 +196,9 @@ function ColorRevealMockup({ src, alt, priority = false }: ColorRevealMockupProp
         const imgRatio = imgWidth / imgHeight;
         const containerRatio = canvasWidth / canvasHeight;
 
-        let sx = 0, sWidth = imgWidth, sHeight = imgHeight;
+        let sx = 0,
+          sWidth = imgWidth,
+          sHeight = imgHeight;
         const sy = 0;
         if (imgRatio > containerRatio) {
           sWidth = imgHeight * containerRatio;
@@ -295,23 +299,16 @@ function ColorRevealMockup({ src, alt, priority = false }: ColorRevealMockupProp
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full h-full"
-      onMouseMove={handleMouseMove}
-    >
+    <div ref={containerRef} className="relative h-full w-full" onMouseMove={handleMouseMove}>
       <Image
         src={src}
         alt={alt}
         fill
         sizes="50vw"
         priority={priority}
-        className="opacity-0 pointer-events-none"
+        className="pointer-events-none opacity-0"
       />
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none w-full h-full z-10"
-      />
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-10 h-full w-full" />
     </div>
   );
 }
@@ -357,10 +354,20 @@ export default function Projects() {
       if (desktopShowcase) {
         projects.forEach((_, i) => {
           if (i === 0) {
-            gsap.set(`.text-block-${i}`, { autoAlpha: 1, y: 0, filter: 'blur(0px)', pointerEvents: 'auto' });
+            gsap.set(`.text-block-${i}`, {
+              autoAlpha: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              pointerEvents: 'auto'
+            });
             gsap.set(`.project-number-${i}`, { autoAlpha: 1, filter: 'blur(0px)' });
           } else {
-            gsap.set(`.text-block-${i}`, { autoAlpha: 0, y: 30, filter: 'blur(10px)', pointerEvents: 'none' });
+            gsap.set(`.text-block-${i}`, {
+              autoAlpha: 0,
+              y: 30,
+              filter: 'blur(10px)',
+              pointerEvents: 'none'
+            });
             gsap.set(`.project-number-${i}`, { autoAlpha: 0, filter: 'blur(10px)' });
           }
         });
@@ -560,9 +567,9 @@ export default function Projects() {
     <section id="projects" className="py-section" ref={sectionRef}>
       {/* Section Header */}
       <div className="w-site mb-heading-gap mx-auto">
-        <p className="projects-label text-accent text-label font-label mb-4 tracking-widest uppercase">
+        <span className="projects-label text-accent text-label font-label mb-4 tracking-widest uppercase">
           Projetos
-        </p>
+        </span>
         <h2
           id="projects-title"
           className="text-display font-heading max-w-[15ch] leading-[1.05] max-md:max-w-[11ch]"

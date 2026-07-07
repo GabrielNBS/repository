@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Link, { LinkProps } from 'next/link';
 import { useTransition } from './TransitionProvider';
 
@@ -10,31 +10,32 @@ type TransitionLinkProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, k
     className?: string;
   };
 
-export default function TransitionLink({
-  href,
-  children,
-  className,
-  ...props
-}: TransitionLinkProps) {
-  const { navigate } = useTransition();
+const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
+  ({ href, children, className, ...props }, ref) => {
+    const { navigate } = useTransition();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (
-      e.ctrlKey ||
-      e.metaKey ||
-      e.shiftKey ||
-      e.button !== 0
-    ) {
-      return;
-    }
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (
+        e.ctrlKey ||
+        e.metaKey ||
+        e.shiftKey ||
+        e.button !== 0
+      ) {
+        return;
+      }
 
-    e.preventDefault();
-    navigate(href.toString());
-  };
+      e.preventDefault();
+      navigate(href.toString());
+    };
 
-  return (
-    <Link href={href} className={className} onClick={handleClick} {...props}>
-      {children}
-    </Link>
-  );
-}
+    return (
+      <Link href={href} className={className} onClick={handleClick} ref={ref} {...props}>
+        {children}
+      </Link>
+    );
+  }
+);
+
+TransitionLink.displayName = 'TransitionLink';
+
+export default TransitionLink;

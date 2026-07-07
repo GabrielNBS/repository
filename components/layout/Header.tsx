@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import TransitionLink from '@/components/ui/TransitionLink';
+import { BrushStroke } from '@/components/ui/BrushStroke';
+import { useBrushAnimation } from '@/hooks/useBrushAnimation';
 
 interface NavCardProps {
   href: string;
@@ -17,26 +19,24 @@ function NavCard({ href, kanji, jpTitle, title, desc, delayClass, isOpen }: NavC
   return (
     <TransitionLink
       href={href}
-      className={`group relative border border-line bg-canvas/30 rounded-md p-4 overflow-hidden block transition-all duration-300 hover:border-accent hover:bg-canvas/80 ${
-        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      className={`group border-line bg-canvas/30 hover:border-accent hover:bg-canvas/80 relative block overflow-hidden rounded-md border p-4 transition-all duration-300 ${
+        isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
       } ${delayClass} transition-all duration-500 ease-out`}
     >
       {/* Kanji de Fundo / Marca d'água */}
-      <span className="absolute -right-2 -bottom-6 text-7xl font-serif font-bold text-line/20 select-none pointer-events-none group-hover:text-accent/10 transition-colors duration-300">
+      <span className="text-line/20 group-hover:text-accent/10 pointer-events-none absolute -right-2 -bottom-6 font-serif text-7xl font-bold transition-colors duration-300 select-none">
         {kanji}
       </span>
-      <div className="relative z-10 flex flex-col justify-between h-full">
+      <div className="relative z-10 flex h-full flex-col justify-between">
         <div>
-          <span className="text-[0.62rem] font-bold text-accent tracking-[0.15em] uppercase block mb-1">
+          <span className="text-accent mb-1 block text-[0.62rem] font-bold tracking-[0.15em] uppercase">
             {jpTitle}
           </span>
-          <h3 className="text-[1.05rem] font-heading font-bold text-ink group-hover:text-accent transition-colors duration-200">
+          <h3 className="font-heading text-ink group-hover:text-accent text-[1.05rem] transition-colors duration-200">
             {title}
           </h3>
         </div>
-        <p className="text-[0.78rem] text-muted mt-2 leading-relaxed max-w-[22ch]">
-          {desc}
-        </p>
+        <p className="text-muted text-label mt-2 max-w-[22ch] leading-relaxed">{desc}</p>
       </div>
     </TransitionLink>
   );
@@ -46,23 +46,25 @@ function RecruiterCard({ isOpen, delayClass }: { isOpen: boolean; delayClass: st
   return (
     <TransitionLink
       href="/recrutadores"
-      className={`group relative border border-accent/30 bg-accent/[0.02] rounded-md p-4 overflow-hidden block transition-all duration-300 hover:border-accent hover:bg-accent/[0.06] ${
-        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      className={`group border-accent/30 bg-accent/2 hover:border-accent hover:bg-accent/6 relative block overflow-hidden border p-4 transition-all duration-300 ${
+        isOpen ? 'opacity-100' : 'opacity-0'
       } ${delayClass} transition-all duration-500 ease-out`}
     >
       {/* Kanji de Fundo */}
-      <span className="absolute -right-2 -bottom-6 text-7xl font-serif font-bold text-accent/5 select-none pointer-events-none group-hover:text-accent/12 transition-colors duration-300">
+      <span className="text-accent/5 group-hover:text-accent/12 pointer-events-none absolute -right-2 -bottom-6 font-serif text-7xl font-bold transition-colors duration-300 select-none">
         招
       </span>
       <div className="relative z-10">
-        <span className="text-[0.62rem] font-bold text-accent tracking-[0.15em] uppercase block mb-1">
+        <span className="text-accent mb-1 block text-[0.62rem] font-bold tracking-[0.15em] uppercase">
           Saitō / 採用
         </span>
-        <h3 className="text-[1.05rem] font-heading font-bold text-accent group-hover:text-accent-dark transition-colors duration-200 flex items-center gap-1.5">
-          Para Recrutadores 
-          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        <h3 className="font-heading text-accent group-hover:text-accent-dark flex items-center gap-1.5 text-[1.05rem] transition-colors duration-200">
+          Para Recrutadores
+          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
         </h3>
-        <p className="text-[0.78rem] text-muted mt-2 leading-relaxed max-w-[24ch]">
+        <p className="text-muted text-label mt-2 max-w-[24ch] leading-relaxed">
           Resumo profissional, competências e download de CV.
         </p>
       </div>
@@ -76,6 +78,15 @@ export default function Header() {
   const closeTimeout = useRef<NodeJS.Timeout | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+
+  // Hook de animação Sumi-e no botão de controle do menu
+  useBrushAnimation({
+    triggerRef,
+    pathRef,
+    textRef
+  });
 
   // Monitora scroll para ajustar opacidade fora do Hero
   useEffect(() => {
@@ -135,34 +146,38 @@ export default function Header() {
 
   return (
     <>
-      {/* Botão de Controle (Kanji "和" - Harmonia) no canto superior direito */}
+      {/* Botão de Controle (Kanji "和" - Harmonia) no canto superior esquerdo com Sumi-e */}
       <div
         ref={triggerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={toggleMenu}
-        className={`fixed top-6 right-6 sm:right-8 z-50 flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-paper/60 backdrop-blur-sm border border-line/40 select-none cursor-pointer transition-all duration-300 shadow-sm ${
+        className={`bg-paper/60 border-line/40 fixed top-6 left-6 z-40 flex cursor-pointer items-center gap-2.5 border px-3.5 py-2.5 shadow-sm backdrop-blur-sm transition-all duration-300 select-none ${
           isOpen
-            ? 'opacity-100 scale-105 border-accent/40'
+            ? 'border-accent/40 scale-105 opacity-100'
             : isScrolled
-            ? 'opacity-35 hover:opacity-100 hover:scale-105'
-            : 'opacity-100 hover:scale-105'
+              ? 'opacity-35 hover:scale-105 hover:opacity-100'
+              : 'opacity-100 hover:scale-105'
         }`}
         aria-label="Menu de Navegação"
         aria-expanded={isOpen}
       >
-        <span className="text-xl sm:text-2xl font-serif font-bold text-ink select-none tracking-normal leading-none">
+        <span
+          ref={textRef}
+          className="text-ink font-serif text-xl leading-none font-bold tracking-normal transition-colors duration-300 select-none sm:text-2xl"
+        >
           和
         </span>
-        <span className="text-[0.62rem] font-bold text-muted tracking-[0.1em] uppercase select-none pr-1">
+        <span className="text-muted pr-1 text-[0.62rem] font-bold tracking-widest uppercase select-none">
           Menu
         </span>
+        <BrushStroke ref={pathRef} className="text-accent/90" />
       </div>
 
       {/* Backdrop de Fundo com Blur sutil */}
       <div
-        className={`fixed inset-0 bg-ink/15 backdrop-blur-xs z-40 transition-opacity duration-500 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`bg-ink/15 fixed inset-0 z-40 backdrop-blur-xs transition-opacity duration-500 ${
+          isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={() => setIsOpen(false)}
       />
@@ -172,47 +187,45 @@ export default function Header() {
         ref={sheetRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 right-0 h-screen w-full sm:w-[420px] bg-paper border-l border-line/80 shadow-2xl flex flex-col justify-between p-6 sm:p-8 z-45 transition-transform duration-500 ease-out transform ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`bg-paper border-line/80 fixed top-0 left-0 z-45 flex h-screen w-full transform flex-col justify-between border-l p-6 shadow-2xl transition-transform duration-500 ease-out sm:w-[420px] sm:p-8 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Topo do Sheet: Nome e Descrição */}
         <div
           className={`transition-all duration-500 ease-out ${
-            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           } delay-100`}
         >
-          <div className="flex justify-between items-start">
+          <div className="flex items-start justify-between">
             <TransitionLink
               href="/#top"
-              className="inline-block hover:text-accent transition-colors"
+              className="hover:text-accent inline-block transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              <h2 className="text-xl font-heading font-bold text-ink tracking-tight">
-                Gabriel NBS
-              </h2>
+              <h2 className="font-heading text-ink text-xl tracking-tight">Gabriel NBS</h2>
             </TransitionLink>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-muted hover:text-ink transition-colors p-1"
+              className="text-muted hover:text-ink p-1 transition-colors"
               aria-label="Fechar menu"
             >
-              <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-current stroke-[1.8] fill-none">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-[1.8]">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
-          <p className="text-[0.8rem] text-muted mt-2 leading-relaxed max-w-[280px]">
+          <p className="text-muted mt-2 max-w-[280px] text-[0.8rem] leading-relaxed">
             Interfaces com clareza, ritmo e precisão. Desenvolvedor Front-end & Designer.
           </p>
         </div>
 
         {/* Centro do Sheet: Cards de Seção */}
-        <div className="flex-1 my-auto py-8">
+        <div className="my-auto flex-1 py-8">
           <span
-            className={`text-[0.62rem] font-bold text-muted tracking-[0.15em] uppercase mb-4 block transition-all duration-500 ease-out ${
-              isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            className={`text-muted mb-4 block text-[0.62rem] font-bold tracking-[0.15em] uppercase transition-all duration-500 ease-out ${
+              isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             } delay-120`}
           >
             Navegação / 導
@@ -252,8 +265,8 @@ export default function Header() {
 
         {/* Base do Sheet: Redes Sociais */}
         <div
-          className={`flex items-center justify-between border-t border-line/60 pt-6 transition-all duration-500 ease-out ${
-            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          className={`border-line/60 flex items-center justify-between border-t pt-6 transition-all duration-500 ease-out ${
+            isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           } delay-350`}
         >
           <div className="flex gap-4">
@@ -261,7 +274,7 @@ export default function Header() {
               href="https://github.com/GabrielNBS"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[0.78rem] font-bold text-muted hover:text-accent transition-colors"
+              className="text-muted hover:text-accent text-label font-bold transition-colors"
             >
               GitHub ↗
             </a>
@@ -269,12 +282,12 @@ export default function Header() {
               href="https://www.linkedin.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[0.78rem] font-bold text-muted hover:text-accent transition-colors"
+              className="text-muted hover:text-accent text-label font-bold transition-colors"
             >
               LinkedIn ↗
             </a>
           </div>
-          <span className="text-[0.68rem] text-muted font-medium">
+          <span className="text-muted text-[0.68rem] font-medium">
             © {new Date().getFullYear()}
           </span>
         </div>
