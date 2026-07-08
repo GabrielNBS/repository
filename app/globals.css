@@ -77,11 +77,12 @@
   --text-note: 0.72rem;
   --text-title: 1.1rem;
 
-  --font-weight-heading: 760;
-  --font-weight-title: 720;
-  --font-weight-nav: 650;
-  --font-weight-ui: 760;
-  --font-weight-label: 800;
+  --font-weight-heading: 400;
+  --font-weight-title: 360;
+  --font-weight-nav: 300;
+  --font-weight-ui: 400;
+  --font-weight-label: 450;
+  --font-weight-soft: 200;
 }
 
 @layer components {
@@ -146,6 +147,13 @@ svg {
   display: block;
 }
 
+span {
+  font-family: var(--font-kaushan-script), serif;
+}
+.kaushan {
+  font-family: var(--font-kaushan-script), serif;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -153,8 +161,4 @@ svg {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-.font-script {
-  font-family: var(--font-kaushan-script), serif;
 }

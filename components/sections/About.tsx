@@ -3,6 +3,8 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { animateFadeIn, animateSplitText, animateShojiCards } from '@/animations';
+import ServiceCard from '@/components/ui/About/ServiceCard';
+import SkillCategory from '@/components/ui/About/SkillCategory';
 
 const services = [
   {
@@ -112,7 +114,8 @@ export default function About() {
           ref={subtitleRef}
           className="text-display font-heading max-w-[12ch] tracking-normal max-md:max-w-[11ch]"
         >
-          Design limpo com base tecnica.
+          Design <br />
+          limpo com base tecnica.
         </h2>
       </div>
       <div className="self-end">
@@ -125,31 +128,18 @@ export default function About() {
 
       <div className="services-container border-line divide-line col-span-full mt-6 grid grid-cols-3 divide-x border max-md:grid-cols-1 max-md:divide-x-0 max-md:divide-y">
         {services.map((service) => (
-          <article
-            className="service-card p-card flex flex-col bg-[rgb(255,255,255,0.74)]"
+          <ServiceCard
             key={service.title}
-          >
-            <h3 className="mb-title-gap text-title font-title tracking-normal">{service.title}</h3>
-            <p className="text-muted text-body">{service.description}</p>
-          </article>
+            title={service.title}
+            description={service.description}
+          />
         ))}
       </div>
 
       <div className="skills-container border-line col-span-full mt-8 border-t pt-8">
         <div className="grid grid-cols-4 gap-x-4 gap-y-6 max-sm:grid-cols-2">
           {skillCategories.map((category) => (
-            <div key={category.title} className="skill-category flex flex-col gap-4">
-              <h3 className="text-note font-label text-muted tracking-widest uppercase">
-                {category.title}
-              </h3>
-              <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
-                {category.items.map((item) => (
-                  <li key={item} className="text-ui text-ink font-medium">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <SkillCategory key={category.title} title={category.title} items={category.items} />
           ))}
         </div>
       </div>

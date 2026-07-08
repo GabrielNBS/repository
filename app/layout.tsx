@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Kaushan_Script } from 'next/font/google';
+import { Kaushan_Script, Manrope } from 'next/font/google';
 import './globals.css';
 import TransitionProvider from '@/components/ui/TransitionProvider';
 
@@ -7,6 +7,13 @@ const kaushanScript = Kaushan_Script({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-kaushan-script',
+  display: 'swap'
+});
+
+const manrope = Manrope({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-manrope',
   display: 'swap'
 });
 
