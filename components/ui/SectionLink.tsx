@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowIcon } from './Icons';
+import { ArrowIcon } from './icons';
 
 type SectionLinkProps = {
   label: string;

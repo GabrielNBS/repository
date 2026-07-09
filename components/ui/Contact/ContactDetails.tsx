@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MailIcon, PinIcon } from '@/components/ui/Icons';
+import { MailIcon, PinIcon } from '@/components/ui/icons';
 
 interface Social {
   label: string;

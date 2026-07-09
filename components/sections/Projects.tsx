@@ -6,9 +6,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animateFadeIn, animateSplitText } from '@/animations';
 import projects from '@/data/projects';
-import { BrushStroke } from '@/components/ui/BrushStroke';
 import { LeftDecorations, RightDecorations } from '@/components/ui/Projects/ProjectDecorations';
 import ProjectRowItem from '@/components/ui/Projects/ProjectRowItem';
+import { Button } from '../ui/Button';
 
 export default function Projects() {
   const [showAll, setShowAll] = useState(false);
@@ -251,13 +251,9 @@ export default function Projects() {
 
         {/* Botão de Ver Mais/Menos */}
         <div className="mt-8 flex justify-center lg:mt-4">
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="group text-ui font-ui text-ink hover:text-accent relative cursor-pointer px-6 py-3 transition-colors duration-300 select-none"
-          >
+          <Button variant="text" onClick={() => setShowAll(!showAll)}>
             {showAll ? 'Ver menos projetos' : 'Ver todos os projetos'}
-            <BrushStroke className="text-accent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
-          </button>
+          </Button>
         </div>
       </div>
     </section>

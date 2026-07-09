@@ -122,32 +122,32 @@ export default function Bridge() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden bg-canvas border-y border-line"
+      className="bg-canvas border-line relative flex h-[100dvh] w-full flex-col items-center justify-center overflow-hidden border-y"
       aria-label="Ponte de transição e navegação"
     >
       {/* Background Zen Elements (Sol, Montanhas, Nuvens, Bambu, Torii, Rio) */}
       <HashiBackground />
 
       {/* Bloco Central de Conteúdo e Ações (Frase + Links Rápidos juntos) */}
-      <div className="relative w-site max-w-4xl px-6 flex flex-col items-center justify-center z-10 text-center">
+      <div className="w-site relative z-10 flex max-w-4xl flex-col items-center justify-center px-6 text-center">
         {/* Rótulo da seção */}
-        <span className="text-accent text-label font-label tracking-[0.25em] mb-5 uppercase block select-none">
+        <span className="text-accent text-label font-label mb-5 block tracking-[0.25em] uppercase select-none">
           02 // HASHI
         </span>
 
         {/* A Frase Editorial */}
         <h2
           ref={phraseRef}
-          className="text-bridge font-heading text-ink tracking-tight leading-relaxed max-w-[24ch] sm:max-w-[30ch] select-none"
+          className="text-bridge font-heading text-ink max-w-[24ch] leading-relaxed tracking-tight select-none sm:max-w-[30ch]"
         >
           No fluxo silencioso entre o conceito e a criação, a travessia se torna o próprio caminho.
         </h2>
 
         {/* Indicador de rolagem zen */}
-        <div className="mt-8 md:mt-10 flex flex-col items-center gap-2 opacity-50 select-none">
-          <span className="text-note tracking-[0.15em] uppercase font-bold text-muted">Rolar</span>
-          <div className="w-[1px] h-[25px] bg-muted/30 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-accent animate-bounce" />
+        <div className="mt-8 flex flex-col items-center gap-2 opacity-50 select-none md:mt-10">
+          <span className="text-note text-muted font-bold tracking-[0.15em] uppercase">Rolar</span>
+          <div className="bg-muted/30 relative h-[25px] w-[1px] overflow-hidden">
+            <div className="bg-accent absolute top-0 left-0 h-1/2 w-full animate-bounce" />
           </div>
         </div>
       </div>

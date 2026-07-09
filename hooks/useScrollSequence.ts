@@ -28,12 +28,8 @@ export default function useScrollSequence(sequencePath: string): UseScrollSequen
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [manifest, setManifest] = useState<Manifest | null>(null);
-  const isStartedRef = useRef(false);
 
   useEffect(() => {
-    if (isStartedRef.current) return;
-    isStartedRef.current = true;
-
     let active = true;
 
     async function loadSequence() {
@@ -72,7 +68,6 @@ export default function useScrollSequence(sequencePath: string): UseScrollSequen
 
           const p = new Promise<void>((resolve) => {
             const img = new Image();
-            img.src = url;
             img.onload = () => {
               loadedImages[i - 1] = img;
               updateProgress();
@@ -83,6 +78,7 @@ export default function useScrollSequence(sequencePath: string): UseScrollSequen
               updateProgress();
               resolve();
             };
+            img.src = url;
           });
           priorityPromises.push(p);
         }
@@ -96,7 +92,6 @@ export default function useScrollSequence(sequencePath: string): UseScrollSequen
           const url = `${sequencePath}/frame_${frameNumStr}.webp`;
 
           const img = new Image();
-          img.src = url;
           img.onload = () => {
             loadedImages[i - 1] = img;
             updateProgress();
@@ -105,6 +100,7 @@ export default function useScrollSequence(sequencePath: string): UseScrollSequen
             loadedImages[i - 1] = img;
             updateProgress();
           };
+          img.src = url;
         }
       } catch (err) {
         console.error('Erro ao carregar a sequência de frames:', err);

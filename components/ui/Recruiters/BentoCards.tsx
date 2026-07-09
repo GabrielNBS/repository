@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { PinIcon, ArrowIcon } from '@/components/ui/Icons';
+import { PinIcon, ArrowIcon } from '@/components/ui/icons';
 import TransitionLink from '@/components/ui/TransitionLink';
 import {
   DownloadIcon,

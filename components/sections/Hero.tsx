@@ -1,21 +1,27 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { animateFadeIn, animateSplitText } from '@/animations';
 import { SIZE_PARALLAX_SPEED } from '../../assets/Petals.config';
+import dynamic from 'next/dynamic';
 import SakuraPetals from '@/components/ui/Hero/SakuraPetals';
 import ZenBackground from '@/components/ui/Hero/ZenBackground';
-import ScrollFrameSequence from '@/components/video/ScrollFrameSequence';
+
+const ScrollFrameSequence = dynamic(() => import('@/components/video/ScrollFrameSequence'), {
+  ssr: false
+});
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useGSAP(
     () => {
       if (!containerRef.current) return;
+      if (!isVideoLoaded) return;
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -70,9 +76,9 @@ export default function Hero() {
       // em vez de um por elemento.
       const scrollTl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: 'main',
           start: 'top top',
-          end: 'bottom top',
+          end: () => `+=${containerRef.current?.offsetHeight || 0}`,
           scrub: true
         }
       });
@@ -93,14 +99,14 @@ export default function Hero() {
         if (splitInstance) splitInstance.revert();
       };
     },
-    { scope: containerRef }
+    { dependencies: [isVideoLoaded], scope: containerRef }
   );
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="bg-canvas relative flex h-dvh w-full flex-col items-center justify-center overflow-hidden"
+      className="bg-canvas relative flex h-dvh md:h-[calc(100dvh-4rem)] w-full flex-col items-center justify-center overflow-hidden"
       aria-labelledby="hero-title"
     >
       {/* Sakura Petals */}
@@ -109,8 +115,10 @@ export default function Hero() {
       {/* Scroll-Scrubbing da Raposa Sumi-e no canto inferior direito */}
       <ScrollFrameSequence
         sequencePath="/frames/fox-sumi-e"
-        triggerSelector="#hero"
-        className="bottom-0 left-0 aspect-video w-[90dvw] max-w-[1000px] md:w-[45dvw]"
+        triggerSelector="main"
+        pinSelector="#hero"
+        onLoadComplete={() => setIsVideoLoaded(true)}
+        className="bottom-10 left-0 aspect-video w-dvw max-w-[1000px] md:w-[45dvw]"
         canvasClassName="opacity-90"
       />
 

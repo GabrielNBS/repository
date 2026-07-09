@@ -148,10 +148,10 @@ export default function Header() {
     <>
       {/* Nav Tradicional para Desktop (Sticky no topo) com Liquid Glass */}
       <header
-        className={`sticky top-0 z-40 m-auto hidden w-full max-w-[1024px] transition-all duration-500 md:block ${
+        className={`fixed right-0 left-0 z-40 mx-auto w-full max-w-[1024px] transition-all duration-500 md:block ${
           isScrolled
-            ? 'bg-paper/75 border-line/20 top-5 w-full border-b py-8 shadow-xs transition-all duration-500'
-            : 'border-b border-transparent bg-transparent py-5 shadow-none'
+            ? 'bg-paper/75 border-line/20 fixed top-5 border-b py-8 shadow-xs'
+            : 'sticky top-0 border-b border-transparent bg-transparent py-5 shadow-none'
         }`}
         style={
           isScrolled
