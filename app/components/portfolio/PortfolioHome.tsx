@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import projects from '../../../data/projects';
 import PortfolioNav from './PortfolioNav';
+import ProjectAboutTransition from './ProjectAboutTransition';
 import ProjectCard from './ProjectCard';
 import { usePortfolioMotion } from './portfolioMotion';
 
@@ -29,6 +30,7 @@ export default function PortfolioHome() {
         Pular para o conteúdo
       </a>
       <PortfolioNav />
+      <ProjectAboutTransition />
       <section
         className="relative flex min-h-[min(54rem,100svh)] flex-col justify-end px-[clamp(1.25rem,3vw,3.75rem)] pt-36 pb-12 max-[800px]:min-h-svh max-[800px]:pt-32 max-[480px]:pb-8"
         aria-labelledby="hero-title"
@@ -111,8 +113,9 @@ export default function PortfolioHome() {
 
       <section
         id="projetos"
-        className="scroll-mt-24 px-[clamp(1.25rem,3vw,3.75rem)] pt-28 pb-32 max-[480px]:py-22"
+        className="scroll-mt-24 px-[clamp(1.25rem,3vw,3.75rem)] pt-28 pb-8 max-[480px]:pt-22 max-[480px]:pb-8"
         aria-labelledby="projects-title"
+        data-projects-section
       >
         <div
           className="mb-12 flex items-end justify-between gap-8 max-[800px]:flex-col max-[800px]:items-start"
@@ -145,14 +148,16 @@ export default function PortfolioHome() {
 
       <section
         id="sobre"
-        className="grid scroll-mt-24 grid-cols-[minmax(15rem,0.8fr)_minmax(0,1.2fr)] items-center gap-[clamp(3rem,10vw,10rem)] px-[clamp(1.25rem,3vw,3.75rem)] py-32 pt-48 max-[800px]:grid-cols-1 max-[800px]:pt-28 max-[480px]:py-[5.5rem]"
+        className="grid min-h-svh scroll-mt-24 grid-cols-[minmax(15rem,0.8fr)_minmax(0,1.2fr)] items-center gap-[clamp(3rem,10vw,10rem)] px-[clamp(1.25rem,3vw,3.75rem)] py-20 max-[800px]:grid-cols-1 max-[800px]:py-16 max-[480px]:py-14"
         aria-labelledby="about-title"
+        data-about-section
+        data-scroll-text-reveal-stage
       >
         <div
           className="bg-lilac before:border-ink relative aspect-[0.82] w-full overflow-hidden rounded-t-[45%] rounded-b-3xl before:absolute before:right-[-12%] before:bottom-[-20%] before:aspect-square before:w-[90%] before:rounded-full before:border before:content-[''] max-[800px]:w-[min(100%,22rem)]"
           role="img"
           aria-label="Retrato editorial de Gabriel Nascimento"
-          data-blur-reveal
+          data-transition-item
         >
           <span
             className="absolute top-1/2 left-1/2 translate-x-[-53%] -translate-y-1/2 -rotate-12 text-[clamp(5rem,13vw,13rem)] leading-[0.7] font-normal tracking-[-0.16em]"
@@ -165,23 +170,26 @@ export default function PortfolioHome() {
             <span>São Paulo / BR</span>
           </div>
         </div>
-        <div className="max-w-2xl" data-blur-reveal>
+        <div className="max-w-2xl" data-transition-item>
           <p className="text-muted inline-flex items-center gap-2.5 text-[0.72rem] leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
             03 / Sobre
           </p>
           <h2
             id="about-title"
-            className="m-0 mt-4 mb-7 max-w-[10ch] text-[clamp(3.2rem,7vw,7.5rem)] leading-[0.87] font-extrabold -tracking-widest"
+            className="m-0 mt-4 mb-7 max-w-[10ch] text-[clamp(3.2rem,7vw,7.5rem)] leading-[0.87] font-normal -tracking-widest"
             data-split="lines"
           >
             Código com olhar de direção.
           </h2>
-          <p className="text-muted m-0 max-w-124 text-[clamp(1rem,1.5vw,1.3rem)] leading-tight tracking-[-0.04em]">
+          <p
+            className="text-ink/85 m-0 max-w-124 text-[clamp(1rem,1.5vw,1.3rem)] leading-tight tracking-[-0.04em]"
+            data-scroll-text-reveal
+          >
             Sou Gabriel Nascimento, Desenvolvedor Front-end. Gosto de aproximar lógica e
             sensibilidade para transformar produtos digitais em experiências que fazem sentido.
           </p>
           <ul
-            className="[&>li]:border-ink/15 [&>li]:text-muted flex list-none flex-wrap gap-2 p-0 pt-8 [&>li]:rounded-full [&>li]:border [&>li]:px-3 [&>li]:py-2 [&>li]:text-[0.72rem] [&>li]:font-bold [&>li]:tracking-[0.05em] [&>li]:uppercase"
+            className="[&>li]:border-ink/15 [&>li]:text-muted flex list-none flex-wrap gap-2 p-0 pt-8 [&>li]:rounded-full [&>li]:border [&>li]:px-3 [&>li]:py-2 [&>li]:text-[0.72rem] [&>li]:font-bold [&>li]:tracking-wider [&>li]:uppercase"
             aria-label="Tecnologias e especialidades"
           >
             {technologies.map((tech) => (
@@ -206,7 +214,7 @@ export default function PortfolioHome() {
             </p>
             <h2
               id="contact-title"
-              className="m-0 max-w-[8ch] text-[clamp(3.5rem,8vw,8rem)] leading-[0.84] font-extrabold -tracking-widest"
+              className="m-0 max-w-[8ch] text-[clamp(3.5rem,8vw,8rem)] leading-[0.84] font-normal -tracking-widest"
               data-split="lines"
             >
               Vamos fazer algo vivo?

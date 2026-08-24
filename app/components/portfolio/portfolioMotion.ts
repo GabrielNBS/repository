@@ -52,6 +52,44 @@ function createSplitReveals() {
   return () => splits.forEach((split) => split.revert());
 }
 
+function createScrollTextReveals() {
+  const splits = gsap
+    .utils.toArray<HTMLElement>('[data-scroll-text-reveal]')
+    .map((element) => SplitText.create(element, { aria: 'auto', type: 'chars' }));
+
+  const animations = splits.map((split) => {
+    const pinTarget =
+      split.elements[0].closest<HTMLElement>('[data-scroll-text-reveal-stage]') ??
+      split.elements[0];
+
+    gsap.set(split.chars, { filter: 'blur(0.55px)', opacity: 0.16 });
+
+    return gsap.timeline({
+      scrollTrigger: {
+        anticipatePin: 1,
+        end: () => `+=${Math.max(window.innerHeight * 1.8, split.chars.length * 15)}`,
+        invalidateOnRefresh: true,
+        pin: pinTarget,
+        pinSpacing: true,
+        scrub: 0.65,
+        start: 'top top',
+        trigger: pinTarget
+      }
+    }).to(split.chars, {
+      duration: 1,
+      ease: 'none',
+      filter: 'blur(0px)',
+      opacity: 1,
+      stagger: { each: 0.018, from: 'start' }
+    });
+  });
+
+  return () => {
+    animations.forEach((animation) => animation.kill());
+    splits.forEach((split) => split.revert());
+  };
+}
+
 function createProjectParallax() {
   const media = gsap.utils.toArray<HTMLElement>('[data-project-visual]');
   const mediaQueries = gsap.matchMedia();
@@ -70,6 +108,77 @@ function createProjectParallax() {
   });
 
   return () => mediaQueries.revert();
+}
+
+function createProjectsToAboutReveal(root: RefObject<HTMLElement | null>) {
+  const projectsSection = root.current?.querySelector<HTMLElement>('[data-projects-section]');
+  const aboutSection = root.current?.querySelector<HTMLElement>('[data-about-section]');
+  const aboutItems = gsap.utils.toArray<HTMLElement>('[data-transition-item]', root.current);
+  const transition = root.current?.querySelector<HTMLElement>('[data-projects-about-transition]');
+  const pixels = gsap.utils.toArray<HTMLElement>('[data-projects-about-pixel]', root.current);
+
+  if (!projectsSection || !aboutSection || !aboutItems.length || !transition || !pixels.length) {
+    return () => {};
+  }
+
+  gsap.set(aboutItems, {
+    autoAlpha: 0,
+    filter: 'blur(12px)',
+    rotateX: 10,
+    scale: 0.94,
+    transformOrigin: 'center bottom',
+    y: 100
+  });
+  gsap.set(transition, { autoAlpha: 0 });
+  gsap.set(pixels, { autoAlpha: 0, scale: 0.7, transformOrigin: 'center' });
+
+  const getDelay = (index: number) => Number(pixels[index]?.dataset.transitionDelay ?? 0);
+  const getReverseDelay = (index: number) => 0.47 - getDelay(index);
+
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: aboutSection,
+      start: 'top 92%',
+      end: 'top top',
+      scrub: 0.9,
+      invalidateOnRefresh: true
+    }
+  });
+
+  timeline
+    .to(
+      projectsSection,
+      { filter: 'blur(5px)', scale: 0.985, transformOrigin: 'center top', yPercent: -5, ease: 'none', duration: 1 },
+      0
+    )
+    .to(transition, { autoAlpha: 1, duration: 0.01 }, 0)
+    .to(
+      pixels,
+      { autoAlpha: 1, duration: 0.08, ease: 'none', scale: 1, stagger: getDelay },
+      0.02
+    )
+    .to(
+      aboutItems,
+      {
+        autoAlpha: 1,
+        filter: 'blur(0px)',
+        rotateX: 0,
+        scale: 1,
+        stagger: 0.12,
+        y: 0,
+        ease: 'power4.out',
+        duration: 0.7
+      },
+      0.54
+    )
+    .to(
+      pixels,
+      { autoAlpha: 0, duration: 0.08, ease: 'none', scale: 0.35, stagger: getReverseDelay },
+      0.68
+    )
+    .to(transition, { autoAlpha: 0, duration: 0.01 }, 1.24);
+
+  return () => timeline.kill();
 }
 
 export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
@@ -102,7 +211,9 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
 
       createBlurReveals();
       const revertSplits = createSplitReveals();
+      const revertScrollTextReveals = createScrollTextReveals();
       const revertParallax = createProjectParallax();
+      const revertProjectsToAbout = createProjectsToAboutReveal(root);
 
       gsap.to('[data-hero-orbit]', {
         ease: 'none',
@@ -121,6 +232,8 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
         intro.kill();
         nav?.removeAttribute('data-scrolled');
         revertParallax();
+        revertProjectsToAbout();
+        revertScrollTextReveals();
         revertSplits();
       };
     },
@@ -295,4 +408,3 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
     { scope: root }
   );
 }
-
