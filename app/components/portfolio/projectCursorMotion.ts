@@ -2,16 +2,16 @@
 
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
-import type { PointerEvent } from 'react';
 
 type CursorPosition = { x: (value: number) => void; y: (value: number) => void };
+type CursorPointer = { clientX: number; clientY: number; pointerType: string };
 
 function getCursorContentWidth(cursor: HTMLSpanElement) {
   const content = cursor.querySelector<HTMLElement>('[data-project-cursor-content]');
   return content ? Math.ceil(content.scrollWidth) + 4 : 0;
 }
 
-export function useProjectCursor() {
+export function useProjectCursorMotion() {
   const cursor = useRef<HTMLSpanElement>(null);
   const cursorPosition = useRef<CursorPosition | null>(null);
   const supportsCursor = useRef(false);
@@ -43,26 +43,26 @@ export function useProjectCursor() {
     };
   }, []);
 
-  function moveCursor(event: PointerEvent<HTMLAnchorElement>, immediate = false) {
+  function moveCursor(event: CursorPointer, immediate = false) {
     const cursorElement = cursor.current;
-    if (!cursorElement || !supportsCursor.current || event.pointerType !== 'mouse') return;
+    if (!cursorElement || !supportsCursor.current || event.pointerType !== 'mouse') return false;
 
     const x = event.clientX + 18;
     const y = event.clientY + 18;
 
     if (immediate) {
       gsap.set(cursorElement, { x, y });
-      return;
+      return true;
     }
 
     cursorPosition.current?.x(x);
     cursorPosition.current?.y(y);
+    return true;
   }
 
-  function onPointerEnter(event: PointerEvent<HTMLAnchorElement>) {
-    moveCursor(event, true);
+  function showCursor(event: CursorPointer) {
     const cursorElement = cursor.current;
-    if (!cursorElement || !supportsCursor.current || event.pointerType !== 'mouse') return;
+    if (!cursorElement || !moveCursor(event, true)) return;
 
     gsap.to(cursorElement, {
       autoAlpha: 1,
@@ -74,7 +74,7 @@ export function useProjectCursor() {
     });
   }
 
-  function onPointerLeave(event: PointerEvent<HTMLAnchorElement>) {
+  function hideCursor(event: CursorPointer) {
     if (!supportsCursor.current || event.pointerType !== 'mouse') return;
 
     gsap.to(cursor.current, {
@@ -87,5 +87,5 @@ export function useProjectCursor() {
     });
   }
 
-  return { cursorRef: cursor, onPointerEnter, onPointerLeave, onPointerMove: moveCursor };
+  return { cursorRef: cursor, hideCursor, moveCursor, showCursor };
 }

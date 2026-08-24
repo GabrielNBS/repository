@@ -7,6 +7,7 @@ import projects from '../../../data/projects';
 import PortfolioNav from './PortfolioNav';
 import ProjectAboutTransition from './ProjectAboutTransition';
 import ProjectCard from './ProjectCard';
+import { ProjectCursorProvider } from './ProjectCursorProvider';
 import { usePortfolioMotion } from './portfolioMotion';
 
 const technologies = ['React', 'Next.js', 'TypeScript', 'GSAP', 'Design Systems', 'CSS'];
@@ -22,7 +23,8 @@ export default function PortfolioHome() {
   }
 
   return (
-    <main ref={root} className="overflow-x-clip focus:outline-none" tabIndex={-1}>
+    <ProjectCursorProvider>
+      <main ref={root} className="overflow-x-clip focus:outline-none" tabIndex={-1}>
       <a
         className="bg-ink text-paper focus:outline-peach fixed top-3 left-1/2 z-100 -translate-x-1/2 translate-y-[-160%] rounded-full px-4 py-3 text-xs font-extrabold tracking-[0.06em] uppercase transition-transform duration-200 focus:translate-y-0 focus:outline-3 focus:outline-offset-3"
         href="#hero-title"
@@ -262,6 +264,7 @@ export default function PortfolioHome() {
         <span>Gabriel Nascimento © 2026</span>
         <Link href="#hero-title">Voltar ao topo ↑</Link>
       </footer>
-    </main>
+      </main>
+    </ProjectCursorProvider>
   );
 }
