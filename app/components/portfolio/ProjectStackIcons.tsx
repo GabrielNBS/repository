@@ -17,7 +17,7 @@ export default function ProjectStackIcons({ stacks }: ProjectStackIconsProps) {
             style={{ transitionDelay: `${index * 24}ms` }}
           >
             <StackIcon aria-hidden="true" className="size-[1.05rem]" />
-            <span className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-1/2 z-20 w-max max-w-36 -translate-x-1/2 translate-y-1 rounded-full bg-ink px-2.5 py-1.5 text-center text-[0.6rem] font-semibold tracking-[0.08em] text-paper opacity-0 shadow-[0_0.45rem_1rem_rgb(37_34_31_/_0.18)] transition duration-200 group-hover/stack:translate-y-0 group-hover/stack:opacity-100">
+            <span className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-1/2 z-20 w-max max-w-36 -translate-x-1/2 translate-y-1 rounded-full bg-ink px-2.5 py-1.5 text-center text-utility-2xs font-semibold tracking-[0.08em] text-paper opacity-0 shadow-[0_0.45rem_1rem_rgb(37_34_31_/_0.18)] transition duration-200 group-hover/stack:translate-y-0 group-hover/stack:opacity-100">
               {stack.name}
             </span>
           </span>

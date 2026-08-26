@@ -1,0 +1,193 @@
+:root {
+  --color-paper: #f6efe5;
+  --color-ink: #25221f;
+  --color-peach: #efae82;
+  --color-lilac: #cdb8d8;
+  --color-cream: #e7d6bb;
+  --color-rose: #e8b6aa;
+  --color-muted: #665e57;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  width: min(100% - 2rem, 88rem);
+  margin: 0 auto;
+  padding: 4rem 0 6rem;
+}
+
+header {
+  max-width: 45rem;
+  margin-bottom: 3rem;
+}
+
+header p,
+.scene-card > span {
+  color: var(--color-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 10ch;
+  margin: 0.8rem 0 0;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.86;
+  font-weight: 400;
+  letter-spacing: -0.08em;
+}
+
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--color-ink);
+  border: 1px solid var(--color-ink);
+}
+
+.scene-card {
+  min-width: 0;
+  background: var(--color-peach);
+  padding: 1.25rem;
+}
+
+.scene-card svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.scene-float {
+  transform-origin: center;
+  animation: scene-float 4.8s ease-in-out infinite alternate;
+}
+
+.platform,
+.surface,
+.cube polygon,
+.network-node {
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.platform {
+  fill: var(--color-peach);
+}
+
+.platform-side {
+  fill: var(--color-rose);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.paper {
+  fill: var(--color-paper);
+}
+
+.cream {
+  fill: var(--color-cream);
+}
+
+.lilac {
+  fill: var(--color-lilac);
+}
+
+.rose {
+  fill: var(--color-rose);
+}
+
+.route,
+.track,
+.speed-line,
+.grid-line,
+.focus-path,
+.network {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route,
+.focus-path {
+  stroke-width: 4;
+}
+
+.track {
+  stroke-width: 9;
+}
+
+.track-inner {
+  stroke: var(--color-paper);
+  stroke-width: 3;
+}
+
+.speed-line,
+.grid-line,
+.network {
+  stroke-width: 2;
+}
+
+.node,
+.token-dot {
+  fill: var(--color-ink);
+}
+
+.focus-ring {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 3;
+}
+
+.scene-card h2 {
+  max-width: 10ch;
+  min-height: 1.7em;
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.7rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.scene-card p {
+  max-width: 28ch;
+  margin: 1.1rem 0 0;
+  color: var(--color-muted);
+  line-height: 1.25;
+}
+
+@keyframes scene-float {
+  to {
+    transform: translateY(-5px) rotate(0.5deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .scene-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .scene-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-float {
+    animation: none;
+  }
+}

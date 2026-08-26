@@ -19,11 +19,11 @@ export default function ProjectCursorLayer({ cursorRef, project }: ProjectCursor
       aria-hidden="true"
     >
       <span
-        className="flex w-max flex-none items-center gap-2 px-4 pr-5 py-3 text-[0.68rem] font-extrabold tracking-[0.08em] uppercase"
+        className="flex w-max flex-none items-center gap-2 px-4 pr-5 py-3 text-utility font-extrabold tracking-[0.08em] uppercase"
         data-project-cursor-content
       >
-        <span className="text-peach text-base leading-none">{cursorIcon}</span>
-        Ver {project?.name ?? 'projeto'} <span className="text-peach text-base leading-none">↗</span>
+        <span className="text-peach text-icon leading-none">{cursorIcon}</span>
+        Ver {project?.name ?? 'projeto'} <span className="text-peach text-icon leading-none">↗</span>
       </span>
     </span>
   );

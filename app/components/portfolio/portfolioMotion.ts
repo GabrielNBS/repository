@@ -53,8 +53,8 @@ function createSplitReveals() {
 }
 
 function createScrollTextReveals() {
-  const splits = gsap
-    .utils.toArray<HTMLElement>('[data-scroll-text-reveal]')
+  const splits = gsap.utils
+    .toArray<HTMLElement>('[data-scroll-text-reveal]')
     .map((element) => SplitText.create(element, { aria: 'auto', type: 'chars' }));
 
   const animations = splits.map((split) => {
@@ -64,24 +64,26 @@ function createScrollTextReveals() {
 
     gsap.set(split.chars, { filter: 'blur(0.55px)', opacity: 0.16 });
 
-    return gsap.timeline({
-      scrollTrigger: {
-        anticipatePin: 1,
-        end: () => `+=${Math.max(window.innerHeight * 1.8, split.chars.length * 15)}`,
-        invalidateOnRefresh: true,
-        pin: pinTarget,
-        pinSpacing: true,
-        scrub: 0.65,
-        start: 'top top',
-        trigger: pinTarget
-      }
-    }).to(split.chars, {
-      duration: 1,
-      ease: 'none',
-      filter: 'blur(0px)',
-      opacity: 1,
-      stagger: { each: 0.018, from: 'start' }
-    });
+    return gsap
+      .timeline({
+        scrollTrigger: {
+          anticipatePin: 1,
+          end: () => `+=${Math.max(window.innerHeight * 1.8, split.chars.length * 15)}`,
+          invalidateOnRefresh: true,
+          pin: pinTarget,
+          pinSpacing: true,
+          scrub: 0.65,
+          start: 'top top',
+          trigger: pinTarget
+        }
+      })
+      .to(split.chars, {
+        duration: 1,
+        ease: 'none',
+        filter: 'blur(0px)',
+        opacity: 1,
+        stagger: { each: 0.018, from: 'start' }
+      });
   });
 
   return () => {
@@ -148,15 +150,18 @@ function createProjectsToAboutReveal(root: RefObject<HTMLElement | null>) {
   timeline
     .to(
       projectsSection,
-      { filter: 'blur(5px)', scale: 0.985, transformOrigin: 'center top', yPercent: -5, ease: 'none', duration: 1 },
+      {
+        filter: 'blur(5px)',
+        scale: 0.985,
+        transformOrigin: 'center top',
+        yPercent: -5,
+        ease: 'none',
+        duration: 1
+      },
       0
     )
     .to(transition, { autoAlpha: 1, duration: 0.01 }, 0)
-    .to(
-      pixels,
-      { autoAlpha: 1, duration: 0.08, ease: 'none', scale: 1, stagger: getDelay },
-      0.02
-    )
+    .to(pixels, { autoAlpha: 1, duration: 0.08, ease: 'none', scale: 1, stagger: getDelay }, 0.02)
     .to(
       aboutItems,
       {
@@ -259,7 +264,10 @@ function createDetailFramesStoryPin(root: RefObject<HTMLElement | null>) {
       gsap.set(behindItems, { autoAlpha: 0, y: 24 });
     }
 
-    const targetSize = Math.min(265, (typeof window !== 'undefined' ? window.innerWidth : 1200) * 0.22);
+    const targetSize = Math.min(
+      265,
+      (typeof window !== 'undefined' ? window.innerWidth : 1200) * 0.22
+    );
 
     const tl = gsap.timeline({
       scrollTrigger: {

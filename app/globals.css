@@ -9,6 +9,47 @@
   --color-rose: #e8b6aa;
   --color-muted: #665e57;
   --font-serif: var(--font-lora), Georgia, serif;
+
+  /*
+   * Type tokens are named by content role. Fluid values are intentional: the
+   * display scale should breathe with the viewport without creating one-off
+   * sizes in individual components.
+   */
+  --text-utility-2xs: 0.6rem;
+  --text-utility-xs: 0.65rem;
+  --text-utility-sm: 0.66rem;
+  --text-utility: 0.68rem;
+  --text-label-sm: 0.7rem;
+  --text-label: 0.72rem;
+  --text-nav: 0.74rem;
+  --text-meta: 0.78rem;
+  --text-body-xs: 0.8rem;
+  --text-body-sm: 0.875rem;
+  --text-body: 0.95rem;
+  --text-body-md: 1rem;
+  --text-body-detail: 1.05rem;
+  --text-body-lg: clamp(1rem, 1.35vw, 1.18rem);
+  --text-intro: clamp(1rem, 1.5vw, 1.3rem);
+  --text-detail-intro: clamp(1.1rem, 2vw, 1.7rem);
+  --text-card-title: clamp(1.4rem, 3vw, 2.7rem);
+  --text-card-body: clamp(0.82rem, 1.15vw, 0.98rem);
+  --text-display-xs: clamp(2.7rem, 5vw, 5.8rem);
+  --text-display-sm: clamp(2.8rem, 5.5vw, 5.5rem);
+  --text-display-md: clamp(3rem, 7vw, 8rem);
+  --text-visual-mobile: clamp(3rem, 16vw, 4.6rem);
+  --text-display-lg: clamp(3rem, 8vw, 8rem);
+  --text-display-xl: clamp(3.5rem, 8vw, 8rem);
+  --text-project-card: clamp(3.3rem, 7vw, 7rem);
+  --text-project-card-mobile: clamp(3rem, 15vw, 4rem);
+  --text-about-title: clamp(3.2rem, 7vw, 7.5rem);
+  --text-hero: clamp(4.5rem, 12.5vw, 13rem);
+  --text-hero-mobile: clamp(4rem, 19vw, 5.2rem);
+  --text-detail-title: clamp(4.5rem, 12vw, 13rem);
+  --text-monogram: clamp(5rem, 13vw, 13rem);
+  --text-contact-input: clamp(1.4rem, 3vw, 2.7rem);
+  --text-menu-icon: 1.5rem;
+  --text-icon: 1rem;
+  --text-action-icon: 1.25rem;
 }
 
 @layer base {
@@ -25,6 +66,7 @@
     margin: 0;
     background: var(--color-paper);
     color: var(--color-ink);
+    font-size: var(--text-body-md);
     font-family: Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
   }

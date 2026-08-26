@@ -21,8 +21,17 @@ export interface Project {
   };
   bgColor: string;
   accent: string;
-  gallery: string[];
+  gallery: {
+    desktop: ProjectGalleryItem[];
+    mobile: ProjectGalleryItem[];
+  };
   highlights: string[];
+}
+
+export interface ProjectGalleryItem {
+  src: string;
+  alt: string;
+  label: string;
 }
 
 const projects: Project[] = [
@@ -60,11 +69,18 @@ const projects: Project[] = [
     },
     bgColor: '#0f172a',
     accent: '#94a3b8',
-    gallery: [
-      '/mockups/Desktop/Regula-Desktop.png',
-      '/mockups/Tablet/Regula-Tablet.png',
-      '/mockups/Mobile/Regula-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/regula/desktop-01.png', alt: 'Dashboard do Regula com indicadores financeiros', label: 'Dashboard' },
+        { src: '/mockups/regula/desktop-02.png', alt: 'Tela de estoque do Regula', label: 'Estoque' },
+        { src: '/mockups/regula/desktop-03.png', alt: 'Tela de produtos do Regula', label: 'Produtos' }
+      ],
+      mobile: [
+        { src: '/mockups/regula/mobile-01.png', alt: 'Dashboard do Regula em tela mobile', label: 'Dashboard' },
+        { src: '/mockups/regula/mobile-02.png', alt: 'Tela de estoque do Regula em tela mobile', label: 'Estoque' },
+        { src: '/mockups/regula/mobile-03.png', alt: 'Tela de produtos do Regula em tela mobile', label: 'Produtos' }
+      ]
+    },
     highlights: ['Fluxo de PDV', 'Controle financeiro', 'Formularios tipados']
   },
   {
@@ -97,11 +113,18 @@ const projects: Project[] = [
     },
     bgColor: '#450a0a',
     accent: '#f87171',
-    gallery: [
-      '/mockups/Desktop/Efood-Desktop.png',
-      '/mockups/Tablet/Efood-Tablet.png',
-      '/mockups/Mobile/Efood-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/e-food/desktop-01.png', alt: 'Destaques de restaurantes do E-Food', label: 'Destaques' },
+        { src: '/mockups/e-food/desktop-02.png', alt: 'Catálogo de restaurantes do E-Food', label: 'Restaurantes' },
+        { src: '/mockups/e-food/desktop-03.png', alt: 'Cardápio de um restaurante no E-Food', label: 'Cardápio' }
+      ],
+      mobile: [
+        { src: '/mockups/e-food/mobile-01.png', alt: 'Destaques de restaurantes do E-Food em tela mobile', label: 'Destaques' },
+        { src: '/mockups/e-food/mobile-02.png', alt: 'Catálogo de restaurantes do E-Food em tela mobile', label: 'Restaurantes' },
+        { src: '/mockups/e-food/mobile-03.png', alt: 'Cardápio de um restaurante no E-Food em tela mobile', label: 'Cardápio' }
+      ]
+    },
     highlights: ['Carrinho global', 'Checkout validado', 'Layout responsivo']
   },
   {
@@ -134,11 +157,18 @@ const projects: Project[] = [
     },
     bgColor: '#020617',
     accent: '#38bdf8',
-    gallery: [
-      '/mockups/Desktop/Eplay-Desktop.png',
-      '/mockups/Tablet/Eplay-Tablet.png',
-      '/mockups/Mobile/Eplay-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/e-play/desktop-01.png', alt: 'Vitrine principal do E-Play', label: 'Vitrine' },
+        { src: '/mockups/e-play/desktop-02.png', alt: 'Área de promoções do E-Play', label: 'Promoções' },
+        { src: '/mockups/e-play/desktop-03.png', alt: 'Categorias de jogos do E-Play', label: 'Categorias' }
+      ],
+      mobile: [
+        { src: '/mockups/e-play/mobile-01.png', alt: 'Vitrine principal do E-Play em tela mobile', label: 'Vitrine' },
+        { src: '/mockups/e-play/mobile-02.png', alt: 'Área de promoções do E-Play em tela mobile', label: 'Promoções' },
+        { src: '/mockups/e-play/mobile-03.png', alt: 'Categorias de jogos do E-Play em tela mobile', label: 'Categorias' }
+      ]
+    },
     highlights: ['Vitrine imersiva', 'Estado global', 'Mobile first']
   },
   {
@@ -165,11 +195,18 @@ const projects: Project[] = [
     },
     bgColor: '#1c1917',
     accent: '#a8a29e',
-    gallery: [
-      '/mockups/Desktop/Todo-Desktop.png',
-      '/mockups/Tablet/Todo-Tablet.png',
-      '/mockups/Mobile/Todo-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/to-do/desktop-01.png', alt: 'Lista principal de tarefas do To-Do', label: 'Lista' },
+        { src: '/mockups/to-do/desktop-02.png', alt: 'Filtros e contadores do To-Do', label: 'Filtros' },
+        { src: '/mockups/to-do/desktop-03.png', alt: 'Edição de tarefa no To-Do', label: 'Edição' }
+      ],
+      mobile: [
+        { src: '/mockups/to-do/mobile-01.png', alt: 'Lista principal de tarefas do To-Do em tela mobile', label: 'Lista' },
+        { src: '/mockups/to-do/mobile-02.png', alt: 'Filtros e contadores do To-Do em tela mobile', label: 'Filtros' },
+        { src: '/mockups/to-do/mobile-03.png', alt: 'Edição de tarefa no To-Do em tela mobile', label: 'Edição' }
+      ]
+    },
     highlights: ['CRUD completo', 'Filtros', 'Redux']
   },
   {
@@ -196,11 +233,18 @@ const projects: Project[] = [
     },
     bgColor: '#2a0000',
     accent: '#ef4444',
-    gallery: [
-      '/mockups/Desktop/Spiderverse-Desktop.png',
-      '/mockups/Tablet/Spiderverse-Tablet.png',
-      '/mockups/Mobile/Spiderverse-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/spider-verse/desktop-01.png', alt: 'Hero da landing page Spider-Verse', label: 'Teaser' },
+        { src: '/mockups/spider-verse/desktop-02.png', alt: 'Galeria da landing page Spider-Verse', label: 'Galeria' },
+        { src: '/mockups/spider-verse/desktop-03.png', alt: 'Trailers da landing page Spider-Verse', label: 'Trailers' }
+      ],
+      mobile: [
+        { src: '/mockups/spider-verse/mobile-01.png', alt: 'Hero da landing page Spider-Verse em tela mobile', label: 'Teaser' },
+        { src: '/mockups/spider-verse/mobile-02.png', alt: 'Galeria da landing page Spider-Verse em tela mobile', label: 'Galeria' },
+        { src: '/mockups/spider-verse/mobile-03.png', alt: 'Trailers da landing page Spider-Verse em tela mobile', label: 'Trailers' }
+      ]
+    },
     highlights: ['Sass modular', 'Transicoes', 'Composicao visual']
   },
   {
@@ -227,11 +271,18 @@ const projects: Project[] = [
     },
     bgColor: '#00081c',
     accent: '#60a5fa',
-    gallery: [
-      '/mockups/Desktop/Disney-Desktop.png',
-      '/mockups/Tablet/Disney-Tablet.png',
-      '/mockups/Mobile/Disney-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/clone-disney/desktop-01.png', alt: 'Hero da interface Clone Disney+', label: 'Hero' },
+        { src: '/mockups/clone-disney/desktop-02.png', alt: 'Planos da interface Clone Disney+', label: 'Planos' },
+        { src: '/mockups/clone-disney/desktop-03.png', alt: 'Catálogo da interface Clone Disney+', label: 'Catálogo' }
+      ],
+      mobile: [
+        { src: '/mockups/clone-disney/mobile-01.png', alt: 'Hero da interface Clone Disney+ em tela mobile', label: 'Hero' },
+        { src: '/mockups/clone-disney/mobile-02.png', alt: 'Planos da interface Clone Disney+ em tela mobile', label: 'Planos' },
+        { src: '/mockups/clone-disney/mobile-03.png', alt: 'Catálogo da interface Clone Disney+ em tela mobile', label: 'Catálogo' }
+      ]
+    },
     highlights: ['Streaming UI', 'Carrosseis', 'Sass']
   },
   {
@@ -258,12 +309,64 @@ const projects: Project[] = [
     },
     bgColor: '#3b1425',
     accent: '#f9a8d4',
-    gallery: [
-      '/mockups/Desktop/HTD-Desktop.png',
-      '/mockups/Tablet/HTD-Tablet.png',
-      '/mockups/Mobile/HTD-Mobile.png'
-    ],
+    gallery: {
+      desktop: [
+        { src: '/mockups/hoje-ta-doce/desktop-01.png', alt: 'Hero da landing page Hoje Tá Doce', label: 'Hero' },
+        { src: '/mockups/hoje-ta-doce/desktop-02.png', alt: 'Seção de eventos da landing page Hoje Tá Doce', label: 'Eventos' },
+        { src: '/mockups/hoje-ta-doce/desktop-03.png', alt: 'Cardápio da landing page Hoje Tá Doce', label: 'Cardápio' }
+      ],
+      mobile: [
+        { src: '/mockups/hoje-ta-doce/mobile-01.png', alt: 'Hero da landing page Hoje Tá Doce em tela mobile', label: 'Hero' },
+        { src: '/mockups/hoje-ta-doce/mobile-02.png', alt: 'Seção de eventos da landing page Hoje Tá Doce em tela mobile', label: 'Eventos' },
+        { src: '/mockups/hoje-ta-doce/mobile-03.png', alt: 'Cardápio da landing page Hoje Tá Doce em tela mobile', label: 'Cardápio' }
+      ]
+    },
     highlights: ['Bootstrap', 'Produto local', 'Conversao']
+  },
+  {
+    id: 8,
+    slug: 'whatsapp-sender',
+    name: 'WhatsApp Sender',
+    title: 'Automacao de mensageria',
+    subtitle: 'Campanhas e disparos via WhatsApp Web',
+    summary:
+      'Servico web para gerenciar contatos, campanhas, agendamentos e relatorios de envios pelo WhatsApp Web.',
+    description:
+      'Plataforma full-stack de uso local para conectar uma sessao do WhatsApp Web, organizar contatos e grupos, criar campanhas, agendar mensagens e acompanhar envio, leitura e respostas.',
+    problem:
+      'Operar campanhas pelo WhatsApp com controle de contatos, consentimento, agendamento e acompanhamento sem depender de fluxos manuais dispersos.',
+    solution:
+      'Estruturei um dashboard Next.js com arquitetura em camadas, persistencia via Prisma e SQLite, fila e scheduler no servidor, integracao com whatsapp-web.js, autenticacao pessoal e APIs tipadas para separar dominio, infraestrutura e apresentacao.',
+    role: 'Full-stack, arquitetura e infraestrutura',
+    year: '2026',
+    techs: [
+      { name: 'Next.js' },
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'Prisma' },
+      { name: 'SQLite' },
+      { name: 'whatsapp-web.js' },
+      { name: 'Puppeteer' },
+      { name: 'Tailwind CSS' },
+      { name: 'Radix UI' },
+      { name: 'Zustand' },
+      { name: 'Vitest' }
+    ],
+    deploy: 'https://github.com/GabrielNBS/whatsapp-sender',
+    github: 'https://github.com/GabrielNBS/whatsapp-sender',
+    isNew: true,
+    mockups: {
+      mobile: '/mockups/Mobile/Whatsapp-Sender-Mobile.png',
+      tablet: '/mockups/Tablet/Whatsapp-Sender-Tablet.png',
+      desktop: '/mockups/Desktop/Whatsapp-Sender-Desktop.png'
+    },
+    bgColor: '#052e1b',
+    accent: '#25d366',
+    gallery: {
+      desktop: [],
+      mobile: []
+    },
+    highlights: ['Campanhas e fila de envio', 'Contatos e consentimento', 'Agendamento e relatorios']
   }
 ];
 

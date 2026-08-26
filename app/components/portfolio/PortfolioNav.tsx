@@ -24,7 +24,7 @@ export default function PortfolioNav() {
       data-nav
     >
       <Link
-        className="before:bg-peach inline-flex min-h-11 items-center gap-2 text-[0.78rem] font-extrabold tracking-tight uppercase before:size-2.5 before:rounded-full before:content-['']"
+        className="before:bg-peach inline-flex min-h-11 items-center gap-2 text-meta font-extrabold tracking-tight uppercase before:size-2.5 before:rounded-full before:content-['']"
         href="/"
         onClick={closeMenu}
       >
@@ -35,21 +35,21 @@ export default function PortfolioNav() {
         className={`nav-links max-[800px]:border-ink/15 max-[800px]:bg-paper flex items-center gap-1 max-[800px]:absolute max-[800px]:top-[calc(100%+0.5rem)] max-[800px]:right-0 max-[800px]:left-0 max-[800px]:flex-col max-[800px]:items-stretch max-[800px]:rounded-[1.3rem] max-[800px]:border max-[800px]:p-2 max-[800px]:shadow-[0_1rem_2rem_rgb(37_34_31_/_0.1)] ${open ? 'max-[800px]:flex' : 'max-[800px]:hidden'}`}
       >
         <Link
-          className="hover:bg-ink/7 focus-visible:bg-ink/7 inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-[0.74rem] font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className="hover:bg-ink/7 focus-visible:bg-ink/7 inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-nav font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
           href="/#projetos"
           onClick={closeMenu}
         >
           Projetos
         </Link>
         <Link
-          className="hover:bg-ink/7 focus-visible:bg-ink/7 inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-[0.74rem] font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className="hover:bg-ink/7 focus-visible:bg-ink/7 inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-nav font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
           href="/#sobre"
           onClick={closeMenu}
         >
           Sobre
         </Link>
         <Link
-          className="bg-ink text-paper hover:bg-peach hover:text-ink focus-visible:bg-peach focus-visible:text-ink inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-[0.74rem] font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className="bg-ink text-paper hover:bg-peach hover:text-ink focus-visible:bg-peach focus-visible:text-ink inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-nav font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-none max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
           href="/#contato"
           onClick={closeMenu}
         >
@@ -58,7 +58,7 @@ export default function PortfolioNav() {
       </div>
       <button
         ref={menuButton}
-        className="nav-menu bg-ink text-paper hidden size-11 items-center justify-center rounded-full border-0 text-2xl leading-none max-[800px]:inline-flex"
+        className="nav-menu bg-ink text-paper hidden size-11 items-center justify-center rounded-full border-0 text-menu-icon leading-none max-[800px]:inline-flex"
         type="button"
         aria-controls={menuId}
         aria-expanded={open}

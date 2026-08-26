@@ -26,13 +26,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       >
         <div className="flex min-h-[20rem] flex-col justify-between px-2.5 pt-4 pb-2.5 max-[480px]:min-h-[17rem] max-[480px]:p-2">
           <div>
-            <span className="text-muted text-[0.78rem] font-bold tracking-[0.08em]">
+            <span className="text-muted text-meta font-bold tracking-[0.08em]">
               Projeto / 0{index + 1}
             </span>
-            <h3 className="m-0 mt-2.5 mb-4 max-w-[7ch] text-[clamp(3.3rem,7vw,7rem)] leading-[0.82] font-normal tracking-[-0.105em] max-[480px]:text-[clamp(3rem,15vw,4rem)]">
+            <h3 className="m-0 mt-2.5 mb-4 max-w-[7ch] text-project-card leading-[0.82] font-normal tracking-[-0.105em] max-[480px]:text-project-card-mobile">
               {project.name}
             </h3>
-            <p className="text-muted m-0 max-w-xs text-[0.95rem] leading-[1.35] tracking-[-0.025em]">
+            <p className="text-muted m-0 max-w-xs text-body leading-[1.35] tracking-[-0.025em]">
               {project.summary}
             </p>
           </div>
