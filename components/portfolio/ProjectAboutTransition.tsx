@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import {
   projectsAboutTransitionGrid,
   projectsAboutTransitionPixels
-} from './projectAboutTransitionLogic';
+} from '@/lib/portfolio/projectAboutTransitionLogic';
 
 export default function ProjectAboutTransition() {
   const { columns, rows } = projectsAboutTransitionGrid;

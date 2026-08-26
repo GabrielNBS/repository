@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import type { PointerEvent, PropsWithChildren } from 'react';
-import type { Project } from '../../../data/projects';
+import type { Project } from '@/data/projects';
 import ProjectCursorLayer from './ProjectCursorLayer';
-import { useProjectCursorMotion } from './projectCursorMotion';
+import { useProjectCursorMotion } from '@/lib/motion/projectCursorMotion';
 
 type ProjectCursorContextValue = {
   onProjectPointerEnter: (event: PointerEvent<HTMLAnchorElement>, project: Project) => void;

@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import PortfolioNav from './PortfolioNav';
 import ProjectAboutTransition from './ProjectAboutTransition';
 import { ProjectCursorProvider } from './ProjectCursorProvider';
-import { usePortfolioMotion } from './portfolioMotion';
+import { usePortfolioMotion } from '@/lib/motion/portfolioMotion';
 import {
   AboutSection,
   ContactSection,

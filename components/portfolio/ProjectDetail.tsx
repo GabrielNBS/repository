@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { useRef } from 'react';
-import type { Project } from '../../../data/projects';
+import type { Project } from '@/data/projects';
 import ProjectVisual from './ProjectVisual';
-import { useDetailMotion } from './portfolioMotion';
+import { useDetailMotion } from '@/lib/motion/portfolioMotion';
 
 export default function ProjectDetail({ project }: { project: Project }) {
   const root = useRef<HTMLElement>(null);

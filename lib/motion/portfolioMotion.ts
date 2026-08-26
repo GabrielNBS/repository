@@ -5,6 +5,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import type { RefObject } from 'react';
+import {
+  createAllHeadingsSplitAnimation,
+  createHeadingSplitAnimation,
+  useHeadingSplitMotion
+} from './headingSplitMotion';
+
+export { createAllHeadingsSplitAnimation, createHeadingSplitAnimation, useHeadingSplitMotion };
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
@@ -23,33 +30,6 @@ function createBlurReveals() {
     once: true,
     onEnter: (batch) => gsap.to(batch, { ...blurReveal.visible, stagger: 0.1 })
   });
-}
-
-function createSplitReveals() {
-  const splits = gsap.utils
-    .toArray<HTMLElement>('[data-split]')
-    .map((element) =>
-      SplitText.create(element, { aria: 'auto', mask: 'lines', type: 'lines,words' })
-    );
-
-  splits.forEach((split) => {
-    gsap.set(split.lines, { autoAlpha: 0, yPercent: 115 });
-    ScrollTrigger.create({
-      trigger: split.elements[0],
-      start: 'top 86%',
-      once: true,
-      onEnter: () =>
-        gsap.to(split.lines, {
-          autoAlpha: 1,
-          duration: 1,
-          ease: 'power4.out',
-          stagger: 0.1,
-          yPercent: 0
-        })
-    });
-  });
-
-  return () => splits.forEach((split) => split.revert());
 }
 
 function createScrollTextReveals() {
@@ -72,6 +52,7 @@ function createScrollTextReveals() {
           invalidateOnRefresh: true,
           pin: pinTarget,
           pinSpacing: true,
+          refreshPriority: 2,
           scrub: 0.65,
           start: 'top top',
           trigger: pinTarget
@@ -198,15 +179,19 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
       }
 
       const heroWords = gsap.utils.toArray<HTMLElement>('[data-hero-word]');
-      gsap.set(heroWords, { autoAlpha: 0, yPercent: 115 });
+      if (heroWords.length) {
+        gsap.set(heroWords, { autoAlpha: 0, yPercent: 115 });
+      }
 
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      if (heroWords.length) {
+        intro.to(heroWords, { autoAlpha: 1, duration: 1.1, stagger: 0.09, yPercent: 0 });
+      }
       intro
-        .to(heroWords, { autoAlpha: 1, duration: 1.1, stagger: 0.09, yPercent: 0 })
         .from(
           '[data-hero-eyebrow], [data-hero-intro], [data-scroll-cue]',
           { autoAlpha: 0, duration: 0.7, stagger: 0.08, y: 24 },
-          '-=0.55'
+          heroWords.length ? '-=0.55' : '0'
         )
         .from(
           '[data-hero-orbit]',
@@ -215,10 +200,10 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
         );
 
       createBlurReveals();
-      const revertSplits = createSplitReveals();
       const revertScrollTextReveals = createScrollTextReveals();
       const revertParallax = createProjectParallax();
       const revertProjectsToAbout = createProjectsToAboutReveal(root);
+      const revertHeadings = createAllHeadingsSplitAnimation(root.current);
 
       gsap.to('[data-hero-orbit]', {
         ease: 'none',
@@ -239,7 +224,7 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
         revertParallax();
         revertProjectsToAbout();
         revertScrollTextReveals();
-        revertSplits();
+        revertHeadings();
       };
     },
     { scope: root }
@@ -276,7 +261,8 @@ function createDetailFramesStoryPin(root: RefObject<HTMLElement | null>) {
         end: '+=1500',
         pin: true,
         scrub: 1,
-        anticipatePin: 1
+        anticipatePin: 1,
+        refreshPriority: 2
       }
     });
 
@@ -375,25 +361,15 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reducedMotion) return;
 
-      const detailTitle = root.current?.querySelector<HTMLElement>('[data-detail-title]');
-      const split = detailTitle
-        ? SplitText.create(detailTitle, { aria: 'auto', mask: 'lines', type: 'lines,words' })
-        : null;
-      const titleLines = split?.lines ?? [];
-
-      if (titleLines.length) gsap.set(titleLines, { autoAlpha: 0, yPercent: 115 });
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      intro
-        .to(titleLines, { autoAlpha: 1, duration: 1.1, stagger: 0.1, yPercent: 0 })
-        .from(
-          '[data-detail-intro] > *, [data-detail-visual]',
-          { autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1, y: 35 },
-          '-=0.55'
-        );
+      intro.from(
+        '[data-detail-intro] > *, [data-detail-visual]',
+        { autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1, y: 35 }
+      );
 
       createBlurReveals();
-      const revertSplits = createSplitReveals();
       const revertStoryPin = createDetailFramesStoryPin(root);
+      const revertHeadings = createAllHeadingsSplitAnimation(root.current);
 
       gsap.to('[data-detail-visual] [data-project-visual]', {
         ease: 'none',
@@ -408,8 +384,7 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
 
       return () => {
         intro.kill();
-        split?.revert();
-        revertSplits();
+        revertHeadings();
         revertStoryPin();
       };
     },

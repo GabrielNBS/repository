@@ -71,14 +71,38 @@ const projects: Project[] = [
     accent: '#94a3b8',
     gallery: {
       desktop: [
-        { src: '/mockups/regula/desktop-01.png', alt: 'Dashboard do Regula com indicadores financeiros', label: 'Dashboard' },
-        { src: '/mockups/regula/desktop-02.png', alt: 'Tela de estoque do Regula', label: 'Estoque' },
-        { src: '/mockups/regula/desktop-03.png', alt: 'Tela de produtos do Regula', label: 'Produtos' }
+        {
+          src: '/mockups/regula/desktop-01.png',
+          alt: 'Dashboard do Regula com indicadores financeiros',
+          label: 'Dashboard'
+        },
+        {
+          src: '/mockups/regula/desktop-02.png',
+          alt: 'Tela de estoque do Regula',
+          label: 'Estoque'
+        },
+        {
+          src: '/mockups/regula/desktop-03.png',
+          alt: 'Tela de produtos do Regula',
+          label: 'Produtos'
+        }
       ],
       mobile: [
-        { src: '/mockups/regula/mobile-01.png', alt: 'Dashboard do Regula em tela mobile', label: 'Dashboard' },
-        { src: '/mockups/regula/mobile-02.png', alt: 'Tela de estoque do Regula em tela mobile', label: 'Estoque' },
-        { src: '/mockups/regula/mobile-03.png', alt: 'Tela de produtos do Regula em tela mobile', label: 'Produtos' }
+        {
+          src: '/mockups/regula/mobile-01.png',
+          alt: 'Dashboard do Regula em tela mobile',
+          label: 'Dashboard'
+        },
+        {
+          src: '/mockups/regula/mobile-02.png',
+          alt: 'Tela de estoque do Regula em tela mobile',
+          label: 'Estoque'
+        },
+        {
+          src: '/mockups/regula/mobile-03.png',
+          alt: 'Tela de produtos do Regula em tela mobile',
+          label: 'Produtos'
+        }
       ]
     },
     highlights: ['Fluxo de PDV', 'Controle financeiro', 'Formularios tipados']
@@ -92,8 +116,7 @@ const projects: Project[] = [
     summary: 'Aplicacao de delivery com catalogo, carrinho e validacao de checkout.',
     description:
       'Experiencia de compra responsiva com Redux para estado global, formularios controlados e arquitetura CSS-in-JS.',
-    problem:
-      'Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiavel.',
+    problem: 'Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiavel.',
     solution:
       'Organizei a interface em componentes reutilizaveis, estado centralizado e validacao com Formik e Yup.',
     role: 'Front-end e fluxo de compra',
@@ -115,14 +138,38 @@ const projects: Project[] = [
     accent: '#f87171',
     gallery: {
       desktop: [
-        { src: '/mockups/e-food/desktop-01.png', alt: 'Destaques de restaurantes do E-Food', label: 'Destaques' },
-        { src: '/mockups/e-food/desktop-02.png', alt: 'Catálogo de restaurantes do E-Food', label: 'Restaurantes' },
-        { src: '/mockups/e-food/desktop-03.png', alt: 'Cardápio de um restaurante no E-Food', label: 'Cardápio' }
+        {
+          src: '/mockups/e-food/desktop-01.png',
+          alt: 'Destaques de restaurantes do E-Food',
+          label: 'Destaques'
+        },
+        {
+          src: '/mockups/e-food/desktop-02.png',
+          alt: 'Catálogo de restaurantes do E-Food',
+          label: 'Restaurantes'
+        },
+        {
+          src: '/mockups/e-food/desktop-03.png',
+          alt: 'Cardápio de um restaurante no E-Food',
+          label: 'Cardápio'
+        }
       ],
       mobile: [
-        { src: '/mockups/e-food/mobile-01.png', alt: 'Destaques de restaurantes do E-Food em tela mobile', label: 'Destaques' },
-        { src: '/mockups/e-food/mobile-02.png', alt: 'Catálogo de restaurantes do E-Food em tela mobile', label: 'Restaurantes' },
-        { src: '/mockups/e-food/mobile-03.png', alt: 'Cardápio de um restaurante no E-Food em tela mobile', label: 'Cardápio' }
+        {
+          src: '/mockups/e-food/mobile-01.png',
+          alt: 'Destaques de restaurantes do E-Food em tela mobile',
+          label: 'Destaques'
+        },
+        {
+          src: '/mockups/e-food/mobile-02.png',
+          alt: 'Catálogo de restaurantes do E-Food em tela mobile',
+          label: 'Restaurantes'
+        },
+        {
+          src: '/mockups/e-food/mobile-03.png',
+          alt: 'Cardápio de um restaurante no E-Food em tela mobile',
+          label: 'Cardápio'
+        }
       ]
     },
     highlights: ['Carrinho global', 'Checkout validado', 'Layout responsivo']
@@ -133,11 +180,11 @@ const projects: Project[] = [
     name: 'E-Play',
     title: 'Streaming de jogos',
     subtitle: 'Vitrine digital responsiva',
-    summary: 'Interface para streaming de jogos com vitrine, filtros e experiencia visual imersiva.',
+    summary:
+      'Interface para streaming de jogos com vitrine, filtros e experiencia visual imersiva.',
     description:
       'Projeto focado em composicao visual, responsividade e estado global para uma plataforma de jogos.',
-    problem:
-      'Apresentar conteudo denso de jogos sem perder navegacao clara e impacto visual.',
+    problem: 'Apresentar conteudo denso de jogos sem perder navegacao clara e impacto visual.',
     solution:
       'Usei componentes modulares, grid responsivo e Redux para manter a experiencia fluida em diferentes telas.',
     role: 'Front-end e design de interface',
@@ -159,14 +206,38 @@ const projects: Project[] = [
     accent: '#38bdf8',
     gallery: {
       desktop: [
-        { src: '/mockups/e-play/desktop-01.png', alt: 'Vitrine principal do E-Play', label: 'Vitrine' },
-        { src: '/mockups/e-play/desktop-02.png', alt: 'Área de promoções do E-Play', label: 'Promoções' },
-        { src: '/mockups/e-play/desktop-03.png', alt: 'Categorias de jogos do E-Play', label: 'Categorias' }
+        {
+          src: '/mockups/e-play/desktop-01.png',
+          alt: 'Vitrine principal do E-Play',
+          label: 'Vitrine'
+        },
+        {
+          src: '/mockups/e-play/desktop-02.png',
+          alt: 'Área de promoções do E-Play',
+          label: 'Promoções'
+        },
+        {
+          src: '/mockups/e-play/desktop-03.png',
+          alt: 'Categorias de jogos do E-Play',
+          label: 'Categorias'
+        }
       ],
       mobile: [
-        { src: '/mockups/e-play/mobile-01.png', alt: 'Vitrine principal do E-Play em tela mobile', label: 'Vitrine' },
-        { src: '/mockups/e-play/mobile-02.png', alt: 'Área de promoções do E-Play em tela mobile', label: 'Promoções' },
-        { src: '/mockups/e-play/mobile-03.png', alt: 'Categorias de jogos do E-Play em tela mobile', label: 'Categorias' }
+        {
+          src: '/mockups/e-play/mobile-01.png',
+          alt: 'Vitrine principal do E-Play em tela mobile',
+          label: 'Vitrine'
+        },
+        {
+          src: '/mockups/e-play/mobile-02.png',
+          alt: 'Área de promoções do E-Play em tela mobile',
+          label: 'Promoções'
+        },
+        {
+          src: '/mockups/e-play/mobile-03.png',
+          alt: 'Categorias de jogos do E-Play em tela mobile',
+          label: 'Categorias'
+        }
       ]
     },
     highlights: ['Vitrine imersiva', 'Estado global', 'Mobile first']
@@ -197,14 +268,34 @@ const projects: Project[] = [
     accent: '#a8a29e',
     gallery: {
       desktop: [
-        { src: '/mockups/to-do/desktop-01.png', alt: 'Lista principal de tarefas do To-Do', label: 'Lista' },
-        { src: '/mockups/to-do/desktop-02.png', alt: 'Filtros e contadores do To-Do', label: 'Filtros' },
+        {
+          src: '/mockups/to-do/desktop-01.png',
+          alt: 'Lista principal de tarefas do To-Do',
+          label: 'Lista'
+        },
+        {
+          src: '/mockups/to-do/desktop-02.png',
+          alt: 'Filtros e contadores do To-Do',
+          label: 'Filtros'
+        },
         { src: '/mockups/to-do/desktop-03.png', alt: 'Edição de tarefa no To-Do', label: 'Edição' }
       ],
       mobile: [
-        { src: '/mockups/to-do/mobile-01.png', alt: 'Lista principal de tarefas do To-Do em tela mobile', label: 'Lista' },
-        { src: '/mockups/to-do/mobile-02.png', alt: 'Filtros e contadores do To-Do em tela mobile', label: 'Filtros' },
-        { src: '/mockups/to-do/mobile-03.png', alt: 'Edição de tarefa no To-Do em tela mobile', label: 'Edição' }
+        {
+          src: '/mockups/to-do/mobile-01.png',
+          alt: 'Lista principal de tarefas do To-Do em tela mobile',
+          label: 'Lista'
+        },
+        {
+          src: '/mockups/to-do/mobile-02.png',
+          alt: 'Filtros e contadores do To-Do em tela mobile',
+          label: 'Filtros'
+        },
+        {
+          src: '/mockups/to-do/mobile-03.png',
+          alt: 'Edição de tarefa no To-Do em tela mobile',
+          label: 'Edição'
+        }
       ]
     },
     highlights: ['CRUD completo', 'Filtros', 'Redux']
@@ -235,14 +326,38 @@ const projects: Project[] = [
     accent: '#ef4444',
     gallery: {
       desktop: [
-        { src: '/mockups/spider-verse/desktop-01.png', alt: 'Hero da landing page Spider-Verse', label: 'Teaser' },
-        { src: '/mockups/spider-verse/desktop-02.png', alt: 'Galeria da landing page Spider-Verse', label: 'Galeria' },
-        { src: '/mockups/spider-verse/desktop-03.png', alt: 'Trailers da landing page Spider-Verse', label: 'Trailers' }
+        {
+          src: '/mockups/spider-verse/desktop-01.png',
+          alt: 'Hero da landing page Spider-Verse',
+          label: 'Teaser'
+        },
+        {
+          src: '/mockups/spider-verse/desktop-02.png',
+          alt: 'Galeria da landing page Spider-Verse',
+          label: 'Galeria'
+        },
+        {
+          src: '/mockups/spider-verse/desktop-03.png',
+          alt: 'Trailers da landing page Spider-Verse',
+          label: 'Trailers'
+        }
       ],
       mobile: [
-        { src: '/mockups/spider-verse/mobile-01.png', alt: 'Hero da landing page Spider-Verse em tela mobile', label: 'Teaser' },
-        { src: '/mockups/spider-verse/mobile-02.png', alt: 'Galeria da landing page Spider-Verse em tela mobile', label: 'Galeria' },
-        { src: '/mockups/spider-verse/mobile-03.png', alt: 'Trailers da landing page Spider-Verse em tela mobile', label: 'Trailers' }
+        {
+          src: '/mockups/spider-verse/mobile-01.png',
+          alt: 'Hero da landing page Spider-Verse em tela mobile',
+          label: 'Teaser'
+        },
+        {
+          src: '/mockups/spider-verse/mobile-02.png',
+          alt: 'Galeria da landing page Spider-Verse em tela mobile',
+          label: 'Galeria'
+        },
+        {
+          src: '/mockups/spider-verse/mobile-03.png',
+          alt: 'Trailers da landing page Spider-Verse em tela mobile',
+          label: 'Trailers'
+        }
       ]
     },
     highlights: ['Sass modular', 'Transicoes', 'Composicao visual']
@@ -273,14 +388,38 @@ const projects: Project[] = [
     accent: '#60a5fa',
     gallery: {
       desktop: [
-        { src: '/mockups/clone-disney/desktop-01.png', alt: 'Hero da interface Clone Disney+', label: 'Hero' },
-        { src: '/mockups/clone-disney/desktop-02.png', alt: 'Planos da interface Clone Disney+', label: 'Planos' },
-        { src: '/mockups/clone-disney/desktop-03.png', alt: 'Catálogo da interface Clone Disney+', label: 'Catálogo' }
+        {
+          src: '/mockups/clone-disney/desktop-01.png',
+          alt: 'Hero da interface Clone Disney+',
+          label: 'Hero'
+        },
+        {
+          src: '/mockups/clone-disney/desktop-02.png',
+          alt: 'Planos da interface Clone Disney+',
+          label: 'Planos'
+        },
+        {
+          src: '/mockups/clone-disney/desktop-03.png',
+          alt: 'Catálogo da interface Clone Disney+',
+          label: 'Catálogo'
+        }
       ],
       mobile: [
-        { src: '/mockups/clone-disney/mobile-01.png', alt: 'Hero da interface Clone Disney+ em tela mobile', label: 'Hero' },
-        { src: '/mockups/clone-disney/mobile-02.png', alt: 'Planos da interface Clone Disney+ em tela mobile', label: 'Planos' },
-        { src: '/mockups/clone-disney/mobile-03.png', alt: 'Catálogo da interface Clone Disney+ em tela mobile', label: 'Catálogo' }
+        {
+          src: '/mockups/clone-disney/mobile-01.png',
+          alt: 'Hero da interface Clone Disney+ em tela mobile',
+          label: 'Hero'
+        },
+        {
+          src: '/mockups/clone-disney/mobile-02.png',
+          alt: 'Planos da interface Clone Disney+ em tela mobile',
+          label: 'Planos'
+        },
+        {
+          src: '/mockups/clone-disney/mobile-03.png',
+          alt: 'Catálogo da interface Clone Disney+ em tela mobile',
+          label: 'Catálogo'
+        }
       ]
     },
     highlights: ['Streaming UI', 'Carrosseis', 'Sass']
@@ -294,7 +433,8 @@ const projects: Project[] = [
     summary: 'Landing page responsiva para apresentar produtos, marca e canais de contato.',
     description:
       'Projeto comercial em HTML, JavaScript e Bootstrap, com foco em apresentacao clara de produtos e conversao.',
-    problem: 'Criar presenca digital objetiva para uma confeitaria com produtos de alto apelo visual.',
+    problem:
+      'Criar presenca digital objetiva para uma confeitaria com produtos de alto apelo visual.',
     solution:
       'Estruturei uma landing page responsiva com secoes de produtos, informacoes e chamada para contato.',
     role: 'Front-end e landing page',
@@ -311,14 +451,38 @@ const projects: Project[] = [
     accent: '#f9a8d4',
     gallery: {
       desktop: [
-        { src: '/mockups/hoje-ta-doce/desktop-01.png', alt: 'Hero da landing page Hoje Tá Doce', label: 'Hero' },
-        { src: '/mockups/hoje-ta-doce/desktop-02.png', alt: 'Seção de eventos da landing page Hoje Tá Doce', label: 'Eventos' },
-        { src: '/mockups/hoje-ta-doce/desktop-03.png', alt: 'Cardápio da landing page Hoje Tá Doce', label: 'Cardápio' }
+        {
+          src: '/mockups/hoje-ta-doce/desktop-01.png',
+          alt: 'Hero da landing page Hoje Tá Doce',
+          label: 'Hero'
+        },
+        {
+          src: '/mockups/hoje-ta-doce/desktop-02.png',
+          alt: 'Seção de eventos da landing page Hoje Tá Doce',
+          label: 'Eventos'
+        },
+        {
+          src: '/mockups/hoje-ta-doce/desktop-03.png',
+          alt: 'Cardápio da landing page Hoje Tá Doce',
+          label: 'Cardápio'
+        }
       ],
       mobile: [
-        { src: '/mockups/hoje-ta-doce/mobile-01.png', alt: 'Hero da landing page Hoje Tá Doce em tela mobile', label: 'Hero' },
-        { src: '/mockups/hoje-ta-doce/mobile-02.png', alt: 'Seção de eventos da landing page Hoje Tá Doce em tela mobile', label: 'Eventos' },
-        { src: '/mockups/hoje-ta-doce/mobile-03.png', alt: 'Cardápio da landing page Hoje Tá Doce em tela mobile', label: 'Cardápio' }
+        {
+          src: '/mockups/hoje-ta-doce/mobile-01.png',
+          alt: 'Hero da landing page Hoje Tá Doce em tela mobile',
+          label: 'Hero'
+        },
+        {
+          src: '/mockups/hoje-ta-doce/mobile-02.png',
+          alt: 'Seção de eventos da landing page Hoje Tá Doce em tela mobile',
+          label: 'Eventos'
+        },
+        {
+          src: '/mockups/hoje-ta-doce/mobile-03.png',
+          alt: 'Cardápio da landing page Hoje Tá Doce em tela mobile',
+          label: 'Cardápio'
+        }
       ]
     },
     highlights: ['Bootstrap', 'Produto local', 'Conversao']
@@ -366,7 +530,11 @@ const projects: Project[] = [
       desktop: [],
       mobile: []
     },
-    highlights: ['Campanhas e fila de envio', 'Contatos e consentimento', 'Agendamento e relatorios']
+    highlights: [
+      'Campanhas e fila de envio',
+      'Contatos e consentimento',
+      'Agendamento e relatorios'
+    ]
   }
 ];
 

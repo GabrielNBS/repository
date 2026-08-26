@@ -1,8 +1,8 @@
 'use client';
 
 import type { RefObject } from 'react';
-import type { Project } from '../../../data/projects';
-import { getProjectCursorIcon } from './projectCursorContent';
+import type { Project } from '@/data/projects';
+import { getProjectCursorIcon } from '@/lib/portfolio/projectCursorContent';
 
 type ProjectCursorLayerProps = {
   cursorRef: RefObject<HTMLSpanElement | null>;

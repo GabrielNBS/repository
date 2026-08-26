@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import projects, { getProjectBySlug } from '../../../data/projects';
-import ProjectDetail from '../../components/portfolio/ProjectDetail';
+import projects, { getProjectBySlug } from '@/data/projects';
+import ProjectDetail from '@/components/portfolio/ProjectDetail';
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));

@@ -8,21 +8,20 @@ export default function ManifestoSection() {
         className="grid grid-cols-[minmax(8rem,0.4fr)_1fr] gap-8 max-[800px]:grid-cols-1"
         data-blur-reveal
       >
-        <p className="text-muted inline-flex items-center gap-2.5 text-label leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
+        <p className="text-muted text-label inline-flex items-center gap-2.5 leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
           01 / Manifesto
         </p>
         <div>
           <h2
-            className="[&_em]:text-peach m-0 max-w-[11.5ch] text-display-lg leading-[0.88] font-normal tracking-[-0.09em] [&_em]:font-serif [&_em]:font-normal"
-            data-split="lines"
+            className="[&_em]:text-peach text-display-lg m-0 max-w-[11.5ch] leading-[0.88] font-normal tracking-[-0.09em] [&_em]:font-serif [&_em]:font-normal"
+            id="manifest"
           >
             Menos ruído<span className="text-peach">.</span>{' '}
             <i className="text-peach">Mais presença</i>
             <span className="text-ink">.</span>
           </h2>
-          <p className="text-muted m-0 mb-3 ml-auto max-w-xs self-end text-body-md leading-[1.35] tracking-[-0.03em] max-[800px]:ml-0">
-            A interface precisa ser rápida de entender, gostosa de usar e impossível de
-            esquecer.
+          <p className="text-muted text-body-md m-0 mb-3 ml-auto max-w-xs self-end leading-[1.35] tracking-[-0.03em] max-[800px]:ml-0">
+            A interface precisa ser rápida de entender, gostosa de usar e impossível de esquecer.
           </p>
         </div>
       </div>

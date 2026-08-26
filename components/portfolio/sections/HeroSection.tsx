@@ -21,20 +21,8 @@ export default function HeroSection() {
         id="hero-title"
         className="text-hero max-[480px]:text-hero-mobile relative z-1 my-5 max-w-[13ch] leading-[0.82] font-normal tracking-[-0.105em] max-[480px]:tracking-[-0.11em]"
       >
-        <span className="block overflow-hidden pb-[0.06em]">
-          <span className="inline-block" data-hero-word>
-            Desenvolvimento
-          </span>
-        </span>
-        <span className="block overflow-hidden pb-[0.06em]">
-          <span className="inline-block" data-hero-word>
-            no
-          </span>{' '}
-          <em className="text-peach inline-block font-serif font-normal" data-hero-word>
-            detalhe
-          </em>
-          .
-        </span>
+        Desenvolvimento no{' '}
+        <em className="text-peach inline-block font-serif font-normal">detalhe</em>.
       </h1>
       <div className="grid grid-cols-[1fr_auto] items-end gap-8 max-[800px]:grid-cols-1 max-[480px]:gap-5">
         <p

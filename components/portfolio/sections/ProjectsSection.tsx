@@ -1,4 +1,4 @@
-import projects, { type Project } from '../../../../data/projects';
+import projects, { type Project } from '@/data/projects';
 import ProjectCard from '../ProjectCard';
 
 interface ProjectsSectionProps {

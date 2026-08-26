@@ -1,5 +1,5 @@
-import type { Project } from '../../../data/projects';
-import { getStackIcon } from './projectStackIconLogic';
+import type { Project } from '@/data/projects';
+import { getStackIcon } from '@/lib/portfolio/projectStackIconLogic';
 
 type ProjectStackIconsProps = { stacks: Project['techs'] };
 

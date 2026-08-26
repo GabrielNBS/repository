@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { Project } from '../../../data/projects';
+import type { Project } from '@/data/projects';
 import ProjectVisual from './ProjectVisual';
 import { useProjectCursor } from './ProjectCursorProvider';
 import ProjectStackIcons from './ProjectStackIcons';
