@@ -24,8 +24,9 @@ export default function HeroSection() {
         id="hero-title"
         className="text-hero max-[480px]:text-hero-mobile relative z-1 my-5 max-w-[13ch] leading-[0.82] font-normal tracking-[-0.105em] max-[480px]:tracking-[-0.11em]"
       >
-        Desenvolvimento no{' '}
-        <em className="text-peach inline-block font-serif font-normal">detalhe</em>.
+        Desenvolvimento
+        <br />
+        no <em className="text-peach inline-block font-serif font-normal">detalhe</em>.
       </HeadingSplit>
       <div className="grid grid-cols-[1fr_auto] items-end gap-8 max-[800px]:grid-cols-1 max-[480px]:gap-5">
         <p

@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e8eaff" />
+    <title>RothFinder — Opening Animation</title>
+    <style>
+      :root {
+        --lavender: #e8eaff;
+        --bone: #fbf7ef;
+        --ink: #101014;
+        --green: #2eb915;
+        --line: rgba(16, 16, 20, 0.6);
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--bone);
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--bone);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      button,
+      a {
+        color: inherit;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .opening {
+        position: fixed;
+        z-index: 20;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: var(--lavender);
+        pointer-events: auto;
+      }
+
+      .opening::after {
+        position: absolute;
+        inset: 0;
+        background: var(--bone);
+        content: "";
+        opacity: 0;
+        transform: translateY(100%);
+        transition: opacity 700ms ease, transform 1000ms var(--ease-in-out);
+      }
+
+      .opening.is-leaving {
+        pointer-events: none;
+      }
+
+      .opening.is-leaving::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .opening__mark {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: 3.1rem;
+        height: 3.1rem;
+        place-items: center;
+        border: 0.2rem solid var(--ink);
+        border-radius: 0.85rem;
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.1em;
+        opacity: 0;
+        transform: scale(0.45) rotate(-8deg);
+        transition: width 720ms var(--ease-out), border-radius 720ms var(--ease-out),
+          transform 720ms var(--ease-out), opacity 350ms ease;
+      }
+
+      .opening__wordmark {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        transform: scaleX(0.6);
+        transform-origin: center;
+        transition: opacity 500ms ease 340ms, transform 720ms var(--ease-out) 340ms;
+      }
+
+      .opening__name {
+        font-size: clamp(1.4rem, 3vw, 2.7rem);
+        font-weight: 800;
+        letter-spacing: -0.08em;
+      }
+
+      .opening__tm {
+        align-self: flex-start;
+        margin-top: 0.35rem;
+        font-size: 0.55rem;
+        font-weight: 700;
+      }
+
+      .opening__tagline {
+        position: absolute;
+        right: -6.5rem;
+        bottom: 0.2rem;
+        display: grid;
+        color: rgba(16, 16, 20, 0.75);
+        font-size: 0.46rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.05;
+        text-align: left;
+        text-transform: uppercase;
+      }
+
+      .opening.is-mark-visible .opening__mark {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+      }
+
+      .opening.is-expanded .opening__mark {
+        width: min(18rem, 72vw);
+        border-radius: 0.75rem;
+      }
+
+      .opening.is-expanded .opening__mark > span {
+        opacity: 0;
+      }
+
+      .opening.is-expanded .opening__wordmark {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+
+      .opening.is-moving .opening__mark {
+        transform: translate3d(calc(-50vw + 6.5rem), calc(-50vh + 4rem), 0) scale(0.98);
+      }
+
+      .opening.is-moving .opening__wordmark {
+        transform: translate3d(calc(-50vw + 6.5rem), calc(-50vh + 4rem), 0) scale(0.46);
+        transform-origin: center;
+      }
+
+      .opening.is-leaving .opening__mark,
+      .opening.is-leaving .opening__wordmark {
+        opacity: 0;
+        transition: opacity 420ms ease;
+      }
+
+      .scribbles {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 900ms ease 700ms;
+      }
+
+      .opening.is-expanded .scribbles {
+        opacity: 0.56;
+      }
+
+      .scribble {
+        position: absolute;
+        width: clamp(5rem, 13vw, 11rem);
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: 52% 48% 45% 55%;
+        opacity: 0.7;
+        animation: float 7s ease-in-out infinite alternate;
+      }
+
+      .scribble::before,
+      .scribble::after {
+        position: absolute;
+        content: "";
+        border: 1px solid var(--line);
+        border-radius: inherit;
+      }
+
+      .scribble::before {
+        inset: 9%;
+        transform: rotate(24deg) scale(0.93, 1.05);
+      }
+
+      .scribble::after {
+        inset: 19%;
+        transform: rotate(-31deg) scale(1.1, 0.82);
+      }
+
+      .scribble--one { top: 8%; left: 31%; animation-delay: -2s; }
+      .scribble--two { top: 5%; right: 38%; width: clamp(4rem, 9vw, 8rem); animation-delay: -4s; }
+      .scribble--three { top: 15%; right: -2%; width: clamp(8rem, 18vw, 15rem); animation-delay: -1s; }
+      .scribble--four { bottom: 16%; left: 1%; width: clamp(7rem, 16vw, 13rem); animation-delay: -5s; }
+      .scribble--five { bottom: 5%; left: 23%; width: clamp(4rem, 8vw, 7rem); animation-delay: -3s; }
+      .scribble--six { right: 16%; bottom: 28%; width: clamp(4rem, 8vw, 7rem); animation-delay: -6s; }
+
+      .site-header {
+        position: fixed;
+        z-index: 4;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1.5rem clamp(1.25rem, 4vw, 4.5rem);
+        opacity: 0;
+        transform: translateY(-1rem);
+        transition: opacity 700ms ease 650ms, transform 900ms var(--ease-out) 650ms;
+      }
+
+      .site-header__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .site-header__mark {
+        display: grid;
+        width: 3rem;
+        height: 3rem;
+        place-items: center;
+        border: 0.18rem solid var(--ink);
+        border-radius: 0.8rem;
+        font-size: 1.65rem;
+        font-weight: 800;
+        letter-spacing: -0.1em;
+      }
+
+      .site-header__name {
+        font-size: clamp(1.2rem, 2vw, 1.9rem);
+        font-weight: 800;
+        letter-spacing: -0.08em;
+      }
+
+      .site-header__tagline {
+        display: grid;
+        margin-top: 0.15rem;
+        color: rgba(16, 16, 20, 0.7);
+        font-size: 0.52rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.05;
+        text-transform: uppercase;
+      }
+
+      .site-header__actions {
+        display: flex;
+        gap: 0.7rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0 1.3rem;
+        border: 1px solid var(--ink);
+        border-radius: 0.7rem;
+        background: var(--green);
+        box-shadow: 0.25rem 0.35rem 0 rgba(16, 16, 20, 0.16);
+        font-size: 0.93rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .pill--menu {
+        width: 3rem;
+        padding: 0;
+      }
+
+      .pill--menu::before,
+      .pill--menu::after {
+        width: 1.05rem;
+        height: 1px;
+        background: var(--ink);
+        content: "";
+        box-shadow: 0 -0.32rem 0 var(--ink), 0 0.32rem 0 var(--ink);
+      }
+
+      .page {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        background: var(--lavender);
+      }
+
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: max(48rem, 100vh);
+        place-items: center;
+        padding: 7rem clamp(1.25rem, 4vw, 4.5rem) 3rem;
+      }
+
+      .hero__scribbles {
+        position: absolute;
+        inset: 0;
+        opacity: 0.62;
+      }
+
+      .hero__content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: min(100%, 112rem);
+        grid-template-columns: minmax(17rem, 0.82fr) minmax(26rem, 1.6fr);
+        align-items: center;
+        gap: clamp(2rem, 7vw, 9rem);
+      }
+
+      .hero__copy {
+        max-width: 28rem;
+        opacity: 1;
+      }
+
+      .hero__kicker {
+        margin: 0 0 1.6rem;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        max-width: 9ch;
+        margin: 0;
+        font-size: clamp(3rem, 6vw, 7.1rem);
+        font-weight: 400;
+        letter-spacing: -0.1em;
+        line-height: 0.89;
+      }
+
+      .hero h1 span {
+        display: block;
+      }
+
+      .hero h1 span:nth-child(2) { padding-left: 0.7em; }
+      .hero h1 span:nth-child(3) { padding-left: 0.12em; }
+
+      .hero__description {
+        max-width: 22rem;
+        margin: 2.2rem 0 0;
+        font-size: clamp(1rem, 1.35vw, 1.45rem);
+        line-height: 1.16;
+      }
+
+      .hero__cta {
+        display: inline-flex;
+        margin-top: 2rem;
+        padding: 0.95rem 1.25rem;
+        border: 1px solid var(--ink);
+        border-radius: 0.55rem;
+        background: var(--green);
+        box-shadow: 0.25rem 0.3rem 0 rgba(16, 16, 20, 0.18);
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .hero__visual {
+        position: relative;
+        min-height: min(65vw, 43rem);
+        overflow: hidden;
+        border: 1px solid var(--ink);
+        border-radius: 0.7rem;
+        background: #383632;
+        box-shadow: 0.3rem 0.4rem 0 rgba(16, 16, 20, 0.17);
+        clip-path: inset(0 100% 0 0);
+        opacity: 1;
+      }
+
+      .hero__visual::after {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.03) 67%),
+          linear-gradient(0deg, rgba(0, 0, 0, 0.32), transparent 45%);
+        content: "";
+      }
+
+      .hero__illustration {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero__visual-copy {
+        position: absolute;
+        z-index: 2;
+        bottom: clamp(1.25rem, 4vw, 3rem);
+        left: clamp(1.25rem, 4vw, 3rem);
+        max-width: 26rem;
+        color: white;
+        opacity: 1;
+      }
+
+      .hero__visual-copy h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 3.2rem);
+        font-weight: 400;
+        letter-spacing: -0.08em;
+        line-height: 0.94;
+      }
+
+      .hero__visual-copy p {
+        max-width: 21rem;
+        margin: 1rem 0 0;
+        font-size: 1rem;
+        line-height: 1.15;
+      }
+
+      .hero__scroll-hint {
+        position: absolute;
+        bottom: 1.4rem;
+        left: 50%;
+        z-index: 3;
+        margin: 0;
+        color: rgba(16, 16, 20, 0.7);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transform: translateX(-50%);
+      }
+
+      .hero__scroll-hint span {
+        display: inline-block;
+        margin-left: 0.45rem;
+        font-size: 1rem;
+        line-height: 0;
+        animation: scroll-pulse 1.4s ease-in-out infinite;
+      }
+
+      .page__lower {
+        min-height: 45vh;
+        padding: 5rem clamp(1.25rem, 4vw, 4.5rem);
+        background: var(--bone);
+      }
+
+      .page__lower p {
+        max-width: 38rem;
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 4.6rem);
+        letter-spacing: -0.08em;
+        line-height: 0.94;
+      }
+
+      body.is-open .site-header {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      body.is-open .opening {
+        visibility: hidden;
+      }
+
+      .replay {
+        position: fixed;
+        z-index: 10;
+        right: 1rem;
+        bottom: 1rem;
+        padding: 0.65rem 0.85rem;
+        border: 1px solid var(--ink);
+        border-radius: 0.4rem;
+        background: var(--bone);
+        cursor: pointer;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      @keyframes float {
+        from { transform: translate3d(0, 0, 0) rotate(-7deg); }
+        to { transform: translate3d(0.8rem, -1rem, 0) rotate(8deg); }
+      }
+
+      @keyframes scroll-pulse {
+        0%, 100% { transform: translateY(0); opacity: 0.55; }
+        50% { transform: translateY(0.35rem); opacity: 1; }
+      }
+
+      @media (max-width: 800px) {
+        .site-header {
+          padding: 1rem 1.1rem;
+        }
+
+        .site-header__name,
+        .site-header__tagline,
+        .site-header__actions .pill:not(.pill--menu) {
+          display: none;
+        }
+
+        .hero {
+          min-height: 100svh;
+          padding: 7rem 1.1rem 2rem;
+        }
+
+        .hero__content {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 2.5rem;
+        }
+
+        .hero__copy {
+          max-width: 22rem;
+        }
+
+        .hero h1 {
+          max-width: 10ch;
+          font-size: clamp(3.1rem, 14vw, 5.5rem);
+        }
+
+        .hero__visual {
+          min-height: 56svh;
+        }
+
+        .opening.is-moving .opening__mark,
+        .opening.is-moving .opening__wordmark {
+          transform: translate3d(calc(-50vw + 3.7rem), calc(-50vh + 2.6rem), 0) scale(0.72);
+        }
+
+        .opening__tagline {
+          right: -5.5rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="opening" aria-label="Loading RothFinder">
+      <div class="scribbles" aria-hidden="true">
+        <span class="scribble scribble--one"></span>
+        <span class="scribble scribble--two"></span>
+        <span class="scribble scribble--three"></span>
+        <span class="scribble scribble--four"></span>
+        <span class="scribble scribble--five"></span>
+        <span class="scribble scribble--six"></span>
+      </div>
+      <div class="opening__mark" aria-hidden="true">
+        <span>R</span>
+        <div class="opening__wordmark">
+          <strong class="opening__name">ROTHFINDER</strong><sup class="opening__tm">™</sup>
+          <small class="opening__tagline">AI POWERED ADVISOR<br />GROWTH PLATFORM</small>
+        </div>
+      </div>
+    </div>
+
+    <main class="page">
+      <header class="site-header">
+        <a class="site-header__logo" href="#top" aria-label="RothFinder home">
+          <span class="site-header__mark">R</span>
+          <span>
+            <strong class="site-header__name">ROTHFINDER</strong>
+            <small class="site-header__tagline">AI POWERED ADVISOR<br />GROWTH PLATFORM</small>
+          </span>
+        </a>
+        <nav class="site-header__actions" aria-label="Primary navigation">
+          <a class="pill" href="#professionals">Financial Professionals</a>
+          <a class="pill" href="#clients">Clients</a>
+          <a class="pill pill--menu" href="#menu" aria-label="Open menu"></a>
+        </nav>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero__scribbles" aria-hidden="true">
+          <span class="scribble scribble--one"></span>
+          <span class="scribble scribble--two"></span>
+          <span class="scribble scribble--three"></span>
+          <span class="scribble scribble--four"></span>
+          <span class="scribble scribble--five"></span>
+          <span class="scribble scribble--six"></span>
+        </div>
+
+        <div class="hero__content">
+          <div class="hero__copy">
+            <p class="hero__kicker">AI powered advisor growth platform</p>
+            <h1>
+              <span>Your best</span>
+              <span>return isn't</span>
+              <span>in the market.</span>
+              <span>It's in the mirror.</span>
+            </h1>
+            <p class="hero__description">
+              Because the better you perform, the more cases you close — and RothFinder is built to make you unstoppable.
+            </p>
+            <a class="hero__cta" href="#subscription">Start Your Subscription</a>
+          </div>
+
+          <div class="hero__visual" aria-label="Illustrated RothFinder hero scene">
+            <svg class="hero__illustration" viewBox="0 0 1200 820" role="img" aria-label="Advisors moving through a city toward opportunity">
+              <defs>
+                <linearGradient id="heroSky" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#d8d5c8" />
+                  <stop offset="0.62" stop-color="#857f71" />
+                  <stop offset="1" stop-color="#35332f" />
+                </linearGradient>
+                <linearGradient id="heroStreet" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#7b766a" />
+                  <stop offset="1" stop-color="#232321" />
+                </linearGradient>
+                <filter id="roughen">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="6" result="noise" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" />
+                </filter>
+              </defs>
+              <rect width="1200" height="820" fill="url(#heroSky)" />
+              <path d="M0 620 430 420 830 425 1200 620V820H0Z" fill="url(#heroStreet)" />
+              <g fill="none" stroke="#22221f" stroke-width="3" opacity="0.72" filter="url(#roughen)">
+                <path d="M0 245h360l90 170H0M860 140h340v300H880M930 195h110v235M1075 195h95v235" />
+                <path d="M35 190 220 150l160 250M260 148l120 252M900 140l-55 287M1020 140l-20 287M1150 140l35 287" />
+                <path d="M95 560 425 430M230 640 500 435M1100 600 800 430M1200 680 850 440" />
+                <path d="M0 700h1200M0 750h1200" opacity="0.45" />
+              </g>
+              <g fill="none" stroke="#171715" stroke-width="3" opacity="0.8" filter="url(#roughen)">
+                <path d="M425 395v135M505 380v145M600 400v120M720 382v136M820 400v120" />
+                <path d="M404 420h72M485 403h40M583 421h38M700 407h50M802 420h40" />
+                <path d="M395 526h105M475 525h65M585 522h48M700 525h70M796 525h55" />
+              </g>
+              <g fill="#252522" stroke="#0e0e0d" stroke-width="3" opacity="0.96" filter="url(#roughen)">
+                <path d="M645 380c-22 20-30 60-28 100l-8 180 76 0-10-180c2-44-6-80-30-100Z" />
+                <ellipse cx="648" cy="352" rx="27" ry="36" />
+                <path d="M570 500c-13 35-20 88-20 158h54l5-154M672 503l28 155h55l-38-180Z" />
+                <path d="M510 535c-16 34-28 94-29 150h43l23-150M706 540l60 145h45l-63-178Z" />
+                <path d="M430 488c-18 18-25 49-23 87l-5 145h55l-2-145c3-37-6-68-25-87Z" />
+                <ellipse cx="430" cy="466" rx="20" ry="28" />
+                <path d="M404 486c-14 27-20 65-18 105M454 491l20 105" />
+              </g>
+              <g fill="none" stroke="#d4cbbb" stroke-width="2" opacity="0.52">
+                <path d="M650 382v270M631 395l-10 266M665 395l12 260M430 493v220M416 508l-8 194" />
+              </g>
+              <g fill="#282725" opacity="0.38">
+                <circle cx="155" cy="310" r="26" /><circle cx="205" cy="335" r="16" /><circle cx="1000" cy="340" r="20" /><circle cx="1070" cy="365" r="13" />
+              </g>
+            </svg>
+            <div class="hero__visual-copy">
+              <h2>Close more cases by making the math impossible to ignore.</h2>
+              <p>Turn complex strategy into a visual story your clients can understand.</p>
+            </div>
+          </div>
+        </div>
+        <p class="hero__scroll-hint">Scroll to reveal <span aria-hidden="true">↓</span></p>
+      </section>
+
+      <section class="page__lower" id="subscription">
+        <p>RothFinder is the strategy and closing system built for advisors who want to uncover opportunities faster.</p>
+      </section>
+    </main>
+
+    <button class="replay" type="button">Replay opening</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+      (() => {
+        const body = document.body;
+        const opening = document.querySelector('.opening');
+        const replay = document.querySelector('.replay');
+        const hero = document.querySelector('.hero');
+        const visual = document.querySelector('.hero__visual');
+        const visualCopy = document.querySelector('.hero__visual-copy');
+        const heroCopy = document.querySelector('.hero__copy');
+        const cta = document.querySelector('.hero__cta');
+        const scrollHint = document.querySelector('.hero__scroll-hint');
+        const gsap = window.gsap;
+        const ScrollTrigger = window.ScrollTrigger;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let timers = [];
+        let revealTimeline;
+        let revealTrigger;
+
+        if (!gsap || !ScrollTrigger) {
+          body.classList.add('is-open');
+          return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const setupScrollReveal = () => {
+          if (revealTrigger) revealTrigger.kill();
+          if (revealTimeline) revealTimeline.kill();
+
+          if (reducedMotion) {
+            gsap.set([visual, visualCopy, heroCopy, cta, scrollHint], {
+              autoAlpha: 1,
+              clearProps: 'clipPath,transform'
+            });
+            return;
+          }
+
+          gsap.set(visual, { autoAlpha: 1, clipPath: 'inset(0 100% 0 0)', scale: 1.06 });
+          gsap.set([visualCopy, heroCopy], { autoAlpha: 0, y: 42 });
+          gsap.set(cta, { autoAlpha: 0, y: 18 });
+          gsap.set(scrollHint, { autoAlpha: 1 });
+
+          revealTimeline = gsap.timeline({ paused: true, defaults: { ease: 'none' } });
+          revealTimeline
+            .to(visual, { clipPath: 'inset(0 0% 0 0)', scale: 1, duration: 0.58 })
+            .to(visualCopy, { autoAlpha: 1, y: 0, ease: 'power3.out', duration: 0.16 }, 0.5)
+            .to(heroCopy, { autoAlpha: 1, y: 0, ease: 'power3.out', duration: 0.2 }, 0.64)
+            .to(cta, { autoAlpha: 1, y: 0, ease: 'power3.out', duration: 0.18 }, 0.82);
+
+          revealTrigger = ScrollTrigger.create({
+            id: 'rothfinder-opening-reveal',
+            animation: revealTimeline,
+            trigger: hero,
+            start: 'top top',
+            end: () => `+=${Math.max(720, window.innerHeight * 1.05)}`,
+            pin: true,
+            scrub: 0.7,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              gsap.set(scrollHint, { autoAlpha: self.progress < 0.08 ? 1 : 0 });
+            }
+          });
+        };
+
+        setupScrollReveal();
+
+        const clearTimers = () => {
+          timers.forEach((timer) => window.clearTimeout(timer));
+          timers = [];
+        };
+
+        const playOpening = () => {
+          clearTimers();
+          if (revealTimeline) revealTimeline.progress(0).pause();
+          if (scrollHint) gsap.set(scrollHint, { autoAlpha: 1 });
+          body.classList.remove('is-open');
+          opening.classList.remove('is-mark-visible', 'is-expanded', 'is-moving', 'is-leaving');
+          window.scrollTo({ top: 0, behavior: 'auto' });
+
+          if (reducedMotion) {
+            opening.classList.add('is-mark-visible', 'is-expanded', 'is-moving', 'is-leaving');
+            body.classList.add('is-open');
+            return;
+          }
+
+          timers.push(window.setTimeout(() => opening.classList.add('is-mark-visible'), 120));
+          timers.push(window.setTimeout(() => opening.classList.add('is-expanded'), 720));
+          timers.push(window.setTimeout(() => opening.classList.add('is-moving'), 1550));
+          timers.push(window.setTimeout(() => opening.classList.add('is-leaving'), 2350));
+          timers.push(window.setTimeout(() => body.classList.add('is-open'), 2750));
+        };
+
+        replay.addEventListener('click', playOpening);
+        window.addEventListener('load', playOpening, { once: true });
+        playOpening();
+      })();
+    </script>
+  </body>
+</html>

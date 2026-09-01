@@ -1,34 +1,19 @@
 'use client';
-import { useGSAP } from '@gsap/react';
 import projects, { type Project } from '@/features/portfolio/projects/data/projects';
-import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
 import ProjectCard from './ProjectCard';
 import styles from '../styles/ProjectsSection.module.css';
+import { useProjectsAgendaMotion } from '../motion/projectsAgendaMotion';
 
-gsap.registerPlugin(useGSAP);
 export default function ProjectsSection({ items = projects }: { items?: Project[] }) {
   const root = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showArchive, setShowArchive] = useState(false);
   const featured = items.slice(0, 4);
   const archived = items.slice(4);
-  useGSAP(
-    () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      gsap.from('[data-agenda-enter]', {
-        autoAlpha: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.075,
-        y: 22
-      });
-    },
-    { scope: root }
-  );
+  useProjectsAgendaMotion(root);
   return (
     <section id="projetos" ref={root} className={styles.section} aria-label="Projetos">
       <div className={styles.story}>
@@ -41,6 +26,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
             <HeadingSplit as="h2">
               Meus trabalhos recentes<span>.</span>
             </HeadingSplit>
+            <div className={styles.illustration} aria-hidden="true"></div>
             <p>
               Quatro projetos em primeiro plano. Passe pelos dias para ler o recorte de cada
               sistema.

@@ -204,14 +204,8 @@
   .cover {
     min-height: 16rem;
   }
-  .note {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 @media (max-width: 600px) {
-  .note {
-    grid-template-columns: 1fr;
-  }
   .archive {
     grid-template-columns: 1fr;
   }

@@ -13,14 +13,6 @@ export interface Project {
   techs: { name: string }[];
   deploy: string;
   github: string;
-  isNew?: boolean;
-  mockups: {
-    mobile: string;
-    tablet: string;
-    desktop: string;
-  };
-  bgColor: string;
-  accent: string;
   gallery: {
     desktop: ProjectGalleryItem[];
     mobile: ProjectGalleryItem[];
@@ -61,14 +53,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://regula-mocha.vercel.app/',
     github: 'https://github.com/GabrielNBS/dashboard',
-    isNew: true,
-    mockups: {
-      mobile: '/mockups/Mobile/Regula-Mobile.png',
-      tablet: '/mockups/Tablet/Regula-Tablet.png',
-      desktop: '/mockups/Desktop/Regula-Desktop.png'
-    },
-    bgColor: '#0f172a',
-    accent: '#94a3b8',
     gallery: {
       desktop: [
         {
@@ -129,13 +113,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://efoodv2.vercel.app',
     github: 'https://github.com/GabrielNBS/eFood',
-    mockups: {
-      mobile: '/mockups/Mobile/Efood-Mobile.png',
-      tablet: '/mockups/Tablet/Efood-Tablet.png',
-      desktop: '/mockups/Desktop/Efood-Desktop.png'
-    },
-    bgColor: '#450a0a',
-    accent: '#f87171',
     gallery: {
       desktop: [
         {
@@ -197,13 +174,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://eplay-orpin-psi.vercel.app/',
     github: 'https://github.com/GabrielNBS/eplay',
-    mockups: {
-      mobile: '/mockups/Mobile/Eplay-Mobile.png',
-      tablet: '/mockups/Tablet/Eplay-Tablet.png',
-      desktop: '/mockups/Desktop/Eplay-Desktop.png'
-    },
-    bgColor: '#020617',
-    accent: '#38bdf8',
     gallery: {
       desktop: [
         {
@@ -259,13 +229,6 @@ const projects: Project[] = [
     techs: [{ name: 'JavaScript' }, { name: 'Redux' }, { name: 'CSS' }, { name: 'HTML' }],
     deploy: 'https://to-do-seven-gamma.vercel.app/',
     github: 'https://github.com/GabrielNBS/To-Do',
-    mockups: {
-      mobile: '/mockups/Mobile/Todo-Mobile.png',
-      tablet: '/mockups/Tablet/Todo-Tablet.png',
-      desktop: '/mockups/Desktop/Todo-Desktop.png'
-    },
-    bgColor: '#1c1917',
-    accent: '#a8a29e',
     gallery: {
       desktop: [
         {
@@ -317,13 +280,6 @@ const projects: Project[] = [
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://lp-spiderverse.vercel.app/',
     github: 'https://github.com/GabrielNBS/LP_Miles_Morales',
-    mockups: {
-      mobile: '/mockups/Mobile/Spiderverse-Mobile.png',
-      tablet: '/mockups/Tablet/Spiderverse-Tablet.png',
-      desktop: '/mockups/Desktop/Spiderverse-Desktop.png'
-    },
-    bgColor: '#2a0000',
-    accent: '#ef4444',
     gallery: {
       desktop: [
         {
@@ -379,13 +335,6 @@ const projects: Project[] = [
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://clone-disneyplus-eta.vercel.app/',
     github: 'https://github.com/GabrielNBS/clone_disneyplus',
-    mockups: {
-      mobile: '/mockups/Mobile/Disney-Mobile.png',
-      tablet: '/mockups/Tablet/Disney-Tablet.png',
-      desktop: '/mockups/Desktop/Disney-Desktop.png'
-    },
-    bgColor: '#00081c',
-    accent: '#60a5fa',
     gallery: {
       desktop: [
         {
@@ -442,13 +391,6 @@ const projects: Project[] = [
     techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
     deploy: 'https://htd-land-page.vercel.app/',
     github: 'https://github.com/GabrielNBS/HTD-LandPage',
-    mockups: {
-      mobile: '/mockups/Mobile/HTD-Mobile.png',
-      tablet: '/mockups/Tablet/HTD-Tablet.png',
-      desktop: '/mockups/Desktop/HTD-Desktop.png'
-    },
-    bgColor: '#3b1425',
-    accent: '#f9a8d4',
     gallery: {
       desktop: [
         {
@@ -518,14 +460,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://github.com/GabrielNBS/whatsapp-sender',
     github: 'https://github.com/GabrielNBS/whatsapp-sender',
-    isNew: true,
-    mockups: {
-      mobile: '/mockups/Mobile/Whatsapp-Sender-Mobile.png',
-      tablet: '/mockups/Tablet/Whatsapp-Sender-Tablet.png',
-      desktop: '/mockups/Desktop/Whatsapp-Sender-Desktop.png'
-    },
-    bgColor: '#052e1b',
-    accent: '#25d366',
     gallery: {
       desktop: [],
       mobile: []

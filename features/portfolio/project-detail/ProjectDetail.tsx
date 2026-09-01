@@ -72,7 +72,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-none max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
             href={project.deploy}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             aria-label={`Ver ${project.name} em uma nova guia`}
           >
             Ver projeto ↗
@@ -81,7 +81,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-none max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
             href={project.github}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             aria-label={`Ver o código de ${project.name} em uma nova guia`}
           >
             Código ↗

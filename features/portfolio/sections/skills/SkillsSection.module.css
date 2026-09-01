@@ -55,15 +55,6 @@
   font-weight: 400;
 }
 
-.asideCopy {
-  max-width: 29ch;
-  margin: clamp(2.1rem, 4vw, 3.8rem) 0 0;
-  color: var(--color-ink);
-  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-}
-
 .skillsNav {
   display: flex;
   flex-direction: column;
@@ -282,10 +273,6 @@
 
   .asideTitle {
     max-width: 12ch;
-  }
-
-  .asideCopy {
-    max-width: 34ch;
   }
 
   .skillsNav {
