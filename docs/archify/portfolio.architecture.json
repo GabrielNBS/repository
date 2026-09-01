@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitetura do portfólio interativo",
+    "output": "portfolio.architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1320, 760],
+    "views": [
+      {
+        "id": "home-path",
+        "label": "Fluxo da home",
+        "focus": ["browser", "next-runtime", "portfolio-shell", "content-sections"],
+        "note": "Acompanhe a renderização da experiência principal do portfólio."
+      },
+      {
+        "id": "projects-path",
+        "label": "Projetos e mídia",
+        "focus": ["content-sections", "project-catalog", "project-detail", "project-media"],
+        "note": "Veja como dados e mockups alimentam os cards e as páginas de detalhe."
+      },
+      {
+        "id": "motion-path",
+        "label": "Motion da interface",
+        "focus": ["content-sections", "motion-runtime", "portfolio-shell"],
+        "note": "Isole os utilitários GSAP que controlam as transições da experiência."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Navegador",
+      "sublabel": "visitante",
+      "pos": [40, 300],
+      "size": [150, 64]
+    },
+    {
+      "id": "next-runtime",
+      "type": "backend",
+      "label": "Next.js App Router",
+      "sublabel": "rotas e layout global",
+      "pos": [260, 300],
+      "size": [180, 68],
+      "tag": "Next.js 16"
+    },
+    {
+      "id": "portfolio-shell",
+      "type": "frontend",
+      "label": "Portfolio shell",
+      "sublabel": "home, navegação e rodapé",
+      "pos": [500, 220],
+      "size": [190, 68],
+      "tag": "composição"
+    },
+    {
+      "id": "content-sections",
+      "type": "frontend",
+      "label": "Seções da experiência",
+      "sublabel": "hero, manifesto, skills e contato",
+      "pos": [750, 220],
+      "size": [205, 68],
+      "tag": "UI editorial"
+    },
+    {
+      "id": "motion-runtime",
+      "type": "external",
+      "label": "GSAP motion runtime",
+      "sublabel": "scroll e transições",
+      "pos": [1030, 220],
+      "size": [190, 68],
+      "tag": "prefers-reduced-motion"
+    },
+    {
+      "id": "project-catalog",
+      "type": "backend",
+      "label": "Catálogo de projetos",
+      "sublabel": "dados estáticos TypeScript",
+      "pos": [500, 430],
+      "size": [190, 68],
+      "tag": "fonte única"
+    },
+    {
+      "id": "project-detail",
+      "type": "frontend",
+      "label": "Detalhe do projeto",
+      "sublabel": "rota /projetos/[slug]",
+      "pos": [750, 430],
+      "size": [205, 68],
+      "tag": "navegação contextual"
+    },
+    {
+      "id": "project-media",
+      "type": "cloud",
+      "label": "Mídia dos projetos",
+      "sublabel": "desktop e mobile",
+      "pos": [750, 610],
+      "size": [205, 68],
+      "tag": "conteúdo visual"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Aplicação Next.js",
+      "wraps": ["next-runtime", "portfolio-shell", "content-sections", "motion-runtime", "project-catalog", "project-detail"]
+    },
+    {
+      "kind": "region",
+      "label": "Superfície estática",
+      "wraps": ["project-media"]
+    }
+  ],
+  "connections": [
+    { "id": "browser-to-next", "from": "browser", "to": "next-runtime", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "next-to-shell", "from": "next-runtime", "to": "portfolio-shell", "label": "renderiza home", "fromSide": "right", "toSide": "left", "labelAt": [470, 382] },
+    { "id": "shell-to-sections", "from": "portfolio-shell", "to": "content-sections", "label": "compõe seções", "labelDy": 60 },
+    { "id": "sections-to-motion", "from": "content-sections", "to": "motion-runtime", "label": "anima com GSAP", "variant": "dashed" },
+    { "id": "sections-to-catalog", "from": "content-sections", "to": "project-catalog", "label": "lê projetos", "fromSide": "bottom", "toSide": "top", "labelDy": 19 },
+    { "id": "catalog-to-detail", "from": "project-catalog", "to": "project-detail", "label": "resolve slug", "labelDy": 60 },
+    { "id": "catalog-to-media", "from": "project-catalog", "to": "project-media", "label": "referencia mockups", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "detail-to-media", "from": "project-detail", "to": "project-media", "label": "exibe mídia", "fromSide": "bottom", "toSide": "top", "labelDy": 24 }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Composição",
+      "items": ["O App Router entrega o shell da home", "As seções mantêm responsabilidades isoladas"]
+    },
+    {
+      "dot": "violet",
+      "title": "Projetos",
+      "items": ["projects.ts centraliza os dados", "A rota dinâmica reutiliza o catálogo e a mídia pública"]
+    },
+    {
+      "dot": "amber",
+      "title": "Experiência",
+      "items": ["GSAP coordena scroll e transições", "A interface documenta suporte a movimento reduzido"]
+    }
+  ]
+}

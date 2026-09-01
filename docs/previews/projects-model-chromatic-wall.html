@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Chromatic Wall</title>
+    <style>
+      :root {
+        --ink: #161716;
+        --white: #f5f5f0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .wall {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        overflow: hidden;
+      }
+      .tile {
+        position: relative;
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(1rem, 2.5vw, 2.4rem);
+        overflow: hidden;
+        border: 0;
+        border-right: 1px solid rgb(22 23 22/0.3);
+        background: var(--tone);
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+        transition: filter 0.25s;
+      }
+      .tile::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 6px;
+        background: var(--ink);
+        content: '';
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      .tile:hover::before,
+      .tile:focus-visible::before,
+      .tile[aria-expanded='true']::before {
+        transform: scaleX(1);
+      }
+      .tile:focus-visible {
+        outline: 5px solid var(--white);
+        outline-offset: -5px;
+        z-index: 3;
+      }
+      .tile__eyebrow,
+      .tile__number {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        font:
+          700 0.61rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .tile__title {
+        position: relative;
+        z-index: 1;
+        max-width: 2ch;
+        margin: auto 0;
+        font:
+          900 clamp(3.5rem, 8vw, 8rem)/0.74 Arial,
+          sans-serif;
+        letter-spacing: -0.12em;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+      .tile__more {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .detail {
+        position: fixed;
+        z-index: 5;
+        inset: 0;
+        display: grid;
+        grid-template-columns: minmax(15rem, 0.8fr) minmax(22rem, 1.2fr);
+        background: var(--white);
+        color: var(--ink);
+        pointer-events: none;
+        opacity: 0;
+      }
+      .detail__copy {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(1.5rem, 5vw, 5rem);
+      }
+      .detail__code {
+        margin: 0;
+        font:
+          700 0.62rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .detail h2 {
+        max-width: 6ch;
+        margin: 0;
+        font:
+          400 clamp(5rem, 11vw, 12rem)/0.7 Georgia,
+          serif;
+        letter-spacing: -0.115em;
+      }
+      .detail p {
+        max-width: 30rem;
+        margin: 1.5rem 0 0;
+        font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+        line-height: 1.5;
+      }
+      .detail button {
+        align-self: flex-start;
+        border: 1px solid var(--ink);
+        background: transparent;
+        padding: 0.8rem 1rem;
+        color: var(--ink);
+        font:
+          700 0.61rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .detail__image {
+        position: relative;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: var(--tone);
+      }
+      .detail__image::after {
+        position: absolute;
+        inset: 8%;
+        border: 1px solid rgb(22 23 22/0.5);
+        content: '';
+      }
+      .detail__image img {
+        position: relative;
+        z-index: 1;
+        width: 72%;
+        height: 58%;
+        border: 8px solid var(--white);
+        object-fit: cover;
+        box-shadow: 1rem 1rem 0 var(--ink);
+      }
+      .detail__facts {
+        display: flex;
+        gap: 1.5rem;
+        color: #656661;
+        font:
+          700 0.6rem/1.35 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 730px) {
+        .wall {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .tile {
+          min-height: 50vh;
+        }
+        .tile__title {
+          font-size: 5.5rem;
+        }
+        .detail {
+          grid-template-columns: 1fr;
+          overflow: auto;
+        }
+        .detail__copy {
+          min-height: 50vh;
+        }
+        .detail__image {
+          min-height: 45vh;
+        }
+        .detail h2 {
+          font-size: 6rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wall" aria-label="Parede cromática de projetos">
+      <button
+        class="tile"
+        style="--tone: #c4dbff"
+        aria-expanded="false"
+        data-name="Regula"
+        data-type="Produto / 2026"
+        data-copy="Uma ferramenta de controle projetada para dar visibilidade a normas, decisões e seus próximos passos."
+        data-image="../../public/mockups/regula/desktop-01.png"
+      >
+        <span class="tile__eyebrow">Regulação</span><span class="tile__title">Regula</span
+        ><span class="tile__more"><span>abrir</span><span>01</span></span></button
+      ><button
+        class="tile"
+        style="--tone: #ffc6a9"
+        aria-expanded="false"
+        data-name="eFood"
+        data-type="Comércio / 2025"
+        data-copy="Pedido de comida como uma sequência simples: encontrar, escolher, acompanhar e repetir."
+        data-image="../../public/mockups/e-food/desktop-01.png"
+      >
+        <span class="tile__eyebrow">Comércio</span><span class="tile__title">eFood</span
+        ><span class="tile__more"><span>abrir</span><span>02</span></span></button
+      ><button
+        class="tile"
+        style="--tone: #d4e85c"
+        aria-expanded="false"
+        data-name="E‑Play"
+        data-type="Cultura / 2025"
+        data-copy="Uma casa de jogos que coloca a intensidade visual a serviço do catálogo e da descoberta."
+        data-image="../../public/mockups/e-play/desktop-01.png"
+      >
+        <span class="tile__eyebrow">Jogo</span><span class="tile__title">E‑Play</span
+        ><span class="tile__more"><span>abrir</span><span>03</span></span></button
+      ><button
+        class="tile"
+        style="--tone: #e7c9ed"
+        aria-expanded="false"
+        data-name="To‑Do"
+        data-type="Utilitário / 2024"
+        data-copy="Uma lista de tarefas criada para deixar estados, filtros e pequenas conclusões muito evidentes."
+        data-image="../../public/mockups/to-do/desktop-01.png"
+      >
+        <span class="tile__eyebrow">Rotina</span><span class="tile__title">To‑Do</span
+        ><span class="tile__more"><span>abrir</span><span>04</span></span>
+      </button>
+    </main>
+    <aside class="detail" aria-live="polite">
+      <section class="detail__copy">
+        <div>
+          <p class="detail__code">Projeto selecionado</p>
+          <h2></h2>
+          <p class="detail__body"></p>
+        </div>
+        <div>
+          <div class="detail__facts"><span></span><span>Interface e implementação</span></div>
+          <button type="button">Voltar à parede</button>
+        </div>
+      </section>
+      <figure class="detail__image"><img src="" alt="" /></figure>
+    </aside>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const tiles = [...document.querySelectorAll('.tile')],
+        detail = document.querySelector('.detail'),
+        title = document.querySelector('.detail h2'),
+        body = document.querySelector('.detail__body'),
+        facts = document.querySelector('.detail__facts span'),
+        image = document.querySelector('.detail img'),
+        imagePanel = document.querySelector('.detail__image'),
+        close = document.querySelector('.detail button'),
+        reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let active = null;
+      gsap.from('.tile', {
+        scaleY: 0,
+        transformOrigin: 'bottom',
+        stagger: 0.1,
+        duration: reduced ? 0 : 0.8,
+        ease: 'power4.out'
+      });
+      function open(tile) {
+        active = tile;
+        tiles.forEach((item) => item.setAttribute('aria-expanded', String(item === tile)));
+        title.textContent = tile.dataset.name;
+        body.textContent = tile.dataset.copy;
+        facts.textContent = tile.dataset.type;
+        image.src = tile.dataset.image;
+        image.alt = `Prévia do projeto ${tile.dataset.name}`;
+        imagePanel.style.setProperty('--tone', getComputedStyle(tile).getPropertyValue('--tone'));
+        gsap
+          .timeline({ defaults: { duration: reduced ? 0 : 0.55, ease: 'power3.inOut' } })
+          .set(detail, { pointerEvents: 'auto' })
+          .to(detail, { autoAlpha: 1 })
+          .from('.detail__copy > *', { autoAlpha: 0, x: -20, stagger: 0.08 }, '<.1')
+          .from('.detail__image img', { autoAlpha: 0, scale: 0.9 }, '<.1');
+      }
+      tiles.forEach((tile) => tile.addEventListener('click', () => open(tile)));
+      close.addEventListener('click', () =>
+        gsap.to(detail, {
+          autoAlpha: 0,
+          duration: reduced ? 0 : 0.4,
+          ease: 'power3.inOut',
+          onComplete: () => {
+            detail.style.pointerEvents = 'none';
+            active?.setAttribute('aria-expanded', 'false');
+          }
+        })
+      );
+    </script>
+  </body>
+</html>

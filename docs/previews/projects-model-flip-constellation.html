@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projetos — Flip Constelação</title>
+    <style>
+      :root {
+        --void: #07090c;
+        --white: #f5f1eb;
+        --lime: #d7ff4f;
+        --line: rgb(245 241 235/0.23);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--void);
+        color: var(--white);
+        font-family: ui-monospace, Consolas, monospace;
+      }
+      .constellation {
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 3rem);
+        overflow: hidden;
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 2rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 1.5rem;
+      }
+      .head p {
+        max-width: 17rem;
+        margin: 0;
+        color: rgb(245 241 235/0.62);
+        font-size: 0.72rem;
+        line-height: 1.5;
+      }
+      .head h1 {
+        margin: 0;
+        font:
+          400 clamp(3.5rem, 9vw, 9rem)/0.75 Arial,
+          sans-serif;
+        letter-spacing: -0.11em;
+      }
+      .head i {
+        color: var(--lime);
+        font-family: Georgia, serif;
+      }
+      .controls {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        margin: 1rem 0 0;
+      }
+      .controls button {
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        background: none;
+        color: var(--white);
+        padding: 0.7rem 1rem;
+        font: 700 0.65rem monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .controls button:hover {
+        background: var(--lime);
+        color: var(--void);
+      }
+      .field {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: 7vw;
+        gap: 1rem;
+        min-height: 62vw;
+        margin-top: clamp(2rem, 5vw, 4rem);
+      }
+      .star {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        grid-column: span 3;
+        grid-row: span 4;
+        overflow: hidden;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--tone);
+        color: var(--void);
+        cursor: pointer;
+        text-align: left;
+      }
+      .star:nth-child(2) {
+        grid-column: 5 / span 4;
+        grid-row: 2 / span 5;
+      }
+      .star:nth-child(3) {
+        grid-column: 10 / span 3;
+        grid-row: 1 / span 4;
+      }
+      .star:nth-child(4) {
+        grid-column: 2 / span 3;
+        grid-row: 7 / span 4;
+      }
+      .star:nth-child(5) {
+        grid-column: 7 / span 5;
+        grid-row: 8 / span 4;
+      }
+      .star::after {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 35% 25%, rgb(255 255 255/0.68), transparent 37%);
+        content: '';
+        pointer-events: none;
+      }
+      .star b,
+      .star small {
+        position: relative;
+        z-index: 2;
+        font: 0.65rem/1 monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .star h2 {
+        position: relative;
+        z-index: 2;
+        margin: auto 0;
+        font:
+          400 clamp(2rem, 4vw, 4rem)/0.8 Arial,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      .star img {
+        position: absolute;
+        inset: 22%;
+        width: 56%;
+        height: 56%;
+        border: 3px solid rgb(7 9 12/0.72);
+        border-radius: 50%;
+        object-fit: cover;
+        opacity: 0.72;
+        mix-blend-mode: multiply;
+        transition: transform 0.4s;
+      }
+      .star:hover img {
+        transform: scale(1.15) rotate(12deg);
+      }
+      .star.active {
+        border-color: var(--lime);
+        box-shadow:
+          0 0 0 3px var(--lime),
+          0 0 4rem color-mix(in srgb, var(--tone), transparent 25%);
+      }
+      .star.active h2 {
+        color: var(--void);
+      }
+      .line {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--line), transparent);
+        transform-origin: left;
+      }
+      .line--a {
+        width: 29%;
+        top: 22%;
+        left: 20%;
+        transform: rotate(12deg);
+      }
+      .line--b {
+        width: 35%;
+        top: 54%;
+        left: 38%;
+        transform: rotate(-19deg);
+      }
+      @media (max-width: 700px) {
+        .head {
+          display: block;
+        }
+        .head p {
+          margin-top: 1.5rem;
+        }
+        .field {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 10rem;
+          min-height: 0;
+        }
+        .star,
+        .star:nth-child(n) {
+          grid-column: span 1;
+          grid-row: span 1;
+          border-radius: 1.5rem;
+        }
+        .line {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="constellation">
+      <header class="head">
+        <div>
+          <p>05 / Flip Constelação</p>
+          <h1>Projetos em <i>órbita.</i></h1>
+        </div>
+        <p>
+          Embaralhe o universo. O Flip conserva a identidade de cada projeto enquanto ele muda de
+          posição, escala e relação.
+        </p>
+      </header>
+      <div class="controls">
+        <button id="shuffle">Reorganizar órbita</button><button id="reset">Resetar</button>
+      </div>
+      <section class="field">
+        <i class="line line--a"></i><i class="line line--b"></i
+        ><button class="star" style="--tone: #d7ff4f">
+          <b>01 / 26</b><img src="../../public/mockups/regula/desktop-01.png" alt="" />
+          <h2>Regula</h2>
+          <small>ops</small></button
+        ><button class="star" style="--tone: #f39c88">
+          <b>02 / 25</b><img src="../../public/mockups/e-food/desktop-01.png" alt="" />
+          <h2>E‑Food</h2>
+          <small>food</small></button
+        ><button class="star" style="--tone: #91d4ff">
+          <b>03 / 25</b><img src="../../public/mockups/e-play/desktop-01.png" alt="" />
+          <h2>E‑Play</h2>
+          <small>play</small></button
+        ><button class="star" style="--tone: #d0b7ee">
+          <b>04 / 24</b><img src="../../public/mockups/to-do/desktop-01.png" alt="" />
+          <h2>To‑Do</h2>
+          <small>list</small></button
+        ><button class="star" style="--tone: #ffb6ca">
+          <b>05 / 24</b><img src="../../public/mockups/spider-verse/desktop-01.png" alt="" />
+          <h2>Spider</h2>
+          <small>verse</small>
+        </button>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script>
+      gsap.registerPlugin(Flip);
+      const field = document.querySelector('.field'),
+        stars = [...document.querySelectorAll('.star')],
+        classes = ['slot-a', 'slot-b', 'slot-c', 'slot-d', 'slot-e'];
+      gsap.from(stars, {
+        scale: 0.45,
+        autoAlpha: 0,
+        stagger: { amount: 0.7, from: 'center' },
+        duration: 0.9,
+        ease: 'back.out(1.8)'
+      });
+      function flipOrder(order) {
+        const state = Flip.getState(stars);
+        order.forEach((i) => field.appendChild(stars[i]));
+        Flip.from(state, {
+          absolute: true,
+          scale: true,
+          duration: 0.85,
+          ease: 'elastic.out(1,.55)',
+          stagger: 0.04
+        });
+      }
+      document.querySelector('#shuffle').onclick = () =>
+        flipOrder([...stars.keys()].sort(() => Math.random() - 0.5));
+      document.querySelector('#reset').onclick = () => flipOrder([0, 1, 2, 3, 4]);
+      stars.forEach(
+        (star) =>
+          (star.onclick = () => {
+            const state = Flip.getState(stars);
+            stars.forEach((s) => s.classList.remove('active'));
+            star.classList.add('active');
+            field.prepend(star);
+            Flip.from(state, { absolute: true, scale: true, duration: 0.65, ease: 'power3.inOut' });
+          })
+      );
+    </script>
+  </body>
+</html>

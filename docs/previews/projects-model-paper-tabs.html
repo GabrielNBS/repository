@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Paper Tabs</title>
+    <style>
+      :root {
+        --desk: #c9c2a9;
+        --paper: #f6f0de;
+        --ink: #27311c;
+        --tape: #ea6a4b;
+        --line: #96947e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .binder {
+        min-height: 100vh;
+        padding: clamp(1rem, 4vw, 4rem);
+        display: grid;
+        place-items: center;
+        background: linear-gradient(
+          110deg,
+          transparent 0 48%,
+          rgb(255 255 255/0.15) 48% 50%,
+          transparent 50%
+        );
+      }
+      .folder {
+        position: relative;
+        width: min(100%, 75rem);
+        min-height: min(48rem, calc(100vh - 4rem));
+        padding: clamp(1.2rem, 4vw, 3.8rem);
+        overflow: hidden;
+        background: var(--paper);
+        box-shadow: 1.1rem 1.1rem 0 rgb(39 49 28/0.22);
+      }
+      .folder::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: clamp(5rem, 13vw, 10rem);
+        width: 1px;
+        background: var(--line);
+        content: '';
+      }
+      .folder__head {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(4rem, 13vw) 1fr;
+        gap: 1.2rem;
+        align-items: start;
+        padding-bottom: clamp(2rem, 5vw, 4rem);
+      }
+      .folder__code {
+        padding-top: 0.35rem;
+        font:
+          700 0.64rem/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .folder h1 {
+        max-width: 9ch;
+        margin: 0;
+        font:
+          400 clamp(3.3rem, 7vw, 8rem)/0.77 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .folder h1 b {
+        color: var(--tape);
+        font-family: Arial, sans-serif;
+      }
+      .workspace {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(4rem, 13vw) 1fr;
+        gap: 1.2rem;
+      }
+      .tabs {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+      }
+      .tab {
+        padding: 0.6rem 0.7rem;
+        border: 1px solid var(--ink);
+        border-radius: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .tab[aria-selected='true'] {
+        background: var(--ink);
+        color: var(--paper);
+        transform: translateX(0.6rem);
+      }
+      .sheet {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr minmax(12rem, 0.72fr);
+        gap: clamp(1.5rem, 5vw, 5rem);
+        min-height: 23rem;
+        padding: clamp(1.2rem, 3vw, 2.6rem);
+        border: 1px solid var(--line);
+        background: #fffbef;
+      }
+      .sheet::after {
+        position: absolute;
+        top: -0.5rem;
+        right: 12%;
+        width: 7rem;
+        height: 1rem;
+        background: rgb(234 106 75/0.5);
+        content: '';
+        transform: rotate(2deg);
+      }
+      .sheet__label {
+        margin: 0 0 0.7rem;
+        color: var(--tape);
+        font:
+          700 0.61rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+      .sheet h2 {
+        max-width: 7ch;
+        margin: 0;
+        font:
+          400 clamp(3rem, 6vw, 6rem)/0.78 Georgia,
+          serif;
+        letter-spacing: -0.09em;
+      }
+      .sheet__copy {
+        max-width: 31rem;
+        margin: 1.5rem 0 0;
+        font-size: 0.93rem;
+        line-height: 1.55;
+      }
+      .notes {
+        display: grid;
+        align-content: end;
+        gap: 1.2rem;
+        border-left: 1px solid var(--line);
+        padding-left: 1.2rem;
+      }
+      .note span {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: #6d735f;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .note b {
+        font-size: 0.8rem;
+        line-height: 1.35;
+      }
+      .thumb {
+        align-self: center;
+        width: 100%;
+        border: 7px solid var(--ink);
+        box-shadow: 0.55rem 0.55rem 0 var(--tape);
+        transform: rotate(2deg);
+      }
+      .rule {
+        height: 1px;
+        margin-top: 2.7rem;
+        background: var(--line);
+      }
+      .folder__footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 1rem;
+        color: #6d735f;
+        font:
+          700 0.58rem/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 680px) {
+        .folder::before {
+          display: none;
+        }
+        .folder__head,
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .folder__code {
+          display: none;
+        }
+        .tabs {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .sheet {
+          grid-template-columns: 1fr;
+        }
+        .notes {
+          grid-template-columns: repeat(3, 1fr);
+          border-top: 1px solid var(--line);
+          border-left: 0;
+          padding: 1rem 0 0;
+        }
+        .thumb {
+          width: 80%;
+          margin: auto;
+        }
+        .folder__footer {
+          display: block;
+        }
+        .folder__footer span + span {
+          display: block;
+          margin-top: 0.5rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="binder">
+      <section class="folder">
+        <header class="folder__head">
+          <p class="folder__code">Caderno de<br />interfaces<br />v.01</p>
+          <h1>Projetos que <b>pedem</b> contexto.</h1>
+        </header>
+        <div class="workspace">
+          <nav class="tabs" role="tablist" aria-label="Projetos">
+            <button
+              class="tab"
+              role="tab"
+              aria-selected="true"
+              data-title="Regula"
+              data-type="Sistema de produto"
+              data-copy="Uma superfície de controle desenhada para tornar normas, estados e decisões fáceis de consultar."
+              data-role="Produto e front-end"
+              data-year="2026"
+              data-image="../../public/mockups/regula/desktop-01.png"
+            >
+              Regula</button
+            ><button
+              class="tab"
+              role="tab"
+              aria-selected="false"
+              data-title="eFood"
+              data-type="Pedido e descoberta"
+              data-copy="Um percurso de compra que deixa a escolha mais simples sem reduzir o apetite por explorar."
+              data-role="UX e interface"
+              data-year="2025"
+              data-image="../../public/mockups/e-food/desktop-01.png"
+            >
+              eFood</button
+            ><button
+              class="tab"
+              role="tab"
+              aria-selected="false"
+              data-title="E-Play"
+              data-type="Catálogo cultural"
+              data-copy="Um repertório de jogos com hierarquia clara, presença visual e acesso rápido aos títulos."
+              data-role="Direção e front-end"
+              data-year="2025"
+              data-image="../../public/mockups/e-play/desktop-01.png"
+            >
+              E‑Play</button
+            ><button
+              class="tab"
+              role="tab"
+              aria-selected="false"
+              data-title="To-Do"
+              data-type="Ferramenta diária"
+              data-copy="Ações pequenas e repetidas transformadas em uma experiência objetiva e leve."
+              data-role="Interações e código"
+              data-year="2024"
+              data-image="../../public/mockups/to-do/desktop-01.png"
+            >
+              To‑Do
+            </button>
+          </nav>
+          <article class="sheet" aria-live="polite">
+            <div>
+              <p class="sheet__label">Sistema de produto</p>
+              <h2>Regula</h2>
+              <p class="sheet__copy">
+                Uma superfície de controle desenhada para tornar normas, estados e decisões fáceis
+                de consultar.
+              </p>
+            </div>
+            <aside class="notes">
+              <div class="note"><span>Papel</span><b>Produto e front-end</b></div>
+              <div class="note"><span>Ano</span><b>2026</b></div>
+              <img
+                class="thumb"
+                src="../../public/mockups/regula/desktop-01.png"
+                alt="Prévia do projeto Regula"
+              />
+            </aside>
+          </article>
+        </div>
+        <div class="rule"></div>
+        <footer class="folder__footer">
+          <span>Escolha uma aba para trocar a folha</span
+          ><span>Arquivo de projetos / São Paulo</span>
+        </footer>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const tabs = [...document.querySelectorAll('.tab')],
+        sheet = document.querySelector('.sheet'),
+        label = document.querySelector('.sheet__label'),
+        title = document.querySelector('.sheet h2'),
+        copy = document.querySelector('.sheet__copy'),
+        role = document.querySelector('.note b'),
+        year = document.querySelectorAll('.note b')[1],
+        image = document.querySelector('.thumb'),
+        reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      gsap.from(['.folder__head', '.tabs', '.sheet', '.folder__footer'], {
+        autoAlpha: 0,
+        y: 22,
+        stagger: 0.1,
+        duration: reduced ? 0 : 0.7,
+        ease: 'power3.out'
+      });
+      tabs.forEach((tab) =>
+        tab.addEventListener('click', () => {
+          if (tab.getAttribute('aria-selected') === 'true') return;
+          tabs.forEach((item) => item.setAttribute('aria-selected', 'false'));
+          tab.setAttribute('aria-selected', 'true');
+          gsap
+            .timeline({ defaults: { duration: reduced ? 0 : 0.3, ease: 'power3.inOut' } })
+            .to(sheet, { autoAlpha: 0, x: 18 })
+            .call(() => {
+              label.textContent = tab.dataset.type;
+              title.textContent = tab.dataset.title;
+              copy.textContent = tab.dataset.copy;
+              role.textContent = tab.dataset.role;
+              year.textContent = tab.dataset.year;
+              image.src = tab.dataset.image;
+              image.alt = `Prévia do projeto ${tab.dataset.title}`;
+            })
+            .to(sheet, { autoAlpha: 1, x: 0 });
+        })
+      );
+    </script>
+  </body>
+</html>

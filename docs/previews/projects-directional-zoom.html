@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — entradas direcionais + zoom out</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #25221f;
+        --muted: #665e57;
+        --canvas: #25221f;
+        --paper: #f6efe5;
+        --surface: #f6efe5;
+        --surface-ink: #25221f;
+        --peach: #efae82;
+        --lilac: #cdb8d8;
+        --cream: #e7d6bb;
+        --rose: #e8b6aa;
+        --accent: #efae82;
+        --text-project-card: clamp(3.3rem, 7vw, 7rem);
+        --text-project-card-mobile: clamp(3rem, 15vw, 4rem);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--canvas);
+        scroll-behavior: auto;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 20% 0%, rgba(255, 117, 88, 0.14), transparent 30rem),
+          var(--canvas);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .intro,
+      .next-section {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 3rem;
+      }
+
+      .intro__content,
+      .next-section__content {
+        width: min(100%, 60rem);
+      }
+
+      .eyebrow {
+        margin: 0 0 1rem;
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2 {
+        max-width: 10ch;
+        margin-bottom: 1.5rem;
+        font-size: clamp(3.5rem, 10vw, 9rem);
+        line-height: 0.84;
+        letter-spacing: -0.08em;
+        font-weight: 500;
+      }
+
+      .intro__content > p,
+      .next-section__content > p {
+        max-width: 30rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .projects-section {
+        position: relative;
+        min-height: 100dvh;
+        overflow: hidden;
+        background: var(--paper);
+        color: var(--surface-ink);
+        isolation: isolate;
+      }
+
+      .projects-stage {
+        position: relative;
+        height: 100dvh;
+        min-height: 100vh;
+        background: var(--paper);
+        overflow: hidden;
+      }
+
+      .projects-header {
+        position: absolute;
+        z-index: 0;
+        top: clamp(1.5rem, 4vw, 4rem);
+        right: clamp(1.5rem, 4vw, 4rem);
+        left: clamp(1.5rem, 4vw, 4rem);
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 2rem;
+        pointer-events: none;
+      }
+
+      .projects-header h2 {
+        max-width: 12ch;
+        margin-bottom: 0;
+        font-size: clamp(2.5rem, 6vw, 6rem);
+      }
+
+      .projects-header__meta {
+        max-width: 15rem;
+        margin-bottom: 0.4rem;
+        color: #6d6a63;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        text-align: right;
+      }
+
+      .cards-grid {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        perspective: 1200px;
+      }
+
+      .project-card {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .project-card__surface {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
+        grid-template-rows: auto 1fr auto;
+        gap: clamp(1rem, 3vw, 3rem);
+        width: 100%;
+        height: 100%;
+        padding: clamp(7rem, 13vw, 11rem) clamp(2rem, 8vw, 9rem) clamp(2rem, 6vw, 5rem);
+        border: 1px solid rgba(23, 23, 19, 0.18);
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        transform-origin: center center;
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow, filter;
+        pointer-events: auto;
+        overflow: hidden;
+        --surface-top-gap: clamp(5rem, 9vw, 8rem);
+        --surface-color: rgba(255, 255, 255, 0.45);
+        --liquid-alpha: 0;
+        --liquid-x: 50;
+        --liquid-y: 50;
+      }
+
+      .project-card__surface::before {
+        position: absolute;
+        z-index: 0;
+        top: var(--surface-top-gap);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: "";
+        background: var(--surface-color);
+        pointer-events: none;
+      }
+
+      .project-card__surface::after {
+        position: absolute;
+        z-index: 0;
+        inset: -18%;
+        content: "";
+        opacity: var(--liquid-alpha);
+        background:
+          radial-gradient(circle at calc(var(--liquid-x) * 1%) calc(var(--liquid-y) * 1%), rgba(255, 255, 255, 0.72), transparent 22%),
+          radial-gradient(circle at calc((100 - var(--liquid-x)) * 1%) calc((100 - var(--liquid-y)) * 1%), rgba(255, 117, 88, 0.32), transparent 28%);
+        filter: blur(2rem);
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .project-card__surface > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .project-card__overview {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(5.5rem, 8vw, 9rem) clamp(5.5rem, 8vw, 9rem) clamp(4rem, 6vw, 7rem);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .project-card__surface > .project-card__overview {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+      }
+
+      .project-card__overview-number {
+        color: rgba(23, 23, 19, 0.55);
+        font-size: clamp(3rem, 4vw, 5rem);
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .project-card__overview strong {
+        display: block;
+        margin-top: auto;
+        font-size: clamp(5.5rem, 8vw, 10rem);
+        line-height: 0.82;
+        letter-spacing: -0.07em;
+      }
+
+      .project-card__overview small {
+        margin-top: 1.25rem;
+        color: rgba(23, 23, 19, 0.62);
+        font-size: clamp(2.8rem, 3.5vw, 4rem);
+        line-height: 1;
+      }
+
+      .project-card:nth-child(3n + 1) .project-card__surface {
+        --surface-color: #d9e5d1;
+      }
+
+      .project-card:nth-child(3n + 2) .project-card__surface {
+        --surface-color: #f2d3be;
+      }
+
+      .project-card:nth-child(3n) .project-card__surface {
+        --surface-color: #cbd9e5;
+      }
+
+      .project-card__number {
+        display: block;
+        margin-bottom: 1rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: none;
+      }
+
+      .project-card h3 {
+        max-width: 7ch;
+        margin: 0;
+        font-size: var(--text-project-card);
+        line-height: 0.82;
+        letter-spacing: -0.105em;
+        font-weight: 400;
+      }
+
+      .project-card__copy {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: center;
+        display: flex;
+        min-height: 20rem;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1rem 0.625rem 0.625rem;
+      }
+
+      .project-card p {
+        max-width: 20rem;
+        margin: 1rem 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.35;
+        letter-spacing: -0.02em;
+      }
+
+      .project-card__stack {
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 2rem;
+        padding-left: 0.5rem;
+      }
+
+      .stack-icon {
+        position: relative;
+        display: grid;
+        width: 2.25rem;
+        height: 2.25rem;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid rgba(246, 239, 229, 0.8);
+        border-radius: 999px;
+        background: rgba(246, 239, 229, 0.85);
+        box-shadow: 0 0.3rem rgba(37, 34, 31, 0.12);
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .stack-icon + .stack-icon { margin-left: -0.625rem; }
+      .stack-icon:hover { z-index: 2; transform: translateY(-0.25rem); }
+      .stack-icon img { display: block; width: 1.05rem; height: 1.05rem; }
+      .stack-icon::after {
+        position: absolute;
+        bottom: calc(100% + 0.65rem);
+        left: 50%;
+        z-index: 3;
+        width: max-content;
+        max-width: 9rem;
+        padding: 0.4rem 0.65rem;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--paper);
+        content: attr(data-label);
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 0.25rem);
+        transition: opacity 200ms ease, transform 200ms ease;
+      }
+      .stack-icon:hover::after { opacity: 1; transform: translate(-50%, 0); }
+      .stack-icon--next { color: var(--ink); }
+      .stack-icon--typescript { color: #3178c6; }
+      .stack-icon--tailwind { color: #38bdf8; }
+      .stack-icon--radix { color: var(--ink); }
+      .stack-icon--zod { color: #3156a5; }
+      .stack-icon--hook-form { color: #ec5990; }
+      .stack-icon--react { color: #2f9cc4; }
+      .stack-icon--styled { color: #db7093; }
+      .stack-icon--redux { color: #764abc; }
+      .stack-icon--javascript { color: #b59400; }
+      .stack-icon--html { color: #e34f26; }
+      .stack-icon--sass { color: #cc6699; }
+      .stack-icon--css { color: #1572b6; }
+
+      .project-card__visual {
+        position: relative;
+        isolation: isolate;
+        grid-column: 2;
+        grid-row: 1 / 4;
+        display: flex;
+        min-height: 0;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 1.45rem;
+        background: var(--visual-tone, var(--peach));
+        color: var(--ink);
+        transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .project-card__visual::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background-image: linear-gradient(rgba(37, 34, 31, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 34, 31, 0.12) 1px, transparent 1px);
+        background-size: 2.2rem 2.2rem;
+        content: "";
+        mask-image: radial-gradient(circle at center, black, transparent 75%);
+      }
+
+      .project-card__visual::after {
+        position: absolute;
+        z-index: -1;
+        top: 17%;
+        left: 17%;
+        width: 65%;
+        aspect-ratio: 1;
+        border: 1px solid rgba(37, 34, 31, 0.35);
+        border-radius: 50%;
+        background: rgba(246, 239, 229, 0.45);
+        content: "";
+        transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .project-card__visual:hover::after {
+        transform: translate(6%, -4%) rotate(18deg);
+      }
+
+      .project-card__visual-top,
+      .project-card__visual-bottom {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        padding: 1.25rem;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .project-card__visual-title {
+        position: relative;
+        z-index: 2;
+        align-self: center;
+        margin: auto 1rem;
+        font-size: clamp(3rem, 7vw, 8rem);
+        line-height: 0.76;
+        text-align: center;
+        letter-spacing: -0.12em;
+        transform: rotate(-9deg);
+        transition: transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .project-card__visual:hover .project-card__visual-title {
+        transform: scale(1.05) rotate(3deg);
+      }
+
+      .project-card__visual-image {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 76%;
+        height: 52%;
+        border: 0.35rem solid rgba(246, 239, 229, 0.72);
+        border-radius: 0.75rem;
+        box-shadow: 0 1.5rem 2.5rem rgba(37, 34, 31, 0.16);
+        object-fit: cover;
+        opacity: 0.72;
+        transform: translate(-50%, -50%) rotate(3deg);
+        transition: opacity 450ms ease, transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .project-card__visual:hover .project-card__visual-image {
+        opacity: 0.92;
+        transform: translate(-50%, -50%) rotate(-2deg) scale(1.03);
+      }
+
+      .project-card:nth-child(4n + 1) .project-card__visual { --visual-tone: var(--peach); }
+      .project-card:nth-child(4n + 2) .project-card__visual { --visual-tone: var(--lilac); }
+      .project-card:nth-child(4n + 3) .project-card__visual { --visual-tone: var(--cream); }
+      .project-card:nth-child(4n) .project-card__visual { --visual-tone: var(--rose); }
+
+      .project-card__visual > * {
+        flex-shrink: 0;
+      }
+
+      .project-card__visual img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .project-card:nth-child(4n + 1) .project-card__surface { --surface-color: rgba(239, 174, 130, 0.15); }
+      .project-card:nth-child(4n + 2) .project-card__surface { --surface-color: rgba(205, 184, 216, 0.15); }
+      .project-card:nth-child(4n + 3) .project-card__surface { --surface-color: rgba(231, 214, 187, 0.35); }
+      .project-card:nth-child(4n) .project-card__surface { --surface-color: rgba(232, 182, 170, 0.2); }
+
+      .project-card__visual-orb {
+        position: absolute;
+        z-index: 0;
+        right: -17%;
+        bottom: -22%;
+        width: 56%;
+        aspect-ratio: 1;
+        border: 1px solid rgba(37, 34, 31, 0.35);
+        border-radius: 50%;
+        background: var(--peach);
+        mix-blend-mode: multiply;
+        transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .project-card__visual:hover .project-card__visual-orb {
+        transform: translate(-10%, -8%) rotate(-20deg);
+      }
+
+      .project-card__hint {
+        grid-column: 1;
+        grid-row: 3;
+        align-self: end;
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .projects-section.is-overview .project-card {
+        cursor: pointer;
+      }
+
+      .projects-section.is-overview .project-card:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 0.5rem;
+      }
+
+      .overview-note {
+        position: absolute;
+        z-index: 20;
+        right: clamp(1.5rem, 4vw, 4rem);
+        bottom: clamp(1.5rem, 4vw, 4rem);
+        max-width: 19rem;
+        margin: 0;
+        color: #6d6a63;
+        font-size: clamp(0.85rem, 1.2vw, 1rem);
+        line-height: 1.45;
+        opacity: 0;
+        transform: translateY(1rem);
+        pointer-events: none;
+      }
+
+      .overview-note strong {
+        display: block;
+        margin-bottom: 0.45rem;
+        color: var(--surface-ink);
+        font-size: 1.1em;
+        letter-spacing: -0.03em;
+      }
+
+      .next-section {
+        background: #24231f;
+      }
+
+      .next-section h2 {
+        max-width: 12ch;
+        font-size: clamp(3rem, 8vw, 7rem);
+      }
+
+      @media (max-width: 700px) {
+        .intro,
+        .next-section {
+          padding: 1.5rem;
+        }
+
+        .projects-header {
+          top: 1.25rem;
+          right: 1.25rem;
+          left: 1.25rem;
+          align-items: start;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .projects-header__meta {
+          text-align: left;
+        }
+
+        .projects-stage {
+          min-height: 100vh;
+        }
+
+        .project-card {
+          padding: 7rem 1.25rem 1.5rem;
+        }
+
+        .project-card__surface {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto minmax(11rem, 34vh) 1fr auto;
+          gap: 0.9rem;
+          padding: 7rem 1.25rem 1.5rem;
+          --surface-top-gap: 5rem;
+        }
+
+        .project-card__visual {
+          grid-column: 1;
+          grid-row: 2;
+          border-radius: 0.8rem;
+        }
+
+        .project-card__copy {
+          grid-column: 1;
+          grid-row: 3;
+          align-self: center;
+        }
+
+        .project-card h3 {
+          font-size: clamp(3rem, 17vw, 6rem);
+        }
+
+        .project-card p {
+          max-width: 18rem;
+          margin-top: 0.65rem;
+          font-size: 0.88rem;
+        }
+
+        .project-card__hint {
+          grid-column: 1;
+          grid-row: 4;
+          font-size: 0.62rem;
+        }
+
+        .project-card__overview {
+          padding: 2.25rem;
+        }
+
+        .project-card__overview-number,
+        .project-card__overview small {
+          font-size: 1.6rem;
+        }
+
+        .project-card__overview strong {
+          font-size: 3rem;
+        }
+
+        .overview-note {
+          right: 1.25rem;
+          bottom: 1.25rem;
+          left: 1.25rem;
+          max-width: 17rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .project-card,
+        .cards-grid,
+        .overview-note {
+          will-change: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="intro">
+      <div class="intro__content">
+        <p class="eyebrow">Scroll-driven case study</p>
+        <h1>Projetos em movimento<span style="color: var(--accent)">.</span></h1>
+        <p>
+          Role para baixo. A seção de projetos será fixada enquanto os cards entram um por vez,
+          alternando as direções. No fim, todos diminuem juntos para formar uma visão geral.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="projects-section" aria-labelledby="projects-title">
+        <div class="projects-stage">
+          <header class="projects-header">
+            <div>
+              <p class="eyebrow">02 / Seleção recente</p>
+              <h2 id="projects-title">Projetos que ganharam forma<span style="color: var(--accent)">.</span></h2>
+            </div>
+            <p class="projects-header__meta">06 projetos<br />entrada direcional + overview</p>
+          </header>
+
+          <div class="cards-grid" aria-label="Projetos">
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto Regula">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 01</span>
+                  <h3>Regula</h3>
+                  <p>Dashboard administrativo e PDV com fluxos de estoque, caixa e precificação.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: Next.js, TypeScript, Tailwind, Radix UI, Zod, React Hook Form e Context">
+                    <span class="stack-icon stack-icon--next" data-label="Next.js">N</span><span class="stack-icon stack-icon--typescript" data-label="TypeScript">TS</span><span class="stack-icon stack-icon--tailwind" data-label="Tailwind">≋</span><span class="stack-icon stack-icon--radix" data-label="Radix UI">R</span><span class="stack-icon stack-icon--zod" data-label="Zod">Z</span><span class="stack-icon stack-icon--hook-form" data-label="React Hook Form">⌁</span><span class="stack-icon stack-icon--react" data-label="Context">⚛</span>
+                  </div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>01</span><span>2026</span></div><img class="project-card__visual-image" src="../../public/mockups/regula/desktop-01.png" alt="Prévia do projeto Regula" /><span class="project-card__visual-title">Regula</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">01 / overview</span><strong>Regula</strong><small>Dashboard e PDV</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--next">N</span><span class="stack-icon stack-icon--typescript">TS</span><span class="stack-icon stack-icon--tailwind">≋</span><span class="stack-icon stack-icon--radix">R</span><span class="stack-icon stack-icon--zod">Z</span><span class="stack-icon stack-icon--hook-form">⌁</span><span class="stack-icon stack-icon--react">⚛</span></div></div>
+              </div>
+            </article>
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto E-Food">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 02</span>
+                  <h3>E-Food</h3>
+                  <p>Aplicação de delivery com catálogo, carrinho e validação de checkout.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: React, TypeScript, Styled-Components e Redux"><span class="stack-icon stack-icon--react" data-label="React">⚛</span><span class="stack-icon stack-icon--typescript" data-label="TypeScript">TS</span><span class="stack-icon stack-icon--styled" data-label="Styled-Components">S</span><span class="stack-icon stack-icon--redux" data-label="Redux">R</span></div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>02</span><span>2025</span></div><img class="project-card__visual-image" src="../../public/mockups/e-food/desktop-01.png" alt="Prévia do projeto E-Food" /><span class="project-card__visual-title">E-Food</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">02 / overview</span><strong>E-Food</strong><small>Delivery responsivo</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--react">⚛</span><span class="stack-icon stack-icon--typescript">TS</span><span class="stack-icon stack-icon--styled">S</span><span class="stack-icon stack-icon--redux">R</span></div></div>
+              </div>
+            </article>
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto E-Play">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 03</span>
+                  <h3>E-Play</h3>
+                  <p>Interface para streaming de jogos com vitrine, filtros e experiência visual imersiva.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: React, TypeScript, Styled-Components e Redux"><span class="stack-icon stack-icon--react" data-label="React">⚛</span><span class="stack-icon stack-icon--typescript" data-label="TypeScript">TS</span><span class="stack-icon stack-icon--styled" data-label="Styled-Components">S</span><span class="stack-icon stack-icon--redux" data-label="Redux">R</span></div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>03</span><span>2025</span></div><img class="project-card__visual-image" src="../../public/mockups/e-play/desktop-01.png" alt="Prévia do projeto E-Play" /><span class="project-card__visual-title">E-Play</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">03 / overview</span><strong>E-Play</strong><small>Streaming de jogos</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--react">⚛</span><span class="stack-icon stack-icon--typescript">TS</span><span class="stack-icon stack-icon--styled">S</span><span class="stack-icon stack-icon--redux">R</span></div></div>
+              </div>
+            </article>
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto To-Do">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 04</span>
+                  <h3>To-Do</h3>
+                  <p>Lista de tarefas com criação, edição, filtros e estado previsível.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: JavaScript, Redux, CSS e HTML"><span class="stack-icon stack-icon--javascript" data-label="JavaScript">JS</span><span class="stack-icon stack-icon--redux" data-label="Redux">R</span><span class="stack-icon stack-icon--css" data-label="CSS">#</span><span class="stack-icon stack-icon--html" data-label="HTML">5</span></div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>04</span><span>2024</span></div><img class="project-card__visual-image" src="../../public/mockups/to-do/desktop-01.png" alt="Prévia do projeto To-Do" /><span class="project-card__visual-title">To-Do</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">04 / overview</span><strong>To-Do</strong><small>Gestão de tarefas</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--javascript">JS</span><span class="stack-icon stack-icon--redux">R</span><span class="stack-icon stack-icon--css">#</span><span class="stack-icon stack-icon--html">5</span></div></div>
+              </div>
+            </article>
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto Spider-Verse">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 05</span>
+                  <h3>Spider-Verse</h3>
+                  <p>Landing page temática com composição visual forte e transições suaves.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: HTML, Sass e JavaScript"><span class="stack-icon stack-icon--html" data-label="HTML">5</span><span class="stack-icon stack-icon--sass" data-label="Sass">S</span><span class="stack-icon stack-icon--javascript" data-label="JavaScript">JS</span></div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>05</span><span>2024</span></div><img class="project-card__visual-image" src="../../public/mockups/spider-verse/desktop-01.png" alt="Prévia do projeto Spider-Verse" /><span class="project-card__visual-title">Spider-Verse</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">05 / overview</span><strong>Spider-Verse</strong><small>Landing page</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--html">5</span><span class="stack-icon stack-icon--sass">S</span><span class="stack-icon stack-icon--javascript">JS</span></div></div>
+              </div>
+            </article>
+            <article class="project-card" role="button" tabindex="0" aria-label="Voltar ao projeto Clone Disney+">
+              <div class="project-card__surface">
+                <div class="project-card__copy">
+                  <span class="project-card__number">Projeto / 06</span>
+                  <h3>Clone Disney+</h3>
+                  <p>Clone responsivo da interface Disney+ com seções, carrosséis e navegação.</p>
+                  <div class="project-card__stack" aria-label="Tecnologias: HTML, Sass e JavaScript"><span class="stack-icon stack-icon--html" data-label="HTML">5</span><span class="stack-icon stack-icon--sass" data-label="Sass">S</span><span class="stack-icon stack-icon--javascript" data-label="JavaScript">JS</span></div>
+                </div>
+                <figure class="project-card__visual"><div class="project-card__visual-top"><span>06</span><span>2024</span></div><img class="project-card__visual-image" src="../../public/mockups/clone-disney/desktop-01.png" alt="Prévia do projeto Clone Disney+" /><span class="project-card__visual-title">Clone Disney+</span><span class="project-card__visual-orb"></span><div class="project-card__visual-bottom"><span>Interface / estudo</span><span>↗</span></div></figure>
+                <span class="project-card__hint">Continue rolando para arquivar ↘</span>
+                <div class="project-card__overview"><span class="project-card__overview-number">06 / overview</span><strong>Clone Disney+</strong><small>Interface de streaming</small><div class="project-card__stack" aria-hidden="true"><span class="stack-icon stack-icon--html">5</span><span class="stack-icon stack-icon--sass">S</span><span class="stack-icon stack-icon--javascript">JS</span></div></div>
+              </div>
+            </article>
+          </div>
+
+          <p class="overview-note">
+            <strong>Agora eles podem ser lidos como um conjunto.</strong>
+            Seis projetos, seis entradas, uma mesma forma de pensar: dar clareza ao movimento.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <section class="next-section" aria-labelledby="next-title">
+      <div class="next-section__content">
+        <p class="eyebrow">Próxima section</p>
+        <h2 id="next-title">Sobre o processo<span style="color: var(--accent)">.</span></h2>
+        <p>
+          Este conteúdo aparece naturalmente quando o pin termina, demonstrando a passagem para a
+          próxima seção da página.
+        </p>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      const projectsSection = document.querySelector('.projects-section');
+      const cards = gsap.utils.toArray('.project-card');
+      const overviewNote = document.querySelector('.overview-note');
+      const projectsHeader = document.querySelector('.projects-header');
+      const stackIconSlugs = {
+        'stack-icon--next': 'nextdotjs',
+        'stack-icon--typescript': 'typescript',
+        'stack-icon--tailwind': 'tailwindcss',
+        'stack-icon--radix': 'radixui',
+        'stack-icon--zod': 'zod',
+        'stack-icon--hook-form': 'reacthookform',
+        'stack-icon--react': 'react',
+        'stack-icon--styled': 'styledcomponents',
+        'stack-icon--redux': 'redux',
+        'stack-icon--javascript': 'javascript',
+        'stack-icon--html': 'html5',
+        'stack-icon--sass': 'sass',
+        'stack-icon--css': 'css3'
+      };
+      const stackIconColors = {
+        'stack-icon--next': '25221f',
+        'stack-icon--typescript': '3178c6',
+        'stack-icon--tailwind': '38bdf8',
+        'stack-icon--radix': '25221f',
+        'stack-icon--zod': '3156a5',
+        'stack-icon--hook-form': 'ec5990',
+        'stack-icon--react': '2f9cc4',
+        'stack-icon--styled': 'db7093',
+        'stack-icon--redux': '764abc',
+        'stack-icon--javascript': 'b59400',
+        'stack-icon--html': 'e34f26',
+        'stack-icon--sass': 'cc6699',
+        'stack-icon--css': '1572b6'
+      };
+
+      document.querySelectorAll('.stack-icon').forEach((icon) => {
+        const iconClass = Object.keys(stackIconSlugs).find((className) => icon.classList.contains(className));
+        if (!iconClass) return;
+        const image = document.createElement('img');
+        image.src = `https://cdn.simpleicons.org/${stackIconSlugs[iconClass]}/${stackIconColors[iconClass]}`;
+        image.alt = '';
+        image.setAttribute('aria-hidden', 'true');
+        icon.textContent = '';
+        icon.appendChild(image);
+      });
+
+      const directions = [
+        { x: -1, y: 0, rotation: -12 },
+        { x: 1, y: 0, rotation: 12 },
+        { x: 0, y: 1, rotation: 9 },
+        { x: 0, y: -1, rotation: -9 }
+      ];
+
+      const media = gsap.matchMedia();
+
+      function getOverviewSlot(index, isDesktop) {
+        const columns = isDesktop ? 3 : 2;
+        const cardWidth = isDesktop
+          ? Math.min(260, Math.max(150, window.innerWidth * 0.18))
+          : Math.min(150, Math.max(112, window.innerWidth * 0.33));
+        const cardHeight = isDesktop ? Math.min(170, Math.max(104, window.innerHeight * 0.2)) : 112;
+        const gap = isDesktop ? 18 : 10;
+        const rows = Math.ceil(cards.length / columns);
+        const totalWidth = columns * cardWidth + (columns - 1) * gap;
+        const totalHeight = rows * cardHeight + (rows - 1) * gap;
+        const column = index % columns;
+        const row = Math.floor(index / columns);
+        const slotCenterX = (window.innerWidth - totalWidth) / 2 + column * (cardWidth + gap) + cardWidth / 2;
+        const slotCenterY = (window.innerHeight - totalHeight) / 2 + row * (cardHeight + gap) + cardHeight / 2;
+
+        return {
+          rotation: index % 2 === 0 ? -3 : 3,
+          scaleX: cardWidth / window.innerWidth,
+          scaleY: cardHeight / window.innerHeight,
+          x: slotCenterX - window.innerWidth / 2,
+          y: slotCenterY - window.innerHeight / 2
+        };
+      }
+
+      media.add(
+        {
+          desktop: '(min-width: 701px)',
+          mobile: '(max-width: 700px)',
+          reduceMotion: '(prefers-reduced-motion: reduce)'
+        },
+        ({ conditions }) => {
+          const { desktop, reduceMotion } = conditions;
+
+          gsap.set(projectsHeader, { autoAlpha: 1, scale: 1, y: 0 });
+          gsap.set(overviewNote, { autoAlpha: 0, y: 16 });
+
+          const setOverviewState = (active) => {
+            projectsSection.classList.toggle('is-overview', active);
+          };
+
+          if (reduceMotion) {
+            cards.forEach((card, index) => {
+              const slot = getOverviewSlot(index, desktop);
+              const surface = card.querySelector('.project-card__surface');
+              const number = card.querySelector('.project-card__number');
+              const overview = card.querySelector('.project-card__overview');
+              const focusElements = [
+                surface.querySelector('.project-card__visual'),
+                surface.querySelector('.project-card__copy'),
+                surface.querySelector('.project-card__hint')
+              ];
+
+              gsap.set(card, {
+                autoAlpha: 1,
+                rotation: slot.rotation,
+                scaleX: slot.scaleX,
+                scaleY: slot.scaleY,
+                x: slot.x,
+                y: slot.y,
+                zIndex: index + 1
+              });
+              gsap.set(surface, {
+                '--surface-top-gap': '0px',
+                borderRadius: '0.9rem',
+                boxShadow: '0 1.5rem 3rem rgba(23, 23, 19, 0.09)'
+              });
+              gsap.set(number, { autoAlpha: 0 });
+              gsap.set(focusElements, { autoAlpha: 0 });
+              gsap.set(overview, { autoAlpha: 1 });
+            });
+            gsap.set(overviewNote, { autoAlpha: 1, y: 0 });
+            gsap.set(projectsHeader, { autoAlpha: 1, scale: 1 });
+            setOverviewState(true);
+            return () => setOverviewState(false);
+          }
+
+          const travel = desktop ? 1.15 : 0.78;
+          const focusTopGap = desktop ? Math.min(128, Math.max(80, window.innerWidth * 0.09)) : 80;
+
+          cards.forEach((card, index) => {
+            const direction = directions[index % directions.length];
+            const surface = card.querySelector('.project-card__surface');
+            const overview = card.querySelector('.project-card__overview');
+            const visual = surface.querySelector('.project-card__visual');
+            const copy = surface.querySelector('.project-card__copy');
+            const hint = surface.querySelector('.project-card__hint');
+
+            gsap.set(card, {
+              autoAlpha: 0,
+              rotation: direction.rotation,
+              scaleX: 1,
+              scaleY: 1,
+              x: () => direction.x * window.innerWidth * travel,
+              y: () => direction.y * window.innerHeight * travel
+            });
+            gsap.set(surface, {
+              '--liquid-alpha': 0,
+              '--liquid-x': 50,
+              '--liquid-y': 50,
+              '--surface-top-gap': `${focusTopGap}px`,
+              scale: 1,
+              x: 0,
+              y: 0,
+              rotationX: 0,
+              rotationY: 0
+            });
+            gsap.set(overview, { autoAlpha: 0 });
+          });
+
+          const timeline = gsap.timeline({
+            defaults: { ease: 'power3.out' },
+            scrollTrigger: {
+              anticipatePin: 1,
+              end: () => `+=${Math.max(window.innerHeight * 5.4, cards.length * window.innerHeight * 0.95)}`,
+              invalidateOnRefresh: true,
+              pin: true,
+              scrub: 1,
+              start: 'top top',
+              trigger: projectsSection
+            }
+          });
+
+          timeline
+            .addLabel('entrance');
+
+          cards.forEach((card, index) => {
+            const slot = () => getOverviewSlot(index, desktop);
+            const surface = card.querySelector('.project-card__surface');
+            const overview = card.querySelector('.project-card__overview');
+            const visual = surface.querySelector('.project-card__visual');
+            const copy = surface.querySelector('.project-card__copy');
+            const hint = surface.querySelector('.project-card__hint');
+            const focusLabel = `focus-${index}`;
+            const collapseLabel = `collapse-${index}`;
+
+            timeline
+              .addLabel(focusLabel, index === 0 ? 'entrance' : '>')
+              .to(
+                card,
+                {
+                  autoAlpha: 1,
+                  duration: 1.05,
+                  ease: 'power3.out',
+                  rotation: 0,
+                  scaleX: 1,
+                  scaleY: 1,
+                  x: 0,
+                  y: 0,
+                  zIndex: index + 1
+                },
+                focusLabel
+              )
+              .to([visual, copy, hint], { autoAlpha: 1, duration: 0.35, ease: 'power2.out' }, focusLabel)
+              .to(overview, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, focusLabel)
+              .to(surface, { '--surface-top-gap': `${focusTopGap}px`, duration: 0.35, ease: 'power2.out' }, focusLabel)
+              // Espaço de leitura: se o usuário parar, o projeto permanece em foco.
+              .to({}, { duration: 1.1 })
+              .addLabel(collapseLabel, '>')
+              .to(
+                card,
+                {
+                  duration: 0.95,
+                  ease: 'power3.inOut',
+                  rotation: () => slot().rotation,
+                  scaleX: () => slot().scaleX,
+                  scaleY: () => slot().scaleY,
+                  x: () => slot().x,
+                  y: () => slot().y
+                },
+                collapseLabel
+              )
+              .to(
+                surface,
+                {
+                  borderRadius: '0.9rem',
+                  boxShadow: '0 1.5rem 3rem rgba(23, 23, 19, 0.09)',
+                  duration: 0.95,
+                  ease: 'power3.inOut'
+                },
+                collapseLabel
+              )
+              .to(
+                [visual, copy, hint],
+                { autoAlpha: 0, duration: 0.34, ease: 'power2.inOut' },
+                `${collapseLabel}+=0.52`
+              )
+              .to(overview, { autoAlpha: 1, duration: 0.34, ease: 'power2.out' }, `${collapseLabel}+=0.52`)
+              .to(surface, { '--surface-top-gap': '0px', duration: 0.34, ease: 'power2.out' }, `${collapseLabel}+=0.52`);
+          });
+
+          timeline
+            .addLabel('overview', '+=0.25')
+            .to(
+              overviewNote,
+              { autoAlpha: 1, duration: 0.75, ease: 'power2.out', y: 0 },
+              'overview'
+            )
+            // Última pausa: o overview respira antes de liberar a próxima section.
+            .to({}, { duration: 1.35 });
+
+          const overviewTime = timeline.labels.overview;
+          let wasOverview = false;
+          const hoverControllers = [];
+
+          function resetOverviewHover(surface) {
+            gsap.to(surface, {
+              '--liquid-alpha': 0,
+              duration: 0.3,
+              ease: 'power2.out',
+              filter: 'saturate(1)',
+              overwrite: 'auto',
+              rotationX: 0,
+              rotationY: 0,
+              scale: 1,
+              x: 0,
+              y: 0
+            });
+          }
+
+          cards.forEach((card, index) => {
+            const surface = card.querySelector('.project-card__surface');
+            const moveX = gsap.quickTo(surface, 'x', { duration: 0.45, ease: 'power3.out' });
+            const moveY = gsap.quickTo(surface, 'y', { duration: 0.45, ease: 'power3.out' });
+            const tiltX = gsap.quickTo(surface, 'rotationX', { duration: 0.45, ease: 'power3.out' });
+            const tiltY = gsap.quickTo(surface, 'rotationY', { duration: 0.45, ease: 'power3.out' });
+            const liquidX = gsap.quickTo(surface, '--liquid-x', { duration: 0.45, ease: 'power3.out' });
+            const liquidY = gsap.quickTo(surface, '--liquid-y', { duration: 0.45, ease: 'power3.out' });
+            const liquidAlpha = gsap.quickTo(surface, '--liquid-alpha', { duration: 0.35, ease: 'power3.out' });
+
+            const canInteract = () => projectsSection.classList.contains('is-overview');
+
+            const onPointerEnter = () => {
+              if (!canInteract()) return;
+              liquidAlpha(1);
+              gsap.to(surface, {
+                filter: 'saturate(1.12)',
+                duration: 0.45,
+                ease: 'power3.out',
+                overwrite: 'auto',
+                scale: 1.045
+              });
+            };
+
+            const onPointerMove = (event) => {
+              if (!canInteract()) return;
+              const bounds = surface.getBoundingClientRect();
+              const normalizedX = (event.clientX - bounds.left) / bounds.width - 0.5;
+              const normalizedY = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+              moveX(normalizedX * 7);
+              moveY(normalizedY * 7);
+              tiltY(normalizedX * 7);
+              tiltX(normalizedY * -7);
+              liquidX((normalizedX + 0.5) * 100);
+              liquidY((normalizedY + 0.5) * 100);
+            };
+
+            const onPointerLeave = () => resetOverviewHover(surface);
+
+            const onActivate = () => {
+              if (!canInteract()) return;
+              resetOverviewHover(surface);
+              const scrollPosition = timeline.scrollTrigger.labelToScroll(`focus-${index}`);
+              // O label marca o começo da entrada; avançar um pouco deixa o card
+              // escolhido já legível em foco, sem perder a sensação de reentrada.
+              window.scrollTo({ behavior: 'smooth', top: scrollPosition + window.innerHeight * 0.42 });
+            };
+
+            const onKeyDown = (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onActivate();
+              }
+            };
+
+            surface.addEventListener('pointerenter', onPointerEnter);
+            surface.addEventListener('pointermove', onPointerMove);
+            surface.addEventListener('pointerleave', onPointerLeave);
+            card.addEventListener('click', onActivate);
+            card.addEventListener('keydown', onKeyDown);
+
+            hoverControllers.push({
+              cleanup: () => {
+                surface.removeEventListener('pointerenter', onPointerEnter);
+                surface.removeEventListener('pointermove', onPointerMove);
+                surface.removeEventListener('pointerleave', onPointerLeave);
+                card.removeEventListener('click', onActivate);
+                card.removeEventListener('keydown', onKeyDown);
+              },
+              reset: () => resetOverviewHover(surface)
+            });
+          });
+
+          timeline.eventCallback('onUpdate', () => {
+            // Libera hover/clique quando a composição já está legível como conjunto,
+            // incluindo o pequeno intervalo de acomodação do último card.
+            const isOverview = timeline.time() >= overviewTime - 0.12;
+            setOverviewState(isOverview);
+
+            if (wasOverview && !isOverview) {
+              hoverControllers.forEach(({ reset }) => reset());
+            }
+
+            wasOverview = isOverview;
+          });
+
+          return () => {
+            hoverControllers.forEach(({ cleanup }) => cleanup());
+            timeline.kill();
+            setOverviewState(false);
+          };
+        }
+      );
+    </script>
+  </body>
+</html>

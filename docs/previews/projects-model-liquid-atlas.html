@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Modelo 02 / Atlas líquido</title>
+    <style>
+      :root {
+        --night: #111620;
+        --ink: #eef5ff;
+        --muted: #aeb8c8;
+        --line: rgb(238 245 255/0.16);
+        --aqua: #8cf2df;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--night);
+        color: var(--ink);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .atlas {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        padding: clamp(1.2rem, 4vw, 4rem);
+        isolation: isolate;
+      }
+      .orb {
+        position: absolute;
+        z-index: -1;
+        border-radius: 50%;
+        filter: blur(1px);
+        opacity: 0.75;
+      }
+      .orb--one {
+        width: 52vw;
+        height: 52vw;
+        top: -25vw;
+        left: -10vw;
+        background: #1a5074;
+      }
+      .orb--two {
+        width: 45vw;
+        height: 45vw;
+        right: -13vw;
+        bottom: -22vw;
+        background: #663d86;
+      }
+      .atlas__head {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        align-items: start;
+        margin-bottom: clamp(3rem, 7vw, 6rem);
+      }
+      .label {
+        margin: 0;
+        color: var(--aqua);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .atlas h1 {
+        max-width: 9ch;
+        margin: 0.8rem 0 0;
+        font:
+          400 clamp(3.5rem, 8vw, 8rem)/0.8 Arial,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      .atlas h1 i {
+        font-family: Georgia, serif;
+        font-weight: 400;
+      }
+      .atlas__hint {
+        max-width: 17rem;
+        margin: 0.2rem 0 0;
+        color: var(--muted);
+        font-size: 0.75rem;
+        line-height: 1.55;
+      }
+      .atlas__body {
+        display: grid;
+        grid-template-columns: minmax(13rem, 0.65fr) minmax(19rem, 1.35fr);
+        gap: clamp(1.2rem, 4vw, 5rem);
+        max-width: 90rem;
+        margin: auto;
+      }
+      .nav {
+        display: grid;
+        align-content: start;
+        border-top: 1px solid var(--line);
+      }
+      .nav button {
+        display: grid;
+        grid-template-columns: 2rem 1fr auto;
+        gap: 0.8rem;
+        align-items: center;
+        padding: 1rem 0;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: none;
+        color: var(--muted);
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition: color 0.25s;
+      }
+      .nav button b {
+        font-size: 0.72rem;
+      }
+      .nav button span {
+        font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+      }
+      .nav button i {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 99px;
+        background: currentColor;
+      }
+      .nav button[aria-current='true'] {
+        color: var(--ink);
+      }
+      .viewer {
+        position: relative;
+        min-height: 36rem;
+        overflow: hidden;
+        border: 1px solid rgb(255 255 255/0.3);
+        border-radius: 2rem;
+        background: rgb(255 255 255/0.1);
+        box-shadow:
+          inset 0 1px rgb(255 255 255/0.35),
+          0 2rem 6rem rgb(0 0 0/0.28);
+        backdrop-filter: blur(24px) saturate(150%);
+      }
+      .viewer::before {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--x, 50%) var(--y, 50%),
+          rgb(255 255 255/0.34),
+          transparent 30%
+        );
+        content: '';
+        pointer-events: none;
+      }
+      .viewer__image {
+        position: absolute;
+        inset: 12% 8% 21%;
+        overflow: hidden;
+        border: 5px solid rgb(238 245 255/0.72);
+        border-radius: 1rem;
+        box-shadow: 0 1.8rem 4rem rgb(0 0 0/0.34);
+      }
+      .viewer__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .viewer__data {
+        position: absolute;
+        right: clamp(1.2rem, 4vw, 3rem);
+        bottom: clamp(1.2rem, 4vw, 3rem);
+        left: clamp(1.2rem, 4vw, 3rem);
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+      }
+      .viewer__data h2 {
+        max-width: 7ch;
+        margin: 0;
+        font:
+          400 clamp(3rem, 7vw, 7rem)/0.78 Arial,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      .viewer__data p {
+        max-width: 18rem;
+        margin: 0;
+        color: #eef5ff;
+        font-size: 0.73rem;
+        line-height: 1.45;
+        text-align: right;
+      }
+      .viewer__top {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.6rem;
+        left: 1.6rem;
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 720px) {
+        .atlas__head,
+        .atlas__body {
+          display: block;
+        }
+        .atlas__hint {
+          margin-top: 2rem;
+        }
+        .nav {
+          grid-template-columns: repeat(2, 1fr);
+          margin: 2rem 0;
+        }
+        .nav button {
+          grid-template-columns: 1.4rem 1fr;
+          padding: 0.75rem;
+        }
+        .nav button i {
+          display: none;
+        }
+        .viewer {
+          min-height: 31rem;
+        }
+        .viewer__data {
+          display: block;
+        }
+        .viewer__data p {
+          margin-top: 1rem;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="atlas">
+      <span class="orb orb--one"></span><span class="orb orb--two"></span>
+      <header class="atlas__head">
+        <div>
+          <p class="label">02 / Atlas líquido</p>
+          <h1>Um índice que <i>respira.</i></h1>
+        </div>
+        <p class="atlas__hint">
+          Clique em um projeto. A superfície responde ao ponteiro e a prévia muda como uma
+          coordenada no mesmo atlas.
+        </p>
+      </header>
+      <section class="atlas__body">
+        <nav class="nav" aria-label="Escolha um projeto">
+          <button
+            aria-current="true"
+            data-name="Regula"
+            data-kind="Dashboard e PDV"
+            data-image="../../public/mockups/regula/desktop-01.png"
+            data-copy="Operação, estoque e caixa em uma interface de decisão."
+          >
+            <b>01</b><span>Regula</span><i></i></button
+          ><button
+            data-name="E‑Food"
+            data-kind="Delivery responsivo"
+            data-image="../../public/mockups/e-food/desktop-01.png"
+            data-copy="Catálogo, carrinho e checkout com estado centralizado."
+          >
+            <b>02</b><span>E‑Food</span><i></i></button
+          ><button
+            data-name="E‑Play"
+            data-kind="Streaming de jogos"
+            data-image="../../public/mockups/e-play/desktop-01.png"
+            data-copy="Uma vitrine digital para explorar conteúdo intenso."
+          >
+            <b>03</b><span>E‑Play</span><i></i></button
+          ><button
+            data-name="To‑Do"
+            data-kind="Gestão de tarefas"
+            data-image="../../public/mockups/to-do/desktop-01.png"
+            data-copy="Ações rápidas, filtros e estados visuais objetivos."
+          >
+            <b>04</b><span>To‑Do</span><i></i>
+          </button>
+        </nav>
+        <article class="viewer">
+          <div class="viewer__top">
+            <span id="kind">Dashboard e PDV</span><span>ativo / 2026</span>
+          </div>
+          <div class="viewer__image">
+            <img
+              id="image"
+              src="../../public/mockups/regula/desktop-01.png"
+              alt="Prévia do Regula"
+            />
+          </div>
+          <div class="viewer__data">
+            <h2 id="name">Regula</h2>
+            <p id="copy">Operação, estoque e caixa em uma interface de decisão.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      const viewer = document.querySelector('.viewer'),
+        image = document.querySelector('#image'),
+        name = document.querySelector('#name'),
+        kind = document.querySelector('#kind'),
+        copy = document.querySelector('#copy'),
+        buttons = [...document.querySelectorAll('.nav button')];
+      const intro = gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .from('.atlas__head > *', { y: 28, autoAlpha: 0, stagger: 0.12, duration: 0.75 })
+        .from('.nav button', { x: -20, autoAlpha: 0, stagger: 0.07, duration: 0.45 }, '-=.35')
+        .from('.viewer', { scale: 0.94, autoAlpha: 0, duration: 0.8 }, '-=.45');
+      buttons.forEach((button) =>
+        button.addEventListener('click', () => {
+          if (button.getAttribute('aria-current')) return;
+          buttons.forEach((item) => item.removeAttribute('aria-current'));
+          button.setAttribute('aria-current', 'true');
+          const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+          tl.to(['.viewer__image', '.viewer__data'], { autoAlpha: 0, y: 18, duration: 0.22 })
+            .add(() => {
+              image.src = button.dataset.image;
+              image.alt = 'Prévia do ' + button.dataset.name;
+              name.textContent = button.dataset.name;
+              kind.textContent = button.dataset.kind;
+              copy.textContent = button.dataset.copy;
+            })
+            .to(['.viewer__image', '.viewer__data'], {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.48,
+              stagger: 0.06
+            });
+        })
+      );
+      viewer.addEventListener('pointermove', (e) => {
+        const r = viewer.getBoundingClientRect(),
+          x = ((e.clientX - r.left) / r.width) * 100,
+          y = ((e.clientY - r.top) / r.height) * 100;
+        gsap.to(viewer, {
+          duration: 0.45,
+          '--x': x + '%',
+          '--y': y + '%',
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      });
+      ScrollTrigger.create({
+        trigger: '.atlas',
+        start: 'top 70%',
+        onEnter: () => gsap.to('.orb--two', { x: -80, y: -45, duration: 2.6, ease: 'power2.out' })
+      });
+    </script>
+  </body>
+</html>

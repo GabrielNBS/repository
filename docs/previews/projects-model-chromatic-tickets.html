@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Projetos — Chromatic Tickets</title>
+    <style>
+      :root {
+        --ink: #16222d;
+        --paper: #faf6ed;
+        --orange: #f15b43;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .tickets {
+        min-height: 100vh;
+        padding: clamp(1rem, 4vw, 4rem);
+        display: grid;
+        grid-template-columns: minmax(15rem, 0.65fr) minmax(18rem, 1.35fr);
+        gap: clamp(1.5rem, 5vw, 6rem);
+      }
+      .side {
+        display: flex;
+        min-height: 0;
+        flex-direction: column;
+      }
+      .side p {
+        margin: 0;
+        color: #6d7980;
+        font:
+          700 0.6rem/1.3 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .side h1 {
+        max-width: 6ch;
+        margin: 1rem 0 0;
+        font:
+          400 clamp(4rem, 8vw, 8rem)/0.73 Georgia,
+          serif;
+        letter-spacing: -0.11em;
+      }
+      .side h1 b {
+        color: var(--orange);
+        font:
+          900 1em Arial,
+          sans-serif;
+      }
+      .side__legend {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: auto;
+        padding-top: 3rem;
+        border-top: 1px solid #16222d33;
+      }
+      .side__legend div {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        font:
+          700 0.61rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .side__legend i {
+        width: 0.8rem;
+        height: 0.8rem;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+      }
+      .stack {
+        display: grid;
+        align-content: center;
+        gap: 0.8rem;
+        padding: clamp(2rem, 8vh, 6rem) 0;
+      }
+      .ticket {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        width: 100%;
+        min-height: 7rem;
+        padding: 1rem 1.2rem;
+        border: 0;
+        background: var(--tone);
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+        transition: transform 0.25s;
+      }
+      .ticket::before,
+      .ticket::after {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1rem;
+        background: radial-gradient(circle at 0.5rem 0, transparent 0.38rem, var(--paper) 0.4rem) 0
+          0/1rem 1rem repeat-x;
+        content: '';
+      }
+      .ticket::before {
+        top: 0;
+        transform: translateY(-50%);
+      }
+      .ticket::after {
+        bottom: 0;
+        transform: translateY(50%) rotate(180deg);
+      }
+      .ticket__number,
+      .ticket__role {
+        font:
+          700 0.59rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .ticket h2 {
+        margin: 0;
+        font:
+          900 clamp(2.2rem, 4vw, 4rem)/0.75 Arial,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      .ticket__role {
+        text-align: right;
+      }
+      .ticket:hover,
+      .ticket[aria-pressed='true'] {
+        transform: translateX(-1.1rem) rotate(-1deg);
+        box-shadow: 1.1rem 1.1rem 0 var(--ink);
+      }
+      .ticket:focus-visible {
+        outline: 4px solid var(--orange);
+        outline-offset: 5px;
+      }
+      .ticket[aria-pressed='true'] {
+        z-index: 2;
+      }
+      .detail {
+        position: fixed;
+        z-index: 5;
+        inset: 0;
+        display: grid;
+        grid-template-columns: 1fr minmax(19rem, 0.82fr);
+        background: var(--ink);
+        color: var(--paper);
+        pointer-events: none;
+        opacity: 0;
+      }
+      .detail__visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: var(--tone);
+      }
+      .detail__visual img {
+        width: 68%;
+        height: 56%;
+        border: 9px solid var(--paper);
+        object-fit: cover;
+        box-shadow: 1rem 1rem 0 var(--ink);
+      }
+      .detail__copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(1.5rem, 5vw, 5rem);
+      }
+      .detail__copy p:first-child {
+        margin: 0;
+        color: #f7df6c;
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .detail h2 {
+        max-width: 6ch;
+        margin: 1.2rem 0 0;
+        font:
+          400 clamp(4rem, 8vw, 8rem)/0.7 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .detail__copy p:nth-child(3) {
+        max-width: 26rem;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+      .detail button {
+        align-self: flex-start;
+        border: 1px solid var(--paper);
+        background: transparent;
+        padding: 0.75rem 1rem;
+        color: var(--paper);
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      @media (max-width: 700px) {
+        .tickets {
+          grid-template-columns: 1fr;
+        }
+        .side__legend {
+          display: none;
+        }
+        .stack {
+          padding: 0;
+        }
+        .detail {
+          grid-template-columns: 1fr;
+        }
+        .detail__visual {
+          min-height: 42vh;
+          order: 2;
+        }
+        .detail h2 {
+          font-size: 5.5rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="tickets">
+      <aside class="side">
+        <div>
+          <p>Passes de acesso / projetos selecionados</p>
+          <h1>Escolha seu <b>bilhete.</b></h1>
+        </div>
+        <div class="side__legend">
+          <div><i style="background: #bde3ff"></i>Produto e sistemas</div>
+          <div><i style="background: #ffd0b2"></i>Escolha e comércio</div>
+          <div><i style="background: #d8ed72"></i>Cultura e catálogo</div>
+          <div><i style="background: #ecd2f0"></i>Rotina e utilidade</div>
+        </div>
+      </aside>
+      <section class="stack">
+        <button
+          class="ticket"
+          style="--tone: #bde3ff"
+          aria-pressed="false"
+          data-name="Regula"
+          data-kind="Produto / 2026"
+          data-copy="Um sistema que torna decisões e normas mais fáceis de entender, acompanhar e revisar."
+          data-image="../../public/mockups/regula/desktop-01.png"
+        >
+          <span class="ticket__number">Pass 01</span>
+          <h2>Regula</h2>
+          <span class="ticket__role">Produto</span></button
+        ><button
+          class="ticket"
+          style="--tone: #ffd0b2"
+          aria-pressed="false"
+          data-name="eFood"
+          data-kind="Comércio / 2025"
+          data-copy="Uma experiência de compra que mantém descoberta e decisão em um fluxo bastante direto."
+          data-image="../../public/mockups/e-food/desktop-01.png"
+        >
+          <span class="ticket__number">Pass 02</span>
+          <h2>eFood</h2>
+          <span class="ticket__role">Comércio</span></button
+        ><button
+          class="ticket"
+          style="--tone: #d8ed72"
+          aria-pressed="false"
+          data-name="E‑Play"
+          data-kind="Cultura / 2025"
+          data-copy="Uma casa de jogos que usa a interface para abrir mais caminhos para jogar e descobrir."
+          data-image="../../public/mockups/e-play/desktop-01.png"
+        >
+          <span class="ticket__number">Pass 03</span>
+          <h2>E‑Play</h2>
+          <span class="ticket__role">Cultura</span></button
+        ><button
+          class="ticket"
+          style="--tone: #ecd2f0"
+          aria-pressed="false"
+          data-name="To‑Do"
+          data-kind="Utilitário / 2024"
+          data-copy="Uma ferramenta cotidiana feita para que estados e prioridades se entendam em um instante."
+          data-image="../../public/mockups/to-do/desktop-01.png"
+        >
+          <span class="ticket__number">Pass 04</span>
+          <h2>To‑Do</h2>
+          <span class="ticket__role">Rotina</span>
+        </button>
+      </section>
+    </main>
+    <aside class="detail">
+      <section class="detail__visual"><img src="" alt="" /></section>
+      <section class="detail__copy">
+        <div>
+          <p></p>
+          <h2></h2>
+          <p></p>
+        </div>
+        <button>Voltar aos bilhetes</button>
+      </section>
+    </aside>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const tickets = [...document.querySelectorAll('.ticket')],
+        detail = document.querySelector('.detail'),
+        visual = document.querySelector('.detail__visual'),
+        img = document.querySelector('.detail img'),
+        texts = document.querySelectorAll('.detail__copy p'),
+        name = document.querySelector('.detail h2'),
+        close = document.querySelector('.detail button'),
+        reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.side', '.ticket'], {
+        autoAlpha: 0,
+        x: -22,
+        stagger: 0.1,
+        duration: reduced ? 0 : 0.7,
+        ease: 'power3.out'
+      });
+      tickets.forEach(
+        (t) =>
+          (t.onclick = () => {
+            tickets.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+            t.setAttribute('aria-pressed', 'true');
+            visual.style.setProperty('--tone', getComputedStyle(t).getPropertyValue('--tone'));
+            img.src = t.dataset.image;
+            img.alt = `Prévia do projeto ${t.dataset.name}`;
+            texts[0].textContent = t.dataset.kind;
+            texts[1].textContent = t.dataset.copy;
+            name.textContent = t.dataset.name;
+            gsap
+              .timeline({ defaults: { duration: reduced ? 0 : 0.55, ease: 'power3.inOut' } })
+              .set(detail, { pointerEvents: 'auto' })
+              .to(detail, { autoAlpha: 1 })
+              .from('.detail__copy > *', { autoAlpha: 0, x: 20, stagger: 0.08 }, '<.12');
+          })
+      );
+      close.onclick = () => {
+        gsap.to(detail, {
+          autoAlpha: 0,
+          duration: reduced ? 0 : 0.35,
+          onComplete: () => (detail.style.pointerEvents = 'none')
+        });
+        tickets.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      };
+    </script>
+  </body>
+</html>

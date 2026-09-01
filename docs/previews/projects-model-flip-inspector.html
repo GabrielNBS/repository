@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projetos — Flip Inspector</title>
+    <style>
+      :root {
+        --navy: #13233c;
+        --mist: #dce8ee;
+        --orange: #ff633d;
+        --line: rgb(19 35 60/0.2);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--mist);
+        color: var(--navy);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .inspector {
+        display: grid;
+        grid-template-columns: minmax(18rem, 1fr) minmax(22rem, 1.1fr);
+        min-height: 100vh;
+      }
+      .catalog {
+        padding: clamp(1.2rem, 4vw, 4rem);
+        border-right: 1px solid var(--line);
+      }
+      .catalog__top {
+        margin-bottom: 3rem;
+      }
+      .catalog__top p {
+        margin: 0;
+        color: var(--orange);
+        font: 700 0.7rem/1 monospace;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .catalog__top h1 {
+        max-width: 7ch;
+        margin: 1rem 0 0;
+        font:
+          400 clamp(3.5rem, 7vw, 7rem)/0.77 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .catalog__top h1 strong {
+        font-family: Arial, sans-serif;
+        font-weight: 800;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .card {
+        position: relative;
+        display: flex;
+        min-height: 17rem;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 1rem;
+        border: 0;
+        border-radius: 1rem;
+        background: var(--tone);
+        color: var(--navy);
+        cursor: grab;
+        text-align: left;
+        touch-action: none;
+      }
+      .card img {
+        position: absolute;
+        inset: 19% 10% 24%;
+        width: 80%;
+        height: 57%;
+        border: 4px solid rgb(220 232 238/0.8);
+        border-radius: 0.55rem;
+        object-fit: cover;
+        box-shadow: 0 1rem 2rem rgb(19 35 60/0.17);
+      }
+      .card b,
+      .card span {
+        position: relative;
+        z-index: 1;
+        font: 700 0.65rem/1 monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .card h2 {
+        position: relative;
+        z-index: 1;
+        max-width: 6ch;
+        margin: auto 0;
+        font:
+          400 clamp(2.2rem, 4vw, 4.2rem)/0.75 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .detail {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.2rem, 4vw, 4rem);
+        background: var(--navy);
+        color: var(--mist);
+        transition:
+          background 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .detail.is-drop-target {
+        background: #1d3d67;
+        box-shadow: inset 0 0 0 2px var(--orange);
+      }
+      .detail__empty {
+        max-width: 24rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        border: 1px dashed rgb(220 232 238/0.34);
+        border-radius: 1rem;
+        color: rgb(220 232 238/0.65);
+        font:
+          400 clamp(2rem, 4vw, 4rem)/0.9 Georgia,
+          serif;
+        letter-spacing: -0.07em;
+      }
+      .detail__empty i {
+        color: var(--orange);
+      }
+      .detail__hint {
+        display: block;
+        margin-top: 1.2rem;
+        color: rgb(220 232 238/0.52);
+        font: 700 0.62rem/1.45 monospace;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .focus {
+        display: none;
+        width: min(100%, 43rem);
+        min-height: 75vh;
+        overflow: hidden;
+        border: 1px solid rgb(220 232 238/0.3);
+        border-radius: 1.5rem;
+        background: var(--mist);
+        color: var(--navy);
+      }
+      .focus.is-visible {
+        display: flex;
+        flex-direction: column;
+      }
+      .focus .card {
+        position: relative;
+        min-height: 0;
+        height: 70%;
+        border-radius: 0;
+        cursor: default;
+      }
+      .focus .card h2 {
+        font-size: clamp(4rem, 8vw, 8rem);
+      }
+      .focus .card img {
+        inset: 16% 11% 18%;
+        height: 66%;
+      }
+      .focus__content {
+        padding: 1.4rem;
+      }
+      .focus__copy {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: end;
+      }
+      .focus__eyebrow {
+        margin: 0 0 0.6rem;
+        color: var(--orange);
+        font: 700 0.64rem/1 monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .focus__copy p {
+        max-width: 25rem;
+        margin: 0;
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+      .focus__controls {
+        display: flex;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+      }
+      .focus__controls button {
+        border: 0;
+        background: var(--orange);
+        color: var(--navy);
+        padding: 0.8rem 1rem;
+        font: 700 0.65rem monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .focus__facts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+        margin: 1.4rem 0 0;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+      .focus__facts div {
+        min-width: 0;
+      }
+      .focus__facts dt {
+        color: rgb(19 35 60/0.6);
+        font: 700 0.6rem/1 monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .focus__facts dd {
+        margin: 0.45rem 0 0;
+        font-size: 0.76rem;
+        line-height: 1.35;
+      }
+      .focus__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 1rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .focus__tags li {
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 0.38rem 0.55rem;
+        font: 700 0.58rem/1 monospace;
+        letter-spacing: 0.05em;
+      }
+      .focus__drag-note {
+        margin: 1rem 0 0;
+        color: rgb(19 35 60/0.58);
+        font: 0.6rem/1.35 monospace;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 800px) {
+        .inspector {
+          display: block;
+        }
+        .catalog {
+          border-right: 0;
+        }
+        .detail {
+          min-height: 70vh;
+        }
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .focus {
+          min-height: 35rem;
+        }
+        .focus__copy {
+          display: block;
+        }
+        .focus__controls {
+          margin-top: 1rem;
+        }
+        .focus__facts {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="inspector">
+      <section class="catalog">
+        <header class="catalog__top">
+          <p>06 / Flip inspector</p>
+          <h1>Escolha. <strong>Examine.</strong></h1>
+        </header>
+        <div class="cards">
+          <button
+            class="card"
+            style="--tone: #efae82"
+            data-copy="Dashboard operacional que transforma estoque, caixa e venda em decisões mais diretas."
+            data-role="Front-end, arquitetura de UI e estado"
+            data-year="2026"
+            data-stack="Next.js,TypeScript,Tailwind,Radix UI"
+            data-highlights="Fluxo de PDV|Controle financeiro|Formulários tipados"
+          >
+            <b>01 / 2026</b><img src="../../public/mockups/regula/desktop-01.png" alt="" />
+            <h2>Regula</h2>
+            <span>arraste ↗</span></button
+          ><button
+            class="card"
+            style="--tone: #cdb8d8"
+            data-copy="Jornada de compra responsiva, com catálogo, carrinho e checkout em um só sistema."
+            data-role="Front-end e fluxo de compra"
+            data-year="2025"
+            data-stack="React,TypeScript,Styled Components,Redux"
+            data-highlights="Carrinho global|Checkout validado|Layout responsivo"
+          >
+            <b>02 / 2025</b><img src="../../public/mockups/e-food/desktop-01.png" alt="" />
+            <h2>E‑Food</h2>
+            <span>arraste ↗</span></button
+          ><button
+            class="card"
+            style="--tone: #b8e0ea"
+            data-copy="Vitrine de jogos que deixa o conteúdo denso, mas a navegação leve."
+            data-role="Front-end e design de interface"
+            data-year="2025"
+            data-stack="React,TypeScript,Styled Components,Redux"
+            data-highlights="Vitrine imersiva|Estado global|Mobile first"
+          >
+            <b>03 / 2025</b><img src="../../public/mockups/e-play/desktop-01.png" alt="" />
+            <h2>E‑Play</h2>
+            <span>arraste ↗</span></button
+          ><button
+            class="card"
+            style="--tone: #e7d6bb"
+            data-copy="Lista de tarefas sem fricção, com ações rápidas e estados previsíveis."
+            data-role="Front-end e interações"
+            data-year="2024"
+            data-stack="JavaScript,Redux,CSS,HTML"
+            data-highlights="CRUD completo|Filtros|Redux"
+          >
+            <b>04 / 2024</b><img src="../../public/mockups/to-do/desktop-01.png" alt="" />
+            <h2>To‑Do</h2>
+            <span>arraste ↗</span>
+          </button>
+        </div>
+      </section>
+      <aside class="detail">
+        <p class="detail__empty">
+          Jogue um projeto no <i>inspetor.</i
+          ><span class="detail__hint">Solte o card aqui para abrir sua ficha organizada.</span>
+        </p>
+        <div class="focus">
+          <div class="focus__slot"></div>
+          <div class="focus__content">
+            <div class="focus__copy">
+              <div>
+                <p class="focus__eyebrow">Ficha de projeto</p>
+                <p class="focus__summary"></p>
+              </div>
+              <div class="focus__controls">
+                <button type="button" data-close>Voltar ao catálogo</button>
+              </div>
+            </div>
+            <dl class="focus__facts">
+              <div>
+                <dt>Ano</dt>
+                <dd data-year></dd>
+              </div>
+              <div>
+                <dt>Atuação</dt>
+                <dd data-role></dd>
+              </div>
+              <div>
+                <dt>Destaques</dt>
+                <dd data-highlights></dd>
+              </div>
+            </dl>
+            <ul class="focus__tags" data-stack></ul>
+            <p class="focus__drag-note">
+              Ficha organizada automaticamente ao soltar o projeto no inspetor.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js"></script>
+    <script>
+      gsap.registerPlugin(Flip, Draggable);
+      const cards = [...document.querySelectorAll('.card')],
+        grid = document.querySelector('.cards'),
+        detail = document.querySelector('.detail'),
+        slot = document.querySelector('.focus__slot'),
+        focus = document.querySelector('.focus'),
+        empty = document.querySelector('.detail__empty'),
+        copy = document.querySelector('.focus__summary'),
+        facts = {
+          year: focus.querySelector('.focus__facts [data-year]'),
+          role: focus.querySelector('.focus__facts [data-role]'),
+          highlights: focus.querySelector('.focus__facts [data-highlights]'),
+          stack: focus.querySelector('.focus__tags[data-stack]')
+        };
+      let selected = null;
+      const cardDrags = new Map();
+      gsap.from('.card', { autoAlpha: 0, y: 24, stagger: 0.09, duration: 0.6, ease: 'power3.out' });
+      function populate(card) {
+        copy.textContent = card.dataset.copy;
+        facts.year.textContent = card.dataset.year;
+        facts.role.textContent = card.dataset.role;
+        facts.highlights.textContent = card.dataset.highlights.split('|').join(' · ');
+        facts.stack.innerHTML = card.dataset.stack
+          .split(',')
+          .map((technology) => `<li>${technology}</li>`)
+          .join('');
+      }
+      function inspect(card) {
+        if (selected) return;
+        selected = card;
+        const state = Flip.getState(cards);
+        cardDrags.get(card)?.kill();
+        cardDrags.delete(card);
+        gsap.set(card, { clearProps: 'transform,zIndex', boxShadow: 'none' });
+        slot.appendChild(card);
+        focus.classList.add('is-visible');
+        empty.style.display = 'none';
+        populate(card);
+        Flip.from(state, {
+          absolute: true,
+          nested: true,
+          scale: true,
+          duration: 0.75,
+          ease: 'power3.inOut'
+        });
+        gsap.from('.focus__copy', {
+          autoAlpha: 0,
+          y: 16,
+          duration: 0.45,
+          delay: 0.25,
+          ease: 'power3.out'
+        });
+      }
+      function enableCatalogDrag(card) {
+        const draggable = Draggable.create(card, {
+          type: 'x,y',
+          onDragStart() {
+            detail.classList.add('is-drop-target');
+            gsap.to(this.target, {
+              scale: 1.035,
+              boxShadow: '0 1.4rem 2.5rem rgb(19 35 60 / 0.28)',
+              duration: 0.2,
+              overwrite: 'auto'
+            });
+          },
+          onDragEnd() {
+            const droppedInInspector = this.hitTest(detail, '35%');
+            detail.classList.remove('is-drop-target');
+            if (droppedInInspector) {
+              inspect(this.target);
+              return;
+            }
+            gsap.to(this.target, {
+              x: 0,
+              y: 0,
+              scale: 1,
+              boxShadow: 'none',
+              duration: 0.5,
+              ease: 'power3.inOut',
+              overwrite: 'auto'
+            });
+          }
+        })[0];
+        cardDrags.set(card, draggable);
+      }
+      cards.forEach(enableCatalogDrag);
+      document.querySelector('[data-close]').onclick = () => {
+        if (!selected) return;
+        gsap.set(selected, { clearProps: 'transform,zIndex' });
+        const state = Flip.getState(cards);
+        const returningCard = selected;
+        grid.appendChild(returningCard);
+        focus.classList.remove('is-visible');
+        empty.style.display = 'block';
+        selected = null;
+        Flip.from(state, {
+          absolute: true,
+          nested: true,
+          scale: true,
+          duration: 0.7,
+          ease: 'power3.inOut'
+        });
+        enableCatalogDrag(returningCard);
+      };
+    </script>
+  </body>
+</html>

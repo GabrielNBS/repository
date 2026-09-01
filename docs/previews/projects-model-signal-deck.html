@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Signal Deck</title>
+    <style>
+      :root {
+        --ink: #211e3d;
+        --shell: #e7e3ff;
+        --hot: #ff674e;
+        --blue: #3f67ff;
+        --muted: #6f6a92;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--shell);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      button {
+        font: inherit;
+      }
+      .deck {
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 3rem);
+        display: grid;
+        grid-template-columns: minmax(18rem, 1fr) minmax(20rem, 1.25fr);
+        gap: clamp(1rem, 3vw, 3rem);
+      }
+      .channels {
+        display: flex;
+        min-height: 0;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .channels__head p,
+      .station__code {
+        margin: 0;
+        color: var(--blue);
+        font:
+          700 0.67rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 7ch;
+        margin: 0.8rem 0 0;
+        font:
+          900 clamp(3.8rem, 7vw, 8rem)/0.78 Arial,
+          sans-serif;
+        letter-spacing: -0.1em;
+      }
+      h1 em {
+        color: var(--hot);
+        font-family: Georgia, serif;
+        font-weight: 400;
+      }
+      .channels__foot {
+        max-width: 27rem;
+        margin-top: 3rem;
+        color: var(--muted);
+        font:
+          400 0.85rem/1.5 ui-monospace,
+          monospace;
+      }
+      .station-list {
+        display: grid;
+        gap: 0.45rem;
+        margin-top: 4rem;
+      }
+      .station {
+        display: grid;
+        grid-template-columns: 3rem 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        width: 100%;
+        padding: 0.85rem 0;
+        border: 0;
+        border-top: 1px solid rgb(33 30 61/0.2);
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+      }
+      .station:last-child {
+        border-bottom: 1px solid rgb(33 30 61/0.2);
+      }
+      .station__number {
+        color: var(--muted);
+        font:
+          700 0.65rem/1 ui-monospace,
+          monospace;
+      }
+      .station__name {
+        font:
+          800 clamp(1.3rem, 2vw, 2rem)/1 Arial,
+          sans-serif;
+        letter-spacing: -0.055em;
+      }
+      .station__dot {
+        width: 0.8rem;
+        height: 0.8rem;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+      }
+      .station[aria-pressed='true'] {
+        color: var(--blue);
+      }
+      .station[aria-pressed='true'] .station__dot {
+        border-color: var(--hot);
+        background: var(--hot);
+        box-shadow: 0 0 0 0.32rem rgb(255 103 78/0.17);
+      }
+      .stage {
+        position: relative;
+        display: grid;
+        min-height: calc(100vh - clamp(2rem, 6vw, 6rem));
+        place-items: center;
+        overflow: hidden;
+        border-radius: 2rem;
+        background: var(--ink);
+        color: var(--shell);
+        isolation: isolate;
+      }
+      .stage::before {
+        position: absolute;
+        width: 85%;
+        aspect-ratio: 1;
+        border: 1px solid rgb(231 227 255/0.18);
+        border-radius: 50%;
+        content: '';
+      }
+      .stage::after {
+        position: absolute;
+        width: 56%;
+        aspect-ratio: 1;
+        border: 1px dashed rgb(231 227 255/0.26);
+        border-radius: 50%;
+        content: '';
+        animation: spin 20s linear infinite;
+      }
+      .stage__top,
+      .stage__bottom {
+        position: absolute;
+        z-index: 2;
+        left: clamp(1.2rem, 4vw, 3rem);
+        right: clamp(1.2rem, 4vw, 3rem);
+        display: flex;
+        justify-content: space-between;
+        font:
+          700 0.64rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+      .stage__top {
+        top: clamp(1.2rem, 4vw, 3rem);
+      }
+      .stage__bottom {
+        bottom: clamp(1.2rem, 4vw, 3rem);
+        color: rgb(231 227 255/0.6);
+      }
+      .frequency {
+        color: var(--hot);
+      }
+      .project {
+        position: relative;
+        z-index: 1;
+        width: min(72%, 33rem);
+        text-align: center;
+      }
+      .project__frame {
+        position: relative;
+        aspect-ratio: 1.22;
+        padding: 0.7rem;
+        border: 1px solid rgb(231 227 255/0.45);
+        background: var(--shell);
+        box-shadow: 1rem 1rem 0 var(--blue);
+      }
+      .project__frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .project h2 {
+        margin: clamp(2rem, 5vw, 4rem) 0 0;
+        font:
+          400 clamp(3.4rem, 8vw, 8rem)/0.72 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .project p {
+        max-width: 28rem;
+        margin: 1.3rem auto 0;
+        color: rgb(231 227 255/0.68);
+        font:
+          0.8rem/1.45 ui-monospace,
+          monospace;
+      }
+      .knob {
+        position: absolute;
+        z-index: 1;
+        width: 7rem;
+        aspect-ratio: 1;
+        border: 1px solid rgb(231 227 255/0.35);
+        border-radius: 50%;
+      }
+      .knob::after {
+        position: absolute;
+        top: 0.6rem;
+        left: 50%;
+        width: 1px;
+        height: 1.2rem;
+        background: var(--hot);
+        content: '';
+        transform: translateX(-50%);
+      }
+      .knob--a {
+        top: 13%;
+        right: 11%;
+      }
+      .knob--b {
+        bottom: 12%;
+        left: 8%;
+        width: 4rem;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (max-width: 780px) {
+        .deck {
+          display: block;
+        }
+        .channels__foot {
+          margin-bottom: 2.5rem;
+        }
+        .stage {
+          min-height: 42rem;
+        }
+        .station-list {
+          margin-top: 2.5rem;
+        }
+        .project h2 {
+          font-size: 5rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck">
+      <section class="channels" aria-label="Canais de projetos">
+        <div>
+          <div class="channels__head">
+            <p>Estúdio independente · 04 transmissões</p>
+            <h1>Projetos em <em>sintonia.</em></h1>
+          </div>
+          <div class="station-list">
+            <button
+              class="station"
+              aria-pressed="true"
+              data-name="Regula"
+              data-code="104.7 FM"
+              data-copy="Produto de regulação com fluxos transparentes e uma camada de decisão bem legível."
+              data-image="../../public/mockups/regula/desktop-01.png"
+            >
+              <span class="station__number">A/01</span><span class="station__name">Regula</span
+              ><span class="station__dot"></span>
+            </button>
+            <button
+              class="station"
+              aria-pressed="false"
+              data-name="eFood"
+              data-code="98.3 FM"
+              data-copy="Experiência de pedido que mantém descobrimento, escolha e acompanhamento no mesmo pulso."
+              data-image="../../public/mockups/e-food/desktop-01.png"
+            >
+              <span class="station__number">B/02</span><span class="station__name">eFood</span
+              ><span class="station__dot"></span>
+            </button>
+            <button
+              class="station"
+              aria-pressed="false"
+              data-name="E-Play"
+              data-code="88.1 FM"
+              data-copy="Catálogo de jogos pensado como programação: forte identidade e entrada rápida na ação."
+              data-image="../../public/mockups/e-play/desktop-01.png"
+            >
+              <span class="station__number">C/03</span><span class="station__name">E-Play</span
+              ><span class="station__dot"></span>
+            </button>
+            <button
+              class="station"
+              aria-pressed="false"
+              data-name="To-Do"
+              data-code="72.0 FM"
+              data-copy="Lista de tarefas com estados nítidos, pequenas vitórias e pouca fricção ao longo do dia."
+              data-image="../../public/mockups/to-do/desktop-01.png"
+            >
+              <span class="station__number">D/04</span><span class="station__name">To-Do</span
+              ><span class="station__dot"></span>
+            </button>
+          </div>
+        </div>
+        <p class="channels__foot">
+          Escolha uma frequência. Cada canal revela um sistema, seu contexto e a interface onde ele
+          ganha forma.
+        </p>
+      </section>
+      <section class="stage" aria-live="polite">
+        <div class="stage__top">
+          <span>On air / projetos</span><span class="frequency">104.7 FM</span>
+        </div>
+        <span class="knob knob--a"></span><span class="knob knob--b"></span>
+        <article class="project">
+          <div class="project__frame">
+            <img
+              src="../../public/mockups/regula/desktop-01.png"
+              alt="Prévia do projeto selecionado"
+            />
+          </div>
+          <h2>Regula</h2>
+          <p>Produto de regulação com fluxos transparentes e uma camada de decisão bem legível.</p>
+        </article>
+        <div class="stage__bottom"><span>Estação de projeto</span><span>Escolha ativa</span></div>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const stations = [...document.querySelectorAll('.station')],
+        stage = document.querySelector('.stage'),
+        image = document.querySelector('.project img'),
+        name = document.querySelector('.project h2'),
+        copy = document.querySelector('.project p'),
+        frequency = document.querySelector('.frequency');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      gsap.from(['.channels__head', '.station', '.channels__foot'], {
+        autoAlpha: 0,
+        x: -20,
+        stagger: 0.08,
+        duration: reduced ? 0 : 0.65,
+        ease: 'power3.out'
+      });
+      gsap.from('.stage', {
+        autoAlpha: 0,
+        scale: 0.96,
+        duration: reduced ? 0 : 0.9,
+        ease: 'power3.out'
+      });
+      stations.forEach((station, index) =>
+        station.addEventListener('click', () => {
+          if (station.getAttribute('aria-pressed') === 'true') return;
+          stations.forEach((item) => item.setAttribute('aria-pressed', 'false'));
+          station.setAttribute('aria-pressed', 'true');
+          const tl = gsap.timeline({
+            defaults: { duration: reduced ? 0 : 0.35, ease: 'power3.inOut' }
+          });
+          tl.to('.project', { autoAlpha: 0, scale: 0.92, y: 18 })
+            .call(() => {
+              image.src = station.dataset.image;
+              name.textContent = station.dataset.name;
+              copy.textContent = station.dataset.copy;
+              frequency.textContent = station.dataset.code;
+            })
+            .to('.project', { autoAlpha: 1, scale: 1, y: 0 })
+            .to('.knob--a', { rotation: `+=${90 + index * 20}`, duration: reduced ? 0 : 0.5 }, 0);
+        })
+      );
+    </script>
+  </body>
+</html>

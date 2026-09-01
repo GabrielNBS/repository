@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Modelo 03 / Arquivo expansível</title>
+    <style>
+      :root {
+        --bone: #e6e4dc;
+        --black: #10100e;
+        --red: #e23a22;
+        --rule: rgb(16 16 14/0.28);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bone);
+        color: var(--black);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .archive {
+        padding: clamp(1rem, 3vw, 3rem);
+      }
+      .archive__head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: end;
+        padding: 1rem 0 3rem;
+        border-bottom: 3px solid var(--black);
+      }
+      .archive__head p {
+        margin: 0;
+        font:
+          700 0.68rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .archive h1 {
+        max-width: 10ch;
+        margin: 0.7rem 0 0;
+        font-size: clamp(4rem, 11vw, 12rem);
+        font-stretch: condensed;
+        letter-spacing: -0.12em;
+        line-height: 0.68;
+        text-transform: uppercase;
+      }
+      .archive h1 span {
+        display: block;
+        color: var(--red);
+        font-family: Georgia, serif;
+        font-size: 0.72em;
+        font-style: italic;
+        font-weight: 400;
+        text-transform: none;
+      }
+      .archive__note {
+        max-width: 13rem;
+        font-size: 0.76rem;
+        line-height: 1.45;
+        text-align: right;
+      }
+      .rows {
+        border-bottom: 3px solid var(--black);
+      }
+      .row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 5rem minmax(10rem, 1fr) minmax(10rem, 0.5fr) 2rem;
+        gap: 1rem;
+        align-items: center;
+        width: 100%;
+        min-height: 8.2rem;
+        padding: 1.2rem 0;
+        border: 0;
+        border-bottom: 1px solid var(--rule);
+        background: none;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+      .row::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: var(--red);
+        content: '';
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+      .row__index,
+      .row__type,
+      .row__year {
+        font:
+          700 0.68rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .row__type {
+        color: rgb(16 16 14/0.63);
+      }
+      .row h2 {
+        margin: 0;
+        font-size: clamp(2.5rem, 5vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.09em;
+        line-height: 0.78;
+      }
+      .row__arrow {
+        font-size: 1.4rem;
+      }
+      .row__preview {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        background: var(--black);
+        transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .row__preview > div {
+        min-height: 0;
+      }
+      .row__preview img {
+        display: block;
+        width: min(66vw, 60rem);
+        height: 0;
+        margin: 0 auto;
+        object-fit: cover;
+        opacity: 0;
+        transition:
+          height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+          opacity 0.3s;
+      }
+      .row.is-open {
+        color: var(--bone);
+      }
+      .row.is-open::before {
+        transform: scaleY(1);
+      }
+      .row.is-open + .row__preview {
+        grid-template-rows: 1fr;
+      }
+      .row.is-open + .row__preview img {
+        height: clamp(15rem, 42vw, 32rem);
+        opacity: 1;
+        margin: 1.2rem auto;
+      }
+      .legend {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 0;
+        color: rgb(16 16 14/0.65);
+        font:
+          0.66rem/1.3 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+      }
+      @media (max-width: 650px) {
+        .archive__head {
+          grid-template-columns: 1fr;
+        }
+        .archive__note {
+          text-align: left;
+        }
+        .row {
+          grid-template-columns: 2.5rem 1fr 1.2rem;
+          min-height: 6.5rem;
+        }
+        .row__type {
+          display: none;
+        }
+        .row h2 {
+          font-size: clamp(2.6rem, 13vw, 4.5rem);
+        }
+        .row__preview img {
+          width: 88vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="archive">
+      <header class="archive__head">
+        <div>
+          <p>03 / Arquivo de interfaces</p>
+          <h1>Trabalho <span>selecionado</span></h1>
+        </div>
+        <p class="archive__note">
+          Uma lista de produção sem vitrine decorativa. Clique em uma linha para abrir a captura e o
+          contexto.
+        </p>
+      </header>
+      <section class="rows" aria-label="Projetos do arquivo">
+        <button class="row is-open">
+          <span class="row__index">001</span>
+          <h2>Regula</h2>
+          <span class="row__type">Dashboard e PDV</span><span class="row__arrow">↘</span>
+        </button>
+        <div class="row__preview">
+          <div><img src="../../public/mockups/regula/desktop-01.png" alt="Prévia do Regula" /></div>
+        </div>
+        <button class="row">
+          <span class="row__index">002</span>
+          <h2>E‑Food</h2>
+          <span class="row__type">Delivery responsivo</span><span class="row__arrow">↘</span>
+        </button>
+        <div class="row__preview">
+          <div><img src="../../public/mockups/e-food/desktop-01.png" alt="Prévia do E-Food" /></div>
+        </div>
+        <button class="row">
+          <span class="row__index">003</span>
+          <h2>E‑Play</h2>
+          <span class="row__type">Streaming de jogos</span><span class="row__arrow">↘</span>
+        </button>
+        <div class="row__preview">
+          <div><img src="../../public/mockups/e-play/desktop-01.png" alt="Prévia do E-Play" /></div>
+        </div>
+        <button class="row">
+          <span class="row__index">004</span>
+          <h2>To‑Do</h2>
+          <span class="row__type">Gestão de tarefas</span><span class="row__arrow">↘</span>
+        </button>
+        <div class="row__preview">
+          <div><img src="../../public/mockups/to-do/desktop-01.png" alt="Prévia do To-Do" /></div>
+        </div>
+      </section>
+      <footer class="legend"><span>2024 — 2026</span><span>clique para expandir</span></footer>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      const rows = [...document.querySelectorAll('.row')];
+      gsap
+        .timeline({
+          defaults: { ease: 'power4.out' },
+          scrollTrigger: { trigger: '.archive', start: 'top 72%' }
+        })
+        .from('.archive__head > *', { autoAlpha: 0, y: 35, stagger: 0.16, duration: 0.8 })
+        .from(rows, { autoAlpha: 0, x: -30, stagger: 0.09, duration: 0.5 }, '-=.45');
+      rows.forEach((row) => {
+        row.addEventListener('click', () => {
+          const open = row.classList.contains('is-open');
+          rows.forEach((item) => {
+            item.classList.remove('is-open');
+            gsap.to(item.querySelector('.row__arrow'), {
+              rotation: 0,
+              duration: 0.35,
+              ease: 'power3.out'
+            });
+          });
+          if (!open) {
+            row.classList.add('is-open');
+            gsap.to(row.querySelector('.row__arrow'), {
+              rotation: 180,
+              duration: 0.45,
+              ease: 'back.out(1.7)'
+            });
+            setTimeout(() => ScrollTrigger.refresh(), 520);
+          }
+        });
+        row.addEventListener('mouseenter', () => {
+          if (!row.classList.contains('is-open'))
+            gsap.to(row, { x: 12, duration: 0.25, ease: 'power3.out' });
+        });
+        row.addEventListener('mouseleave', () =>
+          gsap.to(row, { x: 0, duration: 0.35, ease: 'power3.out' })
+        );
+      });
+    </script>
+  </body>
+</html>

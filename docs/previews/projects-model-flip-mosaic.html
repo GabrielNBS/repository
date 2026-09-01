@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projetos — Flip Mosaic</title>
+    <style>
+      :root {
+        --paper: #f7f3eb;
+        --ink: #20201c;
+        --line: #d0c8ba;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .mosaic {
+        max-width: 110rem;
+        margin: auto;
+        padding: clamp(1.25rem, 4vw, 4rem);
+      }
+      .top {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: clamp(2rem, 6vw, 5rem);
+      }
+      .kicker {
+        margin: 0 0 1rem;
+        font: 700 0.7rem/1 monospace;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .top h1 {
+        max-width: 7ch;
+        margin: 0;
+        font:
+          400 clamp(4rem, 10vw, 10rem)/0.72 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .top p:last-child {
+        max-width: 15rem;
+        margin: 0;
+        color: #5d594e;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(4rem, 7vw);
+        gap: 0.8rem;
+      }
+      .tile {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        grid-column: span 4;
+        grid-row: span 5;
+        overflow: hidden;
+        padding: 1.2rem;
+        border: 0;
+        border-radius: 1.5rem;
+        background: var(--tone);
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+      }
+      .tile:nth-child(2),
+      .tile:nth-child(5) {
+        grid-row: span 7;
+      }
+      .tile:nth-child(3) {
+        grid-column: span 8;
+      }
+      .tile.active {
+        grid-column: span 8;
+        grid-row: span 10;
+      }
+      .tile:not(.active):has(~ .tile.active) {
+        opacity: 0.7;
+      }
+      .tile__num,
+      .tile__meta {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        font: 700 0.66rem/1 monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .tile h2 {
+        position: relative;
+        z-index: 2;
+        max-width: 7ch;
+        margin: 0;
+        font:
+          400 clamp(3rem, 6vw, 6.5rem)/0.75 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .tile img {
+        position: absolute;
+        inset: 20% 11% 13%;
+        width: 78%;
+        height: 67%;
+        border: 5px solid rgb(247 243 235/0.8);
+        border-radius: 0.8rem;
+        object-fit: cover;
+        box-shadow: 0 1.5rem 3rem rgb(32 32 28/0.2);
+        transform: rotate(-4deg);
+        transition: transform 0.5s;
+      }
+      .tile:hover img {
+        transform: rotate(2deg) scale(1.04);
+      }
+      .tile.active img {
+        inset: 14% 8% 12%;
+        width: 84%;
+        height: 74%;
+        transform: rotate(0);
+      }
+      .hint {
+        margin: 1rem 0 0;
+        color: #5d594e;
+        font: 0.7rem/1.4 monospace;
+        text-transform: uppercase;
+      }
+      @media (max-width: 720px) {
+        .top {
+          display: block;
+        }
+        .top p:last-child {
+          margin-top: 2rem;
+        }
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 9rem;
+        }
+        .tile,
+        .tile:nth-child(3) {
+          grid-column: span 1;
+          grid-row: span 2;
+        }
+        .tile.active {
+          grid-column: span 2;
+          grid-row: span 4;
+        }
+        .tile h2 {
+          font-size: 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="mosaic">
+      <header class="top">
+        <div>
+          <p class="kicker">04 / Flip Mosaic</p>
+          <h1>Todo projeto muda o quadro.</h1>
+        </div>
+        <p>
+          Clique em uma peça para expandi-la. O layout se recompõe por Flip — sem um corte de cena.
+        </p>
+      </header>
+      <section class="grid" aria-label="Mosaico de projetos">
+        <button class="tile" style="--tone: #efae82">
+          <span class="tile__num"><span>01</span><span>2026</span></span
+          ><img src="../../public/mockups/regula/desktop-01.png" alt="" />
+          <h2>Regula</h2>
+          <span class="tile__meta"><span>dashboard</span><span>↗</span></span></button
+        ><button class="tile" style="--tone: #cdb8d8">
+          <span class="tile__num"><span>02</span><span>2025</span></span
+          ><img src="../../public/mockups/e-food/desktop-01.png" alt="" />
+          <h2>E‑Food</h2>
+          <span class="tile__meta"><span>delivery</span><span>↗</span></span></button
+        ><button class="tile" style="--tone: #c8e3e5">
+          <span class="tile__num"><span>03</span><span>2025</span></span
+          ><img src="../../public/mockups/e-play/desktop-01.png" alt="" />
+          <h2>E‑Play</h2>
+          <span class="tile__meta"><span>streaming</span><span>↗</span></span></button
+        ><button class="tile" style="--tone: #e7d6bb">
+          <span class="tile__num"><span>04</span><span>2024</span></span
+          ><img src="../../public/mockups/to-do/desktop-01.png" alt="" />
+          <h2>To‑Do</h2>
+          <span class="tile__meta"><span>tarefas</span><span>↗</span></span></button
+        ><button class="tile" style="--tone: #e8b6aa">
+          <span class="tile__num"><span>05</span><span>2024</span></span
+          ><img src="../../public/mockups/spider-verse/desktop-01.png" alt="" />
+          <h2>Spider‑Verse</h2>
+          <span class="tile__meta"><span>landing</span><span>↗</span></span>
+        </button>
+      </section>
+      <p class="hint">Clique no projeto ativo para fechar.</p>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script>
+      gsap.registerPlugin(Flip);
+      const tiles = [...document.querySelectorAll('.tile')];
+      gsap.from(tiles, { autoAlpha: 0, y: 28, stagger: 0.1, duration: 0.7, ease: 'power3.out' });
+      tiles.forEach((tile) =>
+        tile.addEventListener('click', () => {
+          const state = Flip.getState(tiles, { props: 'opacity' });
+          const was = tile.classList.contains('active');
+          tiles.forEach((item) => item.classList.remove('active'));
+          if (!was) tile.classList.add('active');
+          Flip.from(state, {
+            absolute: true,
+            nested: true,
+            scale: true,
+            duration: 0.72,
+            ease: 'power3.inOut',
+            stagger: 0.025
+          });
+          gsap.fromTo(
+            tile.querySelector('img'),
+            { scale: 0.96 },
+            { scale: 1, duration: 0.7, ease: 'power3.out', overwrite: 'auto' }
+          );
+        })
+      );
+    </script>
+  </body>
+</html>

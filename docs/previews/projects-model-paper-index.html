@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projetos — Paper Index</title>
+    <style>
+      :root {
+        --desk: #b5baa5;
+        --paper: #fffbe9;
+        --ink: #293226;
+        --red: #df6248;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font-family: Arial, sans-serif;
+      }
+      .index {
+        min-height: 100vh;
+        padding: clamp(1rem, 4vw, 4rem);
+        display: grid;
+        grid-template-columns: minmax(14rem, 0.6fr) 1fr;
+        gap: clamp(1rem, 4vw, 4rem);
+      }
+      .intro {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .intro p,
+      .card__tag {
+        font:
+          700 0.6rem/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .intro h1 {
+        max-width: 5ch;
+        margin: 1rem 0;
+        font:
+          400 clamp(4rem, 8vw, 9rem)/0.7 Georgia,
+          serif;
+        letter-spacing: -0.11em;
+      }
+      .intro h1 b {
+        color: var(--red);
+        font: 900 1em Arial;
+      }
+      .intro small {
+        max-width: 19rem;
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+      .drawer {
+        display: grid;
+        align-content: center;
+        gap: 0.8rem;
+      }
+      .tab {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--ink);
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .tab[aria-selected='true'] {
+        background: var(--ink);
+        color: var(--paper);
+        transform: translateX(-0.8rem);
+      }
+      .card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.1fr 0.8fr;
+        gap: 2rem;
+        min-height: 32rem;
+        padding: clamp(1.4rem, 4vw, 3.5rem);
+        overflow: hidden;
+        border: 1px solid var(--ink);
+        background: var(--paper);
+        box-shadow: 1rem 1rem 0 rgb(41 50 38/0.25);
+      }
+      .card::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 44%;
+        width: 1px;
+        background: #29322633;
+        content: '';
+      }
+      .card__tag {
+        margin: 0;
+        color: var(--red);
+      }
+      .card h2 {
+        max-width: 5ch;
+        margin: 1rem 0 0;
+        font:
+          400 clamp(4rem, 8vw, 8rem)/0.72 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .card__copy {
+        max-width: 27rem;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+      .facts {
+        display: grid;
+        align-content: end;
+        gap: 1rem;
+      }
+      .facts div {
+        padding-top: 0.8rem;
+        border-top: 1px solid #29322633;
+      }
+      .facts span {
+        display: block;
+        color: #687060;
+        font:
+          700 0.55rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .facts b {
+        display: block;
+        margin-top: 0.4rem;
+        font-size: 0.78rem;
+      }
+      @media (max-width: 650px) {
+        .index {
+          grid-template-columns: 1fr;
+        }
+        .intro small {
+          margin-bottom: 2rem;
+        }
+        .card {
+          grid-template-columns: 1fr;
+        }
+        .card::after {
+          display: none;
+        }
+        .facts {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="index">
+      <aside class="intro">
+        <div>
+          <p>Arquivo de fichas / 04</p>
+          <h1>Índice de <b>trabalho.</b></h1>
+        </div>
+        <small
+          >Escolha uma aba. A ficha organiza propósito, participação e data sem perder a sensação de
+          objeto físico.</small
+        >
+      </aside>
+      <section class="drawer">
+        <nav role="tablist">
+          <button
+            class="tab"
+            aria-selected="true"
+            data-name="Regula"
+            data-tag="Sistema de produto"
+            data-copy="Uma interface de controle que esclarece normas e decisões sem esconder o contexto."
+            data-role="Produto e front-end"
+            data-year="2026"
+          >
+            Regula <i>01</i></button
+          ><button
+            class="tab"
+            aria-selected="false"
+            data-name="eFood"
+            data-tag="Pedido e descoberta"
+            data-copy="Uma rota de compra desenhada para manter escolha, apetite e acompanhamento próximos."
+            data-role="UX e interface"
+            data-year="2025"
+          >
+            eFood <i>02</i></button
+          ><button
+            class="tab"
+            aria-selected="false"
+            data-name="E‑Play"
+            data-tag="Catálogo cultural"
+            data-copy="Uma experiência de jogos que dá personalidade à descoberta e ordem ao catálogo."
+            data-role="Direção e código"
+            data-year="2025"
+          >
+            E‑Play <i>03</i></button
+          ><button
+            class="tab"
+            aria-selected="false"
+            data-name="To‑Do"
+            data-tag="Ferramenta diária"
+            data-copy="Uma rotina leve onde tarefas, filtros e prioridade ficam imediatamente legíveis."
+            data-role="Interações e código"
+            data-year="2024"
+          >
+            To‑Do <i>04</i>
+          </button>
+        </nav>
+        <article class="card" aria-live="polite">
+          <div>
+            <p class="card__tag">Sistema de produto</p>
+            <h2>Regula</h2>
+            <p class="card__copy">
+              Uma interface de controle que esclarece normas e decisões sem esconder o contexto.
+            </p>
+          </div>
+          <div class="facts">
+            <div><span>Atuação</span><b>Produto e front-end</b></div>
+            <div><span>Data</span><b>2026</b></div>
+            <div><span>Estado</span><b>Documentado</b></div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const tabs = [...document.querySelectorAll('.tab')],
+        card = document.querySelector('.card'),
+        tag = document.querySelector('.card__tag'),
+        name = document.querySelector('.card h2'),
+        copy = document.querySelector('.card__copy'),
+        facts = [...document.querySelectorAll('.facts b')],
+        r = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.intro', '.tab', '.card'], {
+        autoAlpha: 0,
+        x: -18,
+        stagger: 0.08,
+        duration: r ? 0 : 0.7,
+        ease: 'power3.out'
+      });
+      tabs.forEach(
+        (t) =>
+          (t.onclick = () => {
+            tabs.forEach((x) => x.setAttribute('aria-selected', 'false'));
+            t.setAttribute('aria-selected', 'true');
+            gsap
+              .timeline({ defaults: { duration: r ? 0 : 0.3, ease: 'power3.inOut' } })
+              .to(card, { autoAlpha: 0, y: 10 })
+              .call(() => {
+                tag.textContent = t.dataset.tag;
+                name.textContent = t.dataset.name;
+                copy.textContent = t.dataset.copy;
+                facts[0].textContent = t.dataset.role;
+                facts[1].textContent = t.dataset.year;
+              })
+              .to(card, { autoAlpha: 1, y: 0 });
+          })
+      );
+    </script>
+  </body>
+</html>

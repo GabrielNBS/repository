@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Modelo 01 / Rail editorial</title>
+    <style>
+      :root {
+        --ink: #181411;
+        --paper: #f3ede2;
+        --coral: #ff725d;
+        --line: rgb(24 20 17 / 0.2);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--paper);
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .rail {
+        min-height: 100vh;
+        overflow: hidden;
+        background: var(--paper);
+      }
+      .rail__head {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 2fr);
+        gap: 5vw;
+        align-items: end;
+        padding: 3.2vw;
+      }
+      .eyebrow {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        margin: 0 0 1.2rem;
+        font: 700 0.68rem/1 Arial;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before {
+        width: 2rem;
+        height: 1px;
+        background: currentColor;
+        content: '';
+      }
+      h1 {
+        max-width: 8ch;
+        margin: 0;
+        font:
+          400 clamp(4rem, 10vw, 11rem)/0.76 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      h1 em {
+        color: var(--coral);
+        font-style: normal;
+      }
+      .rail__note {
+        align-self: start;
+        margin-top: 1.2rem;
+        max-width: 15rem;
+        font-size: 0.9rem;
+        line-height: 1.45;
+        color: rgb(24 20 17 / 0.7);
+      }
+      .rail__stage {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-left: 3.2vw;
+      }
+      .rail__track {
+        display: flex;
+        gap: 1.2rem;
+        width: max-content;
+        padding-right: 10vw;
+      }
+      .project {
+        position: relative;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        width: min(68vw, 70rem);
+        height: min(75vh, 47rem);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: var(--tone);
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .project:nth-child(even) {
+        width: min(46vw, 45rem);
+      }
+      .project__image {
+        position: absolute;
+        z-index: 0;
+        inset: 9% 6% 18%;
+        overflow: hidden;
+        border: 6px solid rgb(243 237 226 / 0.82);
+        box-shadow: 0 2rem 4rem rgb(24 20 17 / 0.17);
+        transform: rotate(-2deg);
+      }
+      .project:nth-child(even) .project__image {
+        inset: 15% 11% 23%;
+        transform: rotate(3deg);
+      }
+      .project__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.8) contrast(0.96);
+        transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .project:hover img {
+        transform: scale(1.08);
+      }
+      .project__top,
+      .project__bottom {
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        padding: 1.4rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .project__bottom {
+        align-items: end;
+      }
+      .project h2 {
+        max-width: 7ch;
+        margin: 0;
+        font:
+          400 clamp(3.3rem, 7vw, 8rem)/0.76 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .project__bottom span:last-child {
+        align-self: flex-end;
+        font-size: 1.2rem;
+      }
+      .rail__progress {
+        position: fixed;
+        z-index: 4;
+        right: 3vw;
+        bottom: 2.5vw;
+        display: flex;
+        gap: 0.65rem;
+        align-items: center;
+        font: 700 0.65rem Arial;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .rail__bar {
+        width: 7rem;
+        height: 1px;
+        background: rgb(24 20 17 / 0.25);
+      }
+      .rail__bar i {
+        display: block;
+        width: 0%;
+        height: 100%;
+        background: var(--ink);
+      }
+      @media (max-width: 700px) {
+        .rail__head {
+          height: auto;
+          min-height: 78vh;
+          grid-template-columns: 1fr;
+          align-content: end;
+          padding: 2rem 1.25rem;
+        }
+        .rail__stage {
+          height: auto;
+          padding: 0 1.25rem 3rem;
+        }
+        .rail__track {
+          display: grid;
+          width: 100%;
+          gap: 1rem;
+          padding: 0;
+        }
+        .project,
+        .project:nth-child(even) {
+          width: 100%;
+          height: 34rem;
+        }
+        .project:nth-child(even) .project__image,
+        .project__image {
+          inset: 12% 8% 20%;
+        }
+        .rail__progress {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="rail">
+      <header class="rail__head">
+        <div>
+          <p class="eyebrow">01 / Rail editorial</p>
+          <h1>Projetos em <em>movimento.</em></h1>
+        </div>
+        <p class="rail__note">
+          Uma leitura cinematográfica: cada projeto ocupa o quadro inteiro antes de ceder espaço ao
+          próximo.
+        </p>
+      </header>
+      <section class="rail__stage" aria-label="Projetos">
+        <div class="rail__track">
+          <a class="project" style="--tone: #efae82" href="#regula"
+            ><div class="project__top"><span>01 / 2026</span><span>Dashboard & PDV</span></div>
+            <div class="project__image">
+              <img src="../../public/mockups/regula/desktop-01.png" alt="Prévia do Regula" />
+            </div>
+            <div class="project__bottom">
+              <h2>Regula</h2>
+              <span>↗</span>
+            </div></a
+          >
+          <a class="project" style="--tone: #cdb8d8" href="#efood"
+            ><div class="project__top"><span>02 / 2025</span><span>Delivery</span></div>
+            <div class="project__image">
+              <img src="../../public/mockups/e-food/desktop-01.png" alt="Prévia do E-Food" />
+            </div>
+            <div class="project__bottom">
+              <h2>E‑Food</h2>
+              <span>↗</span>
+            </div></a
+          >
+          <a class="project" style="--tone: #e7d6bb" href="#eplay"
+            ><div class="project__top"><span>03 / 2025</span><span>Streaming</span></div>
+            <div class="project__image">
+              <img src="../../public/mockups/e-play/desktop-01.png" alt="Prévia do E-Play" />
+            </div>
+            <div class="project__bottom">
+              <h2>E‑Play</h2>
+              <span>↗</span>
+            </div></a
+          >
+          <a class="project" style="--tone: #e8b6aa" href="#todo"
+            ><div class="project__top"><span>04 / 2024</span><span>Produtividade</span></div>
+            <div class="project__image">
+              <img src="../../public/mockups/to-do/desktop-01.png" alt="Prévia do To-Do" />
+            </div>
+            <div class="project__bottom">
+              <h2>To‑Do</h2>
+              <span>↗</span>
+            </div></a
+          >
+        </div>
+      </section>
+      <div class="rail__progress">
+        <span id="count">01 / 04</span><span class="rail__bar"><i></i></span>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const track = document.querySelector('.rail__track'),
+        cards = gsap.utils.toArray('.project');
+      if (!reduce && innerWidth > 700) {
+        const travel = () => Math.max(0, track.scrollWidth - innerWidth + innerWidth * 0.07);
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: '.rail__stage',
+            start: 'top top',
+            end: () => '+=' + travel(),
+            pin: true,
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              document.querySelector('.rail__bar i').style.width = self.progress * 100 + '%';
+              document.querySelector('#count').textContent =
+                String(Math.min(4, Math.floor(self.progress * 4) + 1)).padStart(2, '0') + ' / 04';
+            }
+          }
+        });
+        tl.to(track, { x: () => -travel() }).to(cards, { rotation: (i) => (i % 2 ? 2 : -2) }, 0);
+      } else {
+        gsap.from(cards, { y: 36, autoAlpha: 0, stagger: 0.12, duration: 0.7, ease: 'power3.out' });
+      }
+      cards.forEach((card) =>
+        card.addEventListener('mouseenter', () =>
+          gsap.to(card, { y: -10, duration: 0.35, ease: 'power3.out', overwrite: 'auto' })
+        )
+      );
+      cards.forEach((card) =>
+        card.addEventListener('mouseleave', () =>
+          gsap.to(card, { y: 0, duration: 0.45, ease: 'power3.out', overwrite: 'auto' })
+        )
+      );
+    </script>
+  </body>
+</html>

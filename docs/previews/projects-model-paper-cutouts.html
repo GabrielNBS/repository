@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projetos — Paper Cutouts</title>
+    <style>
+      :root {
+        --ground: #e8e0cd;
+        --paper: #fffaf0;
+        --ink: #27332a;
+        --pink: #e87268;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ground);
+        color: var(--ink);
+        font-family: Arial, sans-serif;
+      }
+      .board {
+        min-height: 100vh;
+        padding: clamp(1rem, 4vw, 4rem);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 2rem;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .top b {
+        color: var(--pink);
+      }
+      .scene {
+        position: relative;
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        gap: clamp(1rem, 4vw, 4rem);
+        align-items: center;
+      }
+      .title h1 {
+        max-width: 5ch;
+        margin: 0;
+        font:
+          400 clamp(4rem, 9vw, 10rem)/0.69 Georgia,
+          serif;
+        letter-spacing: -0.12em;
+      }
+      .title h1 b {
+        font: 900 1em Arial;
+      }
+      .title p {
+        max-width: 20rem;
+        margin: 1.4rem 0;
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+      .clips {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .clip {
+        width: 1rem;
+        height: 1rem;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        background: var(--paper);
+      }
+      .collage {
+        position: relative;
+        min-height: 34rem;
+      }
+      .piece {
+        position: absolute;
+        display: grid;
+        width: 50%;
+        aspect-ratio: 1.12;
+        place-items: center;
+        overflow: hidden;
+        border: 0;
+        background: var(--tone);
+        color: var(--ink);
+        box-shadow: 0.5rem 0.7rem 0 rgb(39 51 42/0.18);
+        cursor: pointer;
+      }
+      .piece h2 {
+        margin: 0;
+        font: 900 clamp(2.6rem, 5vw, 5rem)/0.75 Arial;
+        letter-spacing: -0.1em;
+      }
+      .piece span {
+        position: absolute;
+        top: 0.8rem;
+        left: 0.8rem;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+      }
+      .piece:nth-child(1) {
+        top: 2%;
+        left: 2%;
+        transform: rotate(-5deg);
+      }
+      .piece:nth-child(2) {
+        top: 9%;
+        right: 1%;
+        transform: rotate(4deg);
+      }
+      .piece:nth-child(3) {
+        bottom: 2%;
+        left: 8%;
+        transform: rotate(3deg);
+      }
+      .piece:nth-child(4) {
+        right: 7%;
+        bottom: 6%;
+        transform: rotate(-3deg);
+      }
+      .piece[aria-pressed='true'] {
+        z-index: 3;
+        outline: 5px solid var(--ink);
+      }
+      .detail {
+        position: fixed;
+        z-index: 5;
+        right: clamp(1rem, 3vw, 3rem);
+        bottom: clamp(1rem, 3vw, 3rem);
+        width: min(32rem, calc(100% - 2rem));
+        padding: 1.5rem;
+        background: var(--ink);
+        color: var(--paper);
+        box-shadow: 0.8rem 0.8rem 0 var(--pink);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .detail p {
+        margin: 0.8rem 0 0;
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+      .detail b {
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .detail button {
+        margin-top: 1rem;
+        border: 1px solid var(--paper);
+        background: transparent;
+        padding: 0.65rem;
+        color: var(--paper);
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      @media (max-width: 650px) {
+        .scene {
+          grid-template-columns: 1fr;
+        }
+        .collage {
+          min-height: 27rem;
+        }
+        .top span:last-child {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <header class="top">
+        <span>Recortes de projetos</span><b>Escolha uma peça</b><span>Ateliê de interfaces</span>
+      </header>
+      <section class="scene">
+        <section class="title">
+          <h1>Um <b>mural</b> para navegar.</h1>
+          <p>
+            As abas viram recortes: cada pedaço da composição abre uma pequena nota de contexto.
+          </p>
+          <div class="clips">
+            <i class="clip"></i><i class="clip"></i><i class="clip"></i><i class="clip"></i>
+          </div>
+        </section>
+        <section class="collage">
+          <button
+            class="piece"
+            style="--tone: #bbdff2"
+            aria-pressed="false"
+            data-title="Regula"
+            data-copy="Produto para tornar processos de regulação legíveis, rastreáveis e fáceis de operar."
+          >
+            <span>01 / azul</span>
+            <h2>Regula</h2></button
+          ><button
+            class="piece"
+            style="--tone: #ffc9a5"
+            aria-pressed="false"
+            data-title="eFood"
+            data-copy="Experiência de pedido onde a escolha continua clara do início ao acompanhamento."
+          >
+            <span>02 / pêssego</span>
+            <h2>eFood</h2></button
+          ><button
+            class="piece"
+            style="--tone: #d5e778"
+            aria-pressed="false"
+            data-title="E‑Play"
+            data-copy="Catálogo de jogos desenhado para fazer a descoberta soar mais como entretenimento."
+          >
+            <span>03 / lima</span>
+            <h2>E‑Play</h2></button
+          ><button
+            class="piece"
+            style="--tone: #e4cbea"
+            aria-pressed="false"
+            data-title="To‑Do"
+            data-copy="Ferramenta de rotina que mantém prioridades, tarefas e filtros em uma leitura simples."
+          >
+            <span>04 / lilás</span>
+            <h2>To‑Do</h2>
+          </button>
+        </section>
+      </section>
+    </main>
+    <aside class="detail" aria-live="polite">
+      <b></b>
+      <p></p>
+      <button>Fechar recorte</button>
+    </aside>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const pieces = [...document.querySelectorAll('.piece')],
+        detail = document.querySelector('.detail'),
+        title = document.querySelector('.detail b'),
+        copy = document.querySelector('.detail p'),
+        close = document.querySelector('.detail button'),
+        r = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.top', '.title', '.piece'], {
+        autoAlpha: 0,
+        scale: 0.88,
+        stagger: 0.1,
+        duration: r ? 0 : 0.75,
+        ease: 'back.out(1.2)'
+      });
+      pieces.forEach(
+        (p) =>
+          (p.onclick = () => {
+            pieces.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+            p.setAttribute('aria-pressed', 'true');
+            title.textContent = p.dataset.title;
+            copy.textContent = p.dataset.copy;
+            gsap.to(detail, { autoAlpha: 1, y: 0, duration: r ? 0 : 0.4, ease: 'power3.out' });
+            detail.style.pointerEvents = 'auto';
+          })
+      );
+      close.onclick = () => {
+        gsap.to(detail, { autoAlpha: 0, y: 12, duration: r ? 0 : 0.3 });
+        detail.style.pointerEvents = 'none';
+        pieces.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      };
+    </script>
+  </body>
+</html>

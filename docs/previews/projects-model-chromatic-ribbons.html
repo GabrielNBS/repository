@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Projetos — Chromatic Ribbons</title>
+    <style>
+      :root {
+        --ink: #172018;
+        --cream: #fff9ea;
+        --rule: #17201833;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .ribbons {
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 3rem);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 1.2rem;
+      }
+      .head,
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        font:
+          700 0.61rem/1.3 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .head b {
+        color: #e94f3d;
+      }
+      .rack {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.7rem;
+        min-height: 0;
+      }
+      .ribbon {
+        position: relative;
+        display: flex;
+        min-height: 34rem;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 1.15rem;
+        border: 0;
+        background: var(--tone);
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+      }
+      .ribbon::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgb(23 32 24/0.3);
+        content: '';
+      }
+      .ribbon__top,
+      .ribbon__bottom {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .ribbon h2 {
+        position: relative;
+        z-index: 1;
+        margin: auto 0;
+        font:
+          400 clamp(3rem, 6vw, 7rem)/0.7 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+      .ribbon__state {
+        position: absolute;
+        z-index: 1;
+        right: 1rem;
+        bottom: 4rem;
+        width: 0.65rem;
+        height: 0.65rem;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+      }
+      .ribbon[aria-expanded='true'] .ribbon__state {
+        background: var(--ink);
+        box-shadow: 0 0 0 0.32rem rgb(23 32 24/0.16);
+      }
+      .ribbon:focus-visible {
+        outline: 4px solid var(--ink);
+        outline-offset: 4px;
+      }
+      .sheet {
+        position: fixed;
+        z-index: 5;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr minmax(15rem, 0.8fr) auto;
+        gap: 2rem;
+        align-items: end;
+        padding: clamp(1.3rem, 4vw, 3.8rem);
+        background: var(--ink);
+        color: var(--cream);
+        transform: translateY(105%);
+      }
+      .sheet__tag {
+        margin: 0;
+        color: #f9dc6b;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .sheet h1 {
+        margin: 0.7rem 0 0;
+        font:
+          400 clamp(3.5rem, 7vw, 7rem)/0.72 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .sheet p {
+        max-width: 30rem;
+        margin: 0;
+        color: rgb(255 249 234/0.7);
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+      .sheet button {
+        border: 1px solid var(--cream);
+        background: transparent;
+        padding: 0.75rem 1rem;
+        color: var(--cream);
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      @media (max-width: 680px) {
+        .rack {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .ribbon {
+          min-height: 42vh;
+        }
+        .head span:last-child {
+          display: none;
+        }
+        .sheet {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .sheet p {
+          margin: 0;
+        }
+        .sheet button {
+          justify-self: start;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="ribbons">
+      <header class="head">
+        <span>Projetos em faixas</span><b>Escolha uma cor</b><span>Deslize para ler</span>
+      </header>
+      <section class="rack">
+        <button
+          class="ribbon"
+          style="--tone: #bde3ff"
+          aria-expanded="false"
+          data-title="Regula"
+          data-kind="Produto / 2026"
+          data-copy="Decisões regulatórias transformadas em um sistema que informa o próximo passo."
+        >
+          <span class="ribbon__top"><i>01</i><i>azul</i></span>
+          <h2>Regula</h2>
+          <span class="ribbon__state"></span
+          ><span class="ribbon__bottom"><i>ver ficha</i><i>↗</i></span></button
+        ><button
+          class="ribbon"
+          style="--tone: #ffc6a6"
+          aria-expanded="false"
+          data-title="eFood"
+          data-kind="Comércio / 2025"
+          data-copy="Pedido e descoberta alinhados em uma experiência que mantém a escolha em movimento."
+        >
+          <span class="ribbon__top"><i>02</i><i>pêssego</i></span>
+          <h2>eFood</h2>
+          <span class="ribbon__state"></span
+          ><span class="ribbon__bottom"><i>ver ficha</i><i>↗</i></span></button
+        ><button
+          class="ribbon"
+          style="--tone: #d5eb62"
+          aria-expanded="false"
+          data-title="E‑Play"
+          data-kind="Cultura / 2025"
+          data-copy="Um catálogo de jogos com caráter suficiente para que a busca também seja uma sessão."
+        >
+          <span class="ribbon__top"><i>03</i><i>lima</i></span>
+          <h2>E‑Play</h2>
+          <span class="ribbon__state"></span
+          ><span class="ribbon__bottom"><i>ver ficha</i><i>↗</i></span></button
+        ><button
+          class="ribbon"
+          style="--tone: #eccaea"
+          aria-expanded="false"
+          data-title="To‑Do"
+          data-kind="Utilitário / 2024"
+          data-copy="Tarefas diárias organizadas como uma ferramenta pequena, direta e gratificante."
+        >
+          <span class="ribbon__top"><i>04</i><i>lilás</i></span>
+          <h2>To‑Do</h2>
+          <span class="ribbon__state"></span
+          ><span class="ribbon__bottom"><i>ver ficha</i><i>↗</i></span>
+        </button>
+      </section>
+      <footer class="foot">
+        <span>04 cores · 04 atitudes de interface</span><span>Fichas sob demanda</span>
+      </footer>
+    </main>
+    <aside class="sheet" aria-live="polite">
+      <div>
+        <p class="sheet__tag"></p>
+        <h1></h1>
+      </div>
+      <p class="sheet__copy"></p>
+      <button>Fechar ficha</button>
+    </aside>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const ribbons = [...document.querySelectorAll('.ribbon')],
+        sheet = document.querySelector('.sheet'),
+        tag = document.querySelector('.sheet__tag'),
+        title = document.querySelector('.sheet h1'),
+        copy = document.querySelector('.sheet__copy'),
+        close = document.querySelector('.sheet button'),
+        reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.head', '.ribbon', '.foot'], {
+        autoAlpha: 0,
+        y: 28,
+        stagger: 0.09,
+        duration: reduced ? 0 : 0.7,
+        ease: 'power3.out'
+      });
+      ribbons.forEach(
+        (item) =>
+          (item.onclick = () => {
+            ribbons.forEach((x) => x.setAttribute('aria-expanded', 'false'));
+            item.setAttribute('aria-expanded', 'true');
+            tag.textContent = item.dataset.kind;
+            title.textContent = item.dataset.title;
+            copy.textContent = item.dataset.copy;
+            gsap.to(sheet, { y: 0, duration: reduced ? 0 : 0.65, ease: 'power4.out' });
+          })
+      );
+      close.onclick = () => {
+        gsap.to(sheet, { y: '105%', duration: reduced ? 0 : 0.45, ease: 'power3.inOut' });
+        ribbons.forEach((x) => x.setAttribute('aria-expanded', 'false'));
+      };
+    </script>
+  </body>
+</html>

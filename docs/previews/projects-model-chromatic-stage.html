@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Projetos — Chromatic Stage</title>
+    <style>
+      :root {
+        --ink: #1a1d24;
+        --paper: #fffcf4;
+        --tone: #bde3ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .stage {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: clamp(1rem, 3vw, 3rem);
+        background: var(--tone);
+        transition: background 0.55s ease;
+      }
+      .stage__top {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        font:
+          700 0.61rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .stage__top b {
+        color: #e8513d;
+      }
+      .spot {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(10rem, 0.7fr) minmax(17rem, 1.3fr);
+        gap: clamp(1.5rem, 5vw, 6rem);
+        align-items: center;
+        overflow: hidden;
+      }
+      .spot::before {
+        position: absolute;
+        width: min(72vw, 58rem);
+        aspect-ratio: 1;
+        border: 1px dashed rgb(26 29 36/0.4);
+        border-radius: 50%;
+        content: '';
+        transform: translateX(28%);
+      }
+      .spot__intro {
+        position: relative;
+      }
+      .spot__intro p {
+        margin: 0;
+        color: #5f6871;
+        font:
+          700 0.6rem/1.35 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .spot__intro h1 {
+        max-width: 5ch;
+        margin: 1rem 0 0;
+        font:
+          400 clamp(4rem, 9vw, 10rem)/0.71 Georgia,
+          serif;
+        letter-spacing: -0.12em;
+      }
+      .spot__intro h1 b {
+        font-family: Arial, sans-serif;
+        font-weight: 900;
+      }
+      .spot__intro small {
+        display: block;
+        max-width: 19rem;
+        margin-top: 1.6rem;
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: clamp(24rem, 65vh, 43rem);
+        place-items: center;
+      }
+      .hero__frame {
+        position: relative;
+        z-index: 1;
+        width: min(77%, 38rem);
+        aspect-ratio: 1.05;
+        padding: 0.7rem;
+        background: var(--paper);
+        box-shadow: 1rem 1rem 0 var(--ink);
+        transform: rotate(-2deg);
+      }
+      .hero__frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero__label {
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        bottom: 10%;
+        padding: 0.6rem 0.7rem;
+        background: var(--ink);
+        color: var(--paper);
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .legend {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: end;
+      }
+      .swatches {
+        display: flex;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+      }
+      .swatch {
+        width: clamp(4rem, 8vw, 7.5rem);
+        aspect-ratio: 1;
+        border: 1px solid var(--ink);
+        background: var(--swatch);
+        cursor: pointer;
+      }
+      .swatch[aria-pressed='true'] {
+        outline: 5px solid var(--paper);
+        outline-offset: -8px;
+        box-shadow: 0 0 0 3px var(--ink);
+      }
+      .swatch:focus-visible {
+        outline: 4px solid #e8513d;
+        outline-offset: 4px;
+      }
+      .read {
+        max-width: 30rem;
+        text-align: right;
+      }
+      .read span {
+        display: block;
+        color: #56606a;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .read p {
+        margin: 0.5rem 0 0;
+        font:
+          400 clamp(1.2rem, 2vw, 2rem)/1 Georgia,
+          serif;
+        letter-spacing: -0.05em;
+      }
+      @media (max-width: 700px) {
+        .spot {
+          grid-template-columns: 1fr;
+        }
+        .spot::before {
+          transform: translate(25%, 20%);
+        }
+        .hero {
+          min-height: 23rem;
+        }
+        .spot__intro small {
+          margin-top: 1rem;
+        }
+        .legend {
+          grid-template-columns: 1fr;
+        }
+        .read {
+          text-align: left;
+        }
+        .stage__top span:last-child {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <header class="stage__top">
+        <span>Palco de projetos / seleção cromática</span><b>04 atos</b
+        ><span>Escolha uma cor abaixo</span>
+      </header>
+      <section class="spot">
+        <div class="spot__intro">
+          <p class="kind">Produto / 2026</p>
+          <h1><b>Regula</b> em cena.</h1>
+          <small class="description"
+            >Um sistema que organiza regras e decisões para que cada passo possa ser compreendido
+            com confiança.</small
+          >
+        </div>
+        <div class="hero">
+          <figure class="hero__frame">
+            <img src="../../public/mockups/regula/desktop-01.png" alt="Prévia do projeto Regula" />
+          </figure>
+          <span class="hero__label">Ato 01 / interface</span>
+        </div>
+      </section>
+      <footer class="legend">
+        <div class="swatches">
+          <button
+            class="swatch"
+            style="--swatch: #bde3ff"
+            aria-pressed="true"
+            data-name="Regula"
+            data-kind="Produto / 2026"
+            data-copy="Um sistema que organiza regras e decisões para que cada passo possa ser compreendido com confiança."
+            data-image="../../public/mockups/regula/desktop-01.png"
+          ></button
+          ><button
+            class="swatch"
+            style="--swatch: #ffd0b2"
+            aria-pressed="false"
+            data-name="eFood"
+            data-kind="Comércio / 2025"
+            data-copy="Uma experiência de escolha que mantém descoberta, pedido e acompanhamento no mesmo cenário."
+            data-image="../../public/mockups/e-food/desktop-01.png"
+          ></button
+          ><button
+            class="swatch"
+            style="--swatch: #d8ed72"
+            aria-pressed="false"
+            data-name="E‑Play"
+            data-kind="Cultura / 2025"
+            data-copy="Um catálogo de jogos que usa cor, ritmo e hierarquia para convidar a entrar em sessão."
+            data-image="../../public/mockups/e-play/desktop-01.png"
+          ></button
+          ><button
+            class="swatch"
+            style="--swatch: #ecd2f0"
+            aria-pressed="false"
+            data-name="To‑Do"
+            data-kind="Utilitário / 2024"
+            data-copy="Uma ferramenta diária onde tarefas e prioridades fazem sentido em um único olhar."
+            data-image="../../public/mockups/to-do/desktop-01.png"
+          ></button>
+        </div>
+        <div class="read">
+          <span>Indicação de uso</span>
+          <p>Escolha uma cor para trocar o ato e sua leitura.</p>
+        </div>
+      </footer>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const picks = [...document.querySelectorAll('.swatch')],
+        stage = document.querySelector('.stage'),
+        kind = document.querySelector('.kind'),
+        heading = document.querySelector('.spot h1'),
+        description = document.querySelector('.description'),
+        image = document.querySelector('.hero img'),
+        label = document.querySelector('.hero__label'),
+        reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.stage__top', '.spot__intro', '.hero', '.legend'], {
+        autoAlpha: 0,
+        y: 22,
+        stagger: 0.1,
+        duration: reduced ? 0 : 0.75,
+        ease: 'power3.out'
+      });
+      picks.forEach(
+        (pick, index) =>
+          (pick.onclick = () => {
+            picks.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+            pick.setAttribute('aria-pressed', 'true');
+            const tone = getComputedStyle(pick).getPropertyValue('--swatch');
+            gsap
+              .timeline({ defaults: { duration: reduced ? 0 : 0.45, ease: 'power3.inOut' } })
+              .to(['.spot__intro', '.hero__frame'], { autoAlpha: 0, y: 12 })
+              .call(() => {
+                stage.style.setProperty('--tone', tone);
+                kind.textContent = pick.dataset.kind;
+                heading.innerHTML = `<b>${pick.dataset.name}</b> em cena.`;
+                description.textContent = pick.dataset.copy;
+                image.src = pick.dataset.image;
+                image.alt = `Prévia do projeto ${pick.dataset.name}`;
+                label.textContent = `Ato 0${index + 1} / interface`;
+              })
+              .to(['.spot__intro', '.hero__frame'], { autoAlpha: 1, y: 0 });
+          })
+      );
+    </script>
+  </body>
+</html>

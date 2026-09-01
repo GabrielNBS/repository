@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Projetos — Chromatic Report</title>
+    <style>
+      :root {
+        --ink: #1c192c;
+        --paper: #fbf8f0;
+        --line: #1c192c30;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .report {
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 3rem);
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 1.2rem;
+      }
+      .report__top {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: start;
+      }
+      .report__top h1 {
+        max-width: 9ch;
+        margin: 0;
+        font:
+          400 clamp(3.3rem, 7vw, 8rem)/0.74 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .report__top h1 b {
+        font-family: Arial, sans-serif;
+        font-weight: 900;
+      }
+      .report__code {
+        margin: 0.5rem 0 0;
+        color: #7d7890;
+        font:
+          700 0.6rem/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-align: right;
+        text-transform: uppercase;
+      }
+      .brief {
+        display: grid;
+        grid-template-columns: 1.25fr repeat(3, 0.55fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+      }
+      .brief div {
+        min-height: 5rem;
+        padding: 1rem;
+        background: var(--paper);
+      }
+      .brief span {
+        display: block;
+        color: #777282;
+        font:
+          700 0.55rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .brief b {
+        display: block;
+        margin-top: 0.6rem;
+        font-size: 0.78rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        min-height: 0;
+        background: var(--ink);
+        border: 1px solid var(--ink);
+      }
+      .quad {
+        position: relative;
+        display: flex;
+        min-height: 17rem;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: clamp(1rem, 2.5vw, 2.4rem);
+        border: 0;
+        background: var(--tone);
+        color: var(--ink);
+        cursor: pointer;
+        text-align: left;
+      }
+      .quad__index {
+        font:
+          700 0.6rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+      }
+      .quad h2 {
+        max-width: 6ch;
+        margin: auto 0;
+        font:
+          900 clamp(3.5rem, 7vw, 7rem)/0.74 Arial,
+          sans-serif;
+        letter-spacing: -0.12em;
+      }
+      .quad__measure {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .quad__measure i {
+        width: 48%;
+        height: 0.35rem;
+        background: var(--ink);
+        transform-origin: left;
+      }
+      .quad[aria-pressed='true']::after {
+        position: absolute;
+        inset: 0;
+        border: 6px solid var(--ink);
+        content: '';
+        pointer-events: none;
+      }
+      .quad:focus-visible {
+        outline: 4px solid #e74c3c;
+        outline-offset: -4px;
+      }
+      .note {
+        position: fixed;
+        z-index: 6;
+        right: clamp(1rem, 3vw, 3rem);
+        bottom: clamp(1rem, 3vw, 3rem);
+        width: min(29rem, calc(100% - 2rem));
+        padding: 1.2rem;
+        background: var(--ink);
+        color: var(--paper);
+        box-shadow: 0.7rem 0.7rem 0 #e74c3c;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .note__tag {
+        margin: 0;
+        color: #ffd56f;
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .note p:not(.note__tag) {
+        margin: 1rem 0 0;
+        font:
+          400 1.28rem/1.08 Georgia,
+          serif;
+      }
+      .note button {
+        margin-top: 1rem;
+        border: 0;
+        background: #ffd56f;
+        padding: 0.65rem 0.75rem;
+        color: var(--ink);
+        font:
+          700 0.58rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      @media (max-width: 680px) {
+        .report__top {
+          grid-template-columns: 1fr;
+        }
+        .report__code {
+          text-align: left;
+        }
+        .brief {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .quad {
+          min-height: 14rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="report">
+      <header class="report__top">
+        <h1>Relatório de <b>cor</b> e função.</h1>
+        <p class="report__code">Coleção anual<br />4 sistemas em produção</p>
+      </header>
+      <section class="brief">
+        <div><span>Leitura</span><b>Clique em um quadrante para abrir a observação.</b></div>
+        <div><span>Escopo</span><b>Produto</b></div>
+        <div><span>Matéria</span><b>Interface</b></div>
+        <div><span>Recorte</span><b>2024—26</b></div>
+      </section>
+      <section class="grid">
+        <button
+          class="quad"
+          style="--tone: #c5e1ff"
+          aria-pressed="false"
+          data-kind="01 / produto"
+          data-copy="Regula: orientação para processos que precisam ser auditáveis e ainda assim fáceis de operar."
+        >
+          <span class="quad__index">Q1 / azul de processo</span>
+          <h2>Regula</h2>
+          <span class="quad__measure"><i></i>2026</span></button
+        ><button
+          class="quad"
+          style="--tone: #ffd1b4"
+          aria-pressed="false"
+          data-kind="02 / comércio"
+          data-copy="eFood: uma sequência de escolha que permanece expressiva mesmo quando precisa ser rápida."
+        >
+          <span class="quad__index">Q2 / pêssego de escolha</span>
+          <h2>eFood</h2>
+          <span class="quad__measure"><i></i>2025</span></button
+        ><button
+          class="quad"
+          style="--tone: #d7ec71"
+          aria-pressed="false"
+          data-kind="03 / cultura"
+          data-copy="E-Play: catálogo tratado como ambiente de descoberta, e não apenas como inventário."
+        >
+          <span class="quad__index">Q3 / lima de jogo</span>
+          <h2>E‑Play</h2>
+          <span class="quad__measure"><i></i>2025</span></button
+        ><button
+          class="quad"
+          style="--tone: #ecd3ee"
+          aria-pressed="false"
+          data-kind="04 / rotina"
+          data-copy="To-Do: uma ferramenta de repetição diária desenhada para se explicar por si mesma."
+        >
+          <span class="quad__index">Q4 / lilás de rotina</span>
+          <h2>To‑Do</h2>
+          <span class="quad__measure"><i></i>2024</span>
+        </button>
+      </section>
+    </main>
+    <aside class="note" aria-live="polite">
+      <p class="note__tag"></p>
+      <p class="note__copy"></p>
+      <button>Fechar observação</button>
+    </aside>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const boxes = [...document.querySelectorAll('.quad')],
+        note = document.querySelector('.note'),
+        tag = document.querySelector('.note__tag'),
+        copy = document.querySelector('.note__copy'),
+        close = document.querySelector('.note button'),
+        reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      gsap.from(['.report__top', '.brief', '.quad'], {
+        autoAlpha: 0,
+        y: 20,
+        stagger: 0.08,
+        duration: reduced ? 0 : 0.7,
+        ease: 'power3.out'
+      });
+      boxes.forEach(
+        (box) =>
+          (box.onclick = () => {
+            boxes.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+            box.setAttribute('aria-pressed', 'true');
+            tag.textContent = box.dataset.kind;
+            copy.textContent = box.dataset.copy;
+            gsap.to(note, { autoAlpha: 1, y: 0, duration: reduced ? 0 : 0.4, ease: 'power3.out' });
+          })
+      );
+      close.onclick = () => {
+        gsap.to(note, { autoAlpha: 0, y: 15, duration: reduced ? 0 : 0.3 });
+        boxes.forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      };
+    </script>
+  </body>
+</html>

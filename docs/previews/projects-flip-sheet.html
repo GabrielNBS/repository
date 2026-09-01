@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Laboratório isolado para testar a transição FLIP dos projetos para um sheet de detalhes." />
+    <title>Projects / FLIP Sheet Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #f4eee5;
+        --muted: #9c9a96;
+        --paper: #121313;
+        --paper-soft: #191b1b;
+        --line: rgba(244, 238, 229, 0.13);
+        --orange: #fa754b;
+        --lime: #ccf06d;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--paper); scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 0%, rgba(250, 117, 75, 0.12), transparent 28rem),
+          radial-gradient(circle at 100% 70%, rgba(204, 240, 109, 0.06), transparent 32rem),
+          var(--paper);
+        font-family: "Manrope", system-ui, sans-serif;
+      }
+
+      body.is-sheet-open { overflow: hidden; }
+
+      button { font: inherit; }
+
+      .lab-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        width: min(1180px, calc(100% - 3rem));
+        margin: 0 auto;
+        padding: 4rem 0 3rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow,
+      .card__number,
+      .sheet__eyebrow,
+      .status,
+      .card__arrow,
+      .lab-control,
+      .sheet__close,
+      .sheet__meta-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow,
+      .sheet__eyebrow,
+      .sheet__meta-label { color: var(--orange); }
+
+      h1, h2, p { margin: 0; }
+
+      h1 {
+        max-width: 680px;
+        margin-top: 0.9rem;
+        font-size: clamp(2.25rem, 6vw, 5.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.075em;
+        font-weight: 700;
+      }
+
+      .lab-intro {
+        max-width: 300px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.6;
+      }
+
+      .lab-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.2rem;
+      }
+
+      .lab-control {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: var(--muted);
+        cursor: pointer;
+      }
+
+      .lab-control input { accent-color: var(--orange); }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: var(--lime);
+        white-space: nowrap;
+      }
+
+      .status::before {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background: currentColor;
+        content: "";
+      }
+
+      .projects-lab {
+        width: min(1180px, calc(100% - 3rem));
+        margin: 0 auto;
+        padding: 3rem 0 8rem;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .project-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 440px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.17);
+        border-radius: 1.35rem;
+        color: var(--ink);
+        background: var(--card-bg, #2d2828);
+        text-align: left;
+        isolation: isolate;
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      .project-card:hover { border-color: rgba(255, 255, 255, 0.38); }
+
+      .card__trigger:focus-visible,
+      .sheet__close:focus-visible,
+      .sheet__related-button:focus-visible,
+      .lab-reset:focus-visible {
+        outline: 2px solid var(--lime);
+        outline-offset: 4px;
+      }
+
+      .card__top,
+      .card__copy,
+      .card__footer,
+      .card__body { position: relative; z-index: 2; }
+
+      .card__trigger {
+        position: absolute;
+        z-index: 6;
+        inset: 0;
+        width: 100%;
+        border: 0;
+        color: transparent;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 1.25rem;
+      }
+
+      .card__number { color: rgba(255, 255, 255, 0.66); }
+
+      .card__tag {
+        padding: 0.35rem 0.55rem;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 99px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.63rem;
+      }
+
+      .card__media {
+        position: relative;
+        height: 220px;
+        margin: 0 0.75rem;
+        overflow: hidden;
+        border-radius: 0.9rem;
+        background: rgba(0, 0, 0, 0.24);
+      }
+
+      .card__media::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.25));
+        content: "";
+        pointer-events: none;
+      }
+
+      .card__media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        filter: saturate(0.88);
+        transition: transform 0.8s var(--ease), filter 0.8s var(--ease);
+      }
+
+      .project-card:hover .card__media img {
+        filter: saturate(1.08);
+        transform: scale(1.045);
+      }
+
+      .card__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .card__copy { padding: 1.2rem 1.25rem 0; }
+
+      .card__copy h2 {
+        max-width: 16rem;
+        font-size: clamp(1.55rem, 2.4vw, 2.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+      }
+
+      .card__copy p {
+        max-width: 22rem;
+        margin-top: 0.75rem;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+
+      .card__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: auto;
+        padding: 1.15rem 1.25rem 1.25rem;
+      }
+
+      .card__stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+      .card__stack span {
+        padding: 0.28rem 0.45rem;
+        border-radius: 0.3rem;
+        color: rgba(255, 255, 255, 0.74);
+        background: rgba(0, 0, 0, 0.18);
+        font-size: 0.62rem;
+      }
+
+      .card__arrow {
+        color: var(--lime);
+        white-space: nowrap;
+      }
+
+      .card__detail { display: none; }
+
+      .card-placeholder {
+        display: block;
+        min-height: 440px;
+        border: 1px dashed rgba(204, 240, 109, 0.18);
+        border-radius: 1.35rem;
+      }
+
+      .sheet {
+        position: fixed;
+        z-index: 20;
+        inset: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .sheet.is-open,
+      .sheet.is-closing { visibility: visible; }
+
+      .sheet.is-open { pointer-events: auto; }
+
+      .sheet__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 5, 5, 0.82);
+        opacity: 0;
+      }
+
+      .sheet__panel {
+        position: absolute;
+        inset: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        color: var(--ink);
+        opacity: 0;
+      }
+
+      .sheet.is-open .sheet__backdrop { opacity: 1; }
+      .sheet.is-open .sheet__panel { opacity: 1; }
+
+      .sheet.is-closing .sheet__backdrop,
+      .sheet.is-closing .sheet__panel { opacity: 0; pointer-events: none; }
+
+      .sheet__header {
+        position: absolute;
+        z-index: 8;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.2rem 1.35rem;
+        pointer-events: none;
+      }
+
+      .sheet__close,
+      .lab-reset {
+        border: 0;
+        color: inherit;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .sheet__close { color: rgba(255, 255, 255, 0.72); pointer-events: auto; }
+      .sheet__close:hover { color: #fff; }
+
+      .sheet-card-slot {
+        width: 100%;
+        height: 100%;
+      }
+
+      .sheet-card-slot .project-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1.16fr) minmax(21rem, 0.84fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+        border-color: rgba(255, 255, 255, 0.26);
+        border-radius: 0.55rem;
+        box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.35);
+        cursor: default;
+      }
+
+      .sheet-card-slot .card__trigger { display: none; }
+
+      .sheet-card-slot .card__top {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        padding: 4.2rem 2rem 1.35rem;
+      }
+
+      .sheet-card-slot .card__media {
+        grid-column: 1;
+        grid-row: 2;
+        height: auto;
+        min-height: 0;
+        margin: 0 0 2rem 2rem;
+        border-radius: 0.45rem;
+      }
+
+      .sheet-card-slot .card__media::after {
+        background: linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.32));
+      }
+
+      .sheet-card-slot .card__body {
+        grid-column: 2;
+        grid-row: 2;
+        min-height: 0;
+        padding: 0 2rem 2rem;
+        overflow: auto;
+      }
+
+      .sheet-card-slot .card__copy { padding: 0; }
+
+      .sheet-card-slot .card__copy h2 {
+        max-width: none;
+        font-size: clamp(2.5rem, 5.5vw, 5.7rem);
+        line-height: 0.86;
+        letter-spacing: -0.085em;
+      }
+
+      .sheet-card-slot .card__copy p {
+        max-width: 32rem;
+        margin-top: 1.15rem;
+        font-size: 0.96rem;
+        line-height: 1.62;
+      }
+
+      .sheet-card-slot .card__detail {
+        display: block;
+        padding-top: 1.65rem;
+      }
+
+      .sheet-card-slot .card__footer {
+        align-items: flex-start;
+        margin-top: 1.5rem;
+        padding: 1.25rem 0 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .sheet__summary {
+        max-width: 38rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+
+      .sheet__meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .sheet__meta-value {
+        display: block;
+        margin-top: 0.35rem;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.78rem;
+        line-height: 1.45;
+      }
+
+      .sheet__section-label {
+        display: block;
+        margin-top: 2rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .sheet__highlights {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 0.7rem;
+      }
+
+      .sheet__highlight {
+        padding: 0.55rem 0.7rem;
+        border-radius: 0.5rem;
+        color: #18200b;
+        background: var(--lime);
+        font-size: 0.75rem;
+      }
+
+      .sheet__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .sheet__action {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.7rem;
+        padding: 0.7rem 0.95rem;
+        border-radius: 99px;
+        color: #18200b;
+        background: var(--lime);
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .sheet__action:hover { color: var(--lime); background: rgba(0, 0, 0, 0.4); }
+
+      .sheet__related {
+        margin-top: auto;
+        padding: 1.6rem 0 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .sheet__related-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.7rem;
+      }
+
+      .sheet__related-button {
+        padding: 0.58rem 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 99px;
+        color: rgba(255, 255, 255, 0.7);
+        background: transparent;
+        cursor: pointer;
+        font-size: 0.72rem;
+      }
+
+      .sheet__related-button:hover,
+      .sheet__related-button.is-current { color: var(--lime); border-color: var(--lime); }
+
+      .lab-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        width: min(1180px, calc(100% - 3rem));
+        margin: 0 auto;
+        padding: 1rem 0 2rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .lab-reset { padding: 0; color: var(--muted); }
+      .lab-reset:hover { color: var(--ink); }
+
+      @media (max-width: 960px) {
+        .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 640px) {
+        .lab-header,
+        .projects-lab,
+        .lab-footer { width: min(100% - 2rem, 1180px); }
+
+        .lab-header {
+          display: block;
+          padding-top: 2.5rem;
+        }
+
+        .lab-intro { margin-top: 1.5rem; }
+        .projects-lab { padding-top: 2rem; }
+        .projects-grid { grid-template-columns: 1fr; }
+        .project-card,
+        .card-placeholder { min-height: 420px; }
+        .sheet__panel { inset: 0.75rem; }
+        .sheet__header,
+        .sheet__related { padding-left: 1rem; padding-right: 1rem; }
+        .sheet__header { padding: 1rem; }
+        .sheet-card-slot .project-card {
+          display: flex;
+          min-height: calc(100svh - 1.5rem);
+          height: auto;
+          overflow: auto;
+        }
+        .sheet-card-slot .card__top { padding: 4rem 1rem 1rem; }
+        .sheet-card-slot .card__media { height: min(34vh, 18rem); margin: 0 1rem; flex: 0 0 auto; }
+        .sheet-card-slot .card__body { display: flex; min-height: auto; padding: 1.5rem 1rem 2rem; overflow: visible; }
+        .sheet-card-slot .card__copy h2 { font-size: clamp(3rem, 15vw, 5rem); }
+        .sheet-card-slot .card__detail { padding-top: 1.35rem; }
+        .sheet-card-slot .card__footer { padding-top: 1rem; }
+        .sheet__meta { grid-template-columns: 1fr 1fr; }
+        .lab-footer { display: block; }
+        .lab-reset { margin-top: 0.8rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="lab-header">
+      <div>
+        <span class="eyebrow">Motion lab / 01</span>
+        <h1>Cards que viram contexto.</h1>
+        <div class="lab-controls">
+          <span class="status" id="status">grid / ready</span>
+          <label class="lab-control">
+            <input id="reduce-motion" type="checkbox" />
+            reduzir movimento
+          </label>
+        </div>
+      </div>
+      <p class="lab-intro">
+        Protótipo isolado da transição FLIP: a mesma superfície do card viaja para um sheet de detalhes e retorna ao lugar original.
+      </p>
+    </header>
+
+    <main class="projects-lab">
+      <section aria-labelledby="projects-title">
+        <div class="projects-grid" id="projects-grid"></div>
+      </section>
+    </main>
+
+    <footer class="lab-footer">
+      <span>Teste: clique, pressione ESC, troque de projeto e redimensione a janela.</span>
+      <button class="lab-reset" id="reset" type="button">resetar laboratório</button>
+    </footer>
+
+    <aside class="sheet" id="project-sheet" aria-hidden="true" aria-label="Detalhes do projeto" role="dialog">
+      <div class="sheet__backdrop" data-close-sheet></div>
+      <div class="sheet__panel" aria-live="polite">
+        <div class="sheet__header">
+          <span class="sheet__eyebrow">Project detail / shared surface</span>
+          <button class="sheet__close" id="close-sheet" type="button">fechar <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="sheet-card-slot" id="sheet-card-slot"></div>
+      </div>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
+    <script>
+      (() => {
+        "use strict";
+
+        gsap.registerPlugin(Flip);
+
+        const projects = [
+          {
+            slug: "regula",
+            name: "Regula",
+            title: "Dashboard e PDV",
+            summary: "Dashboard operacional para estoque, caixa, preços e decisões de rotina.",
+            image: "../../public/mockups/regula/desktop-01.png",
+            bg: "#172234",
+            accent: "#94a3b8",
+            year: "2026",
+            role: "Front-end / UI architecture",
+            stack: ["Next.js", "TypeScript", "Radix UI"],
+            highlights: ["Fluxo de PDV", "Controle financeiro", "Formulários tipados"],
+            description: "Uma interface full-stack pensada para reduzir a fricção da operação comercial sem esconder a complexidade do negócio.",
+            problem: "Unificar estoque, vendas, preços e caixa em uma experiência clara para a operação diária."
+          },
+          {
+            slug: "e-food",
+            name: "E-Food",
+            title: "Delivery responsivo",
+            summary: "Catálogo, carrinho e checkout organizados em uma jornada direta.",
+            image: "../../public/mockups/e-food/desktop-01.png",
+            bg: "#4a1618",
+            accent: "#f87171",
+            year: "2025",
+            role: "Front-end / purchase flow",
+            stack: ["React", "Redux", "Styled Components"],
+            highlights: ["Carrinho global", "Checkout validado", "Layout responsivo"],
+            description: "Uma experiência de compra responsiva com foco em ritmo, clareza e feedback para cada decisão do usuário.",
+            problem: "Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiável."
+          },
+          {
+            slug: "e-play",
+            name: "E-Play",
+            title: "Streaming de jogos",
+            summary: "Vitrine visual para jogos com filtros e navegação imersiva.",
+            image: "../../public/mockups/e-play/desktop-01.png",
+            bg: "#071b2b",
+            accent: "#38bdf8",
+            year: "2025",
+            role: "Front-end / visual system",
+            stack: ["React", "TypeScript", "Redux"],
+            highlights: ["Vitrine imersiva", "Estado global", "Mobile first"],
+            description: "Um exercício de composição visual que equilibra densidade de conteúdo, descoberta e navegação em diferentes telas.",
+            problem: "Apresentar um catálogo denso sem perder direção, hierarquia e impacto visual."
+          },
+          {
+            slug: "to-do",
+            name: "To-Do",
+            title: "Gestão de tarefas",
+            summary: "Produtividade simples com CRUD, filtros e estados previsíveis.",
+            image: "../../public/mockups/to-do/desktop-01.png",
+            bg: "#292724",
+            accent: "#d6ccc2",
+            year: "2024",
+            role: "Front-end / interaction",
+            stack: ["JavaScript", "Redux", "CSS"],
+            highlights: ["CRUD completo", "Filtros", "Feedback visual"],
+            description: "Uma interface de produtividade com foco no essencial: criar, organizar e concluir sem interromper o fluxo.",
+            problem: "Manter tarefas organizadas com ações rápidas e estados visuais claros."
+          },
+          {
+            slug: "spider-verse",
+            name: "Spider-Verse",
+            title: "Landing promocional",
+            summary: "Narrativa visual com composição temática e transições leves.",
+            image: "../../public/mockups/spider-verse/desktop-01.png",
+            bg: "#3a0e16",
+            accent: "#ef4444",
+            year: "2024",
+            role: "Front-end / visual motion",
+            stack: ["HTML", "Sass", "JavaScript"],
+            highlights: ["Sass modular", "Transições", "Composição visual"],
+            description: "Uma landing page promocional que transforma um universo reconhecível em ritmo de navegação e atmosfera.",
+            problem: "Traduzir uma linguagem visual forte em uma página responsiva e navegável."
+          },
+          {
+            slug: "clone-disney",
+            name: "Clone Disney+",
+            title: "Interface de streaming",
+            summary: "Estudo de navegação, carrosséis e composição responsiva.",
+            image: "../../public/mockups/clone-disney/desktop-01.png",
+            bg: "#081735",
+            accent: "#60a5fa",
+            year: "2024",
+            role: "Front-end / responsive UI",
+            stack: ["HTML", "Sass", "JavaScript"],
+            highlights: ["Streaming UI", "Carrosséis", "Responsividade"],
+            description: "Um laboratório de composição para praticar estrutura de streaming, hierarquia de conteúdo e comportamento responsivo.",
+            problem: "Reproduzir uma experiência reconhecível mantendo uma estrutura front-end limpa."
+          }
+        ];
+
+        const grid = document.querySelector("#projects-grid");
+        const sheet = document.querySelector("#project-sheet");
+        const sheetPanel = document.querySelector(".sheet__panel");
+        const sheetSlot = document.querySelector("#sheet-card-slot");
+        const closeButton = document.querySelector("#close-sheet");
+        const status = document.querySelector("#status");
+        const resetButton = document.querySelector("#reset");
+        const reduceMotionInput = document.querySelector("#reduce-motion");
+        const backgroundRegions = [
+          document.querySelector(".lab-header"),
+          document.querySelector(".projects-lab"),
+          document.querySelector(".lab-footer")
+        ];
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        let activeCard = null;
+        let activeProject = null;
+        let placeholder = null;
+        let lastFocused = null;
+        let isAnimating = false;
+        let queuedProject = null;
+
+        const shouldReduceMotion = () => prefersReducedMotion.matches || reduceMotionInput.checked;
+
+        const setStatus = (label) => {
+          status.textContent = label;
+        };
+
+        const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[character]);
+
+        const cardTemplate = (project, index) => `
+          <article class="project-card" data-project-card data-slug="${project.slug}" style="--card-bg: ${project.bg}; --card-accent: ${project.accent};">
+            <button class="card__trigger" type="button" aria-haspopup="dialog" aria-label="Abrir detalhes de ${escapeHtml(project.name)}"></button>
+            <div class="card__top" data-flip-part>
+              <span class="card__number">0${index + 1} / 0${projects.length}</span>
+              <span class="card__tag">${project.year}</span>
+            </div>
+            <div class="card__media" data-flip-part>
+              <img src="${project.image}" alt="Preview do projeto ${escapeHtml(project.name)}" />
+            </div>
+            <div class="card__body" data-flip-part>
+              <div class="card__copy" data-flip-part>
+                <h2>${escapeHtml(project.name)}</h2>
+                <p>${escapeHtml(project.title)} — ${escapeHtml(project.summary)}</p>
+              </div>
+              <div class="card__detail" aria-hidden="true">
+                <p class="sheet__summary" data-sheet-reveal>${escapeHtml(project.description)}</p>
+                <div class="sheet__meta" data-sheet-reveal>
+                  <div><span class="sheet__meta-label">papel</span><span class="sheet__meta-value">${escapeHtml(project.role)}</span></div>
+                  <div><span class="sheet__meta-label">ano</span><span class="sheet__meta-value">${escapeHtml(project.year)}</span></div>
+                  <div><span class="sheet__meta-label">problema</span><span class="sheet__meta-value">${escapeHtml(project.problem)}</span></div>
+                </div>
+                <span class="sheet__section-label" data-sheet-reveal>pontos do projeto</span>
+                <div class="sheet__highlights" data-sheet-reveal>${project.highlights.map((item) => `<span class="sheet__highlight">${escapeHtml(item)}</span>`).join("")}</div>
+                <div class="sheet__actions" data-sheet-reveal>
+                  <a class="sheet__action" href="/projetos/${project.slug}">ver projeto ↗</a>
+                  <a class="sheet__action" href="${project.slug === "regula" ? "https://regula-mocha.vercel.app/" : "#"}" target="_blank" rel="noreferrer">abrir demo ↗</a>
+                </div>
+                <div class="sheet__related" data-sheet-reveal>
+                  <span class="sheet__section-label">continuar explorando</span>
+                  <div class="sheet__related-list">
+                    ${projects.map((item) => `<button class="sheet__related-button${item.slug === project.slug ? " is-current" : ""}" type="button" data-related-project="${item.slug}"${item.slug === project.slug ? " aria-current=\"true\"" : ""}>${escapeHtml(item.name)}</button>`).join("")}
+                  </div>
+                </div>
+              </div>
+              <div class="card__footer" data-flip-part>
+                <div class="card__stack">${project.stack.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+                <span class="card__arrow" aria-hidden="true">abrir ↗</span>
+              </div>
+            </div>
+          </article>
+        `;
+
+        const renderGrid = () => {
+          grid.innerHTML = projects.map(cardTemplate).join("");
+        };
+
+        const getCard = (slug) => grid.querySelector(`[data-slug="${slug}"]`);
+
+        const getFlipTargets = (card) => [card, ...card.querySelectorAll("[data-flip-part]")];
+
+        const setCardMode = (card, expanded) => {
+          card.classList.toggle("is-sheet", expanded);
+          const trigger = card.querySelector(".card__trigger");
+          const detail = card.querySelector(".card__detail");
+          trigger.tabIndex = expanded ? -1 : 0;
+          trigger.setAttribute("aria-hidden", String(expanded));
+          detail.setAttribute("aria-hidden", String(!expanded));
+        };
+
+        const completeOpen = () => {
+          isAnimating = false;
+          closeButton.focus();
+          setStatus(`${activeProject.name.toLowerCase()} / sheet open`);
+        };
+
+        const openProject = (slug) => {
+          if (isAnimating || activeCard) return;
+
+          const project = projects.find((item) => item.slug === slug);
+          const card = getCard(slug);
+          if (!project || !card) return;
+
+          isAnimating = true;
+          activeProject = project;
+          activeCard = card;
+          lastFocused = document.activeElement;
+          placeholder = document.createElement("span");
+          placeholder.className = "card-placeholder";
+          placeholder.setAttribute("aria-hidden", "true");
+          grid.insertBefore(placeholder, card);
+
+          const flipState = Flip.getState(getFlipTargets(card), { props: "borderRadius" });
+          document.body.classList.add("is-sheet-open");
+          sheet.classList.remove("is-closing");
+          sheet.classList.add("is-open");
+          sheet.setAttribute("aria-hidden", "false");
+          backgroundRegions.forEach((region) => { region.inert = true; });
+          setCardMode(card, true);
+          sheetSlot.appendChild(card);
+
+          setStatus(`${project.name.toLowerCase()} / opening`);
+
+          requestAnimationFrame(() => {
+            if (shouldReduceMotion()) {
+              gsap.set([sheet.querySelector(".sheet__backdrop"), sheetPanel], { opacity: 1 });
+              gsap.set(card.querySelectorAll("[data-sheet-reveal]"), { autoAlpha: 1, y: 0 });
+              completeOpen();
+              return;
+            }
+
+            const intro = gsap.timeline({ onComplete: completeOpen });
+            intro.fromTo(sheet.querySelector(".sheet__backdrop"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+            intro.fromTo(sheetPanel, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+            intro.add(Flip.from(flipState, {
+              absolute: true,
+              nested: true,
+              scale: true,
+              duration: 1.1,
+              ease: "power4.inOut"
+            }), 0);
+            intro.fromTo(card.querySelector(".card__detail"), { autoAlpha: 0, y: 42 }, { autoAlpha: 1, y: 0, duration: 0.72, ease: "power4.out" }, 0.48);
+            intro.fromTo(card.querySelectorAll("[data-sheet-reveal]"), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.58, stagger: 0.07, ease: "power3.out" }, 0.62);
+            intro.fromTo(card.querySelector(".card__media img"), { scale: 1.1, filter: "saturate(0.72)" }, { scale: 1, filter: "saturate(1.05)", duration: 1.1, ease: "power3.out" }, 0);
+          });
+        };
+
+        const finishClose = () => {
+          const returnFocus = lastFocused;
+          const next = queuedProject;
+          queuedProject = null;
+          activeCard = null;
+          activeProject = null;
+          placeholder = null;
+          sheet.classList.remove("is-closing");
+          sheet.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("is-sheet-open");
+          backgroundRegions.forEach((region) => { region.inert = false; });
+          isAnimating = false;
+          setStatus("grid / ready");
+
+          if (next) {
+            window.setTimeout(() => openProject(next), 40);
+          } else if (returnFocus && typeof returnFocus.focus === "function") {
+            returnFocus.focus();
+          }
+        };
+
+        const closeProject = () => {
+          if (isAnimating || !activeCard || !placeholder) return;
+
+          isAnimating = true;
+          const card = activeCard;
+          const flipState = Flip.getState(getFlipTargets(card), { props: "borderRadius" });
+          const revealTargets = card.querySelectorAll("[data-sheet-reveal]");
+          gsap.set(revealTargets, { autoAlpha: 0, y: 18 });
+          gsap.set(card.querySelector(".card__detail"), { autoAlpha: 0, y: 30 });
+          setCardMode(card, false);
+          placeholder.replaceWith(card);
+          sheet.classList.remove("is-open");
+          sheet.classList.add("is-closing");
+          setStatus(`${activeProject.name.toLowerCase()} / returning`);
+
+          if (shouldReduceMotion()) {
+            finishClose();
+            return;
+          }
+
+          gsap.to([sheet.querySelector(".sheet__backdrop"), sheetPanel], { opacity: 0, duration: 0.42, ease: "power2.in" });
+          Flip.from(flipState, {
+            absolute: true,
+            nested: true,
+            scale: true,
+            duration: 0.82,
+            ease: "power3.inOut",
+            onComplete: finishClose
+          });
+        };
+
+        const switchProject = (slug) => {
+          if (!activeProject || slug === activeProject.slug || isAnimating) return;
+          queuedProject = slug;
+          closeProject();
+        };
+
+        renderGrid();
+
+        grid.addEventListener("click", (event) => {
+          const card = event.target.closest("[data-project-card]");
+          if (card) openProject(card.dataset.slug);
+        });
+
+        sheet.addEventListener("click", (event) => {
+          if (event.target.matches("[data-close-sheet]") || event.target.closest("#close-sheet")) {
+            closeProject();
+            return;
+          }
+
+          const related = event.target.closest("[data-related-project]");
+          if (related) switchProject(related.dataset.relatedProject);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeProject();
+        });
+
+        resetButton.addEventListener("click", () => {
+          if (isAnimating) return;
+          if (activeCard) {
+            closeProject();
+            return;
+          }
+          renderGrid();
+          setStatus("grid / ready");
+        });
+
+        prefersReducedMotion.addEventListener?.("change", () => {
+          setStatus(shouldReduceMotion() ? "grid / reduced motion" : "grid / ready");
+        });
+      })();
+    </script>
+  </body>
+</html>

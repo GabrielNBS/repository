@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos — Orbit Gallery</title>
+    <style>
+      :root {
+        --sky: #b6d5f2;
+        --navy: #142845;
+        --cream: #fffbe9;
+        --red: #ea4e3d;
+        --orbit: rgba(20, 40, 69, 0.27);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--sky);
+        color: var(--navy);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .gallery {
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 3rem);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font:
+          700 0.62rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .bar b {
+        color: var(--red);
+      }
+      .orbit-space {
+        position: relative;
+        display: grid;
+        min-height: 0;
+        place-items: center;
+        overflow: hidden;
+      }
+      .orbit-space::before,
+      .orbit-space::after {
+        position: absolute;
+        border: 1px solid var(--orbit);
+        border-radius: 50%;
+        content: '';
+      }
+      .orbit-space::before {
+        width: min(76vw, 52rem);
+        aspect-ratio: 1;
+      }
+      .orbit-space::after {
+        width: min(48vw, 34rem);
+        aspect-ratio: 1;
+        border-style: dashed;
+      }
+      .orbit {
+        position: absolute;
+        width: min(76vw, 52rem);
+        aspect-ratio: 1;
+        transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .planet {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: clamp(4.6rem, 9vw, 7.5rem);
+        aspect-ratio: 1;
+        border: 1px solid var(--navy);
+        border-radius: 50%;
+        background: var(--cream);
+        color: var(--navy);
+        cursor: pointer;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(min(-38vw, -26rem)))
+          rotate(calc(var(--angle) * -1));
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .planet span {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+        font:
+          700 0.66rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .planet[aria-pressed='true'] {
+        background: var(--red);
+        color: var(--cream);
+        box-shadow: 0 0 0 0.5rem rgb(234 78 61/0.16);
+      }
+      .planet:focus-visible {
+        outline: 4px solid var(--navy);
+        outline-offset: 4px;
+      }
+      .core {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: min(54vw, 27rem);
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--navy);
+        color: var(--cream);
+        box-shadow: 0 0 0 1rem rgb(20 40 69/0.09);
+        text-align: center;
+      }
+      .core__image {
+        position: absolute;
+        inset: 12%;
+        border-radius: 50%;
+        overflow: hidden;
+        opacity: 0.62;
+      }
+      .core__image::after {
+        position: absolute;
+        inset: 0;
+        background: var(--navy);
+        content: '';
+        mix-blend-mode: color;
+      }
+      .core__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .core__copy {
+        position: relative;
+        z-index: 1;
+        width: 72%;
+      }
+      .core__code {
+        margin: 0;
+        color: #8cd0ff;
+        font:
+          700 0.59rem/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .core h1 {
+        margin: 1rem 0 0;
+        font:
+          400 clamp(3.2rem, 7vw, 6.8rem)/0.72 Georgia,
+          serif;
+        letter-spacing: -0.1em;
+      }
+      .core p {
+        margin: 1.2rem 0 0;
+        font-size: 0.78rem;
+        line-height: 1.45;
+      }
+      .orbit-note {
+        margin: 0 auto;
+        text-align: center;
+        font:
+          700 0.59rem/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 700px) {
+        .orbit-space {
+          min-height: 42rem;
+        }
+        .orbit,
+        .orbit-space::before {
+          width: 88vw;
+        }
+        .planet {
+          transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-42vw)
+            rotate(calc(var(--angle) * -1));
+        }
+        .core {
+          width: 74vw;
+        }
+        .bar span:last-child {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="gallery">
+      <header class="bar">
+        <span>Galeria orbital / quatro sistemas</span><b>clique em uma órbita</b
+        ><span>ponto de vista: interface</span>
+      </header>
+      <section class="orbit-space">
+        <div class="orbit">
+          <button
+            class="planet"
+            style="--angle: 0deg"
+            aria-pressed="true"
+            data-title="Regula"
+            data-code="Órbita 01 / produto"
+            data-copy="Um sistema de regras e decisões que deixa o processo bem à vista."
+            data-image="../../public/mockups/regula/desktop-01.png"
+          >
+            <span>Regula</span></button
+          ><button
+            class="planet"
+            style="--angle: 90deg"
+            aria-pressed="false"
+            data-title="eFood"
+            data-code="Órbita 02 / comércio"
+            data-copy="Uma rota de pedido que organiza a escolha sem esfriar a descoberta."
+            data-image="../../public/mockups/e-food/desktop-01.png"
+          >
+            <span>eFood</span></button
+          ><button
+            class="planet"
+            style="--angle: 180deg"
+            aria-pressed="false"
+            data-title="E‑Play"
+            data-code="Órbita 03 / cultura"
+            data-copy="Catálogo de jogos com presença visual e pontos de entrada claros."
+            data-image="../../public/mockups/e-play/desktop-01.png"
+          >
+            <span>E‑Play</span></button
+          ><button
+            class="planet"
+            style="--angle: 270deg"
+            aria-pressed="false"
+            data-title="To‑Do"
+            data-code="Órbita 04 / rotina"
+            data-copy="Tarefas e filtros organizados para uma rotina que se lê num relance."
+            data-image="../../public/mockups/to-do/desktop-01.png"
+          >
+            <span>To‑Do</span>
+          </button>
+        </div>
+        <article class="core" aria-live="polite">
+          <div class="core__image">
+            <img src="../../public/mockups/regula/desktop-01.png" alt="" />
+          </div>
+          <div class="core__copy">
+            <p class="core__code">Órbita 01 / produto</p>
+            <h1>Regula</h1>
+            <p>Um sistema de regras e decisões que deixa o processo bem à vista.</p>
+          </div>
+        </article>
+      </section>
+      <p class="orbit-note">A navegação gira o campo; o projeto selecionado permanece no centro.</p>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const planets = [...document.querySelectorAll('.planet')],
+        orbit = document.querySelector('.orbit'),
+        img = document.querySelector('.core img'),
+        code = document.querySelector('.core__code'),
+        title = document.querySelector('.core h1'),
+        copy = document.querySelector('.core p:not(.core__code)'),
+        reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let rotation = 0;
+      gsap.from(['.bar', '.core', '.planet', '.orbit-note'], {
+        autoAlpha: 0,
+        scale: 0.92,
+        stagger: 0.08,
+        duration: reduced ? 0 : 0.8,
+        ease: 'back.out(1.4)'
+      });
+      planets.forEach((planet, index) =>
+        planet.addEventListener('click', () => {
+          if (planet.getAttribute('aria-pressed') === 'true') return;
+          planets.forEach((item) => item.setAttribute('aria-pressed', 'false'));
+          planet.setAttribute('aria-pressed', 'true');
+          rotation = -index * 90;
+          gsap
+            .timeline({ defaults: { duration: reduced ? 0 : 0.55, ease: 'power3.inOut' } })
+            .to(orbit, { rotation })
+            .to('.core__copy', { autoAlpha: 0, scale: 0.92 }, 0)
+            .call(() => {
+              img.src = planet.dataset.image;
+              code.textContent = planet.dataset.code;
+              title.textContent = planet.dataset.title;
+              copy.textContent = planet.dataset.copy;
+            })
+            .to('.core__copy', { autoAlpha: 1, scale: 1 }, 0.25);
+        })
+      );
+    </script>
+  </body>
+</html>
