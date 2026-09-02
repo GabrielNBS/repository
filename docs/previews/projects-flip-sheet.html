@@ -757,7 +757,7 @@
         })[character]);
 
         const cardTemplate = (project, index) => `
-          <article class="project-card" data-project-card data-slug="${project.slug}" style="--card-bg: ${project.bg}; --card-accent: ${project.accent};">
+          <article class="project-card" data-component="project-card" data-slug="${project.slug}" style="--card-bg: ${project.bg}; --card-accent: ${project.accent};">
             <button class="card__trigger" type="button" aria-haspopup="dialog" aria-label="Abrir detalhes de ${escapeHtml(project.name)}"></button>
             <div class="card__top" data-flip-part>
               <span class="card__number">0${index + 1} / 0${projects.length}</span>
@@ -934,7 +934,7 @@
         renderGrid();
 
         grid.addEventListener("click", (event) => {
-          const card = event.target.closest("[data-project-card]");
+          const card = event.target.closest('[data-component="project-card"]');
           if (card) openProject(card.dataset.slug);
         });
 

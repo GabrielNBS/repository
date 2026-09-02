@@ -9,13 +9,13 @@ export default function ProjectAboutTransition() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-30 invisible opacity-0"
+      className="pointer-events-none invisible fixed inset-0 z-30 opacity-0"
       aria-hidden="true"
-      data-projects-about-transition
+      data-motion="projects-about-transition"
     >
       <div
         className="grid size-full overflow-hidden"
-        data-projects-about-transition-grid
+        data-component="transition-grid"
         style={{
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`
@@ -24,8 +24,8 @@ export default function ProjectAboutTransition() {
         {projectsAboutTransitionPixels.map((pixel) => (
           <span
             className="bg-peach block size-full opacity-0"
-            data-projects-about-pixel
-            data-transition-delay={pixel.delay}
+            data-motion="projects-about-pixel"
+            data-motion-delay={pixel.delay}
             key={pixel.id}
             style={{ '--transition-delay': pixel.delay } as CSSProperties}
           />

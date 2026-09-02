@@ -15,13 +15,13 @@ export default function ProjectVisual({
 
   return (
     <div
-      className={`text-ink relative isolate flex min-h-full flex-col justify-between overflow-hidden rounded-[1.45rem] transition duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[0.98] max-[800px]:min-h-[22rem] max-[480px]:min-h-[19rem] ${tone} ${className}`}
+      className={`text-ink ease-editorial relative isolate flex min-h-full flex-col justify-between overflow-hidden rounded-[1.45rem] transition duration-500 group-hover:scale-[0.98] max-[800px]:min-h-[22rem] max-[480px]:min-h-[19rem] ${tone} ${className}`}
       aria-hidden="true"
-      data-project-visual
+      data-component="project-visual"
     >
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgb(37_34_31/0.12)_1px,transparent_1px),linear-gradient(90deg,rgb(37_34_31/0.12)_1px,transparent_1px)] [mask-image:radial-gradient(circle_at_center,black,transparent_75%)] bg-[size:2.2rem_2.2rem]" />
-      <div className="border-ink/35 bg-paper/45 absolute top-[17%] left-[17%] aspect-square w-[65%] rounded-full border transition duration-[600ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:translate-x-[6%] group-hover:-translate-y-[4%] group-hover:rotate-[18deg]" />
-      <div className="border-ink/35 bg-peach absolute right-[-17%] bottom-[-22%] aspect-square w-[56%] rounded-full border mix-blend-multiply transition duration-[600ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:-translate-x-[10%] group-hover:-translate-y-[8%] group-hover:-rotate-[20deg]" />
+      <div className="border-ink/35 bg-paper/45 ease-editorial absolute top-[17%] left-[17%] aspect-square w-[65%] rounded-full border transition duration-[600ms] group-hover:translate-x-[6%] group-hover:-translate-y-[4%] group-hover:rotate-[18deg]" />
+      <div className="border-ink/35 bg-peach ease-editorial absolute right-[-17%] bottom-[-22%] aspect-square w-[56%] rounded-full border mix-blend-multiply transition duration-[600ms] group-hover:-translate-x-[10%] group-hover:-translate-y-[8%] group-hover:-rotate-[20deg]" />
       <div className="text-label relative z-[2] flex justify-between p-5 font-extrabold tracking-widest uppercase">
         <span>0{project.id}</span>
         <span>{project.year}</span>

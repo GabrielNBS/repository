@@ -31,7 +31,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
       </Link>
       <section
         className="grid grid-cols-[0.6fr_1.4fr] gap-8 px-[clamp(1.25rem,3vw,3.75rem)] pb-28 max-[800px]:grid-cols-1 max-[800px]:pb-20"
-        data-detail-hero
+        data-motion="detail-hero"
       >
         <div>
           <p className="text-muted text-label inline-flex items-center gap-2.5 leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
@@ -41,14 +41,14 @@ export default function ProjectDetail({ project }: { project: Project }) {
             as="h1"
             id="projeto-titulo"
             className="text-detail-title m-0 mt-4 max-w-[9ch] leading-[0.78] font-normal tracking-[-0.12em]"
-            data-detail-title
+            data-motion="detail-title"
           >
             {project.name}
           </HeadingSplit>
         </div>
         <div
           className="[&>p]:text-muted [&>p]:text-detail-intro mb-0 ml-[10%] max-w-132 self-end max-[800px]:ml-0 [&>p]:m-0 [&>p]:leading-[1.15] [&>p]:tracking-tighter"
-          data-detail-intro
+          data-motion="detail-intro"
         >
           <p>{project.description}</p>
           <div className="border-ink/15 [&_span]:text-muted [&_span]:text-utility-sm [&_strong]:text-body-xs grid grid-cols-3 gap-4 border-t pt-4 max-[800px]:grid-cols-2 [&_span]:mb-1.5 [&_span]:block [&_span]:font-bold [&_span]:tracking-[0.1em] [&_span]:uppercase [&_strong]:leading-[1.25]">
@@ -88,21 +88,24 @@ export default function ProjectDetail({ project }: { project: Project }) {
           </a>
         </div>
         <div
-          className="col-span-full min-h-[min(70vh,42rem)] **:data-project-visual:min-h-[min(70vh,42rem)] max-[800px]:min-h-100 [&_[data-project-visual]]:rounded-[2rem] max-[800px]:[&_[data-project-visual]]:min-h-[25rem]"
-          data-detail-visual
+          className="col-span-full min-h-[min(70vh,42rem)] **:data-[component=project-visual]:min-h-[min(70vh,42rem)] max-[800px]:min-h-100 [&_[data-component=project-visual]]:rounded-[2rem] max-[800px]:[&_[data-component=project-visual]]:min-h-[25rem]"
+          data-motion="detail-visual"
         >
           <ProjectVisual project={project} label={project.subtitle} />
         </div>
       </section>
 
-      <div data-story-stage className="relative overflow-hidden">
+      <div data-motion="story-stage" className="relative overflow-hidden">
         <section
-          data-gallery-section
+          data-component="project-gallery"
           className="border-ink/15 relative z-10 w-full border-t px-[clamp(1.25rem,3vw,3.75rem)] pt-16 pb-16 max-[800px]:pt-28 max-[800px]:pb-28"
           aria-label={`Galeria editorial de ${project.name}`}
         >
           {galleryCount > 0 ? (
-            <div className="grid grid-cols-12 gap-4 max-[800px]:grid-cols-1" data-frames-grid>
+            <div
+              className="grid grid-cols-12 gap-4 max-[800px]:grid-cols-1"
+              data-component="gallery-grid"
+            >
               {Array.from({ length: galleryCount }, (_, index) => {
                 const desktop = project.gallery.desktop[index] ?? project.gallery.mobile[index];
                 const mobile = project.gallery.mobile[index] ?? desktop;
@@ -111,7 +114,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
                 return (
                   <figure
-                    data-frame-card
+                    data-motion="frame-card"
                     className={`before:border-ink/25 relative min-h-96 overflow-hidden rounded-[1.25rem] before:pointer-events-none before:absolute before:inset-5 before:z-[2] before:rounded-[calc(1.25rem-0.3rem)] before:border before:content-[''] max-[800px]:col-auto! max-[800px]:mt-0! max-[800px]:min-h-[17rem] ${
                       index === 0
                         ? 'col-span-7'
@@ -124,7 +127,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                     <picture className="absolute inset-0 block">
                       <source media="(max-width: 800px)" srcSet={mobile.src} />
                       <img
-                        className="h-full w-full object-cover transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.03]"
+                        className="ease-editorial h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
                         src={desktop.src}
                         alt={desktop.alt}
                         loading={index === 0 ? 'eager' : 'lazy'}
@@ -150,48 +153,48 @@ export default function ProjectDetail({ project }: { project: Project }) {
         </section>
 
         <section
-          data-behind-section
+          data-motion="behind-section"
           className="relative z-20 mt-4 ml-auto w-full max-w-[55%] px-[clamp(1.25rem,3vw,3.75rem)] py-12 max-[1024px]:max-w-[53%] max-[800px]:mt-0 max-[800px]:ml-0 max-[800px]:max-w-full max-[800px]:pt-20"
         >
           <div className="grid grid-cols-1 gap-8">
             <HeadingSplit
               as="h2"
               className="text-display-sm m-0 max-w-[8ch] leading-[0.84] font-normal tracking-[-0.1em]"
-              data-split="lines"
+              data-motion="text-split"
             >
               Por trás da tela.
             </HeadingSplit>
             <div className="grid grid-cols-2 gap-x-8 gap-y-10 max-[800px]:grid-cols-1">
               <div
-                data-behind-item
+                data-motion="behind-item"
                 className="[&>p]:text-muted [&>h3]:text-label [&>p]:text-body-md [&>h3]:mb-2.5 [&>h3]:font-extrabold [&>h3]:tracking-[0.1em] [&>h3]:uppercase [&>p]:m-0 [&>p]:leading-[1.35] [&>p]:tracking-[-0.035em]"
               >
                 <h3>O desafio</h3>
                 <p>{project.problem}</p>
               </div>
               <div
-                data-behind-item
+                data-motion="behind-item"
                 className="[&>p]:text-muted [&>h3]:text-label [&>p]:text-body-detail [&>h3]:mb-2.5 [&>h3]:font-extrabold [&>h3]:tracking-[0.1em] [&>h3]:uppercase [&>p]:m-0 [&>p]:leading-[1.35] [&>p]:tracking-[-0.035em]"
               >
                 <h3>A solução</h3>
                 <p>{project.solution}</p>
               </div>
               <div
-                data-behind-item
+                data-motion="behind-item"
                 className="[&>p]:text-muted [&>h3]:text-label [&>p]:text-body-detail [&>h3]:mb-2.5 [&>h3]:font-extrabold [&>h3]:tracking-[0.1em] [&>h3]:uppercase [&>p]:m-0 [&>p]:leading-[1.35] [&>p]:tracking-[-0.035em]"
               >
                 <h3>O que ficou</h3>
                 <p>{project.summary}</p>
               </div>
               <div
-                data-behind-item
+                data-motion="behind-item"
                 className="[&>p]:text-muted [&>h3]:text-label [&>p]:text-body-detail [&>h3]:mb-2.5 [&>h3]:font-extrabold [&>h3]:tracking-[0.1em] [&>h3]:uppercase [&>p]:m-0 [&>p]:leading-[1.35] [&>p]:tracking-[-0.035em]"
               >
                 <h3>Highlights</h3>
                 <p>{project.highlights.join(' · ')}</p>
               </div>
               <div
-                data-behind-item
+                data-motion="behind-item"
                 className="border-ink/15 [&>span]:border-ink/15 [&>span]:text-muted [&>span]:text-label-sm col-span-full flex flex-wrap gap-2 border-t pt-6 max-[800px]:col-auto [&>span]:rounded-full [&>span]:border [&>span]:px-3 [&>span]:py-2 [&>span]:font-bold [&>span]:uppercase"
                 aria-label="Tecnologias usadas"
               >

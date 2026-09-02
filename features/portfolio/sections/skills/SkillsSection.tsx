@@ -71,14 +71,14 @@ export default function SkillsSection() {
 
   return (
     <section ref={sectionRef} className={styles.section} id="skills" aria-labelledby="skills-title">
-      <div ref={shellRef} className={styles.sectionShell} data-blur-reveal>
+      <div ref={shellRef} className={styles.sectionShell} data-motion="blur-reveal">
         <div className={styles.aside}>
           <p className={styles.eyebrow}>04 / Como construo</p>
           <HeadingSplit
             as="h2"
             className={styles.asideTitle}
             id="skills-title"
-            data-split="lines"
+            data-motion="text-split"
             toggleActions={false}
           >
             Muito mais que trocar a cor de um botão.
@@ -92,7 +92,7 @@ export default function SkillsSection() {
                   navRef.current[index] = node;
                 }}
                 className={`${styles.navButton} ${index === 0 ? styles.navActive : ''}`}
-                data-tone={cardTones[index]}
+                data-variant={cardTones[index]}
                 type="button"
                 aria-current={index === 0 ? 'step' : 'false'}
               >
@@ -116,7 +116,7 @@ export default function SkillsSection() {
                     cardsRef.current[index] = node;
                   }}
                   className={`${styles.card} ${index === 0 ? styles.cardActive : ''}`}
-                  data-tone={cardTones[index]}
+                  data-variant={cardTones[index]}
                   tabIndex={0}
                   aria-label={`${skill.title}: ${skill.description}`}
                 >

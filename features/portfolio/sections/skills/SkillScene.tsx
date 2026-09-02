@@ -4,7 +4,6 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import * as Zdog from 'zdog';
-import styles from './SkillScene.module.css';
 
 gsap.registerPlugin(useGSAP);
 
@@ -534,8 +533,18 @@ export default function SkillScene({ variant }: SkillSceneProps) {
   );
 
   return (
-    <div ref={rootRef} className={styles.root} aria-hidden="true">
-      <svg ref={svgRef} className={styles.svg} width="390" height="280" focusable="false" />
+    <div
+      ref={rootRef}
+      className="pointer-events-none absolute top-[2%] right-[18%] z-0 h-[72%] w-[68%] max-[560px]:top-[4%] max-[560px]:right-[16%] max-[560px]:w-[66%]"
+      aria-hidden="true"
+    >
+      <svg
+        ref={svgRef}
+        className="block size-full overflow-visible"
+        width="390"
+        height="280"
+        focusable="false"
+      />
     </div>
   );
 }

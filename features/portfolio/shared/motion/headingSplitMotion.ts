@@ -28,7 +28,7 @@ export interface HeadingSplitOptions {
 export function findPinnedContainer(element: HTMLElement): HTMLElement | null {
   // 1. Explicitly marked pinned containers/stages
   const explicit = element.closest<HTMLElement>(
-    '[data-story-stage], [data-pin], [data-pinned], [data-pin-container]'
+    '[data-motion="story-stage"], [data-layout="pin"], [data-layout="pinned"], [data-layout="pin-container"]'
   );
   if (explicit) return explicit;
 

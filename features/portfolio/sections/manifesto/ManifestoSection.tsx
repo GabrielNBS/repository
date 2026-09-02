@@ -8,7 +8,7 @@ export default function ManifestoSection() {
     >
       <div
         className="grid grid-cols-[minmax(8rem,0.4fr)_1fr] gap-8 max-[800px]:grid-cols-1"
-        data-blur-reveal
+        data-motion="blur-reveal"
       >
         <p className="text-muted text-label inline-flex items-center gap-2.5 leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
           01 / Manifesto

@@ -95,22 +95,22 @@
   box-shadow: 0 0.6rem 1.3rem rgb(37 34 31 / 18%);
 }
 
-.navButton[data-tone='peach'].navActive {
+.navButton[data-variant='peach'].navActive {
   background: var(--color-peach);
   color: var(--color-ink);
 }
 
-.navButton[data-tone='lilac'].navActive {
+.navButton[data-variant='lilac'].navActive {
   background: var(--color-lilac);
   color: var(--color-ink);
 }
 
-.navButton[data-tone='rose'].navActive {
+.navButton[data-variant='rose'].navActive {
   background: var(--color-rose);
   color: var(--color-ink);
 }
 
-.navButton[data-tone='cream'].navActive {
+.navButton[data-variant='cream'].navActive {
   background: var(--color-cream);
   color: var(--color-ink);
 }
@@ -168,23 +168,23 @@
   isolation: isolate;
 }
 
-.card[data-tone='peach'] .cardVisual,
-.card[data-tone='peach'] .cardCopy {
+.card[data-variant='peach'] .cardVisual,
+.card[data-variant='peach'] .cardCopy {
   background: var(--color-peach);
 }
 
-.card[data-tone='lilac'] .cardVisual,
-.card[data-tone='lilac'] .cardCopy {
+.card[data-variant='lilac'] .cardVisual,
+.card[data-variant='lilac'] .cardCopy {
   background: var(--color-lilac);
 }
 
-.card[data-tone='rose'] .cardVisual,
-.card[data-tone='rose'] .cardCopy {
+.card[data-variant='rose'] .cardVisual,
+.card[data-variant='rose'] .cardCopy {
   background: var(--color-rose);
 }
 
-.card[data-tone='cream'] .cardVisual,
-.card[data-tone='cream'] .cardCopy {
+.card[data-variant='cream'] .cardVisual,
+.card[data-variant='cream'] .cardCopy {
   background: var(--color-cream);
 }
 

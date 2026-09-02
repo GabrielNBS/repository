@@ -9,17 +9,17 @@ import { createBlurReveals } from '../shared/motion/blurRevealMotion';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function createDetailFramesStoryPin(root: RefObject<HTMLElement | null>) {
-  const stage = root.current?.querySelector<HTMLElement>('[data-story-stage]');
+  const stage = root.current?.querySelector<HTMLElement>('[data-motion="story-stage"]');
   if (!stage) return () => {};
 
   const media = gsap.matchMedia();
 
   media.add('(min-width: 801px)', () => {
-    const cards = gsap.utils.toArray<HTMLElement>('[data-frame-card]', stage);
-    const behindSection = stage.querySelector<HTMLElement>('[data-behind-section]');
-    const behindItems = stage.querySelectorAll<HTMLElement>('[data-behind-item]');
+    const cards = gsap.utils.toArray<HTMLElement>('[data-motion="frame-card"]', stage);
+    const behindSection = stage.querySelector<HTMLElement>('[data-motion="behind-section"]');
+    const behindItems = stage.querySelectorAll<HTMLElement>('[data-motion="behind-item"]');
 
-    if (!cards.length || !behindSection) return;
+    if (cards.length < 3 || !behindSection) return;
 
     gsap.set(behindSection, { autoAlpha: 0, yPercent: 40 });
     if (behindItems.length) gsap.set(behindItems, { autoAlpha: 0, y: 24 });
@@ -125,7 +125,11 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      intro.from('[data-detail-intro] > *, [data-detail-visual]', {
+      const introTargets = gsap.utils.toArray<HTMLElement>(
+        '[data-motion="detail-intro"] > *, [data-motion="detail-visual"]',
+        root.current
+      );
+      intro.from(introTargets, {
         autoAlpha: 0,
         duration: 0.8,
         ease: 'power3.out',
@@ -136,16 +140,26 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       const revertBlurReveals = createBlurReveals(root.current);
       const revertStoryPin = createDetailFramesStoryPin(root);
 
-      gsap.to('[data-detail-visual] [data-project-visual]', {
-        ease: 'none',
-        scrollTrigger: {
-          end: 'bottom top',
-          scrub: 1,
-          start: 'top top',
-          trigger: '[data-detail-hero]'
-        },
-        yPercent: -5
-      });
+      const detailVisual = root.current?.querySelector<HTMLElement>(
+        '[data-motion="detail-visual"]'
+      );
+      const projectVisual = detailVisual?.querySelector<HTMLElement>(
+        '[data-component="project-visual"]'
+      );
+      const detailHero = root.current?.querySelector<HTMLElement>('[data-motion="detail-hero"]');
+
+      if (projectVisual && detailHero) {
+        gsap.to(projectVisual, {
+          ease: 'none',
+          scrollTrigger: {
+            end: 'bottom top',
+            scrub: 1,
+            start: 'top top',
+            trigger: detailHero
+          },
+          yPercent: -5
+        });
+      }
 
       return () => {
         intro.kill();

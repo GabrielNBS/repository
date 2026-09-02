@@ -1,91 +1,114 @@
 'use client';
 
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+
+gsap.registerPlugin(useGSAP);
 
 type CursorPosition = { x: (value: number) => void; y: (value: number) => void };
 type CursorPointer = { clientX: number; clientY: number; pointerType: string };
 
 function getCursorContentWidth(cursor: HTMLSpanElement) {
-  const content = cursor.querySelector<HTMLElement>('[data-project-cursor-content]');
+  const content = cursor.querySelector<HTMLElement>('[data-component="project-cursor-content"]');
   return content ? Math.ceil(content.scrollWidth) + 4 : 0;
 }
+
+type CursorActions = {
+  moveCursor: (event: CursorPointer, immediate?: boolean) => boolean;
+  showCursor: (event: CursorPointer) => void;
+  hideCursor: (event: CursorPointer) => void;
+};
 
 export function useProjectCursorMotion() {
   const cursor = useRef<HTMLSpanElement>(null);
   const cursorPosition = useRef<CursorPosition | null>(null);
   const supportsCursor = useRef(false);
+  const actions = useRef<CursorActions | null>(null);
 
-  useEffect(() => {
-    const cursorElement = cursor.current;
-    if (!cursorElement) return;
+  useGSAP(
+    (_, contextSafe) => {
+      const cursorElement = cursor.current;
+      if (!cursorElement) return;
 
-    const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const updateSupport = () => {
-      supportsCursor.current = hoverQuery.matches && !motionQuery.matches;
-    };
+      const safeContext = contextSafe!;
 
-    updateSupport();
-    hoverQuery.addEventListener('change', updateSupport);
-    motionQuery.addEventListener('change', updateSupport);
+      const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const updateSupport = () => {
+        supportsCursor.current = hoverQuery.matches && !motionQuery.matches;
+      };
 
-    cursorPosition.current = {
-      x: gsap.quickTo(cursorElement, 'x', { duration: 0.28, ease: 'power3.out' }),
-      y: gsap.quickTo(cursorElement, 'y', { duration: 0.28, ease: 'power3.out' })
-    };
-    gsap.set(cursorElement, { autoAlpha: 0, scale: 0.78, width: 0 });
+      updateSupport();
+      hoverQuery.addEventListener('change', updateSupport);
+      motionQuery.addEventListener('change', updateSupport);
 
-    return () => {
-      hoverQuery.removeEventListener('change', updateSupport);
-      motionQuery.removeEventListener('change', updateSupport);
-      cursorPosition.current = null;
-    };
-  }, []);
+      cursorPosition.current = {
+        x: gsap.quickTo(cursorElement, 'x', { duration: 0.28, ease: 'power3.out' }),
+        y: gsap.quickTo(cursorElement, 'y', { duration: 0.28, ease: 'power3.out' })
+      };
+      gsap.set(cursorElement, { autoAlpha: 0, scale: 0.78, width: 0 });
 
-  function moveCursor(event: CursorPointer, immediate = false) {
-    const cursorElement = cursor.current;
-    if (!cursorElement || !supportsCursor.current || event.pointerType !== 'mouse') return false;
+      const moveCursor = safeContext((event: CursorPointer, immediate = false) => {
+        if (!supportsCursor.current || event.pointerType !== 'mouse') return false;
 
-    const x = event.clientX + 18;
-    const y = event.clientY + 18;
+        const x = event.clientX + 18;
+        const y = event.clientY + 18;
 
-    if (immediate) {
-      gsap.set(cursorElement, { x, y });
-      return true;
-    }
+        if (immediate) {
+          gsap.set(cursorElement, { x, y });
+          return true;
+        }
 
-    cursorPosition.current?.x(x);
-    cursorPosition.current?.y(y);
-    return true;
-  }
+        cursorPosition.current?.x(x);
+        cursorPosition.current?.y(y);
+        return true;
+      });
 
-  function showCursor(event: CursorPointer) {
-    const cursorElement = cursor.current;
-    if (!cursorElement || !moveCursor(event, true)) return;
+      const showCursor = safeContext((event: CursorPointer) => {
+        if (!moveCursor(event, true)) return;
 
-    gsap.to(cursorElement, {
-      autoAlpha: 1,
-      duration: 0.28,
-      ease: 'power4.out',
-      overwrite: 'auto',
-      scale: 1,
-      width: getCursorContentWidth(cursorElement)
-    });
-  }
+        gsap.to(cursorElement, {
+          autoAlpha: 1,
+          duration: 0.28,
+          ease: 'power4.out',
+          overwrite: 'auto',
+          scale: 1,
+          width: getCursorContentWidth(cursorElement)
+        });
+      });
 
-  function hideCursor(event: CursorPointer) {
-    if (!supportsCursor.current || event.pointerType !== 'mouse') return;
+      const hideCursor = safeContext((event: CursorPointer) => {
+        if (!supportsCursor.current || event.pointerType !== 'mouse') return;
 
-    gsap.to(cursor.current, {
-      autoAlpha: 0,
-      duration: 0.2,
-      ease: 'power2.in',
-      overwrite: 'auto',
-      scale: 0.78,
-      width: 0
-    });
-  }
+        gsap.to(cursorElement, {
+          autoAlpha: 0,
+          duration: 0.2,
+          ease: 'power2.in',
+          overwrite: 'auto',
+          scale: 0.78,
+          width: 0
+        });
+      });
 
-  return { cursorRef: cursor, hideCursor, moveCursor, showCursor };
+      actions.current = { hideCursor, moveCursor, showCursor };
+
+      return () => {
+        hoverQuery.removeEventListener('change', updateSupport);
+        motionQuery.removeEventListener('change', updateSupport);
+        cursorPosition.current = null;
+        actions.current = null;
+        gsap.killTweensOf(cursorElement);
+      };
+    },
+    { scope: cursor }
+  );
+
+  return {
+    cursorRef: cursor,
+    moveCursor: (event: CursorPointer, immediate = false) =>
+      actions.current?.moveCursor(event, immediate) ?? false,
+    showCursor: (event: CursorPointer) => actions.current?.showCursor(event),
+    hideCursor: (event: CursorPointer) => actions.current?.hideCursor(event)
+  };
 }

@@ -18,10 +18,10 @@ export default function PortfolioNav() {
 
   return (
     <nav
-      className="data-[scrolled=true]:border-ink/15 data-[scrolled=true]:bg-paper/80 fixed top-4 left-1/2 z-11 flex w-[calc(100%-2rem)] max-w-328 -translate-x-1/2 items-center justify-between rounded-full border border-transparent py-2 pr-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] data-[scrolled=true]:max-w-126 data-[scrolled=true]:shadow-[0_1rem_3rem_rgb(37_34_31/0.08)] data-[scrolled=true]:backdrop-blur-[18px] max-[800px]:w-[calc(100%-1.5rem)] max-[800px]:data-[scrolled=true]:max-w-[calc(100%-1.5rem)]"
+      className="data-[state=scrolled]:border-ink/15 data-[state=scrolled]:bg-paper/80 ease-spring fixed top-4 left-1/2 z-11 flex w-[calc(100%-2rem)] max-w-328 -translate-x-1/2 items-center justify-between rounded-full border border-transparent py-2 pr-2 pl-4 transition-all duration-500 data-[state=scrolled]:max-w-126 data-[state=scrolled]:shadow-[0_1rem_3rem_rgb(37_34_31/0.08)] data-[state=scrolled]:backdrop-blur-[18px] max-[800px]:w-[calc(100%-1.5rem)] max-[800px]:data-[state=scrolled]:max-w-[calc(100%-1.5rem)]"
       aria-label="Navegação principal"
       onKeyDown={handleKeyDown}
-      data-nav
+      data-component="navigation"
     >
       <Link
         className="before:bg-peach text-meta inline-flex min-h-11 items-center gap-2 font-extrabold tracking-tight uppercase before:size-2.5 before:rounded-full before:content-['']"

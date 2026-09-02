@@ -5,15 +5,15 @@ import { useRef, useState } from 'react';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
 import ProjectCard from './ProjectCard';
 import styles from '../styles/ProjectsSection.module.css';
-import { useProjectsAgendaMotion } from '../motion/projectsAgendaMotion';
+import { useProjectsAgendaMotion, useProjectElastic } from '../motion/projectsAgendaMotion';
 
 export default function ProjectsSection({ items = projects }: { items?: Project[] }) {
   const root = useRef<HTMLElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [showArchive, setShowArchive] = useState(false);
   const featured = items.slice(0, 4);
   const archived = items.slice(4);
   useProjectsAgendaMotion(root);
+  useProjectElastic(root);
   return (
     <section id="projetos" ref={root} className={styles.section} aria-label="Projetos">
       <div className={styles.story}>
@@ -22,7 +22,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
           <span>4 em foco · {archived.length} no arquivo</span>
         </header>
         <div className={styles.agenda}>
-          <div className={styles.cover} data-agenda-enter>
+          <div className={styles.cover} data-motion="agenda-enter">
             <HeadingSplit as="h2">
               Meus trabalhos recentes<span>.</span>
             </HeadingSplit>
@@ -33,20 +33,17 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
             </p>
           </div>
           <div className={styles.days}>
-            {featured.map((p, i) => (
+            {featured.map((project, i) => (
               <Link
-                key={p.slug}
-                href={`/projetos/${p.slug}`}
-                data-agenda-enter
-                data-active={i === activeIndex}
-                onFocus={() => setActiveIndex(i)}
-                onPointerEnter={() => setActiveIndex(i)}
+                key={project.slug}
+                href={`/projetos/${project.slug}`}
+                data-motion="agenda-enter project-elastic"
                 className={styles.day}
               >
                 <span>Case {String(i + 1).padStart(2, '0')}</span>
-                <h3>{p.name}</h3>
+                <h3>{project.name}</h3>
                 <small>
-                  {p.year} · {p.title}
+                  {project.year} · {project.title}
                 </small>
                 <b>↗</b>
               </Link>
@@ -55,7 +52,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
         </div>
 
         {archived.length > 0 && (
-          <div className={styles.archive} data-agenda-enter>
+          <div className={styles.archive} data-motion="agenda-enter">
             <button
               type="button"
               onClick={() => setShowArchive((visible) => !visible)}

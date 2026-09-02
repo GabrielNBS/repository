@@ -20,7 +20,7 @@ export default function ContactSection() {
     >
       <div
         className="border-ink/15 grid grid-cols-[0.75fr_1.25fr] gap-8 border-t pt-5 max-[800px]:grid-cols-1"
-        data-blur-reveal
+        data-motion="blur-reveal"
       >
         <div>
           <p className="text-muted text-label inline-flex items-center gap-2.5 leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
@@ -30,7 +30,7 @@ export default function ContactSection() {
             as="h2"
             id="contact-title"
             className="text-display-xl m-0 max-w-[8ch] leading-[0.84] font-normal -tracking-widest"
-            data-split="lines"
+            data-motion="text-split"
           >
             Vamos fazer algo vivo?
           </HeadingSplit>

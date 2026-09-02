@@ -9,7 +9,10 @@ const blurReveal = {
 };
 
 export function createBlurReveals(scope?: HTMLElement | null) {
-  const elements = gsap.utils.toArray<HTMLElement>('[data-blur-reveal]', scope ?? document);
+  const elements = gsap.utils.toArray<HTMLElement>(
+    '[data-motion="blur-reveal"]',
+    scope ?? document
+  );
   if (!elements.length) return () => {};
 
   gsap.set(elements, blurReveal.hidden);

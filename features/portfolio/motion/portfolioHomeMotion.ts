@@ -10,7 +10,10 @@ import { createBlurReveals } from '../shared/motion/blurRevealMotion';
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 function createScrollTextReveals(root: RefObject<HTMLElement | null>) {
-  const elements = gsap.utils.toArray<HTMLElement>('[data-scroll-text-reveal]', root.current);
+  const elements = gsap.utils.toArray<HTMLElement>(
+    '[data-motion="scroll-text-reveal"]',
+    root.current
+  );
   if (!elements.length) return () => {};
 
   const splits = elements.map((element) =>
@@ -50,10 +53,18 @@ function createScrollTextReveals(root: RefObject<HTMLElement | null>) {
 }
 
 function createProjectsToAboutReveal(root: RefObject<HTMLElement | null>) {
-  const aboutSection = root.current?.querySelector<HTMLElement>('[data-about-section]');
-  const aboutItems = gsap.utils.toArray<HTMLElement>('[data-transition-item]', root.current);
-  const transition = root.current?.querySelector<HTMLElement>('[data-projects-about-transition]');
-  const pixels = gsap.utils.toArray<HTMLElement>('[data-projects-about-pixel]', root.current);
+  const aboutSection = root.current?.querySelector<HTMLElement>('[data-motion="about-section"]');
+  const aboutItems = gsap.utils.toArray<HTMLElement>(
+    '[data-motion="transition-item"]',
+    root.current
+  );
+  const transition = root.current?.querySelector<HTMLElement>(
+    '[data-motion="projects-about-transition"]'
+  );
+  const pixels = gsap.utils.toArray<HTMLElement>(
+    '[data-motion="projects-about-pixel"]',
+    root.current
+  );
 
   if (!aboutSection || !aboutItems.length || !transition || !pixels.length) {
     return () => {};
@@ -70,7 +81,7 @@ function createProjectsToAboutReveal(root: RefObject<HTMLElement | null>) {
   gsap.set(transition, { autoAlpha: 0 });
   gsap.set(pixels, { autoAlpha: 0, scale: 0.7, transformOrigin: 'center' });
 
-  const getDelay = (index: number) => Number(pixels[index]?.dataset.transitionDelay ?? 0);
+  const getDelay = (index: number) => Number(pixels[index]?.dataset.motionDelay ?? 0);
   const getReverseDelay = (index: number) => 0.47 - getDelay(index);
 
   const timeline = gsap.timeline({
@@ -113,53 +124,58 @@ function createProjectsToAboutReveal(root: RefObject<HTMLElement | null>) {
 export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
   useGSAP(
     () => {
-      const nav = root.current?.querySelector<HTMLElement>('[data-nav]');
+      const nav = root.current?.querySelector<HTMLElement>('[data-component="navigation"]');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (reducedMotion) {
-        gsap.set('[data-hero-word]', { autoAlpha: 1, yPercent: 0 });
-        return;
-      }
+      if (reducedMotion || !root.current) return;
 
-      const heroWords = gsap.utils.toArray<HTMLElement>('[data-hero-word]');
-      if (heroWords.length) gsap.set(heroWords, { autoAlpha: 0, yPercent: 115 });
+      const hero = root.current?.querySelector<HTMLElement>('[data-motion="hero"]');
+      const heroOrbit = root.current?.querySelector<HTMLElement>('[data-motion="hero-orbit"]');
+      const heroIntroTargets = gsap.utils.toArray<HTMLElement>(
+        '[data-motion="hero-eyebrow"], [data-motion="hero-intro"], [data-motion="scroll-cue"]',
+        root.current
+      );
 
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      if (heroWords.length) {
-        intro.to(heroWords, { autoAlpha: 1, duration: 1.1, stagger: 0.09, yPercent: 0 });
+      if (heroIntroTargets.length) {
+        intro.from(heroIntroTargets, {
+          autoAlpha: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          y: 24
+        });
       }
-      intro
-        .from(
-          '[data-hero-eyebrow], [data-hero-intro], [data-scroll-cue]',
-          { autoAlpha: 0, duration: 0.7, stagger: 0.08, y: 24 },
-          heroWords.length ? '-=0.55' : '0'
-        )
-        .from(
-          '[data-hero-orbit]',
+      if (heroOrbit) {
+        intro.from(
+          heroOrbit,
           { autoAlpha: 0, duration: 1.3, ease: 'elastic.out(1, 0.7)', scale: 0.5 },
           '-=0.8'
         );
+      }
 
       const revertBlurReveals = createBlurReveals(root.current);
       const revertScrollTextReveals = createScrollTextReveals(root);
       const revertProjectsToAbout = createProjectsToAboutReveal(root);
 
-      gsap.to('[data-hero-orbit]', {
-        ease: 'none',
-        rotate: 18,
-        scrollTrigger: { end: 'bottom top', scrub: 1.2, start: 'top top', trigger: '[data-hero]' },
-        y: -140
-      });
+      if (heroOrbit && hero) {
+        gsap.to(heroOrbit, {
+          ease: 'none',
+          rotate: 18,
+          scrollTrigger: { end: 'bottom top', scrub: 1.2, start: 'top top', trigger: hero },
+          y: -140
+        });
+      }
 
       ScrollTrigger.create({
+        trigger: root.current,
         start: 'top -80',
-        onEnter: () => nav?.setAttribute('data-scrolled', 'true'),
-        onLeaveBack: () => nav?.removeAttribute('data-scrolled')
+        onEnter: () => nav?.setAttribute('data-state', 'scrolled'),
+        onLeaveBack: () => nav?.removeAttribute('data-state')
       });
 
       return () => {
         intro.kill();
-        nav?.removeAttribute('data-scrolled');
+        nav?.removeAttribute('data-state');
         revertBlurReveals();
         revertProjectsToAbout();
         revertScrollTextReveals();
