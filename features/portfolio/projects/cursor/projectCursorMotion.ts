@@ -4,6 +4,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
 
+// O cursor usa apenas o core do GSAP e o hook de React; o registro fora do
+// hook evita re-registros em renders subsequentes.
 gsap.registerPlugin(useGSAP);
 
 type CursorPosition = { x: (value: number) => void; y: (value: number) => void };
@@ -43,10 +45,15 @@ export function useProjectCursorMotion() {
       hoverQuery.addEventListener('change', updateSupport);
       motionQuery.addEventListener('change', updateSupport);
 
+      // quickTo reutiliza o tween de posição em vez de criar um novo tween a
+      // cada evento pointermove. Estes dois canais controlam o deslocamento
+      // suave do cursor customizado.
       cursorPosition.current = {
         x: gsap.quickTo(cursorElement, 'x', { duration: 0.28, ease: 'power3.out' }),
         y: gsap.quickTo(cursorElement, 'y', { duration: 0.28, ease: 'power3.out' })
       };
+      // Estado fechado do cursor: invisível, menor e sem largura de conteúdo.
+      // A largura é medida somente quando o cursor é exibido.
       gsap.set(cursorElement, { autoAlpha: 0, scale: 0.78, width: 0 });
 
       const moveCursor = safeContext((event: CursorPointer, immediate = false) => {
@@ -68,6 +75,8 @@ export function useProjectCursorMotion() {
       const showCursor = safeContext((event: CursorPointer) => {
         if (!moveCursor(event, true)) return;
 
+        // A posição é aplicada instantaneamente na primeira entrada para
+        // evitar que o cursor apareça viajando desde a posição anterior.
         gsap.to(cursorElement, {
           autoAlpha: 1,
           duration: 0.28,
@@ -81,6 +90,8 @@ export function useProjectCursorMotion() {
       const hideCursor = safeContext((event: CursorPointer) => {
         if (!supportsCursor.current || event.pointerType !== 'mouse') return;
 
+        // Ao sair, reduzimos escala e largura junto da opacidade para que o
+        // cursor não capture interação quando não está visível.
         gsap.to(cursorElement, {
           autoAlpha: 0,
           duration: 0.2,

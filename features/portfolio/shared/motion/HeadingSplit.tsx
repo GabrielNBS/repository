@@ -31,6 +31,9 @@ export function HeadingSplit({
   ...headingProps
 }: HeadingSplitProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
+  // O componente só organiza as opções por instância; a configuração GSAP e
+  // o cleanup vivem em headingSplitMotion.ts. Assim ajustes de timing podem
+  // ser feitos por props sem duplicar a implementação do reveal.
   const options = useMemo(
     () => ({
       duration,
@@ -47,6 +50,8 @@ export function HeadingSplit({
     [duration, end, endTrigger, filter, pinnedContainer, stagger, start, toggleActions, trigger, y]
   );
 
+  // O ref é o scope do hook, mantendo SplitText/ScrollTrigger limitados a este
+  // heading e evitando que dois headings compartilhem os mesmos caracteres.
   useHeadingSplitMotion(headingRef, options);
 
   return (

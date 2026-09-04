@@ -75,12 +75,6 @@
   padding: 0.45rem 0.65rem 0.4rem;
   text-align: left;
   text-transform: uppercase;
-  transition:
-    transform 750ms cubic-bezier(1, 0, 0.5, 1),
-    background 500ms ease,
-    color 500ms ease,
-    border-color 500ms ease,
-    box-shadow 500ms ease;
 }
 
 .navButton:hover,

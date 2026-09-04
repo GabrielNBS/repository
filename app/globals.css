@@ -8,7 +8,7 @@
   --color-cream: #e7d6bb;
   --color-rose: #e8b6aa;
   --color-muted: #665e57;
-  --font-serif: var(--font-lora), Georgia, serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
   --ease-editorial: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -92,6 +92,22 @@
     background: var(--color-ink);
     color: var(--color-paper);
   }
+}
+
+/*
+ * SplitText masks use overflow: clip inline. The inset prevents tight display
+ * typography, diacritics and animated rotation from being cut at the mask edge.
+ */
+.split-motion-word-mask,
+.split-motion-char-mask {
+  padding: 0.08em 0.04em;
+  margin: -0.08em -0.04em;
+}
+
+.split-motion-char {
+  display: inline-block;
+  padding-block: 0.04em;
+  margin-block: -0.04em;
 }
 
 @media (prefers-reduced-motion: reduce) {

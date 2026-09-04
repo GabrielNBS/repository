@@ -1,0 +1,561 @@
+.section {
+  position: relative;
+  min-height: 440svh;
+  overflow: clip;
+  background: var(--color-paper);
+}
+
+.pin {
+  position: relative;
+  height: 100svh;
+  min-height: 43rem;
+  overflow: hidden;
+}
+
+.stage {
+  --stage-pad: clamp(1.25rem, 3vw, 3.75rem);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  isolation: isolate;
+}
+
+.atmosphere {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 19% 32%, rgb(205 184 216 / 0.52), transparent 19%),
+    radial-gradient(circle at 84% 68%, rgb(239 174 130 / 0.5), transparent 21%),
+    radial-gradient(circle at 50% 105%, rgb(231 214 187 / 0.72), transparent 30%);
+  opacity: 0.42;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+.chrome,
+.footer {
+  position: absolute;
+  right: var(--stage-pad);
+  left: var(--stage-pad);
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.chrome {
+  top: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.footer {
+  bottom: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.counter {
+  color: var(--color-muted);
+}
+
+.counter b {
+  display: inline-block;
+  min-width: 1.5rem;
+  color: var(--color-ink);
+  font-weight: inherit;
+}
+
+.intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: min(92vw, 92rem);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.intro p {
+  margin: 0 0 clamp(1rem, 2.5vh, 1.75rem);
+  color: var(--color-muted);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: clamp(4.2rem, 10.5vw, 11.5rem);
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  line-height: 0.9;
+}
+
+.keywords {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.keyword {
+  position: absolute;
+  display: grid;
+  min-width: 7.5rem;
+  min-height: 3rem;
+  place-items: center;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow: 0.25rem 0.3rem 0 var(--color-ink);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  will-change: transform, opacity;
+}
+
+.keyword:nth-child(1) {
+  top: 24%;
+  left: 7%;
+  background: var(--color-lilac);
+  transform: rotate(-7deg);
+}
+
+.keyword:nth-child(2) {
+  top: 21%;
+  right: 8%;
+  background: var(--color-peach);
+  transform: rotate(6deg);
+}
+
+.keyword:nth-child(3) {
+  right: 13%;
+  bottom: 19%;
+  background: var(--color-cream);
+  transform: rotate(-4deg);
+}
+
+.stack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  width: min(78rem, 83vw);
+  height: min(45rem, 72vh);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.frame,
+.backCard {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-ink);
+  border-radius: clamp(1.1rem, 2.4vw, 2rem);
+  will-change: transform, opacity;
+}
+
+.backCardLilac {
+  background: var(--color-lilac);
+  transform: translate3d(-1.15rem, 1.05rem, 0) rotate(-2.2deg);
+}
+
+.backCardPeach {
+  background: var(--color-peach);
+  transform: translate3d(1.2rem, 0.75rem, 0) rotate(2deg);
+}
+
+.frame {
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  box-shadow: 0 1.6rem 4rem rgb(37 34 31 / 0.18);
+  isolation: isolate;
+}
+
+.field {
+  position: absolute;
+  inset: -4%;
+  z-index: -1;
+  width: 108%;
+  height: 108%;
+  opacity: 0.27;
+  filter: saturate(0.85);
+  will-change: transform;
+}
+
+.field path:first-child {
+  fill: var(--color-lilac);
+}
+
+.field path:not(:first-child) {
+  visibility: hidden;
+}
+
+.cardWord {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: var(--color-peach);
+  font-family: var(--font-serif);
+  font-size: clamp(13rem, 25vw, 25rem);
+  line-height: 0.72;
+  letter-spacing: -0.1em;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.beats {
+  position: absolute;
+  inset: 0;
+}
+
+.beat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  visibility: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(4rem, 9vh, 7rem) clamp(1.5rem, 6vw, 6rem);
+  text-align: center;
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+}
+
+.beat:first-child {
+  visibility: visible;
+}
+
+.beatMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 clamp(1.5rem, 4vh, 3rem);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.beatMeta span:first-child {
+  display: grid;
+  width: 2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid currentcolor;
+  border-radius: 50%;
+}
+
+.beatTitle {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3.2rem, 6.8vw, 7.6rem);
+  font-weight: 400;
+  letter-spacing: -0.095em;
+  line-height: 0.82;
+}
+
+.beatTitle em {
+  color: var(--color-peach);
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.beat[data-tone='peach'] .beatTitle em {
+  color: var(--color-lilac);
+}
+
+.beat[data-tone='cream'] .beatTitle em {
+  color: var(--color-cream);
+}
+
+.beatCopy {
+  max-width: 34rem;
+  margin: clamp(1.5rem, 4vh, 3rem) auto 0;
+  color: var(--color-ink);
+  filter: contrast(0.6);
+  font-size: var(--text-intro);
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+
+.frameIndex {
+  position: absolute;
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(1rem, 2vw, 1.75rem);
+  color: rgb(246 239 229 / 0.15);
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 10vw, 10rem);
+  line-height: 0.72;
+}
+
+.orbitMap {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.orbitMap path {
+  fill: none;
+  stroke: none;
+}
+
+.orbitTag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: grid;
+  width: 4.4rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0.2rem 0.25rem 0 var(--color-ink);
+  font-size: var(--text-utility-xs);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  will-change: transform;
+}
+
+.progress {
+  position: relative;
+  flex: 1;
+  max-width: 15rem;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(37 34 31 / 0.16);
+}
+
+.progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.closing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 7;
+  width: min(90vw, 74rem);
+  visibility: hidden;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+.closingEyebrow {
+  display: block;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  color: var(--color-muted);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.closing p {
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 10rem);
+  font-weight: 400;
+  letter-spacing: -0.095em;
+  line-height: 0.82;
+}
+
+.closing em {
+  color: var(--color-peach);
+  font-family: var(--font-serif);
+  font-style: normal;
+}
+
+.closingLine {
+  display: block;
+}
+
+.closingAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.14em;
+  margin-top: 0.04em;
+  white-space: nowrap;
+}
+
+.closingCardSlot {
+  display: inline-block;
+  width: 1.08em;
+  height: 0.58em;
+  flex: 0 0 auto;
+  border-radius: 0.1em;
+  vertical-align: middle;
+}
+
+@media (max-width: 900px) {
+  .stack {
+    width: 88vw;
+  }
+
+  .keyword:nth-child(1) {
+    left: 3%;
+  }
+
+  .keyword:nth-child(2) {
+    right: 3%;
+  }
+}
+
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .section {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .pin {
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .stage {
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 1.25rem 6rem;
+  }
+
+  .chrome {
+    top: 1.5rem;
+    right: 1.25rem;
+    left: 1.25rem;
+  }
+
+  .counter,
+  .keywords,
+  .orbitMap,
+  .orbitTag,
+  .closing,
+  .footer {
+    display: none;
+  }
+
+  .intro {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    margin-bottom: 5rem;
+    text-align: left;
+    transform: none;
+  }
+
+  .intro h2 {
+    font-size: var(--text-display-sm);
+  }
+
+  .stack {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+
+  .backCard,
+  .field,
+  .cardWord,
+  .frameIndex {
+    display: none;
+  }
+
+  .frame {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--color-ink);
+  }
+
+  .beats {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .beat,
+  .beat:first-child {
+    position: relative;
+    inset: auto;
+    visibility: visible;
+    min-height: 32rem;
+    padding: 3.5rem 1.4rem;
+    border: 1px solid var(--color-ink);
+    border-radius: 1.25rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .beat:nth-child(2) {
+    background: var(--color-lilac);
+    color: var(--color-ink);
+  }
+
+  .beat:nth-child(2) .beatCopy {
+    color: rgb(37 34 31 / 0.65);
+  }
+
+  .beat:nth-child(3) {
+    background: var(--color-peach);
+    color: var(--color-ink);
+  }
+
+  .beat:nth-child(3) .beatCopy {
+    color: rgb(37 34 31 / 0.65);
+  }
+
+  .beatTitle {
+    font-size: clamp(2.8rem, 13vw, 5rem);
+  }
+}
+
+@media (max-height: 720px) and (min-width: 801px) {
+  .pin {
+    min-height: 36rem;
+  }
+
+  .stack {
+    height: 72vh;
+  }
+
+  .beatCopy {
+    margin-top: 1.25rem;
+  }
+}

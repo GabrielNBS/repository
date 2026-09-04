@@ -3,7 +3,7 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import type { RefObject } from 'react';
+import { useCallback, useRef, type RefObject } from 'react';
 import styles from './SkillsSection.module.css';
 
 type SkillsMotionRefs = {
@@ -15,6 +15,8 @@ type SkillsMotionRefs = {
   nav: RefObject<Array<HTMLButtonElement | null>>;
 };
 
+// ScrollTrigger controla o deslocamento horizontal do track; os demais tweens
+// continuam no core do GSAP e são criados dentro do useGSAP.
 gsap.registerPlugin(ScrollTrigger);
 
 export function useSkillsMotion({
@@ -25,6 +27,8 @@ export function useSkillsMotion({
   cards: cardsRef,
   nav: navRef
 }: SkillsMotionRefs) {
+  const navigateToIndexRef = useRef<(index: number) => void>(() => undefined);
+
   useGSAP(
     () => {
       const sectionElement = section.current;
@@ -44,6 +48,8 @@ export function useSkillsMotion({
         return undefined;
       }
 
+      // Os vídeos acompanham o card ativo, mas não participam do cálculo de
+      // posição do track. Em reduced motion eles ficam pausados.
       const videos = Array.from(
         sectionElement.querySelectorAll<HTMLVideoElement>(`.${styles.cardVideo}`)
       );
@@ -60,6 +66,8 @@ export function useSkillsMotion({
       const lastCardBreath = 0.14;
       const switchThreshold = 0.6;
 
+      // Mantém a mídia do card ativo sincronizada com a navegação e com a
+      // preferência de movimento reduzido do usuário.
       const syncVideoMotion = () => {
         videos.forEach((video, index) => {
           const isActive = index === activeIndex;
@@ -74,6 +82,9 @@ export function useSkillsMotion({
         });
       };
 
+      // Todas as leituras de layout ficam concentradas aqui. `pinDistance`
+      // transforma a largura excedente do track em distância vertical de
+      // scroll e acrescenta um respiro para o último card.
       const measure = () => {
         const cardWidth = cards[0].getBoundingClientRect().width;
         const gap = parseFloat(getComputedStyle(trackElement).gap) || 0;
@@ -83,6 +94,9 @@ export function useSkillsMotion({
         sectionElement.style.setProperty('--skills-scroll-distance', `${pinDistance}px`);
       };
 
+      // Alterna o conteúdo expandido do card, o estado acessível da navegação
+      // e a reprodução dos vídeos. A altura é o único valor de layout animado
+      // porque o copy precisa revelar seu conteúdo real.
       const setActive = (nextIndex: number, animate = true) => {
         const nextActiveIndex = Math.max(0, Math.min(cards.length - 1, nextIndex));
         const indexChanged = nextActiveIndex !== activeIndex;
@@ -140,6 +154,8 @@ export function useSkillsMotion({
         syncVideoMotion();
       };
 
+      // Converte a posição horizontal em índice de card. O clamp impede que
+      // drag, resize ou ScrollTrigger levem o track para fora dos limites.
       const setPosition = (nextPosition: number, immediate = false) => {
         position = Math.max(0, Math.min(maxTranslate, nextPosition));
         const trackProgress = maxTranslate ? position / maxTranslate : 0;
@@ -157,6 +173,8 @@ export function useSkillsMotion({
         if (indexChanged || immediate) setActive(nextIndex, !immediate);
       };
 
+      // Navegação manual: no mobile usa scroll nativo; no desktop converte o
+      // índice em uma posição vertical dentro do trecho pinado.
       const scrollToIndex = (index: number) => {
         if (window.matchMedia('(max-width: 800px)').matches) {
           cards[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -171,6 +189,8 @@ export function useSkillsMotion({
 
       measure();
 
+      // Trigger standalone porque o track é atualizado manualmente no onUpdate
+      // e também pode ser controlado pelo drag do ponteiro.
       const scrollTrigger = ScrollTrigger.create({
         id: 'skills-horizontal-track',
         trigger: sectionElement,
@@ -188,6 +208,8 @@ export function useSkillsMotion({
         }
       });
 
+      // Recalcula medidas após resize e restaura o modo correto de track para
+      // desktop/mobile antes de pedir um refresh global ao ScrollTrigger.
       const onResize = () => {
         measure();
         if (window.matchMedia('(max-width: 800px)').matches) {
@@ -199,8 +221,11 @@ export function useSkillsMotion({
         ScrollTrigger.refresh();
       };
 
+      // Drag horizontal opcional no desktop. O clique nos botões de navegação
+      // é ignorado para que cada interação mantenha uma única responsabilidade.
       const onPointerDown = (event: PointerEvent) => {
         if (window.matchMedia('(max-width: 800px)').matches || event.button !== 0) return;
+        if (event.target instanceof Element && event.target.closest(`.${styles.navButton}`)) return;
         dragging = true;
         dragStartX = event.clientX;
         dragStartPosition = position;
@@ -224,11 +249,7 @@ export function useSkillsMotion({
         scrollToIndex(nearestIndex);
       };
 
-      const navClickHandlers = navItems.map((item, index) => {
-        const handler = () => scrollToIndex(index);
-        item.addEventListener('click', handler);
-        return { item, handler };
-      });
+      navigateToIndexRef.current = scrollToIndex;
       shellElement.addEventListener('pointerdown', onPointerDown);
       shellElement.addEventListener('pointermove', onPointerMove);
       shellElement.addEventListener('pointerup', onPointerUp);
@@ -239,7 +260,7 @@ export function useSkillsMotion({
       setPosition(0, true);
 
       return () => {
-        navClickHandlers.forEach(({ item, handler }) => item.removeEventListener('click', handler));
+        navigateToIndexRef.current = () => undefined;
         shellElement.removeEventListener('pointerdown', onPointerDown);
         shellElement.removeEventListener('pointermove', onPointerMove);
         shellElement.removeEventListener('pointerup', onPointerUp);
@@ -252,4 +273,8 @@ export function useSkillsMotion({
     },
     { scope: section, dependencies: [] }
   );
+
+  return useCallback((index: number) => {
+    navigateToIndexRef.current(index);
+  }, []);
 }

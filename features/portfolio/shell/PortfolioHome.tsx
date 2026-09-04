@@ -3,14 +3,14 @@
 import { useRef } from 'react';
 import PortfolioNav from './PortfolioNav';
 import PortfolioFooter from './PortfolioFooter';
-import ProjectAboutTransition from '../transitions/ProjectAboutTransition';
+import ProjectAboutTransition from './transitions/ProjectAboutTransition';
 import { ProjectCursorProvider } from '../projects/cursor/ProjectCursorProvider';
-import { usePortfolioMotion } from '../motion/portfolioHomeMotion';
+import { usePortfolioMotion } from './portfolioHomeMotion';
 import AboutSection from '../sections/about/AboutSection';
 import ContactSection from '../sections/contact/ContactSection';
 import HeroSection from '../sections/hero/HeroSection';
 import ManifestoSection from '../sections/manifesto/ManifestoSection';
-import ProjectsSection from '../projects/components/ProjectsSection';
+import ProjectsSection from '../sections/projects/ProjectsSection';
 import SkillsSection from '../sections/skills/SkillsSection';
 
 export default function PortfolioHome() {

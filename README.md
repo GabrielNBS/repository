@@ -21,15 +21,14 @@ Scripts disponíveis:
 ```text
 app/                         # Rotas e configuração global do Next.js
 features/portfolio/
-├── shell/                   # Composição da home, navegação e rodapé
-├── sections/                # Sections isoladas por responsabilidade
-├── projects/                # Dados, cards, cursor e animações de projetos
+├── shell/                   # Composição da home, navegação, rodapé e transições
+├── sections/                # Sections da home, com motion e estilos locais
+├── projects/                # Dados, cards, cursor e visuais reutilizáveis
 ├── project-detail/          # Página e motion de detalhe do projeto
-├── transitions/             # Transições entre sections
-├── motion/                  # Motion da home
 └── shared/motion/           # Utilitários GSAP compartilhados
 public/mockups/              # Imagens estáticas dos projetos
-docs/previews/               # Protótipos e referências visuais
+docs/architecture/           # Diagramas e artefatos de arquitetura
+docs/previews/               # Protótipos agrupados por domínio
 ```
 
 As animações GSAP são organizadas pelo contexto que controla cada experiência. Hooks `useGSAP`, escopos por `ref`, `matchMedia` e cleanup automático evitam efeitos persistentes entre montagens e mudanças responsivas.

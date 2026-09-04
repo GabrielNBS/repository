@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import ProjectVisual from './ProjectVisual';
-import { useProjectCursor } from '../cursor/ProjectCursorProvider';
+import { useProjectCursor } from './cursor/ProjectCursorProvider';
 import ProjectStackIcons from './ProjectStackIcons';
 
 type ProjectCardProps = { project: Project; index: number };

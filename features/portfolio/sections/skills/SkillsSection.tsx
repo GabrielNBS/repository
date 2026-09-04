@@ -60,7 +60,7 @@ export default function SkillsSection() {
   const cardsRef = useRef<Array<HTMLElement | null>>([]);
   const navRef = useRef<Array<HTMLButtonElement | null>>([]);
 
-  useSkillsMotion({
+  const navigateToSkill = useSkillsMotion({
     section: sectionRef,
     shell: shellRef,
     track: trackRef,
@@ -95,6 +95,7 @@ export default function SkillsSection() {
                 data-variant={cardTones[index]}
                 type="button"
                 aria-current={index === 0 ? 'step' : 'false'}
+                onClick={() => navigateToSkill(index)}
               >
                 {skill.title}
               </button>
