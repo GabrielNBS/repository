@@ -163,45 +163,9 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
 
       if (reducedMotion || !root.current) return;
 
-      const hero = root.current?.querySelector<HTMLElement>('[data-motion="hero"]');
-      const heroOrbit = root.current?.querySelector<HTMLElement>('[data-motion="hero-orbit"]');
-      const heroIntroTargets = gsap.utils.toArray<HTMLElement>(
-        '[data-motion="hero-eyebrow"], [data-motion="hero-intro"], [data-motion="scroll-cue"]',
-        root.current
-      );
-
-      // Entrada inicial do hero. As posições numéricas abaixo são offsets em
-      // segundos relativos ao início desta timeline, não pixels de scroll.
-      const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      if (heroIntroTargets.length) {
-        intro.from(heroIntroTargets, {
-          autoAlpha: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          y: 24
-        });
-      }
-      if (heroOrbit) {
-        intro.from(
-          heroOrbit,
-          { autoAlpha: 0, duration: 1.3, ease: 'elastic.out(1, 0.7)', scale: 0.5 },
-          '-=0.8'
-        );
-      }
-
       const revertBlurReveals = createBlurReveals(root.current);
       const revertScrollTextReveals = createScrollTextReveals(root);
       const revertProjectsToAbout = createProjectsToAboutReveal(root);
-
-      // Parallax contínuo do orbit durante o primeiro hero viewport.
-      if (heroOrbit && hero) {
-        gsap.to(heroOrbit, {
-          ease: 'none',
-          rotate: 18,
-          scrollTrigger: { end: 'bottom top', scrub: 1.2, start: 'top top', trigger: hero },
-          y: -140
-        });
-      }
 
       // Apenas alterna o estado visual da navegação; não cria uma animação
       // longa e por isso não precisa de timeline ou scrub.
@@ -213,7 +177,6 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
       });
 
       return () => {
-        intro.kill();
         nav?.removeAttribute('data-state');
         revertBlurReveals();
         revertProjectsToAbout();

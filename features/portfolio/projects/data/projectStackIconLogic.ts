@@ -1,4 +1,5 @@
 import type { IconType } from 'react-icons';
+import { FiCode, FiLayers } from 'react-icons/fi';
 import {
   SiBootstrap,
   SiCss,
@@ -6,14 +7,19 @@ import {
   SiHtml5,
   SiJavascript,
   SiNextdotjs,
+  SiPrisma,
+  SiPuppeteer,
   SiRadixui,
   SiReact,
   SiReacthookform,
   SiRedux,
   SiSass,
+  SiSqlite,
   SiStyledcomponents,
   SiTailwindcss,
   SiTypescript,
+  SiVitest,
+  SiWhatsapp,
   SiZod
 } from 'react-icons/si';
 
@@ -23,6 +29,13 @@ const stackIcons: Record<string, StackIcon> = {
   'Next.js': { Icon: SiNextdotjs, tone: 'text-ink' },
   TypeScript: { Icon: SiTypescript, tone: 'text-[#3178c6]' },
   Tailwind: { Icon: SiTailwindcss, tone: 'text-[#38bdf8]' },
+  'Tailwind CSS': { Icon: SiTailwindcss, tone: 'text-ink' },
+  Prisma: { Icon: SiPrisma, tone: 'text-ink' },
+  SQLite: { Icon: SiSqlite, tone: 'text-ink' },
+  Puppeteer: { Icon: SiPuppeteer, tone: 'text-ink' },
+  'whatsapp-web.js': { Icon: SiWhatsapp, tone: 'text-ink' },
+  Zustand: { Icon: FiLayers, tone: 'text-ink' },
+  Vitest: { Icon: SiVitest, tone: 'text-ink' },
   'Radix UI': { Icon: SiRadixui, tone: 'text-ink' },
   Zod: { Icon: SiZod, tone: 'text-[#3156a5]' },
   'React Hook Form': { Icon: SiReacthookform, tone: 'text-[#ec5990]' },
@@ -40,5 +53,5 @@ const stackIcons: Record<string, StackIcon> = {
 };
 
 export function getStackIcon(stack: string): StackIcon {
-  return stackIcons[stack] ?? { Icon: SiReact, tone: 'text-ink' };
+  return stackIcons[stack] ?? { Icon: FiCode, tone: 'text-ink' };
 }

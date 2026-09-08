@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>Regula / Detail timeline studies</title>
+    <style>
+      :root { color-scheme: light; --paper: #f6efe5; --ink: #25221f; --muted: #71695e; --accent: #efae82; }
+      * { box-sizing: border-box; }
+      body { min-height: 100vh; margin: 0; padding: clamp(1.25rem, 5vw, 5rem); background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      p { max-width: 38rem; color: var(--muted); line-height: 1.45; }
+      h1 { max-width: 9ch; margin: 1rem 0 3rem; font-size: clamp(3.5rem, 10vw, 9rem); font-weight: 400; letter-spacing: -0.11em; line-height: 0.76; }
+      h1 em { color: var(--accent); font-family: Georgia, serif; font-style: normal; }
+      .kicker { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.75rem; }
+      a { display: grid; min-height: 11rem; align-content: space-between; padding: 1rem; border: 1px solid rgb(37 34 31 / 0.2); border-radius: 1rem; color: inherit; text-decoration: none; transition: 180ms ease; }
+      a:hover, a:focus-visible { background: var(--ink); color: var(--paper); outline: none; transform: translateY(-0.2rem); }
+      a span { color: var(--muted); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+      a:hover span, a:focus-visible span { color: var(--accent); }
+      a strong { font-size: 1.2rem; font-weight: 500; }
+      footer { margin-top: 3rem; color: var(--muted); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <p class="kicker">Isolated HTML fragments / Regula / case 01</p>
+    <h1>Escolha o <em>ritmo</em> para testar.</h1>
+    <p>Estudos fora do app. Cada link abre uma seção de detalhe independente, com o mesmo conteúdo real do Regula e uma timeline GSAP diferente.</p>
+    <nav class="grid" aria-label="Estudos de timeline">
+      <a href="editorial.html"><span>01 / leitura</span><strong>Editorial fold ↗</strong></a>
+      <a href="route.html"><span>02 / percurso</span><strong>Kinetic route ↗</strong></a>
+      <a href="stack.html"><span>03 / camadas</span><strong>Index stack ↗</strong></a>
+      <a href="scan.html"><span>04 / sistema</span><strong>Signal scan ↗</strong></a>
+      <a href="lens.html"><span>05 / foco</span><strong>Focus lens ↗</strong></a>
+    </nav>
+    <footer>Scroll + scrub · Abra cada fragmento em uma aba para comparar</footer>
+  </body>
+</html>
