@@ -116,6 +116,9 @@
 
 .stage {
   min-width: 0;
+  align-self: start;
+  /* Offset visual fixo: a abertura do copy não pode recentrar o carrossel. */
+  transform: translateY(clamp(3.5rem, 10vh, 7rem));
   overflow: hidden;
 }
 
@@ -259,6 +262,7 @@
     display: block;
     min-height: 0;
     padding: 6.5rem 0 4rem;
+    transform: none;
   }
 
   .aside {
@@ -285,6 +289,10 @@
     margin-top: 3rem;
     overflow: visible;
     padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  .stage {
+    transform: none;
   }
 
   .cardsTrack {

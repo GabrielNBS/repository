@@ -28,6 +28,7 @@ export default function ProjectVisual({
       className={`text-ink ease-editorial relative isolate flex min-h-full flex-col justify-between overflow-hidden rounded-[1.45rem] transition duration-500 group-hover:scale-[0.98] max-[800px]:min-h-[22rem] max-[480px]:min-h-[19rem] ${toneClass} ${className}`}
       aria-hidden="true"
       data-component="project-visual"
+      data-project-visual
     >
       <ProjectShaderGradient
         className="pointer-events-none absolute inset-0 opacity-95"

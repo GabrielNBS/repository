@@ -11,6 +11,11 @@ import { SPLIT_TEXT_CHAR_INSET } from './splitTextSafety';
 // seus reveals quando entram na viewport.
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
+// Um heading pode ser montado pelo componente e também descoberto por uma
+// timeline de seção. Guardar a instância ativa evita que dois SplitText e dois
+// ScrollTriggers disputem os mesmos nós, especialmente durante um pin.
+const activeHeadingSplits = new WeakMap<HTMLElement, () => void>();
+
 export interface HeadingSplitOptions {
   // Estes valores são pontos de controle da entrada. O trigger/start/end
   // podem ser trocados por uma seção pinada sem alterar o componente visual.
@@ -34,7 +39,7 @@ export function findPinnedContainer(element: HTMLElement): HTMLElement | null {
   // 1. Primeiro respeita containers declarados no markup: são a fonte mais
   // confiável para alinhar o ScrollTrigger com uma história pinada.
   const explicit = element.closest<HTMLElement>(
-    '[data-motion="story-stage"], [data-layout="pin"], [data-layout="pinned"], [data-layout="pin-container"]'
+    '[data-motion="story-stage"], [data-story-stage], [data-layout="pin"], [data-layout="pinned"], [data-layout="pin-container"]'
   );
   if (explicit) return explicit;
 
@@ -77,6 +82,11 @@ export function createHeadingSplitAnimation(
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reducedMotion) return () => {};
 
+  // O mesmo heading pode ser registrado pelo componente e por uma motion
+  // orchestration da página. Reutilizar a primeira instância mantém o estado
+  // dos caracteres e o progresso do ScrollTrigger determinísticos.
+  if (activeHeadingSplits.has(element)) return () => {};
+
   // Divide o heading em palavras e caracteres. A máscara evita que cada
   // caractere apareça fora do seu recorte enquanto sobe e perde o blur.
   const split = SplitText.create(element, {
@@ -92,24 +102,25 @@ export function createHeadingSplitAnimation(
         : options.pinnedContainer
       : findPinnedContainer(element);
 
-  // Configuração do trecho de scroll. Quando existe um pin pai, pinnedContainer
-  // e endTrigger fazem o reveal respeitar a geometria desse palco, em vez de
-  // terminar assim que o heading cruza a viewport normal.
+  // Um ScrollTrigger filho com `pinnedContainer` + `endTrigger` pode calcular
+  // o intervalo depois do pin pai e deixar os chars presos em autoAlpha: 0.
+  // Em vez de aninhar dois intervalos, o split acompanha a geometria renderizada
+  // do próprio heading. O pin continua sendo controlado pela timeline pai.
+  const isInsidePinnedContainer = Boolean(pinnedContainer);
+  const defaultToggleActions = isInsidePinnedContainer
+    ? 'play none none none'
+    : 'restart reverse restart reverse';
   const scrollTriggerConfig: ScrollTrigger.Vars = {
+    // Mede a posição renderizada do heading. Isso continua funcionando quando
+    // o ancestor está pinado e recebe transform, sem depender da ordem em que
+    // o React cria o pin-spacer e o hook do heading.
     trigger: options?.trigger ?? element,
     start: options?.start ?? 'top 85%',
     end: options?.end ?? 'bottom 15%',
-    ...(pinnedContainer
-      ? {
-          pinnedContainer,
-          endTrigger: options?.endTrigger ?? pinnedContainer
-        }
-      : options?.endTrigger
-        ? { endTrigger: options.endTrigger }
-        : {}),
+    ...(options?.endTrigger ? { endTrigger: options.endTrigger } : {}),
     ...(options?.toggleActions === false
       ? {}
-      : { toggleActions: options?.toggleActions ?? 'restart reverse restart reverse' }),
+      : { toggleActions: options?.toggleActions ?? defaultToggleActions }),
     invalidateOnRefresh: true,
     refreshPriority: 1
   };
@@ -135,10 +146,14 @@ export function createHeadingSplitAnimation(
     ease: 'power3.out'
   });
 
-  return () => {
+  const cleanup = () => {
     timeline.kill();
     split.revert();
+    activeHeadingSplits.delete(element);
   };
+
+  activeHeadingSplits.set(element, cleanup);
+  return cleanup;
 }
 
 /**

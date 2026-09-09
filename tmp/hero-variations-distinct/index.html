@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hero — 5 direções distintas</title>
+    <style>
+      :root {
+        --paper: #f6efe5;
+        --ink: #25221f;
+        --muted: #665e57;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 2rem;
+        padding: 2rem clamp(1.25rem, 4vw, 4rem);
+        border-bottom: 1px solid #25221f33;
+      }
+      h1 {
+        max-width: 8ch;
+        margin: 0;
+        font:
+          400 clamp(3rem, 7vw, 7rem)/0.85 Georgia,
+          serif;
+        letter-spacing: -0.09em;
+      }
+      header p {
+        max-width: 34rem;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1rem;
+        padding: 1rem clamp(1.25rem, 4vw, 4rem) 3rem;
+      }
+      article {
+        overflow: hidden;
+        border: 1px solid #25221f33;
+        border-radius: 1rem;
+        background: #fff9f0;
+      }
+      article h2 {
+        margin: 0;
+        padding: 1rem 1.2rem 0.25rem;
+        font-size: 0.76rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      article p {
+        margin: 0;
+        padding: 0 1.2rem 1rem;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      iframe {
+        display: block;
+        width: 100%;
+        height: 560px;
+        border: 0;
+        border-top: 1px solid #25221f22;
+        background: var(--paper);
+      }
+      footer {
+        padding: 0 clamp(1.25rem, 4vw, 4rem) 2rem;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      @media (max-width: 700px) {
+        header {
+          display: block;
+        }
+        header p {
+          margin-top: 1rem;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        iframe {
+          height: 620px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Agora são direções diferentes.</h1>
+      <p>
+        Nova rodada de conceitos para a HeroSection: cada opção muda radicalmente a hierarquia, a
+        quantidade de elementos e a relação entre texto, navegação e forma.
+      </p>
+    </header>
+    <main class="grid">
+      <article>
+        <h2>01 / Type only</h2>
+        <p>Minimalismo tipográfico. Sem artefato e sem rail.</p>
+        <iframe title="Variação 01" src="./01-type-only.html"></iframe>
+      </article>
+      <article>
+        <h2>02 / Poster full bleed</h2>
+        <p>Headline monumental em fundo escuro com orb.</p>
+        <iframe title="Variação 02" src="./02-poster-bleed.html"></iframe>
+      </article>
+      <article>
+        <h2>03 / Vertical index</h2>
+        <p>Índice vertical, card editorial e rail de dados.</p>
+        <iframe title="Variação 03" src="./03-vertical-index.html"></iframe>
+      </article>
+      <article>
+        <h2>04 / Command console</h2>
+        <p>Composição densa, orientada a métricas e stack.</p>
+        <iframe title="Variação 04" src="./04-command-console.html"></iframe>
+      </article>
+      <article>
+        <h2>05 / Quiet manifesto</h2>
+        <p>Uma declaração única com o mínimo de elementos.</p>
+        <iframe title="Variação 05" src="./05-quiet-manifesto.html"></iframe>
+      </article>
+    </main>
+    <footer>Fragmentos temporários · Nenhuma alteração aplicada ao HeroSection.tsx</footer>
+  </body>
+</html>

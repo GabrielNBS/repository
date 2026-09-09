@@ -35,6 +35,7 @@ export function useSkillsMotion({
       const shellElement = shell.current;
       const trackElement = track.current;
       const viewportElement = viewport.current;
+      const headingElement = sectionElement?.querySelector<HTMLElement>('#skills-title');
       const cards = cardsRef.current.filter(Boolean) as HTMLElement[];
       const navItems = navRef.current.filter(Boolean) as HTMLButtonElement[];
 
@@ -43,6 +44,7 @@ export function useSkillsMotion({
         !shellElement ||
         !trackElement ||
         !viewportElement ||
+        !headingElement ||
         cards.length < 2
       ) {
         return undefined;
@@ -182,8 +184,10 @@ export function useSkillsMotion({
           return;
         }
 
-        const scrollDistance = sectionElement.offsetHeight - window.innerHeight;
-        const target = sectionElement.offsetTop + scrollDistance * (index / (cards.length - 1));
+        const scrollTrigger = ScrollTrigger.getById('skills-horizontal-track');
+        const start = scrollTrigger?.start ?? sectionElement.offsetTop;
+        const end = scrollTrigger?.end ?? start + pinDistance;
+        const target = start + (end - start) * (index / (cards.length - 1));
         window.scrollTo({ top: target, behavior: 'smooth' });
       };
 
@@ -193,8 +197,10 @@ export function useSkillsMotion({
       // e também pode ser controlado pelo drag do ponteiro.
       const scrollTrigger = ScrollTrigger.create({
         id: 'skills-horizontal-track',
-        trigger: sectionElement,
-        start: 'top top',
+        // O H2 é a âncora semântica da cena: o pin começa quando o título
+        // chega ao centro, deixando o carrossel ligeiramente abaixo dele.
+        trigger: headingElement,
+        start: 'center center',
         end: () => `+=${pinDistance}`,
         invalidateOnRefresh: true,
         onRefresh: (self) => {
