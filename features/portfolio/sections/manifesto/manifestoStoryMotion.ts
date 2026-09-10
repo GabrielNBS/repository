@@ -67,10 +67,14 @@ function measureCardDestination(
   };
 }
 
-export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
+export function useManifestoStoryMotion(
+  root: RefObject<HTMLElement | null>,
+  options: { embedded?: boolean } = {}
+) {
   useGSAP(
     () => {
       const section = root.current;
+      const embedded = options.embedded ?? false;
 
       if (!section) return;
 
@@ -104,6 +108,9 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
       const closingCardSlot = section.querySelector<HTMLElement>('[data-manifesto-card-slot]');
       const chrome = gsap.utils.toArray<HTMLElement>('[data-manifesto-chrome]', section);
       const projects = document.querySelector<HTMLElement>('#projetos');
+      const host = embedded
+        ? section.closest<HTMLElement>('main')
+        : section;
 
       if (
         !pin ||
@@ -125,6 +132,7 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
         !closing ||
         !closingCardSlot ||
         !projects ||
+        !host ||
         keywords.length !== 3 ||
         cards.length !== 2 ||
         beats.length !== 3 ||
@@ -142,6 +150,10 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
       // gsap.matchMedia reverte automaticamente a timeline quando o breakpoint
       // ou prefers-reduced-motion deixa de corresponder.
       const media = gsap.matchMedia();
+      media.add('(max-width: 800px)', () => {
+        if (embedded) gsap.set(introTitle, { autoAlpha: 0 });
+      });
+
       // Converte o progresso global em beat ativo (0, 1 ou 2), mantendo o
       // contador e o estado aria sincronizados com a leitura visual.
       const progressToBeat = gsap.utils.pipe(
@@ -211,7 +223,14 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
           gsap.set(cardWord, { autoAlpha: 0, scale: 0.72 });
           gsap.set(beats, { autoAlpha: 0 });
           gsap.set(beats[0], { autoAlpha: 1 });
-          gsap.set(introSplit.words, { autoAlpha: 0, rotate: 2.5, yPercent: 115 });
+          // A hero entrega a frase ao manifesto. Mantemos o título já composto
+          // no primeiro frame desta seção para que a troca do pin não revele
+          // uma tela vazia enquanto a próxima batida ainda não começou.
+          gsap.set(introSplit.words, {
+            autoAlpha: embedded ? 0 : 1,
+            rotate: embedded ? 2.5 : 0,
+            yPercent: embedded ? 115 : 0
+          });
           gsap.set(titleWords.flat(), { autoAlpha: 0, rotate: 2, yPercent: 120 });
           gsap.set(keywords, { autoAlpha: 0, scale: 0.72 });
           gsap.set(progress, { scaleX: 0, transformOrigin: 'left center' });
@@ -226,10 +245,12 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
             defaults: { ease: 'manifesto-focus' },
             scrollTrigger: {
               id: 'manifesto-story',
-              trigger: section,
-              start: 'top top',
+              trigger: host,
+              start: embedded
+                ? () => `top+=${Math.round(window.innerHeight * 2.2)} top`
+                : 'top top',
               end: () => `+=${Math.max(window.innerHeight * 3.35, 2500)}`,
-              pin,
+              pin: embedded ? false : pin,
               scrub: 1.05,
               anticipatePin: 1,
               invalidateOnRefresh: true,

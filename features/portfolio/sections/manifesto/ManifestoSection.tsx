@@ -46,15 +46,16 @@ const beats = [
   }
 ] as const;
 
-export default function ManifestoSection() {
+export default function ManifestoSection({ embedded = false }: { embedded?: boolean }) {
   const root = useRef<HTMLElement>(null);
-  useManifestoStoryMotion(root);
+  useManifestoStoryMotion(root, { embedded });
 
   return (
     <section
       ref={root}
-      className={styles.section}
+      className={`${styles.section} ${embedded ? styles.embeddedSection : ''}`}
       aria-labelledby="manifesto-title"
+      data-manifesto-embedded={embedded ? 'true' : undefined}
       data-motion="manifesto-story"
     >
       <div className={styles.pin} data-manifesto-pin>
