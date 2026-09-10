@@ -26,12 +26,17 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       if (!page) return;
 
       // Cada rota começa no topo para que a leitura do case seja previsível.
+      const previousScrollRestoration = window.history.scrollRestoration;
       window.history.scrollRestoration = 'manual';
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       ScrollTrigger.clearScrollMemory();
       ScrollTrigger.refresh();
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return () => {
+          window.history.scrollRestoration = previousScrollRestoration;
+        };
+      }
 
       // Entrada do conteúdo do hero: apenas transform e opacity para não
       // provocar reflow enquanto o layout editorial é montado.
@@ -77,6 +82,7 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       return () => {
         disposed = true;
         cancelAnimationFrame(refreshFrame);
+        window.history.scrollRestoration = previousScrollRestoration;
         images.forEach((image) => image.removeEventListener('load', refresh));
         visualParallax.kill();
         intro.kill();

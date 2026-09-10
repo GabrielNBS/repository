@@ -156,6 +156,13 @@ export function useSkillsMotion({
         syncVideoMotion();
       };
 
+      // No modo reduzido, a seção mantém todas as habilidades no fluxo normal
+      // e não cria um carrossel pinado nem listeners de drag/scroll.
+      if (reduceMotionQuery.matches) {
+        setActive(0, false);
+        return undefined;
+      }
+
       // Converte a posição horizontal em índice de card. O clamp impede que
       // drag, resize ou ScrollTrigger levem o track para fora dos limites.
       const setPosition = (nextPosition: number, immediate = false) => {

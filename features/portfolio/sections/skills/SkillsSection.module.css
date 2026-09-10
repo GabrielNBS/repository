@@ -325,6 +325,52 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .section {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .sectionShell {
+    position: relative;
+    display: block;
+    min-height: 0;
+    padding: 6.5rem 0 4rem;
+  }
+
+  .cardViewport {
+    margin-top: 3rem;
+    overflow: visible;
+    padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  .stage {
+    transform: none;
+  }
+
+  .cardsTrack {
+    display: grid;
+    width: 100%;
+    gap: 2rem;
+    padding-right: 0;
+    transform: none !important;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .cardCopy,
+  .cardActive .cardCopy {
+    height: auto !important;
+    min-height: 0;
+    padding: 1.1rem 1.25rem 1.35rem;
+  }
+
+  .cardDescription {
+    opacity: 1;
+    transform: none;
+  }
+
   .navButton,
   .cardCopy {
     transition-duration: 0.01ms;

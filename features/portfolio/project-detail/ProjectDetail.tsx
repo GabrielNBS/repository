@@ -13,6 +13,7 @@ import { ScrollSplitCard } from '@/components/ui/scroll-split-card';
 export default function ProjectDetail({ project }: { project: Project }) {
   const root = useRef<HTMLElement>(null);
   useDetailMotion(root);
+  const isLongProjectName = project.name.length > 10;
   const galleryItems =
     project.gallery.desktop.length > 0 ? project.gallery.desktop : project.gallery.mobile;
   const coverImage = galleryItems[0];
@@ -35,28 +36,30 @@ export default function ProjectDetail({ project }: { project: Project }) {
       </a>
       <Link
         className="border-ink/15 bg-paper/80 hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label-sm fixed top-4 left-[clamp(1.25rem,3vw,3.75rem)] z-[21] inline-flex min-h-11 items-center rounded-full border px-3.5 py-3 font-extrabold tracking-[0.08em] uppercase backdrop-blur-[18px] transition focus-visible:outline-none"
-        href="/#projetos"
+        href="/"
       >
         ← Voltar
       </Link>
       <section
-        className="grid grid-cols-[0.6fr_1.4fr] gap-8 px-[clamp(1.25rem,3vw,3.75rem)] pb-28 max-[800px]:grid-cols-1 max-[800px]:pb-20"
+        className="grid grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)] gap-8 px-[clamp(1.25rem,3vw,3.75rem)] pb-28 max-[800px]:grid-cols-1 max-[800px]:pb-20"
         data-detail-hero
       >
-        <div>
+        <div
+          className={`min-w-0${isLongProjectName ? ' max-[1800px]:col-span-full max-[1800px]:row-start-2 max-[800px]:col-auto max-[800px]:row-auto' : ''}`}
+        >
           <p className="text-muted text-label inline-flex items-center gap-2.5 leading-tight font-bold tracking-[0.12em] uppercase before:h-px before:w-7 before:bg-current before:content-['']">
             Projeto / 0{project.id}
           </p>
           <h1
             id="projeto-titulo"
-            className="text-detail-title m-0 mt-4 max-w-[9ch] leading-[0.78] font-normal tracking-[-0.12em]"
+            className={`text-detail-title m-0 mt-4 max-w-none whitespace-nowrap leading-[0.78] font-normal tracking-[-0.12em]${isLongProjectName ? ' text-right' : ''}`}
             data-detail-title
           >
             {project.name}
           </h1>
         </div>
         <div
-          className="[&>p]:text-muted [&>p]:text-detail-intro mb-0 ml-[10%] max-w-132 self-end max-[800px]:ml-0 [&>p]:m-0 [&>p]:leading-[1.15] [&>p]:tracking-tighter"
+          className={`[&>p]:text-muted [&>p]:text-detail-intro mb-0 ml-0 w-full max-w-108 min-w-0 justify-self-end self-start text-right [&>p]:m-0 [&>p]:leading-[1.15] [&>p]:tracking-tighter${isLongProjectName ? ' max-[1800px]:col-start-2 max-[1800px]:row-start-1 max-[800px]:col-auto max-[800px]:row-auto' : ''}`}
           data-detail-intro
         >
           <p>{project.description}</p>

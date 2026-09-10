@@ -159,24 +159,51 @@ export function usePortfolioMotion(root: RefObject<HTMLElement | null>) {
       // Tudo é resolvido dentro do root da home para evitar colisões com a
       // página de detalhe quando ambas compartilham seletores de movimento.
       const nav = root.current?.querySelector<HTMLElement>('[data-component="navigation"]');
+      const page = root.current;
+
+      if (!page) return;
+
+      // A navegação vinda de uma rota de detalhe pode posicionar o hash antes
+      // de os pins da home inserirem seus spacers. Reaplica a âncora depois de
+      // dois frames, quando todas as timelines filhas já mediram o layout.
+      const hashTarget = window.location.hash
+        ? document.getElementById(window.location.hash.slice(1))
+        : null;
+      let anchorFrame = 0;
+      if (hashTarget) {
+        anchorFrame = window.requestAnimationFrame(() => {
+          anchorFrame = window.requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+            window.scrollTo({
+              top: Math.max(0, window.scrollY + hashTarget.getBoundingClientRect().top),
+              left: 0,
+              behavior: 'instant'
+            });
+          });
+        });
+      }
+
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (reducedMotion || !root.current) return;
+      if (reducedMotion) {
+        return () => window.cancelAnimationFrame(anchorFrame);
+      }
 
-      const revertBlurReveals = createBlurReveals(root.current);
+      const revertBlurReveals = createBlurReveals(page);
       const revertScrollTextReveals = createScrollTextReveals(root);
       const revertProjectsToAbout = createProjectsToAboutReveal(root);
 
       // Apenas alterna o estado visual da navegação; não cria uma animação
       // longa e por isso não precisa de timeline ou scrub.
       ScrollTrigger.create({
-        trigger: root.current,
+        trigger: page,
         start: 'top -80',
         onEnter: () => nav?.setAttribute('data-state', 'scrolled'),
         onLeaveBack: () => nav?.removeAttribute('data-state')
       });
 
       return () => {
+        window.cancelAnimationFrame(anchorFrame);
         nav?.removeAttribute('data-state');
         revertBlurReveals();
         revertProjectsToAbout();
