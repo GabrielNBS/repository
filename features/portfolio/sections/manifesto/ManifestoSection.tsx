@@ -1,6 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
+import projects, { getProjectTeaser } from '@/features/portfolio/projects/data/projects';
+import ProjectTeaser from '@/features/portfolio/projects/ProjectTeaser';
 import styles from './ManifestoSection.module.css';
 import { useManifestoStoryMotion } from './manifestoStoryMotion';
 
@@ -95,6 +97,13 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
             />
 
             <div className={styles.frame} data-manifesto-frame data-manifesto-final-card>
+              <ProjectTeaser
+                teaser={getProjectTeaser(projects[0])}
+                className={styles.projectMedia}
+                priority
+                label="Pré-carregando teaser"
+                sizes="(max-width: 800px) 100vw, 35vw"
+              />
               <svg
                 className={styles.field}
                 viewBox="0 0 1000 700"
@@ -114,10 +123,6 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
                   d="M155 62C105 62 64 103 64 153V547C64 597 105 638 155 638H845C895 638 936 597 936 547V153C936 103 895 62 845 62H155Z"
                 />
               </svg>
-
-              <span className={styles.cardWord} aria-hidden="true" data-manifesto-card-word>
-                entra
-              </span>
 
               <div className={styles.beats}>
                 {beats.map((beat, index) => (
@@ -165,7 +170,11 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
                 Agora, a ideia
               </span>
               <span className={styles.closingAction} aria-hidden="true" data-manifesto-closing-part>
-                <i className={styles.closingCardSlot} aria-hidden="true" data-manifesto-card-slot />
+                <i className={styles.closingCardSlot} aria-hidden="true" data-manifesto-card-slot>
+                  <span className={styles.cardWord} data-manifesto-card-word>
+                    entra
+                  </span>
+                </i>
                 <em>em prática.</em>
               </span>
             </p>

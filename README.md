@@ -1,4 +1,4 @@
-# Portfolio interativo
+# Portfólio interativo
 
 Portfólio pessoal de Gabriel Nascimento, construído com Next.js, React, TypeScript, Tailwind CSS, GSAP, React Icons e Zdog. A experiência combina narrativa editorial, transições guiadas por scroll e páginas de detalhe para cada projeto.
 
@@ -22,7 +22,7 @@ Scripts disponíveis:
 app/                         # Rotas e configuração global do Next.js
 features/portfolio/
 ├── shell/                   # Composição da home, navegação, rodapé e transições
-├── sections/                # Sections da home, com motion e estilos locais
+├── sections/                # Seções da home, com motion e estilos locais
 ├── projects/                # Dados, cards, cursor e visuais reutilizáveis
 ├── project-detail/          # Página e motion de detalhe do projeto
 └── shared/motion/           # Utilitários GSAP compartilhados

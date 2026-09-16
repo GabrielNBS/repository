@@ -36,5 +36,5 @@ Uma seção logo abaixo de `About`, mostrando que o trabalho front-end vai além
 3. `SkillsSection.module.css` adapta apenas a superfície visual, tipografia, cores e área técnica de `600px` sem criar um painel ao redor dos cards.
 4. `CardSwap` recebe `cardDistance={60}`, `verticalDistance={70}`, `delay={5000}` e `pauseOnHover={false}` conforme a configuração solicitada.
 5. `skills-section-preview.html` e `skills-section-preview.css` são arquivos descartáveis e não entram no bundle do Next.js.
-6. A seção é exportada pelo índice de sections e inserida entre `AboutSection` e `ContactSection`.
+6. A seção é exportada pelo índice de seções e inserida entre `AboutSection` e `ContactSection`.
 7. A numeração editorial do contato passa de `04` para `05` para preservar a sequência real da página.

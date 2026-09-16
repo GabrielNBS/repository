@@ -140,6 +140,10 @@
   will-change: transform, opacity;
 }
 
+.mobileManifestoCard {
+  display: none;
+}
+
 .card {
   display: grid;
   aspect-ratio: 1.6;
@@ -297,7 +301,7 @@
   font-size: 1.1rem;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 800px), (pointer: coarse) {
   .stage {
     min-height: 44rem;
   }
@@ -316,18 +320,70 @@
   }
 
   .nameDrift {
-    top: 7.5rem;
-    width: 145vw;
+    top: 10.5rem;
+    width: 100%;
+    padding-inline: 1.25rem;
   }
 
   .nameLetters {
-    font-size: clamp(4rem, 20vw, 8rem);
+    font-size: clamp(2.8rem, 14vw, 5.5rem);
     line-height: 0.72;
+    transform: scaleX(0.78);
   }
 
   .cardDrift {
-    bottom: 9.5rem;
+    bottom: 15.5rem;
     width: min(74vw, 23rem);
+  }
+
+  .cardStage > [data-manifesto-embedded='true'] {
+    display: none;
+  }
+
+  .mobileManifestoCard {
+    display: grid;
+    aspect-ratio: 1.6;
+    gap: 0.55rem;
+    align-content: space-between;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 55%, transparent);
+    background:
+      linear-gradient(135deg, rgb(246 239 229 / 0.35), transparent 58%), var(--color-cream);
+    box-shadow: 0 1.2rem 3.5rem rgb(37 34 31 / 18%);
+    color: var(--color-ink);
+    transform: rotate(-1deg);
+  }
+
+  .mobileManifestoCard span,
+  .mobileManifestoCard small {
+    font-size: var(--text-utility-xs);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .mobileManifestoCard p {
+    margin: auto 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-utility-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .mobileManifestoCard strong {
+    max-width: 8ch;
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -0.08em;
+    line-height: 0.86;
+  }
+
+  .mobileManifestoCard small {
+    padding-top: 0.65rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
   }
 
   .leftRoleDrift,

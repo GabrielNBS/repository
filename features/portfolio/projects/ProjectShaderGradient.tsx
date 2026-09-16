@@ -88,6 +88,23 @@ function useReducedMotion() {
   return canAnimate;
 }
 
+function useCoarsePointer() {
+  const [isCoarse, setIsCoarse] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(pointer: coarse)');
+    const updatePointer = () => setIsCoarse(mediaQuery.matches);
+
+    updatePointer();
+    mediaQuery.addEventListener('change', updatePointer);
+    return () => mediaQuery.removeEventListener('change', updatePointer);
+  }, []);
+
+  return isCoarse;
+}
+
 function useRenderableSurface() {
   const surfaceRef = useRef<HTMLDivElement>(null);
   const [isRenderable, setIsRenderable] = useState(false);
@@ -115,6 +132,7 @@ export default function ProjectShaderGradient({
   className?: string;
 }) {
   const canAnimate = useReducedMotion();
+  const isCoarsePointer = useCoarsePointer();
   const { isRenderable, surfaceRef } = useRenderableSurface();
   const [colors, setColors] = useState(() => ({
     color1: FALLBACK_TOKENS[tone],
@@ -132,7 +150,7 @@ export default function ProjectShaderGradient({
 
   return (
     <div ref={surfaceRef} className={className} aria-hidden="true">
-      {isRenderable && (
+      {isRenderable && !isCoarsePointer && (
         <ShaderGradientCanvas
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
           pixelDensity={1}

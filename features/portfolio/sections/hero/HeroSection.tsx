@@ -59,11 +59,17 @@ export default function HeroSection() {
           </h1>
         </div>
 
-        <div className={styles.cardDrift} data-motion="hero-card-drift">
-          <div className={styles.cardStage} data-motion="hero-card-stage">
-            <ManifestoSection embedded />
+          <div className={styles.cardDrift} data-motion="hero-card-drift">
+            <div className={styles.cardStage} data-motion="hero-card-stage">
+              <ManifestoSection embedded />
+              <div className={styles.mobileManifestoCard} aria-hidden="true">
+                <span>01 / Manifesto</span>
+                <p>Design não começa no software.</p>
+                <strong>Começa com uma decisão.</strong>
+                <small>Role para explorar ↓</small>
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className={styles.leftRoleDrift} data-motion="hero-left-role-drift">
           <p className={styles.leftRole} data-motion="hero-left-role">

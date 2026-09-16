@@ -65,6 +65,7 @@ export function useSkillsMotion({
       let pinDistance = 0;
       let dragging = false;
       const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const compactQuery = window.matchMedia('(max-width: 800px), (pointer: coarse)');
       const lastCardBreath = 0.14;
       const switchThreshold = 0.6;
 
@@ -103,11 +104,10 @@ export function useSkillsMotion({
         const nextActiveIndex = Math.max(0, Math.min(cards.length - 1, nextIndex));
         const indexChanged = nextActiveIndex !== activeIndex;
         activeIndex = nextActiveIndex;
-        const isMobile = window.matchMedia('(max-width: 800px)').matches;
+        if (!indexChanged) return;
 
-        if (!indexChanged && !isMobile) return;
-
-        const duration = animate ? 0.48 : 0;
+        const shouldAnimate = animate && !reduceMotionQuery.matches && !compactQuery.matches;
+        const duration = shouldAnimate ? 0.48 : 0;
         const ease = 'power3.out';
 
         cards.forEach((card, index) => {
@@ -119,9 +119,10 @@ export function useSkillsMotion({
           card.classList.toggle(styles.cardActive, isActive);
           navItems[index]?.classList.toggle(styles.navActive, isActive);
 
-          if (isMobile) {
+          if (compactQuery.matches) {
+            gsap.killTweensOf([copy, description]);
             gsap.set(copy, { clearProps: 'height' });
-            gsap.set(description, { opacity: 1, y: 0 });
+            gsap.set(description, { clearProps: 'opacity,transform' });
             return;
           }
 
@@ -137,7 +138,7 @@ export function useSkillsMotion({
             opacity: isActive ? 1 : 0,
             y: isActive ? 0 : 8,
             delay: isActive ? 0.02 : 0,
-            duration: animate ? 0.42 : 0,
+            duration: shouldAnimate ? 0.42 : 0,
             ease,
             overwrite: true
           });
@@ -156,8 +157,66 @@ export function useSkillsMotion({
         syncVideoMotion();
       };
 
-      // No modo reduzido, a seção mantém todas as habilidades no fluxo normal
-      // e não cria um carrossel pinado nem listeners de drag/scroll.
+      const getClosestCardIndex = () => {
+        const viewportBounds = viewportElement.getBoundingClientRect();
+        const viewportCenter = viewportBounds.left + viewportBounds.width / 2;
+
+        return cards.reduce(
+          (closestIndex, card, index) => {
+            const bounds = card.getBoundingClientRect();
+            const closestBounds = cards[closestIndex].getBoundingClientRect();
+            const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
+            const closestDistance = Math.abs(
+              closestBounds.left + closestBounds.width / 2 - viewportCenter
+            );
+
+            return distance < closestDistance ? index : closestIndex;
+          },
+          0
+        );
+      };
+
+      // No mobile/tablet, o track usa o scroll horizontal nativo. O card mais
+      // próximo do foco visual abre seu copy e assume a mídia ativa, enquanto
+      // o foco de teclado/toque também pode selecionar um card diretamente.
+      if (compactQuery.matches) {
+        const onCompactScroll = () => {
+          const nextIndex = getClosestCardIndex();
+          if (nextIndex !== activeIndex) setActive(nextIndex, !reduceMotionQuery.matches);
+        };
+
+        const onCardFocus = (event: FocusEvent) => {
+          if (!(event.target instanceof Element)) return;
+          const focusedCard = event.target.closest<HTMLElement>(`.${styles.card}`);
+          const nextIndex = focusedCard ? cards.indexOf(focusedCard) : -1;
+          if (nextIndex < 0) return;
+
+          setActive(nextIndex, !reduceMotionQuery.matches);
+
+          const targetLeft = Math.max(
+            0,
+            cards[nextIndex].offsetLeft -
+              (viewportElement.clientWidth - cards[nextIndex].offsetWidth) / 2
+          );
+          viewportElement.scrollTo({
+            left: targetLeft,
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth'
+          });
+        };
+
+        setActive(0, false);
+        viewportElement.addEventListener('scroll', onCompactScroll, { passive: true });
+        trackElement.addEventListener('focusin', onCardFocus);
+
+        return () => {
+          viewportElement.removeEventListener('scroll', onCompactScroll);
+          trackElement.removeEventListener('focusin', onCardFocus);
+          videos.forEach((video) => video.pause());
+        };
+      }
+
+      // No modo reduzido em desktop, a seção mantém todas as habilidades no
+      // fluxo normal e não cria um carrossel pinado nem listeners de drag.
       if (reduceMotionQuery.matches) {
         setActive(0, false);
         return undefined;
@@ -185,9 +244,12 @@ export function useSkillsMotion({
       // Navegação manual: no mobile usa scroll nativo; no desktop converte o
       // índice em uma posição vertical dentro do trecho pinado.
       const scrollToIndex = (index: number) => {
-        if (window.matchMedia('(max-width: 800px)').matches) {
-          cards[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          setActive(index, true);
+        if (compactQuery.matches) {
+          cards[index]?.scrollIntoView({
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+            block: 'center'
+          });
+          setActive(index, !reduceMotionQuery.matches);
           return;
         }
 
@@ -215,7 +277,7 @@ export function useSkillsMotion({
           setPosition(Math.min(maxTranslate, self.progress * pinDistance), true);
         },
         onUpdate: (self) => {
-          if (!dragging && !window.matchMedia('(max-width: 800px)').matches) {
+          if (!dragging && !compactQuery.matches) {
             setPosition(Math.min(maxTranslate, self.progress * pinDistance));
           }
         }
@@ -225,7 +287,7 @@ export function useSkillsMotion({
       // desktop/mobile antes de pedir um refresh global ao ScrollTrigger.
       const onResize = () => {
         measure();
-        if (window.matchMedia('(max-width: 800px)').matches) {
+        if (compactQuery.matches) {
           gsap.set(trackElement, { clearProps: 'transform' });
           setActive(activeIndex, false);
         } else {
@@ -237,7 +299,7 @@ export function useSkillsMotion({
       // Drag horizontal opcional no desktop. O clique nos botões de navegação
       // é ignorado para que cada interação mantenha uma única responsabilidade.
       const onPointerDown = (event: PointerEvent) => {
-        if (window.matchMedia('(max-width: 800px)').matches || event.button !== 0) return;
+        if (compactQuery.matches || event.button !== 0) return;
         if (event.target instanceof Element && event.target.closest(`.${styles.navButton}`)) return;
         dragging = true;
         dragStartX = event.clientX;

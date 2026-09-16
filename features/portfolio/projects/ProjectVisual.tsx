@@ -1,19 +1,23 @@
 'use client';
 
 import type { Project } from '@/features/portfolio/projects/data/projects';
+import { getProjectTeaser } from '@/features/portfolio/projects/data/projects';
 import { getProjectTone } from './data/projectTone';
 import ProjectShaderGradient from './ProjectShaderGradientLazy';
+import ProjectTeaser from './ProjectTeaser';
 
 type ProjectVisualProps = {
   project: Project;
   label?: string;
   className?: string;
+  priority?: boolean;
 };
 
 export default function ProjectVisual({
   project,
   label = 'Interface / estudo',
-  className = ''
+  className = '',
+  priority = false
 }: ProjectVisualProps) {
   const tone = getProjectTone(project.id);
   const toneClass = {
@@ -30,8 +34,15 @@ export default function ProjectVisual({
       data-component="project-visual"
       data-project-visual
     >
+      <ProjectTeaser
+        teaser={getProjectTeaser(project)}
+        className="pointer-events-none absolute inset-0 z-10 opacity-95"
+        priority={priority}
+        label="Pré-carregando"
+        sizes="(max-width: 800px) 100vw, 50vw"
+      />
       <ProjectShaderGradient
-        className="pointer-events-none absolute inset-0 opacity-95"
+        className="pointer-events-none absolute inset-0 z-0 opacity-20 mix-blend-soft-light"
         tone={tone}
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgb(37_34_31/0.12)_1px,transparent_1px),linear-gradient(90deg,rgb(37_34_31/0.12)_1px,transparent_1px)] [mask-image:radial-gradient(circle_at_center,black,transparent_75%)] bg-[size:2.2rem_2.2rem]" />
@@ -42,8 +53,7 @@ export default function ProjectVisual({
         <span>0{project.id}</span>
         <span>{project.year}</span>
       </div>
-      <div
-        className="text-display-md max-[480px]:text-visual-mobile relative z-[1] my-auto -rotate-9 self-center text-center leading-[0.76] font-normal tracking-[-0.12em] transition duration-[450ms] group-hover:scale-105 group-hover:rotate-3"
+      <div className="text-display-md max-[480px]:text-visual-mobile relative z-[1] my-auto -rotate-9 self-center text-center leading-[0.76] font-normal tracking-[-0.12em] transition duration-[450ms] group-hover:scale-105 group-hover:rotate-3"
         aria-hidden="true"
       >
         {project.name}

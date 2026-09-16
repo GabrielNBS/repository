@@ -35,7 +35,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         Pular para o conteúdo
       </a>
       <Link
-        className="border-ink/15 bg-paper/80 hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label-sm fixed top-4 left-[clamp(1.25rem,3vw,3.75rem)] z-[21] inline-flex min-h-11 items-center rounded-full border px-3.5 py-3 font-extrabold tracking-[0.08em] uppercase backdrop-blur-[18px] transition focus-visible:outline-none"
+        className="border-ink/15 bg-paper/80 hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label-sm fixed top-4 left-[clamp(1.25rem,3vw,3.75rem)] z-[21] inline-flex min-h-11 items-center rounded-full border px-3.5 py-3 font-extrabold tracking-[0.08em] uppercase backdrop-blur-[18px] transition focus-visible:outline-2 focus-visible:outline-peach focus-visible:outline-offset-2"
         href="/"
       >
         ← Voltar
@@ -52,29 +52,29 @@ export default function ProjectDetail({ project }: { project: Project }) {
           </p>
           <h1
             id="projeto-titulo"
-            className={`text-detail-title m-0 mt-4 max-w-none whitespace-nowrap leading-[0.78] font-normal tracking-[-0.12em]${isLongProjectName ? ' text-right' : ''}`}
+            className={`text-detail-title m-0 mt-4 max-w-none whitespace-nowrap leading-[0.78] font-normal tracking-[-0.12em]${isLongProjectName ? ' text-right' : ''} max-[1100px]:max-w-[10ch] max-[1100px]:whitespace-normal max-[1100px]:text-left max-[1100px]:text-[clamp(3.2rem,15vw,7rem)]`}
             data-detail-title
           >
             {project.name}
           </h1>
         </div>
         <div
-          className={`[&>p]:text-muted [&>p]:text-detail-intro mb-0 ml-0 w-full max-w-108 min-w-0 justify-self-end self-start text-right [&>p]:m-0 [&>p]:leading-[1.15] [&>p]:tracking-tighter${isLongProjectName ? ' max-[1800px]:col-start-2 max-[1800px]:row-start-1 max-[800px]:col-auto max-[800px]:row-auto' : ''}`}
+          className={`[&>p]:text-muted [&>p]:text-detail-intro mb-0 ml-0 w-full max-w-108 min-w-0 justify-self-end self-start text-right [&>p]:m-0 [&>p]:leading-[1.15] [&>p]:tracking-tighter max-[800px]:max-w-none max-[800px]:justify-self-stretch max-[800px]:text-left max-[800px]:[&>p]:leading-[1.22]${isLongProjectName ? ' max-[1800px]:col-start-2 max-[1800px]:row-start-1 max-[800px]:col-auto max-[800px]:row-auto' : ''}`}
           data-detail-intro
         >
           <p>{project.description}</p>
-          <div className="border-ink/15 [&_span]:text-muted [&_span]:text-utility-sm [&_strong]:text-body-xs grid grid-cols-3 gap-4 border-t pt-4 max-[800px]:grid-cols-2 [&_span]:mb-1.5 [&_span]:block [&_span]:font-bold [&_span]:tracking-[0.1em] [&_span]:uppercase [&_strong]:leading-[1.25]">
+          <div className="border-ink/15 [&_span]:text-muted [&_span]:text-utility-sm [&_strong]:text-body-xs grid grid-cols-3 gap-4 border-t pt-4 max-[800px]:grid-cols-1 max-[800px]:gap-0 max-[800px]:border-b max-[800px]:pt-0 max-[800px]:[&>div]:py-3.5 max-[800px]:[&>div:not(:last-child)]:border-b max-[800px]:[&>div:not(:last-child)]:border-ink/10 max-[800px]:[&_span]:mb-1 max-[800px]:[&_strong]:text-body-sm max-[800px]:[&_strong]:leading-[1.32] max-[800px]:[&_strong]:tracking-[-0.02em] [&_span]:mb-1.5 [&_span]:block [&_span]:font-bold [&_span]:tracking-[0.1em] [&_span]:uppercase [&_strong]:leading-[1.25]">
             <div>
               <span>Ano</span>
               <strong>{project.year}</strong>
             </div>
             <div>
-              <span>Atuação</span>
-              <strong>{project.role}</strong>
-            </div>
-            <div>
               <span>Tipo</span>
               <strong>{project.title}</strong>
+            </div>
+            <div>
+              <span>Atuação</span>
+              <strong>{project.role}</strong>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           className="col-span-full min-h-[min(70vh,42rem)] **:data-project-visual:min-h-[min(70vh,42rem)] max-[800px]:min-h-100 [&_[data-project-visual]]:rounded-[2rem] max-[800px]:[&_[data-project-visual]]:min-h-[25rem]"
           data-detail-visual
         >
-          <ProjectVisual project={project} label={project.subtitle} />
+          <ProjectVisual project={project} label={project.subtitle} priority />
         </div>
       </section>
 
@@ -122,6 +122,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 startLabel={project.subtitle}
                 endLabel={`Feito para ${project.name}.`}
                 technologies={technologies}
+                teaser={project}
                 cards={[
                   {
                     title: 'O desafio',
@@ -160,19 +161,19 @@ export default function ProjectDetail({ project }: { project: Project }) {
         className="flex flex-wrap justify-center gap-3 px-[clamp(1.25rem,3vw,3.75rem)] py-16 max-[480px]:grid max-[480px]:grid-cols-1"
       >
         <a
-          className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-none max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
+          className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-2 focus-visible:outline-ink focus-visible:outline-offset-2 max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
           href={project.deploy}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label={`Ver ${project.name} em uma nova guia`}
         >
           Ver projeto ↗
         </a>
         <a
-          className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-none max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
+          className="border-ink hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-label inline-flex rounded-full border px-4 py-3 font-extrabold tracking-[0.06em] uppercase transition focus-visible:outline-2 focus-visible:outline-ink focus-visible:outline-offset-2 max-[480px]:min-h-11 max-[480px]:items-center max-[480px]:justify-center"
           href={project.github}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label={`Ver o código de ${project.name} em uma nova guia`}
         >
           Código ↗

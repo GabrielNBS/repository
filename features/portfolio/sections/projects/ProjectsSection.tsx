@@ -33,15 +33,26 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
   }, [showArchive]);
 
   return (
-    <section id="projetos" ref={root} className={styles.section} aria-label="Projetos">
+    <section
+      id="projetos"
+      ref={root}
+      className={styles.section}
+      aria-label="Projetos"
+    >
       <div className={styles.story}>
         <header className={styles.header}>
           <span>02 / Seleção recente</span>
           <span>4 em foco · {archived.length} no arquivo</span>
         </header>
+        <div className={styles.mobileIntro}>
+          <h2 id="projects-title">
+            Meus trabalhos recentes<span>.</span>
+          </h2>
+          <p>Uma seleção de interfaces, sistemas e experimentos para explorar no seu ritmo.</p>
+        </div>
         <div className={styles.agenda}>
           <div className={styles.cover} data-motion="agenda-enter">
-            <HeadingSplit as="h2">
+            <HeadingSplit as="h2" id="projects-title-desktop">
               Meus trabalhos recentes<span>.</span>
             </HeadingSplit>
             <div className={styles.illustration} aria-hidden="true" data-motion="projects-lamp">
@@ -118,9 +129,30 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
         )}
       </div>
       <div className={styles.fallback}>
-        {items.map((p, i) => (
+        {featured.map((p, i) => (
           <ProjectCard key={p.slug} project={p} index={i} />
         ))}
+        {archived.length > 0 && (
+          <div className={styles.mobileArchive}>
+            <button
+              type="button"
+              className={styles.mobileArchiveButton}
+              onClick={() => setShowArchive((visible) => !visible)}
+              aria-expanded={showArchive}
+              aria-controls="mobile-project-archive"
+            >
+              <span>{showArchive ? 'Ocultar arquivo' : `Ver mais ${archived.length} projetos`}</span>
+              <span aria-hidden="true">{showArchive ? '−' : '+'}</span>
+            </button>
+            {showArchive && (
+              <div id="mobile-project-archive" className={styles.mobileArchiveCards}>
+                {archived.map((project, index) => (
+                  <ProjectCard key={project.slug} project={project} index={index + featured.length} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

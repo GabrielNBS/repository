@@ -40,7 +40,7 @@ Correções aplicadas durante a auditoria:
 
 ## Mapa rápido
 
-| Nome técnico | Sessão | Tecnologia | Arquivo principal |
+| Nome técnico | Seção | Tecnologia | Arquivo principal |
 | --- | --- | --- | --- |
 | `HeroIntroLoaderTimeline` | Hero | GSAP timeline | `features/portfolio/sections/hero/heroMotion.ts` |
 | `HeroPortalRevealTimeline` | Hero → Manifesto | GSAP + ScrollTrigger | `features/portfolio/sections/hero/heroMotion.ts` |

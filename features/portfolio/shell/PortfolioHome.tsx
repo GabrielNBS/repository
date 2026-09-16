@@ -3,7 +3,6 @@
 import { useRef } from 'react';
 import PortfolioNav from './PortfolioNav';
 import PortfolioFooter from './PortfolioFooter';
-import ProjectAboutTransition from './transitions/ProjectAboutTransition';
 import { ProjectCursorProvider } from '../projects/cursor/ProjectCursorProvider';
 import { usePortfolioMotion } from './portfolioHomeMotion';
 import AboutSection from '../sections/about/AboutSection';
@@ -26,7 +25,6 @@ export default function PortfolioHome() {
           Pular para o conteúdo
         </a>
         <PortfolioNav />
-        <ProjectAboutTransition />
         <HeroSection />
         <ProjectsSection />
         <AboutSection />

@@ -45,7 +45,7 @@ export default function ContactSection() {
           <div className="border-ink flex items-center border-b max-[480px]:gap-2">
             <input
               id="contact-email"
-              className="placeholder:text-ink/35 text-contact-input min-w-0 flex-1 border-0 bg-transparent py-3 tracking-[-0.07em] outline-none"
+              className="placeholder:text-ink/35 text-contact-input focus-visible:outline-3 focus-visible:outline-ink focus-visible:outline-offset-4 min-w-0 flex-1 border-0 bg-transparent py-3 tracking-[-0.07em] outline-none"
               name="email"
               type="email"
               placeholder="seu@email.com"
@@ -53,7 +53,7 @@ export default function ContactSection() {
               aria-describedby="contact-status"
             />
             <button
-              className="bg-peach hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-action-icon grid size-12 shrink-0 place-items-center rounded-full border-0 transition duration-200 hover:rotate-45 focus-visible:rotate-45 focus-visible:outline-none"
+              className="bg-peach hover:bg-ink hover:text-paper focus-visible:bg-ink focus-visible:text-paper text-action-icon grid size-12 shrink-0 place-items-center rounded-full border-0 transition duration-200 hover:rotate-45 focus-visible:rotate-45 focus-visible:outline-2 focus-visible:outline-ink focus-visible:outline-offset-2"
               type="submit"
               aria-label="Enviar e-mail"
             >

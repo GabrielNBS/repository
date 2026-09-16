@@ -1,0 +1,94 @@
+.root {
+  position: absolute;
+  overflow: hidden;
+  isolation: isolate;
+  background: #25221f;
+}
+
+.poster,
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster {
+  z-index: 0;
+  transition: opacity 500ms ease;
+}
+
+.video {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgb(37 34 31 / 0.08), transparent 52%, rgb(37 34 31 / 0.18));
+}
+
+.loading {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgb(246 239 229 / 0.82);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.spinner {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid rgb(246 239 229 / 0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+.error {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 3;
+  color: rgb(246 239 229 / 0.7);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video {
+    display: none;
+  }
+
+  .poster {
+    opacity: 1;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}

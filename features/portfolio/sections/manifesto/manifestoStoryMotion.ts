@@ -88,6 +88,8 @@ export function useManifestoStoryMotion(
       const keywords = gsap.utils.toArray<HTMLElement>('[data-manifesto-keyword]', section);
       const stack = section.querySelector<HTMLElement>('[data-manifesto-stack]');
       const frame = section.querySelector<HTMLElement>('[data-manifesto-frame]');
+      const field = frame?.querySelector<SVGSVGElement>('svg');
+      const projectMedia = frame?.querySelector<HTMLElement>('[data-project-teaser]');
       const cardWord = section.querySelector<HTMLElement>('[data-manifesto-card-word]');
       const cards = gsap.utils.toArray<HTMLElement>('[data-manifesto-card]', section);
       const beats = gsap.utils.toArray<HTMLElement>('[data-manifesto-beat]', section);
@@ -120,6 +122,7 @@ export function useManifestoStoryMotion(
         !introTitle ||
         !stack ||
         !frame ||
+        !field ||
         !cardWord ||
         !blob ||
         !rhythmShape ||
@@ -220,7 +223,7 @@ export function useManifestoStoryMotion(
             yPercent: -50
           });
           gsap.set(cards, { autoAlpha: 0 });
-          gsap.set(cardWord, { autoAlpha: 0, scale: 0.72 });
+          gsap.set(cardWord, { autoAlpha: 0, scale: 0.96, yPercent: 120 });
           gsap.set(beats, { autoAlpha: 0 });
           gsap.set(beats[0], { autoAlpha: 1 });
           // A hero entrega a frase ao manifesto. Mantemos o título já composto
@@ -424,15 +427,15 @@ export function useManifestoStoryMotion(
               'form'
             )
             .to(progress, { scaleX: 0.9, duration: 1.2, ease: 'none' }, 'form')
-            // Release é a passagem da narrativa para Projetos. Aqui o card
-            // encolhe/move para o slot da frase final; o texto "entra" só é
-            // revelado depois de o card terminar de se alocar.
+            // Release é a passagem da narrativa para Projetos. O ato 03
+            // permanece legível enquanto o card encolhe e encontra o slot;
+            // somente depois da chegada a superfície se mistura ao fundo e
+            // a palavra "entra" sobe dentro da janela da segunda linha.
             .addLabel('release', 'form+=1.5')
             .set(stack, { zIndex: 9 }, 'release')
             .to(chrome, { autoAlpha: 0, duration: 0.28 }, 'release')
             .to(orbitTag, { autoAlpha: 0, scale: 0.5, duration: 0.28 }, 'release')
             .to(stack, { x: 0, y: 0, duration: 0.42 }, 'release')
-            .to(beats[2], { autoAlpha: 0, scale: 0.92, duration: 0.4 }, 'release+=0.04')
             .to(
               cards,
               {
@@ -457,7 +460,37 @@ export function useManifestoStoryMotion(
               },
               'release+=0.14'
             )
-            .to(cardWord, { autoAlpha: 1, scale: 1, duration: 0.46 }, 'release+=1.6')
+            .to(
+              frame,
+              {
+                backgroundColor: 'var(--color-paper)',
+                borderColor: 'var(--color-paper)',
+                boxShadow: 'none',
+                color: 'var(--color-ink)',
+                duration: 0.32,
+                ease: 'power2.out'
+              },
+              'release+=1.16'
+            )
+            .to(field, { autoAlpha: 0, duration: 0.24, ease: 'power2.out' }, 'release+=1.16')
+            .to(
+              projectMedia ?? [],
+              { autoAlpha: 0, duration: 0.24, ease: 'power2.out' },
+              'release+=1.16'
+            )
+            .to(beats[2], { autoAlpha: 0, duration: 0.24, ease: 'power2.out' }, 'release+=1.2')
+            .to(
+              cardWord,
+              {
+                autoAlpha: 1,
+                scale: 1,
+                yPercent: 0,
+                duration: 0.52,
+                ease: 'power3.out'
+              },
+              'release+=1.4'
+            )
+            .to(frame, { autoAlpha: 0, duration: 0.24, ease: 'power2.out' }, 'release+=1.4')
             .to(atmosphere, { scale: 1.08, autoAlpha: 0.22, duration: 0.78 }, 'release+=0.08')
             .to(closing, { autoAlpha: 1, scale: 1, y: 0, duration: 0.4 }, 'release+=0.22')
             .to(

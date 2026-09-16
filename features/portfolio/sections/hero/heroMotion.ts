@@ -7,17 +7,19 @@ import type { RefObject } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-function scaleToMini(element: HTMLElement, frame: HTMLElement) {
-  const bounds = element.getBoundingClientRect();
+function scaleToMini(frame: HTMLElement) {
   const frameBounds = frame.getBoundingClientRect();
-  return Math.min(frameBounds.width / bounds.width, frameBounds.height / bounds.height) * 0.96;
+  return Math.min(frameBounds.width / window.innerWidth, frameBounds.height / window.innerHeight) * 0.96;
 }
 
 function centerOffset(element: HTMLElement) {
   const bounds = element.getBoundingClientRect();
+  const x = Number(gsap.getProperty(element, 'x')) || 0;
+  const y = Number(gsap.getProperty(element, 'y')) || 0;
+
   return {
-    x: window.innerWidth / 2 - (bounds.left + bounds.width / 2),
-    y: window.innerHeight / 2 - (bounds.top + bounds.height / 2)
+    x: window.innerWidth / 2 - (bounds.left - x + bounds.width / 2),
+    y: window.innerHeight / 2 - (bounds.top - y + bounds.height / 2)
   };
 }
 
@@ -141,19 +143,18 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
         gsap.set(loader, { display: 'none' });
       });
 
-      media.add('(max-width: 800px), (prefers-reduced-motion: reduce)', () => {
-        gsap.set(manifestoRoot, {
-          xPercent: -50,
-          yPercent: -50,
-          scale: () => scaleToMini(manifestoRoot, cardStage)
-        });
+      media.add('(max-width: 800px), (pointer: coarse), (prefers-reduced-motion: reduce)', () => {
+        // A composição editorial completa não é legível quando reduzida ao
+        // tamanho do cartão do hero. O cartão estático assume essa função no
+        // mobile e deixa o manifesto interativo apenas no desktop.
+        gsap.set(manifestoRoot, { display: 'none' });
       });
 
       media.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)', () => {
         gsap.set(manifestoRoot, {
           xPercent: -50,
           yPercent: -50,
-          scale: () => scaleToMini(manifestoRoot, cardStage)
+          scale: () => scaleToMini(cardStage)
         });
 
         const heroDistance = () => Math.round(window.innerHeight * 2.2);
@@ -167,14 +168,23 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
           pin: section,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          refreshPriority: 1
+          refreshPriority: 2
         });
+        // `spacer` é um detalhe interno do ScrollTrigger e não faz parte da
+        // API pública tipada. O wrapper criado pelo pin já existe neste ponto;
+        // usa-o quando disponível e mantém a seção como fallback.
+        const pinSpacer =
+          section.parentElement?.classList.contains('pin-spacer')
+            ? section.parentElement
+            : section;
 
         const heroTimeline = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
             id: 'hero-portal-reveal',
-            trigger: section.parentElement ?? section,
+            // Enquanto está pinada, a seção fica visualmente em top: 0. O
+            // spacer preserva sua posição real no documento durante refreshes.
+            trigger: pinSpacer ?? section,
             start: 'top top',
             end: () => `+=${heroDistance()}`,
             scrub: 0.9,
@@ -202,7 +212,12 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
             },
             'expand'
           )
-          .to(manifestoRoot, { scale: 1, duration: 0.56 }, 'expand')
+          .fromTo(
+            manifestoRoot,
+            { scale: () => scaleToMini(cardStage) },
+            { scale: 1, duration: 0.56, immediateRender: false },
+            'expand'
+          )
           .to(manifestoStage, { borderRadius: 0, boxShadow: 'none', duration: 0.4 }, 'expand+=0.08')
           .to(stage, { backgroundColor: 'var(--color-paper)', duration: 0.26 }, 'expand+=0.22')
           .addLabel('handoff', 1.04)

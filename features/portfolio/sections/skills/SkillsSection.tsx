@@ -108,6 +108,7 @@ export default function SkillsSection() {
             <div
               ref={trackRef}
               className={styles.cardsTrack}
+              role="region"
               aria-label="Camadas do trabalho front-end"
             >
               {skills.map((skill, index) => (
@@ -119,6 +120,9 @@ export default function SkillsSection() {
                   className={`${styles.card} ${index === 0 ? styles.cardActive : ''}`}
                   data-variant={cardTones[index]}
                   tabIndex={0}
+                  aria-roledescription="cartão"
+                  aria-posinset={index + 1}
+                  aria-setsize={skills.length}
                   aria-label={`${skill.title}: ${skill.description}`}
                 >
                   <div className={styles.cardVisual}>

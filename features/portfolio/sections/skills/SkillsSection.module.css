@@ -67,7 +67,7 @@
   border: 2px solid transparent;
   border-radius: 0.55rem;
   background: transparent;
-  color: rgb(37 34 31 / 32%);
+  color: var(--color-muted);
   cursor: pointer;
   font-size: var(--text-label-sm);
   font-weight: 800;
@@ -251,7 +251,7 @@
   padding-bottom: 1.25rem;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 800px), (pointer: coarse) {
   .section {
     min-height: auto;
     overflow: visible;
@@ -274,21 +274,22 @@
   }
 
   .skillsNav {
-    margin-top: 2.75rem;
-  }
-
-  .navButton {
-    padding-left: 0;
-  }
-
-  .navActive {
-    padding-left: 0.65rem;
+    display: none;
   }
 
   .cardViewport {
     margin-top: 3rem;
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: visible;
     padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .cardViewport::-webkit-scrollbar {
+    display: none;
   }
 
   .stage {
@@ -296,26 +297,29 @@
   }
 
   .cardsTrack {
-    display: grid;
-    width: 100%;
-    gap: 2rem;
+    display: flex;
+    width: max-content;
+    gap: 1rem;
     padding-right: 0;
     transform: none !important;
   }
 
   .card {
-    width: 100%;
+    flex: 0 0 min(84vw, 22rem);
+    width: min(84vw, 22rem);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    touch-action: pan-x;
   }
 
   .cardVisual {
     height: min(92vw, 27rem);
   }
 
-  .cardCopy,
-  .cardActive .cardCopy {
+  .cardCopy {
     height: auto !important;
     min-height: 0;
-    padding: 1.1rem 1.25rem 1.35rem;
+    padding-bottom: 1.25rem;
   }
 
   .cardDescription {
@@ -324,7 +328,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 801px) {
   .section {
     min-height: auto;
     overflow: visible;
@@ -369,6 +373,12 @@
   .cardDescription {
     opacity: 1;
     transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardViewport {
+    scroll-behavior: auto;
   }
 
   .navButton,

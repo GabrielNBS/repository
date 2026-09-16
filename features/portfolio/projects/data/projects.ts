@@ -26,20 +26,27 @@ export interface ProjectGalleryItem {
   label: string;
 }
 
+export interface ProjectTeaserAsset {
+  webm: string;
+  mp4: string;
+  poster: string;
+  alt: string;
+}
+
 const projects: Project[] = [
   {
     id: 1,
     slug: 'regula',
     name: 'Regula',
     title: 'Dashboard e PDV',
-    subtitle: 'Gestao operacional para comercio',
-    summary: 'Dashboard administrativo e PDV com fluxos de estoque, caixa e precificacao.',
+    subtitle: 'Gestão operacional para comércio',
+    summary: 'Dashboard administrativo e PDV com fluxos de estoque, caixa e precificação.',
     description:
-      'Aplicacao full interface para operacao comercial, com formularios multi-step, regras de negocio e visualizacao de dados para tomada de decisao.',
+      'Aplicação completa para operação comercial, com formulários multi-step, regras de negócio e visualização de dados para tomada de decisão.',
     problem:
-      'Unificar controle de estoque, vendas, precos e caixa em uma experiencia clara para operacao diaria.',
+      'Unificar o controle de estoque, vendas, preços e caixa em uma experiência clara para a operação diária.',
     solution:
-      'Criei uma arquitetura em Next.js com componentes reutilizaveis, formularios tipados e estados globais previsiveis para reduzir friccao no uso.',
+      'Criei uma arquitetura em Next.js com componentes reutilizáveis, formulários tipados e estados globais previsíveis para reduzir fricção no uso.',
     role: 'Front-end, arquitetura de UI e estado',
     year: '2026',
     techs: [
@@ -89,20 +96,20 @@ const projects: Project[] = [
         }
       ]
     },
-    highlights: ['Fluxo de PDV', 'Controle financeiro', 'Formularios tipados']
+    highlights: ['Fluxo de PDV', 'Controle financeiro', 'Formulários tipados']
   },
   {
     id: 2,
     slug: 'e-food',
     name: 'E-Food',
     title: 'Delivery responsivo',
-    subtitle: 'Catalogo, carrinho e checkout',
-    summary: 'Aplicacao de delivery com catalogo, carrinho e validacao de checkout.',
+    subtitle: 'Catálogo, carrinho e checkout',
+    summary: 'Aplicação de delivery com catálogo, carrinho e validação de checkout.',
     description:
-      'Experiencia de compra responsiva com Redux para estado global, formularios controlados e arquitetura CSS-in-JS.',
-    problem: 'Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiavel.',
+      'Experiência de compra responsiva com Redux para estado global, formulários controlados e arquitetura CSS-in-JS.',
+    problem: 'Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiável.',
     solution:
-      'Organizei a interface em componentes reutilizaveis, estado centralizado e validacao com Formik e Yup.',
+      'Organizei a interface em componentes reutilizáveis, estado centralizado e validação com Formik e Yup.',
     role: 'Front-end e fluxo de compra',
     year: '2025',
     techs: [
@@ -158,12 +165,12 @@ const projects: Project[] = [
     title: 'Streaming de jogos',
     subtitle: 'Vitrine digital responsiva',
     summary:
-      'Interface para streaming de jogos com vitrine, filtros e experiencia visual imersiva.',
+      'Interface para streaming de jogos com vitrine, filtros e experiência visual imersiva.',
     description:
-      'Projeto focado em composicao visual, responsividade e estado global para uma plataforma de jogos.',
-    problem: 'Apresentar conteudo denso de jogos sem perder navegacao clara e impacto visual.',
+      'Projeto focado em composição visual, responsividade e estado global para uma plataforma de jogos.',
+    problem: 'Apresentar conteúdo denso de jogos sem perder navegação clara e impacto visual.',
     solution:
-      'Usei componentes modulares, grid responsivo e Redux para manter a experiencia fluida em diferentes telas.',
+      'Usei componentes modulares, grid responsivo e Redux para manter a experiência fluida em diferentes telas.',
     role: 'Front-end e design de interface',
     year: '2025',
     techs: [
@@ -216,15 +223,15 @@ const projects: Project[] = [
     id: 4,
     slug: 'to-do',
     name: 'To-Do',
-    title: 'Gestao de tarefas',
+    title: 'Gestão de tarefas',
     subtitle: 'Produtividade simples',
-    summary: 'Lista de tarefas com criacao, edicao, filtros e estado previsivel.',
+    summary: 'Lista de tarefas com criação, edição, filtros e estado previsível.',
     description:
-      'Aplicacao de produtividade com foco em interacao direta, estado via Redux e interface leve.',
-    problem: 'Manter tarefas organizadas com acoes rapidas e estados visuais claros.',
+      'Aplicação de produtividade com foco em interação direta, estado via Redux e interface leve.',
+    problem: 'Manter tarefas organizadas com ações rápidas e estados visuais claros.',
     solution:
       'Implementei CRUD de tarefas, filtros e feedback visual para tornar o fluxo simples em desktop e mobile.',
-    role: 'Front-end e interacoes',
+    role: 'Front-end e interações',
     year: '2024',
     techs: [{ name: 'JavaScript' }, { name: 'Redux' }, { name: 'CSS' }, { name: 'HTML' }],
     deploy: 'https://to-do-seven-gamma.vercel.app/',
@@ -268,13 +275,13 @@ const projects: Project[] = [
     slug: 'spider-verse',
     name: 'Spider-Verse',
     title: 'Landing page promocional',
-    subtitle: 'Narrativa visual e transicoes',
-    summary: 'Landing page tematica com composicao visual forte e transicoes suaves.',
+    subtitle: 'Narrativa visual e transições',
+    summary: 'Landing page temática com composição visual forte e transições suaves.',
     description:
-      'Pagina promocional criada com HTML, Sass e JavaScript, explorando ritmo visual e interatividade.',
-    problem: 'Traduzir um universo visual forte em uma landing page responsiva e navegavel.',
+      'Página promocional criada com HTML, Sass e JavaScript, explorando ritmo visual e interatividade.',
+    problem: 'Traduzir um universo visual forte em uma landing page responsiva e navegável.',
     solution:
-      'Combinei Sass modular, composicao por secoes e interacoes discretas para reforcar imersao sem comprometer leitura.',
+      'Combinei Sass modular, composição por seções e interações discretas para reforçar a imersão sem comprometer a leitura.',
     role: 'Front-end e motion leve',
     year: '2024',
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
@@ -316,7 +323,7 @@ const projects: Project[] = [
         }
       ]
     },
-    highlights: ['Sass modular', 'Transicoes', 'Composicao visual']
+    highlights: ['Sass modular', 'Transições', 'Composição visual']
   },
   {
     id: 6,
@@ -324,12 +331,12 @@ const projects: Project[] = [
     name: 'Clone Disney+',
     title: 'Interface de streaming',
     subtitle: 'Clone responsivo',
-    summary: 'Clone responsivo da interface Disney+ com secoes, carrosseis e navegacao.',
+    summary: 'Clone responsivo da interface Disney+ com seções, carrosséis e navegação.',
     description:
-      'Projeto de estudo para praticar composicao, responsividade, Sass e interacoes em interface de streaming.',
-    problem: 'Reproduzir uma experiencia reconhecivel mantendo boa estrutura front-end.',
+      'Projeto de estudo para praticar composição, responsividade, Sass e interações em uma interface de streaming.',
+    problem: 'Reproduzir uma experiência reconhecível mantendo uma boa estrutura front-end.',
     solution:
-      'Modelei secoes, carrosseis e estados de navegacao com HTML, Sass e JavaScript modular.',
+      'Modelei seções, carrosséis e estados de navegação com HTML, Sass e JavaScript modular.',
     role: 'Front-end e responsividade',
     year: '2024',
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
@@ -371,21 +378,21 @@ const projects: Project[] = [
         }
       ]
     },
-    highlights: ['Streaming UI', 'Carrosseis', 'Sass']
+    highlights: ['Streaming UI', 'Carrosséis', 'Sass']
   },
   {
     id: 7,
     slug: 'hoje-ta-doce',
-    name: 'Hoje Ta Doce',
+    name: 'Hoje Tá Doce',
     title: 'Landing page comercial',
     subtitle: 'Confeitaria local',
     summary: 'Landing page responsiva para apresentar produtos, marca e canais de contato.',
     description:
-      'Projeto comercial em HTML, JavaScript e Bootstrap, com foco em apresentacao clara de produtos e conversao.',
+      'Projeto comercial em HTML, JavaScript e Bootstrap, com foco em apresentação clara de produtos e conversão.',
     problem:
-      'Criar presenca digital objetiva para uma confeitaria com produtos de alto apelo visual.',
+      'Criar presença digital objetiva para uma confeitaria com produtos de alto apelo visual.',
     solution:
-      'Estruturei uma landing page responsiva com secoes de produtos, informacoes e chamada para contato.',
+      'Estruturei uma landing page responsiva com seções de produtos, informações e chamada para contato.',
     role: 'Front-end e landing page',
     year: '2024',
     techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
@@ -427,22 +434,22 @@ const projects: Project[] = [
         }
       ]
     },
-    highlights: ['Bootstrap', 'Produto local', 'Conversao']
+    highlights: ['Bootstrap', 'Produto local', 'Conversão']
   },
   {
     id: 8,
     slug: 'whatsapp-sender',
     name: 'WhatsApp Sender',
-    title: 'Automacao de mensageria',
+    title: 'Automação de mensageria',
     subtitle: 'Campanhas e disparos via WhatsApp Web',
     summary:
-      'Servico web para gerenciar contatos, campanhas, agendamentos e relatorios de envios pelo WhatsApp Web.',
+      'Serviço web para gerenciar contatos, campanhas, agendamentos e relatórios de envios pelo WhatsApp Web.',
     description:
-      'Plataforma full-stack de uso local para conectar uma sessao do WhatsApp Web, organizar contatos e grupos, criar campanhas, agendar mensagens e acompanhar envio, leitura e respostas.',
+      'Plataforma full-stack de uso local para conectar uma sessão do WhatsApp Web, organizar contatos e grupos, criar campanhas, agendar mensagens e acompanhar envio, leitura e respostas.',
     problem:
       'Operar campanhas pelo WhatsApp com controle de contatos, consentimento, agendamento e acompanhamento sem depender de fluxos manuais dispersos.',
     solution:
-      'Estruturei um dashboard Next.js com arquitetura em camadas, persistencia via Prisma e SQLite, fila e scheduler no servidor, integracao com whatsapp-web.js, autenticacao pessoal e APIs tipadas para separar dominio, infraestrutura e apresentacao.',
+      'Estruturei um dashboard Next.js com arquitetura em camadas, persistência via Prisma e SQLite, fila e scheduler no servidor, integração com whatsapp-web.js, autenticação pessoal e APIs tipadas para separar domínio, infraestrutura e apresentação.',
     role: 'Full-stack, arquitetura e infraestrutura',
     year: '2026',
     techs: [
@@ -467,13 +474,62 @@ const projects: Project[] = [
     highlights: [
       'Campanhas e fila de envio',
       'Contatos e consentimento',
-      'Agendamento e relatorios'
+      'Agendamento e relatórios'
     ]
   }
 ];
 
 export function getProjectBySlug(slug: string) {
   return projects.find((project) => project.slug === slug);
+}
+
+const teaserAssets: Record<string, ProjectTeaserAsset> = {
+  regula: {
+    webm: '/videos/projects/regula.webm',
+    mp4: '/videos/projects/regula.mp4',
+    poster: '/videos/projects/regula-poster.webp',
+    alt: 'Teaser do dashboard Regula navegando entre suas áreas operacionais'
+  },
+  'e-food': {
+    webm: '/videos/projects/e-food.webm',
+    mp4: '/videos/projects/e-food.mp4',
+    poster: '/videos/projects/e-food-poster.webp',
+    alt: 'Teaser do E-Food mostrando restaurantes e cardápio'
+  },
+  'e-play': {
+    webm: '/videos/projects/e-play.webm',
+    mp4: '/videos/projects/e-play.mp4',
+    poster: '/videos/projects/e-play-poster.webp',
+    alt: 'Teaser do E-Play mostrando vitrine e promoções de jogos'
+  },
+  'to-do': {
+    webm: '/videos/projects/to-do.webm',
+    mp4: '/videos/projects/to-do.mp4',
+    poster: '/videos/projects/to-do-poster.webp',
+    alt: 'Teaser do To-Do mostrando criação e organização de tarefas'
+  },
+  'spider-verse': {
+    webm: '/videos/projects/spider-verse.webm',
+    mp4: '/videos/projects/spider-verse.mp4',
+    poster: '/videos/projects/spider-verse-poster.webp',
+    alt: 'Teaser do Spider-Verse mostrando a narrativa visual da landing page'
+  },
+  'clone-disney': {
+    webm: '/videos/projects/clone-disney.webm',
+    mp4: '/videos/projects/clone-disney.mp4',
+    poster: '/videos/projects/clone-disney-poster.webp',
+    alt: 'Teaser do Clone Disney+ mostrando planos e catálogo'
+  },
+  'hoje-ta-doce': {
+    webm: '/videos/projects/hoje-ta-doce.webm',
+    mp4: '/videos/projects/hoje-ta-doce.mp4',
+    poster: '/videos/projects/hoje-ta-doce-poster.webp',
+    alt: 'Teaser do Hoje Tá Doce mostrando a confeitaria e seus produtos'
+  }
+};
+
+export function getProjectTeaser(project: Project) {
+  return teaserAssets[project.slug];
 }
 
 export default projects;

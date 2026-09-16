@@ -2,6 +2,8 @@
 
 import { cn } from '@/lib/utils';
 import ProjectShaderGradient from '@/features/portfolio/projects/ProjectShaderGradient';
+import ProjectTeaser from '@/features/portfolio/projects/ProjectTeaser';
+import { getProjectTeaser, type Project } from '@/features/portfolio/projects/data/projects';
 import type { ProjectTone } from '@/features/portfolio/projects/data/projectTone';
 import { AnimatePresence, motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -23,6 +25,7 @@ interface ScrollSplitCardProps {
   containerRef?: React.RefObject<HTMLElement | null>;
   startLabel?: string;
   endLabel?: string;
+  teaser?: Project;
 }
 
 export function ScrollSplitCard({
@@ -32,7 +35,8 @@ export function ScrollSplitCard({
   technologies = [],
   containerRef: externalContainerRef,
   startLabel = 'Scroll down',
-  endLabel = 'So cool, right?'
+  endLabel = 'So cool, right?',
+  teaser
 }: ScrollSplitCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeTechnology, setActiveTechnology] = useState<number | null>(null);
@@ -88,8 +92,16 @@ export function ScrollSplitCard({
   const startTextY = useTransform(scrollYProgress, [0, 0.1], [0, 20]);
 
   return (
-    <div ref={containerRef} className={cn('relative h-[500vh] w-full', className)}>
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden [perspective:1200px]">
+    <div
+      ref={containerRef}
+      className={cn('relative w-full', className)}
+      data-component="scroll-split-card"
+    >
+      <div
+        data-scroll-split-interactive
+        className="relative h-[500vh] w-full"
+      >
+        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden [perspective:1200px]">
         {/* Starting Text indicator */}
         <motion.div
           className="absolute top-[20%] right-0 left-0 text-center"
@@ -129,15 +141,24 @@ export function ScrollSplitCard({
                   boxShadow
                 }}
               >
+                {i === 1 && teaser && (
+                  <ProjectTeaser
+                    teaser={getProjectTeaser(teaser)}
+                    className="absolute inset-0 z-10"
+                    priority
+                    label="Pré-carregando"
+                  />
+                )}
                 <div
-                  className="absolute inset-0 h-full w-[300%]"
+                  className="absolute inset-0 z-0 h-full w-[300%]"
                   style={{
                     left: `${-100 * i}%`,
                     backgroundImage: imageSrc
                       ? `url(${imageSrc})`
                       : 'linear-gradient(135deg, var(--color-peach), var(--color-cream))',
                     backgroundSize: '100% 100%',
-                    backgroundPosition: 'center'
+                    backgroundPosition: 'center',
+                    opacity: i === 1 && teaser ? 0.22 : 1
                   }}
                 />
               </motion.div>
@@ -265,6 +286,49 @@ export function ScrollSplitCard({
               );
             })}
           </motion.div>
+        )}
+        </div>
+      </div>
+
+      <div data-scroll-split-static className="gap-3">
+        {cards.slice(0, 3).map((card, index) => (
+          <article
+            key={`static-${card.title}`}
+            className="relative grid min-h-56 gap-8 overflow-hidden rounded-[1.25rem] border border-ink/15 p-5"
+            style={{ backgroundColor: card.bgColor, color: card.textColor }}
+          >
+            {index === 0 && teaser && (
+              <ProjectTeaser
+                teaser={getProjectTeaser(teaser)}
+                className="pointer-events-none absolute inset-0 opacity-80"
+                priority
+                label="Pré-carregando"
+              />
+            )}
+            <div className="flex items-center justify-between text-xs font-extrabold tracking-[0.12em] uppercase">
+              <span>0{index + 1} / {card.title}</span>
+              {card.icon && <span aria-hidden="true">{card.icon}</span>}
+            </div>
+            <div className="relative z-10 self-end">
+              <h3 className="mb-3 text-3xl leading-[0.9] font-normal tracking-[-0.08em]">
+                {card.title}
+              </h3>
+              <p className="max-w-[34ch] text-sm leading-[1.45] opacity-80">{card.description}</p>
+            </div>
+          </article>
+        ))}
+        {technologies.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-3" aria-label="Tecnologias utilizadas">
+            {technologies.map((technology) => (
+              <span
+                key={`static-tech-${technology.name}`}
+                className="border-ink/15 bg-paper/45 inline-flex min-h-10 items-center gap-2 rounded-full border px-3 text-xs font-bold tracking-[0.08em] uppercase"
+              >
+                <span aria-hidden="true">{technology.icon}</span>
+                {technology.name}
+              </span>
+            ))}
+          </div>
         )}
       </div>
     </div>
