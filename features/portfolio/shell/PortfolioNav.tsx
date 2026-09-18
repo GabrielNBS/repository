@@ -28,7 +28,7 @@ export default function PortfolioNav() {
         href="/"
         onClick={closeMenu}
       >
-        GN / 26
+        Portfólio / 26
       </Link>
       <div
         id={menuId}
