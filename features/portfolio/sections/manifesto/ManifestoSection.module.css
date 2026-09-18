@@ -5,31 +5,6 @@
   background: var(--color-paper);
 }
 
-.embeddedSection {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  min-height: 0;
-  overflow: visible;
-  background: transparent;
-  transform: translate(-50%, -50%);
-  transform-origin: center;
-  will-change: transform;
-}
-
-.embeddedSection .pin {
-  height: 100%;
-  min-height: 0;
-}
-
-.embeddedSection .stage {
-  border: 1px solid color-mix(in srgb, var(--color-ink) 42%, transparent);
-  border-radius: clamp(0.35rem, 1vw, 1rem);
-  box-shadow: 0 1.2rem 3.5rem rgb(37 34 31 / 0.16);
-}
-
 .pin {
   position: relative;
   height: 100svh;
@@ -60,7 +35,6 @@
   will-change: transform, opacity;
 }
 
-.chrome,
 .footer {
   position: absolute;
   right: var(--stage-pad);
@@ -76,23 +50,8 @@
   text-transform: uppercase;
 }
 
-.chrome {
-  top: clamp(1.25rem, 3vw, 2.5rem);
-}
-
 .footer {
   bottom: clamp(1.25rem, 3vw, 2.5rem);
-}
-
-.counter {
-  color: var(--color-muted);
-}
-
-.counter b {
-  display: inline-block;
-  min-width: 1.5rem;
-  color: var(--color-ink);
-  font-weight: inherit;
 }
 
 .intro {
@@ -234,21 +193,6 @@
   visibility: hidden;
 }
 
-.cardWord {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  color: var(--color-peach);
-  font-family: var(--font-serif);
-  font-size: 1em;
-  line-height: 0.82;
-  letter-spacing: -0.095em;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
 .beats {
   position: absolute;
   inset: 0;
@@ -283,13 +227,32 @@
   text-transform: uppercase;
 }
 
-.beatMeta span:first-child {
+.beatKeyword {
   display: grid;
-  width: 2rem;
-  aspect-ratio: 1;
+  min-width: 7.5rem;
+  min-height: 3rem;
   place-items: center;
-  border: 1px solid currentcolor;
-  border-radius: 50%;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0.25rem 0.3rem 0 var(--color-ink);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transform: rotate(-7deg);
+}
+
+.beat:nth-child(2) .beatKeyword {
+  background: var(--color-peach);
+  transform: rotate(6deg);
+}
+
+.beat:nth-child(3) .beatKeyword {
+  background: var(--color-paper);
+  transform: rotate(-4deg);
 }
 
 .beatTitle {
@@ -308,12 +271,12 @@
   font-weight: 400;
 }
 
-.beat[data-tone='peach'] .beatTitle em {
+.beat[data-tone='lilac'] .beatTitle em {
   color: var(--color-lilac);
 }
 
-.beat[data-tone='cream'] .beatTitle em {
-  color: var(--color-cream);
+.beat[data-tone='paper'] .beatTitle em {
+  color: var(--color-paper);
 }
 
 .beatCopy {
@@ -323,16 +286,6 @@
   font-size: var(--text-intro);
   line-height: 1.35;
   letter-spacing: -0.035em;
-}
-
-.frameIndex {
-  position: absolute;
-  right: clamp(1.25rem, 3vw, 2.5rem);
-  bottom: clamp(1rem, 2vw, 1.75rem);
-  color: rgb(246 239 229 / 0.15);
-  font-family: var(--font-serif);
-  font-size: clamp(4rem, 10vw, 10rem);
-  line-height: 0.72;
 }
 
 .orbitMap {
@@ -414,6 +367,7 @@
 
 .closing p {
   margin: 0;
+  font-family: var(--font-serif);
   font-size: clamp(4rem, 9vw, 10rem);
   font-weight: 400;
   letter-spacing: -0.095em;
@@ -437,17 +391,6 @@
   gap: 0.14em;
   margin-top: 0.04em;
   white-space: nowrap;
-}
-
-.closingCardSlot {
-  position: relative;
-  display: inline-block;
-  width: 2.1em;
-  height: 1.16em;
-  overflow: hidden;
-  flex: 0 0 auto;
-  border-radius: 0.1em;
-  vertical-align: middle;
 }
 
 @media (max-width: 900px) {
@@ -482,13 +425,6 @@
     padding: 7rem 1.25rem 6rem;
   }
 
-  .chrome {
-    top: 1.5rem;
-    right: 1.25rem;
-    left: 1.25rem;
-  }
-
-  .counter,
   .keywords,
   .orbitMap,
   .orbitTag,
@@ -521,9 +457,7 @@
   }
 
   .backCard,
-  .field,
-  .cardWord,
-  .frameIndex {
+  .field {
     display: none;
   }
 

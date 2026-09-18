@@ -8,7 +8,6 @@ import { useManifestoStoryMotion } from './manifestoStoryMotion';
 
 const beats = [
   {
-    number: '01',
     principle: 'Intenção',
     title: (
       <>
@@ -21,7 +20,6 @@ const beats = [
     tone: 'lilac'
   },
   {
-    number: '02',
     principle: 'Ritmo',
     title: (
       <>
@@ -31,10 +29,9 @@ const beats = [
       </>
     ),
     copy: 'Hierarquia, resposta e movimento conduzem o olhar. Nada aparece antes de ter um motivo para existir.',
-    tone: 'peach'
+    tone: 'lilac'
   },
   {
-    number: '03',
     principle: 'Forma',
     title: (
       <>
@@ -44,32 +41,19 @@ const beats = [
       </>
     ),
     copy: 'Quando direção visual e código falam a mesma língua, a experiência deixa de ser interface e vira presença.',
-    tone: 'cream'
+    tone: 'lilac'
   }
 ] as const;
 
-export default function ManifestoSection({ embedded = false }: { embedded?: boolean }) {
+export default function ManifestoSection() {
   const root = useRef<HTMLElement>(null);
-  useManifestoStoryMotion(root, { embedded });
+  useManifestoStoryMotion(root);
 
   return (
-    <section
-      ref={root}
-      className={`${styles.section} ${embedded ? styles.embeddedSection : ''}`}
-      aria-labelledby="manifesto-title"
-      data-manifesto-embedded={embedded ? 'true' : undefined}
-      data-motion="manifesto-story"
-    >
+    <section ref={root} className={styles.section} aria-labelledby="manifesto-title">
       <div className={styles.pin} data-manifesto-pin>
-        <div className={styles.stage} data-manifesto-stage>
+        <div className={styles.stage}>
           <div className={styles.atmosphere} aria-hidden="true" data-manifesto-atmosphere />
-
-          <header className={styles.chrome} data-manifesto-chrome>
-            <span>01 / Manifesto</span>
-            <span className={styles.counter}>
-              Ato <b data-manifesto-counter>00</b> / 03
-            </span>
-          </header>
 
           <div className={styles.intro} data-manifesto-intro>
             <p>Design não começa no software.</p>
@@ -78,7 +62,7 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
             </h2>
           </div>
 
-          <div className={styles.keywords} aria-hidden="true" data-manifesto-keywords>
+          <div className={styles.keywords} aria-hidden="true">
             {beats.map((beat) => (
               <span key={beat.principle} className={styles.keyword} data-manifesto-keyword>
                 {beat.principle}
@@ -96,7 +80,7 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
               data-manifesto-card="middle"
             />
 
-            <div className={styles.frame} data-manifesto-frame data-manifesto-final-card>
+            <div className={styles.frame} data-manifesto-frame>
               <ProjectTeaser
                 teaser={getProjectTeaser(projects[0])}
                 className={styles.projectMedia}
@@ -134,8 +118,7 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
                     data-active={index === 0 ? 'true' : 'false'}
                   >
                     <p className={styles.beatMeta}>
-                      <span>{beat.number}</span>
-                      <span>{beat.principle}</span>
+                      <span className={styles.beatKeyword}>{beat.principle}</span>
                     </p>
                     <h3 className={styles.beatTitle} data-manifesto-beat-title>
                       {beat.title}
@@ -144,10 +127,6 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
                   </article>
                 ))}
               </div>
-
-              <span className={styles.frameIndex} aria-hidden="true" data-manifesto-frame-index>
-                01
-              </span>
             </div>
 
             <span className={styles.orbitTag} aria-hidden="true" data-manifesto-orbit-tag>
@@ -170,18 +149,13 @@ export default function ManifestoSection({ embedded = false }: { embedded?: bool
                 Agora, a ideia
               </span>
               <span className={styles.closingAction} aria-hidden="true" data-manifesto-closing-part>
-                <i className={styles.closingCardSlot} aria-hidden="true" data-manifesto-card-slot>
-                  <span className={styles.cardWord} data-manifesto-card-word>
-                    entra
-                  </span>
-                </i>
+                <span className={styles.closingWord}>entra</span>
                 <em>em prática.</em>
               </span>
             </p>
           </div>
 
           <footer className={styles.footer} data-manifesto-chrome>
-            <span>Escolher · conduzir · permanecer</span>
             <span className={styles.progress} aria-hidden="true">
               <i data-manifesto-progress />
             </span>
