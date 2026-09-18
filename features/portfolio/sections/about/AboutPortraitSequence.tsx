@@ -87,7 +87,7 @@ export default function AboutPortraitSequence() {
           src={src}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none invisible absolute inset-0 z-[1] size-full object-cover object-center opacity-0 select-none"
+          className="pointer-events-none invisible absolute inset-0 z-1 size-full object-cover object-center opacity-0 select-none"
           data-about-frame
           data-frame-id={id}
           data-frame-index={overlayIndex + 1}
