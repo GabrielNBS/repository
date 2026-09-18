@@ -257,6 +257,7 @@
 }
 .narrativeIndex > p {
   margin-block: 2rem 3rem;
+  font-family: var(--font-serif);
   font-size: var(--text-display-xs);
   line-height: 1.03;
   letter-spacing: -0.075em;

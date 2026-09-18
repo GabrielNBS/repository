@@ -5,8 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
 import ProjectCard from '../../projects/ProjectCard';
-import ProjectShaderGradient from '../../projects/ProjectShaderGradientLazy';
-import { getProjectTone } from '../../projects/data/projectTone';
 import { useProjectCursor } from '../../projects/cursor/ProjectCursorProvider';
 import styles from './ProjectsSection.module.css';
 import { useProjectsAgendaMotion, useProjectElastic } from './projectsAgendaMotion';
@@ -79,10 +77,6 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                 onPointerLeave={onProjectPointerLeave}
                 onPointerMove={onProjectPointerMove}
               >
-                <ProjectShaderGradient
-                  className={styles.dayShader}
-                  tone={getProjectTone(project.id)}
-                />
                 <span>Case {String(i + 1).padStart(2, '0')}</span>
                 <h3>{project.name}</h3>
                 <small>

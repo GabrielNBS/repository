@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>03 — Película cinematográfica</title>
+    <style>
+      :root {
+        --paper: #f6efe5;
+        --ink: #25221f;
+        --peach: #efae82;
+        --muted: #aaa098;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        width: min(1240px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: clamp(44px, 8vw, 110px) 0;
+      }
+      .intro {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 42px;
+      }
+      .eyebrow,
+      .meta,
+      figcaption {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--peach);
+      }
+      .eyebrow::before {
+        content: '';
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+      }
+      h1 {
+        margin: 14px 0 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(48px, 9vw, 116px);
+        font-weight: 400;
+        letter-spacing: -0.1em;
+        line-height: 0.8;
+      }
+      .intro p {
+        max-width: 270px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      .film {
+        position: relative;
+        padding: 32px clamp(26px, 6vw, 84px);
+        overflow: hidden;
+        border: 1px solid rgb(246 239 229 / 16%);
+        background: linear-gradient(112deg, #181614, #342d28 48%, #201d1a);
+        box-shadow: 0 38px 90px -45px #000;
+      }
+      .film::before,
+      .film::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 18px;
+        background-image: radial-gradient(circle, var(--ink) 0 4px, transparent 4.5px);
+        background-size: 18px 25px;
+        opacity: 0.92;
+      }
+      .film::before {
+        left: 0;
+      }
+      .film::after {
+        right: 0;
+      }
+      .film-header,
+      .film-footer {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        color: var(--muted);
+      }
+      .film-header {
+        margin-bottom: 18px;
+      }
+      .film-footer {
+        margin-top: 18px;
+      }
+      .film-footer strong {
+        color: var(--peach);
+      }
+      .viewport {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: #111;
+      }
+      video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.7) contrast(1.08);
+      }
+      .viewport::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 50% 50%, transparent 45%, rgb(0 0 0 / 32%)),
+          linear-gradient(
+            90deg,
+            rgb(239 174 130 / 14%),
+            transparent 32%,
+            transparent 72%,
+            rgb(205 184 216 / 12%)
+          );
+        pointer-events: none;
+      }
+      .viewport::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.14;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+      .timecode {
+        position: absolute;
+        right: 20px;
+        bottom: 16px;
+        z-index: 3;
+        color: var(--paper);
+        font: 12px/1 monospace;
+        letter-spacing: 0.08em;
+      }
+      figcaption {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 16px;
+        color: var(--muted);
+      }
+      @media (max-width: 680px) {
+        main {
+          width: min(100% - 28px, 1240px);
+        }
+        .intro {
+          display: block;
+        }
+        .intro p {
+          margin-top: 24px;
+        }
+        .film {
+          padding: 22px 24px;
+        }
+        .film::before,
+        .film::after {
+          width: 12px;
+          background-size: 12px 20px;
+        }
+        .film-header span:first-child {
+          max-width: 12ch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="intro">
+        <div>
+          <div class="eyebrow">03 / Direção visual</div>
+          <h1>Película cinematográfica</h1>
+        </div>
+        <p>
+          O teaser ganha atmosfera de filme: perfurações, granulação, timecode e uma moldura escura
+          que concentra o olhar.
+        </p>
+      </header>
+      <figure class="film">
+        <div class="film-header meta"><span>Regula / scene 01</span><span>REC / muted</span></div>
+        <div class="viewport">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="../../../public/videos/projects/regula-poster.webp"
+          >
+            <source src="../../../public/videos/projects/regula.webm" type="video/webm" />
+            <source src="../../../public/videos/projects/regula.mp4" type="video/mp4" /></video
+          ><span class="timecode">00:14:28:06</span>
+        </div>
+        <div class="film-footer meta">
+          <span>Uma operação em movimento</span><strong>Teaser / 03</strong>
+        </div>
+        <figcaption><span>Regula — preview de interface</span><span>2026</span></figcaption>
+      </figure>
+    </main>
+  </body>
+</html>

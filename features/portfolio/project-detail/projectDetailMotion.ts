@@ -9,8 +9,8 @@ import { createHeadingSplitAnimation } from '../shared/motion/headingSplitMotion
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * Mantém o split de títulos independente do ScrollSplitCard.
- * Assim, a seção de decisões segue o fluxo normal e não herda nenhum pin.
+ * Mantém o split de títulos independente da narrativa editorial.
+ * A seção de decisões permanece no fluxo normal e não herda nenhum pin.
  */
 function createDetailHeadingSplits(root: HTMLElement) {
   const headings = gsap.utils.toArray<HTMLElement>('h1, h2', root);
@@ -41,7 +41,7 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       // Entrada do conteúdo do hero: apenas transform e opacity para não
       // provocar reflow enquanto o layout editorial é montado.
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      intro.from('[data-detail-intro] > *, [data-detail-visual]', {
+      intro.from('[data-detail-visual] > *, [data-detail-visual] aside > *', {
         autoAlpha: 0,
         duration: 0.8,
         ease: 'power3.out',
@@ -51,8 +51,8 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
 
       const revertHeadings = createDetailHeadingSplits(page);
 
-      // O único parallax GSAP fora do componente oficial é o da imagem do
-      // hero. O ScrollSplitCard cuida do próprio scroll-driven interaction.
+      // O único parallax GSAP da rota é o da imagem do hero. A narrativa
+      // editorial abaixo permanece em fluxo normal para priorizar a leitura.
       const visualParallax = gsap.to('[data-detail-visual] [data-project-visual]', {
         ease: 'none',
         scrollTrigger: {
@@ -64,9 +64,8 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
         yPercent: -5
       });
 
-      // Imagens e fontes podem alterar a altura do card. Um único refresh por
-      // frame mantém os cálculos do componente estáveis sem sobrecarregar o
-      // thread principal.
+      // Imagens e fontes podem alterar a altura da página. Um único refresh
+      // por frame mantém o parallax estável sem sobrecarregar o thread.
       let refreshFrame = 0;
       let disposed = false;
       const refresh = () => {

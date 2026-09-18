@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>01 — Moldura editorial</title>
+    <style>
+      :root {
+        --paper: #f6efe5;
+        --ink: #25221f;
+        --muted: #665e57;
+        --peach: #efae82;
+        --cream: #e7d6bb;
+        --lilac: #cdb8d8;
+        --hairline: rgb(37 34 31 / 18%);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: clamp(40px, 8vw, 112px) 0;
+      }
+      .intro {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 28px;
+        margin-bottom: 32px;
+      }
+      .eyebrow,
+      .meta,
+      figcaption {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+      }
+      .eyebrow::before {
+        content: '';
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+      }
+      h1 {
+        max-width: 8ch;
+        margin: 14px 0 0;
+        font-size: clamp(42px, 8vw, 94px);
+        font-weight: 400;
+        letter-spacing: -0.1em;
+        line-height: 0.82;
+      }
+      .intro p {
+        max-width: 235px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.35;
+      }
+      figure {
+        margin: 0;
+      }
+      .frame {
+        position: relative;
+        padding: clamp(22px, 4vw, 56px);
+        overflow: hidden;
+        border: 1px solid rgb(246 239 229 / 20%);
+        border-radius: 28px;
+        background: var(--ink);
+        box-shadow: 0 36px 80px -40px rgb(37 34 31 / 70%);
+      }
+      .frame::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 15% 10%, rgb(239 174 130 / 55%), transparent 30%),
+          linear-gradient(135deg, transparent 45%, rgb(205 184 216 / 25%));
+        pointer-events: none;
+      }
+      .frame::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgb(246 239 229 / 8%) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(246 239 229 / 8%) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: linear-gradient(135deg, black, transparent 72%);
+        pointer-events: none;
+      }
+      .frame-top,
+      .frame-bottom {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--paper);
+      }
+      .frame-top {
+        margin-bottom: 18px;
+      }
+      .frame-bottom {
+        align-items: center;
+        margin-top: 18px;
+        color: rgb(246 239 229 / 62%);
+      }
+      .frame-bottom strong {
+        color: var(--peach);
+      }
+      .screen {
+        position: relative;
+        z-index: 1;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border: 1px solid rgb(246 239 229 / 24%);
+        border-radius: 12px;
+        background: #d9d3ca;
+        box-shadow: 0 18px 50px rgb(0 0 0 / 28%);
+      }
+      video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .screen::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgb(239 174 130 / 16%),
+          transparent 45%,
+          rgb(37 34 31 / 20%)
+        );
+        pointer-events: none;
+      }
+      figcaption {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 14px;
+        color: var(--muted);
+      }
+      @media (max-width: 680px) {
+        main {
+          width: min(100% - 28px, 1180px);
+        }
+        .intro {
+          display: block;
+        }
+        .intro p {
+          margin-top: 24px;
+        }
+        .frame {
+          padding: 18px;
+          border-radius: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        video {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="intro">
+        <div>
+          <div class="eyebrow">01 / Direção visual</div>
+          <h1>Moldura editorial</h1>
+        </div>
+        <p>
+          O vídeo vira uma peça de composição: uma superfície escura, textura de grade e informação
+          mínima ao redor.
+        </p>
+      </header>
+      <figure>
+        <div class="frame">
+          <div class="frame-top meta"><span>Regula / dashboard</span><span>Preview 01</span></div>
+          <div class="screen">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              poster="../../../public/videos/projects/regula-poster.webp"
+            >
+              <source src="../../../public/videos/projects/regula.webm" type="video/webm" />
+              <source src="../../../public/videos/projects/regula.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="frame-bottom meta">
+            <span>Gestão operacional para comércio</span><strong>↗ assistir</strong>
+          </div>
+        </div>
+        <figcaption><span>Regula</span><span>2026 / 01</span></figcaption>
+      </figure>
+    </main>
+  </body>
+</html>

@@ -149,13 +149,6 @@
   cursor: pointer;
   overflow: hidden;
 }
-.dayShader {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  opacity: 0.92;
-  pointer-events: none;
-}
 .day > span,
 .day > h3,
 .day > small,

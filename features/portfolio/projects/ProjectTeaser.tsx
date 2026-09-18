@@ -58,8 +58,6 @@ export default function ProjectTeaser({
     <div
       ref={root}
       className={`${styles.root} ${className}`}
-      data-project-teaser
-      data-project-teaser-loaded={isReady ? 'true' : 'false'}
       aria-hidden="true"
     >
       <Image
