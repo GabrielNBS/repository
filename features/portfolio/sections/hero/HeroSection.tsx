@@ -1,93 +1,103 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef } from 'react';
 import { FiArrowDown } from 'react-icons/fi';
 import styles from './HeroSection.module.css';
 import { useHeroMotion } from './heroMotion';
-import ManifestoSection from '../manifesto/ManifestoSection';
 
-const name = 'Gabriel Nascimento';
-const letters = Array.from(name.toUpperCase());
+const frontEndWordmark = {
+  height: 901,
+  src: '/images/hero/front-end-collage-paper-bg.png',
+  width: 1746
+} as const;
 
-function LooseLetters({ motion }: { motion: 'hero' | 'loader' }) {
-  return letters.map((letter, index) => (
-    <span
-      key={`${motion}-${index}`}
-      className={letter === ' ' ? styles.space : styles.letter}
-      data-motion={`${motion}-letter`}
-      aria-hidden="true"
-    >
-      {letter === ' ' ? '\u00a0' : letter}
-    </span>
-  ));
-}
+const loaderBallAssets = [
+  { height: 1254, id: 'cream', src: '/images/hero/loader-ball-cream.png', width: 1254 },
+  { height: 1254, id: 'lilac', src: '/images/hero/loader-ball-lilac.png', width: 1254 },
+  { height: 1254, id: 'peach', src: '/images/hero/loader-ball-peach.png', width: 1254 }
+] as const;
 
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
   useHeroMotion(root);
 
   return (
-    <section ref={root} className={styles.section} aria-labelledby="hero-title" data-motion="hero">
+    <section ref={root} className={styles.section} aria-labelledby="hero-title">
       <noscript>
         <style>{`[data-motion="hero-loader"] { display: none !important; }`}</style>
       </noscript>
 
       <div className={styles.loader} data-motion="hero-loader" aria-hidden="true">
-        <span className={styles.loaderIndex} data-motion="hero-loader-index">
-          000
-        </span>
-        <div className={styles.loaderWord} data-motion="hero-loader-word">
-          <LooseLetters motion="loader" />
+        <div className={styles.loaderContent}>
+          <span className={styles.loaderProgress} data-motion="hero-loader-index">
+            000%
+          </span>
+          <div className={styles.loaderBalls} data-motion="loader-balls" aria-hidden="true">
+            {loaderBallAssets.map(({ height, id, src, width }) => (
+              <Image
+                key={id}
+                src={src}
+                alt=""
+                aria-hidden="true"
+                className={styles.loaderBall}
+                data-motion="loader-ball"
+                draggable={false}
+                height={height}
+                loading="eager"
+                quality={78}
+                width={width}
+              />
+            ))}
+          </div>
         </div>
         <span className={styles.loaderCaption}>Gabriel do Nascimento / 2026</span>
       </div>
 
-      <div className={styles.stage} data-motion="hero-stage">
+      <div className={styles.stage}>
         <div className={styles.metaDrift} data-motion="hero-meta-drift">
-          <div className={styles.meta} data-motion="hero-meta">
+          <div className={styles.meta}>
+            <span>Portfólio / 26</span>
             <span>Juiz de Fora, BR</span>
-            <span>GMT−3</span>
-            <span>21.7642° S, 43.3503° W</span>
+            <span>Interfaces com intenção</span>
           </div>
         </div>
 
         <div className={styles.nameDrift} data-motion="hero-name-drift">
-          <h1 id="hero-title" className={styles.name} aria-label="Gabriel do Nascimento">
-            <span className={styles.nameLetters}>
-              <LooseLetters motion="hero" />
+          <div className={styles.statement}>
+            <span className={styles.statementEyebrow} data-motion="hero-name-support">
+              Gabriel do Nascimento / Desenvolvedor front-end
             </span>
-          </h1>
-        </div>
-
-          <div className={styles.cardDrift} data-motion="hero-card-drift">
-            <div className={styles.cardStage} data-motion="hero-card-stage">
-              <ManifestoSection embedded />
-              <div className={styles.mobileManifestoCard} aria-hidden="true">
-                <span>01 / Manifesto</span>
-                <p>Design não começa no software.</p>
-                <strong>Começa com uma decisão.</strong>
-                <small>Role para explorar ↓</small>
-              </div>
-            </div>
+            <h1 id="hero-title" className={styles.statementTitle} data-motion="hero-title">
+              <Image
+                src={frontEndWordmark.src}
+                alt="Front-end"
+                className={styles.wordmark}
+                height={frontEndWordmark.height}
+                priority
+                sizes="(max-width: 800px) 88vw, min(45vw, 46rem)"
+                width={frontEndWordmark.width}
+              />
+              <em>com intenção</em>
+            </h1>
+            <p className={styles.statementCopy} data-motion="hero-name-support">
+              Código com olhar de direção para transformar ideias em experiências que fazem sentido.
+            </p>
+            <a className={styles.statementAction} href="#manifesto-title" data-motion="hero-name-support">
+              Ver o trabalho <FiArrowDown aria-hidden="true" />
+            </a>
           </div>
-
-        <div className={styles.leftRoleDrift} data-motion="hero-left-role-drift">
-          <p className={styles.leftRole} data-motion="hero-left-role">
-            Desenvolvedor
-          </p>
         </div>
 
-        <div className={styles.rightRoleDrift} data-motion="hero-right-role-drift">
-          <p className={styles.rightRole} data-motion="hero-right-role">
-            Front-end
-          </p>
+        <div className={styles.statementOrb} aria-hidden="true">
+          <span />
         </div>
 
         <div className={styles.footerDrift} data-motion="hero-footer-drift">
-          <div className={styles.footer} data-motion="hero-footer">
-            <span>Interfaces com intenção</span>
+          <div className={styles.footer}>
+            <span>Gabriel do Nascimento / 2026</span>
             <span className={styles.scrollCue}>
-              Role para explorar <FiArrowDown aria-hidden="true" />
+              Role para abrir o manifesto <FiArrowDown aria-hidden="true" />
             </span>
           </div>
         </div>

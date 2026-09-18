@@ -4,24 +4,9 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { RefObject } from 'react';
+import { preloadEntryAssets } from '../../shell/entryAssets';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-function scaleToMini(frame: HTMLElement) {
-  const frameBounds = frame.getBoundingClientRect();
-  return Math.min(frameBounds.width / window.innerWidth, frameBounds.height / window.innerHeight) * 0.96;
-}
-
-function centerOffset(element: HTMLElement) {
-  const bounds = element.getBoundingClientRect();
-  const x = Number(gsap.getProperty(element, 'x')) || 0;
-  const y = Number(gsap.getProperty(element, 'y')) || 0;
-
-  return {
-    x: window.innerWidth / 2 - (bounds.left - x + bounds.width / 2),
-    y: window.innerHeight / 2 - (bounds.top - y + bounds.height / 2)
-  };
-}
 
 export function useHeroMotion(root: RefObject<HTMLElement | null>) {
   useGSAP(
@@ -33,204 +18,132 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
       const select = gsap.utils.selector(section);
       const loader = section.querySelector<HTMLElement>('[data-motion="hero-loader"]');
       const loaderIndex = section.querySelector<HTMLElement>('[data-motion="hero-loader-index"]');
-      const stage = section.querySelector<HTMLElement>('[data-motion="hero-stage"]');
-      const cardStage = section.querySelector<HTMLElement>('[data-motion="hero-card-stage"]');
-      const manifestoRoot = section.querySelector<HTMLElement>('[data-manifesto-embedded="true"]');
-      const manifestoStage = section.querySelector<HTMLElement>('[data-manifesto-stage]');
       const nameDrift = section.querySelector<HTMLElement>('[data-motion="hero-name-drift"]');
-      const cardDrift = section.querySelector<HTMLElement>('[data-motion="hero-card-drift"]');
+      const heroTitle = section.querySelector<HTMLElement>('[data-motion="hero-title"]');
+      const nameSupport = select('[data-motion="hero-name-support"]');
       const metaDrift = section.querySelector<HTMLElement>('[data-motion="hero-meta-drift"]');
-      const leftRoleDrift = section.querySelector<HTMLElement>(
-        '[data-motion="hero-left-role-drift"]'
-      );
-      const rightRoleDrift = section.querySelector<HTMLElement>(
-        '[data-motion="hero-right-role-drift"]'
-      );
       const footerDrift = section.querySelector<HTMLElement>('[data-motion="hero-footer-drift"]');
 
       if (
         !loader ||
         !loaderIndex ||
-        !stage ||
-        !cardStage ||
-        !manifestoRoot ||
-        !manifestoStage ||
         !nameDrift ||
-        !cardDrift ||
+        !heroTitle ||
         !metaDrift ||
-        !leftRoleDrift ||
-        !rightRoleDrift ||
         !footerDrift
       ) {
         return;
       }
 
-      const loaderLetters = select('[data-motion="loader-letter"]');
-      const heroLetters = select('[data-motion="hero-letter"]');
+      const loaderBalls = select('[data-motion="loader-ball"]');
       const media = gsap.matchMedia();
+      let entryTimeline: gsap.core.Timeline | undefined;
+      let designTimer: number | undefined;
+      let cancelled = false;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      media.add('(prefers-reduced-motion: no-preference)', () => {
-        const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      // O conteúdo já existe no DOM, mas só é revelado visualmente depois que
+      // fontes e materiais da composição estiverem prontos, evitando flashes.
+      gsap.set([heroTitle, ...nameSupport], { autoAlpha: 0, y: 24 });
+      gsap.set([metaDrift, footerDrift], { autoAlpha: 0 });
 
-        gsap.set([loaderLetters, heroLetters], {
-          transformPerspective: 1200,
-          transformOrigin: '50% 50% -20px'
-        });
-        gsap.set(heroLetters, { autoAlpha: 0, rotationX: -94, yPercent: 40 });
-        gsap.set([metaDrift, cardDrift, leftRoleDrift, rightRoleDrift, footerDrift], {
-          autoAlpha: 0
-        });
+      // O movimento usa poses discretas em vez de interpolação contínua para
+      // preservar a sensação de stop motion da colagem de papel.
+      const ballsWave = gsap.timeline({ paused: true, repeat: -1 });
+      const ballPoses = [
+        { rotation: -5, scale: 1.05, y: -8 },
+        { rotation: 6, scale: 1.08, y: -15 },
+        { rotation: -4, scale: 1.05, y: -9 }
+      ];
 
-        intro
-          .fromTo(
-            loaderLetters,
-            {
-              autoAlpha: 0,
-              rotationX: -110,
-              rotationY: (index) => (index % 2 ? -18 : 18),
-              y: () => gsap.utils.random(-120, 120),
-              x: () => gsap.utils.random(-80, 80)
-            },
-            {
-              autoAlpha: 1,
-              rotationX: 0,
-              rotationY: 0,
-              y: 0,
-              x: 0,
-              duration: 0.72,
-              stagger: { each: 0.028, from: 'random' }
-            }
-          )
-          .to(loaderIndex, { textContent: '100', duration: 0.55, snap: { textContent: 1 } }, 0.2)
+      ballsWave.set(loaderBalls, { rotation: 0, scale: 1, y: 0 });
+      [0, 1, 2, 1].forEach((index) => {
+        ballsWave
+          .set(loaderBalls[index], ballPoses[index])
+          .to({}, { duration: 0.14 })
+          .set(loaderBalls[index], { rotation: 0, scale: 1, y: 0 })
+          .to({}, { duration: 0.06 });
+      });
+
+      if (!reduceMotion) {
+        ballsWave.play();
+      }
+
+      const designDelay = reduceMotion
+        ? Promise.resolve()
+        : new Promise<void>((resolve) => {
+            designTimer = window.setTimeout(resolve, 3000);
+          });
+
+      void Promise.all([
+        preloadEntryAssets(({ complete, total }) => {
+          if (cancelled) return;
+          const progress = Math.round((complete / total) * 100);
+          loaderIndex.textContent = `${String(progress).padStart(3, '0')}%`;
+        }),
+        designDelay
+      ]).then(() => {
+        if (cancelled) return;
+
+        loaderIndex.textContent = '100%';
+
+        if (reduceMotion) {
+          gsap.set([heroTitle, ...nameSupport, metaDrift, footerDrift], { autoAlpha: 1, y: 0 });
+          gsap.set(loader, { display: 'none' });
+          ScrollTrigger.refresh();
+          return;
+        }
+
+        entryTimeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+        entryTimeline
+          .addLabel('release', 0)
           .to(
-            loaderLetters,
-            {
-              rotationX: 96,
-              rotationY: (index) => (index % 2 ? -34 : 34),
-              y: (index) => (index % 2 ? -90 : 90),
-              x: () => gsap.utils.random(-210, 210),
-              autoAlpha: 0,
-              duration: 0.62,
-              stagger: { each: 0.022, from: 'center' }
-            },
-            '+=0.16'
+            loaderBalls,
+            { autoAlpha: 0, duration: 0.32, scale: 0.72, stagger: { each: 0.05 }, y: 8 },
+            'release'
           )
-          .to(loader, { autoAlpha: 0, duration: 0.48, ease: 'power2.inOut' }, '<0.18')
+          .to(loader, { autoAlpha: 0, duration: 0.26 }, 'release+=0.5')
+          .to(heroTitle, { autoAlpha: 1, y: 0, duration: 0.72, ease: 'power4.out' }, 'release+=0.48')
           .to(
-            heroLetters,
-            {
-              autoAlpha: 1,
-              rotationX: 0,
-              yPercent: 0,
-              duration: 0.9,
-              stagger: { each: 0.026, from: 'random' }
-            },
-            '<0.1'
+            nameSupport,
+            { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.06, ease: 'power4.out' },
+            'release+=0.62'
           )
-          .to(metaDrift, { autoAlpha: 1, y: 0, duration: 0.45 }, '<0.16')
-          .to(cardDrift, { autoAlpha: 1, y: 0, duration: 0.64 }, '<0.08')
-          .to(
-            [leftRoleDrift, rightRoleDrift],
-            { autoAlpha: 1, duration: 0.48, stagger: 0.08 },
-            '<0.12'
-          )
-          .to(footerDrift, { autoAlpha: 1, duration: 0.42 }, '<0.1')
+          .to(metaDrift, { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power4.out' }, 'release+=0.72')
+          .to(footerDrift, { autoAlpha: 1, duration: 0.42, ease: 'power4.out' }, 'release+=0.78')
           .set(loader, { display: 'none' })
+          .add(() => ballsWave.kill(), 'release+=0.32')
           .add(() => ScrollTrigger.refresh());
       });
 
-      media.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(loader, { display: 'none' });
-      });
-
-      media.add('(max-width: 800px), (pointer: coarse), (prefers-reduced-motion: reduce)', () => {
-        // A composição editorial completa não é legível quando reduzida ao
-        // tamanho do cartão do hero. O cartão estático assume essa função no
-        // mobile e deixa o manifesto interativo apenas no desktop.
-        gsap.set(manifestoRoot, { display: 'none' });
-      });
-
       media.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)', () => {
-        gsap.set(manifestoRoot, {
-          xPercent: -50,
-          yPercent: -50,
-          scale: () => scaleToMini(cardStage)
-        });
-
-        const heroDistance = () => Math.round(window.innerHeight * 2.2);
-        const manifestoDistance = () => Math.max(window.innerHeight * 3.35, 2500);
-
-        const pinTrigger = ScrollTrigger.create({
-          id: 'hero-portal-pin',
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${Math.round(heroDistance() + manifestoDistance())}`,
-          pin: section,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          refreshPriority: 2
-        });
-        // `spacer` é um detalhe interno do ScrollTrigger e não faz parte da
-        // API pública tipada. O wrapper criado pelo pin já existe neste ponto;
-        // usa-o quando disponível e mantém a seção como fallback.
-        const pinSpacer =
-          section.parentElement?.classList.contains('pin-spacer')
-            ? section.parentElement
-            : section;
-
-        const heroTimeline = gsap.timeline({
+        const heroParallax = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            id: 'hero-portal-reveal',
-            // Enquanto está pinada, a seção fica visualmente em top: 0. O
-            // spacer preserva sua posição real no documento durante refreshes.
-            trigger: pinSpacer ?? section,
+            id: 'hero-parallax',
+            trigger: section,
             start: 'top top',
-            end: () => `+=${heroDistance()}`,
-            scrub: 0.9,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            refreshPriority: 1
+            end: 'bottom top',
+            scrub: 0.8,
+            invalidateOnRefresh: true
           }
         });
 
-        heroTimeline
-          .addLabel('drift', 0)
-          .to(nameDrift, { yPercent: -32, scale: 0.78, autoAlpha: 0.16, duration: 0.36 }, 'drift')
-          .to(metaDrift, { y: -28, autoAlpha: 0, duration: 0.18 }, 'drift+=0.04')
-          .to(leftRoleDrift, { xPercent: -24, autoAlpha: 0, duration: 0.2 }, 'drift+=0.08')
-          .to(rightRoleDrift, { xPercent: 24, autoAlpha: 0, duration: 0.2 }, 'drift+=0.08')
-          .to(footerDrift, { y: 24, autoAlpha: 0, duration: 0.18 }, 'drift+=0.12')
-          .to(cardDrift, { yPercent: -8, duration: 0.28 }, 'drift')
-          .addLabel('expand', 0.38)
-          .to(
-            cardStage,
-            {
-              x: () => centerOffset(cardStage).x,
-              y: () => centerOffset(cardStage).y,
-              duration: 0.56
-            },
-            'expand'
-          )
-          .fromTo(
-            manifestoRoot,
-            { scale: () => scaleToMini(cardStage) },
-            { scale: 1, duration: 0.56, immediateRender: false },
-            'expand'
-          )
-          .to(manifestoStage, { borderRadius: 0, boxShadow: 'none', duration: 0.4 }, 'expand+=0.08')
-          .to(stage, { backgroundColor: 'var(--color-paper)', duration: 0.26 }, 'expand+=0.22')
-          .addLabel('handoff', 1.04)
-          .to(nameDrift, { autoAlpha: 0, duration: 0.08 }, 'handoff')
-          .to(stage, { backgroundColor: 'var(--color-paper)', duration: 0.08 }, 'handoff');
+        heroParallax
+          .to(nameDrift, { yPercent: -15, autoAlpha: 0.28, duration: 0.72 }, 0)
+          .to(metaDrift, { y: -28, autoAlpha: 0, duration: 0.36 }, 0.04)
+          .to(footerDrift, { y: 24, autoAlpha: 0, duration: 0.36 }, 0.12);
 
-        return () => {
-          heroTimeline.kill();
-          pinTrigger.kill();
-        };
+        return () => heroParallax.kill();
       });
 
-      return () => media.revert();
+      return () => {
+        cancelled = true;
+        if (designTimer !== undefined) window.clearTimeout(designTimer);
+        entryTimeline?.kill();
+        ballsWave.kill();
+        media.revert();
+      };
     },
     { scope: root }
   );
