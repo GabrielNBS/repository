@@ -28,7 +28,7 @@ conteúdo completo e removendo somente a coreografia decorativa.
 | Cursor | Cursor contextual por projeto | Não é requisito | Removido | Removido |
 | Skills | Track horizontal pinado, vídeo ativo e navegação por etapa | Track só permanece se o dispositivo for fine pointer | Cards em lista, descrição sempre visível | Cards em lista, vídeos pausados/substituídos visualmente |
 | Detalhe — hero | Grid editorial, parallax sutil e visual grande | Grid colapsa progressivamente | Título quebra, metadados em duas colunas e visual vertical | Entrada estática |
-| Detalhe — decisões | `ScrollSplitCard` de 500vh com separação e flip | Mantido apenas quando houver fine pointer | Três cartões estáticos legíveis | Três cartões estáticos |
+| Detalhe — decisões | Narrativa editorial em fluxo com índice visual | Mesma leitura em uma coluna | Texto corrido, destaques e tecnologias empilhados | Mesma composição, sem coreografia |
 | Detalhe — ações | Ações lado a lado | Quebra conforme espaço | Botões em coluna, altura mínima de toque | Sem mudança estrutural |
 | Shader | Atmosfera WebGL lazy | Pode permanecer em ponteiro fino | Fallback CSS, sem canvas | Fallback CSS |
 
@@ -103,13 +103,13 @@ duas colunas e o visual ocupa a largura útil com altura baseada no conteúdo.
 
 ### Recorte funcional
 
-O flip 3D de três painéis é expressivo no desktop, mas em mobile cada painel ficava
-com cerca de um terço da largura e a cena consumia 500vh. A versão touch mostra os
-mesmos três conteúdos em cartões empilhados, na ordem “O desafio”, “A solução” e
-“O que ficou”, seguida por chips de tecnologia que exibem nome e ícone.
+A seção de decisões agora usa uma narrativa editorial em fluxo normal: um índice
+visual discreto com a imagem do projeto acompanha três blocos textuais — “O
+desafio”, “A solução” e “O que ficou” — seguidos por destaques e tecnologias.
 
-Isso mantém a narrativa, mas troca uma interação espacial por uma leitura que
-funciona com scroll, teclado, leitor de tela e orientação vertical.
+Essa composição mantém a hierarquia do case sem transformar a leitura em uma
+cena de 500vh. Ela funciona com scroll, teclado, leitor de tela e orientação
+vertical, com a mesma estrutura em desktop, tablet e mobile.
 
 ### Ações e retorno
 
@@ -122,9 +122,9 @@ volta continua fixo no topo para reduzir custo de navegação após uma leitura 
 - zero scroll horizontal em 375px, 390px e 768px;
 - títulos longos quebram sem corte, em especial `whatsapp-sender`;
 - nenhum conteúdo essencial depende de hover, cursor, flip ou vídeo;
-- a narrativa do detalhe não cria um trecho artificial de 500vh em touch;
-- cards e botões têm área de toque mínima de 44px;
+- a narrativa do detalhe não cria um trecho artificial de 500vh;
+- destaques e botões têm área de toque mínima de 44px;
 - `prefers-reduced-motion` mostra conteúdo completo em fluxo normal;
 - shaders não são montados em ponteiro coarse;
-- desktop preserva as cenas pinadas e interações existentes;
+- a página de detalhe preserva apenas o parallax sutil do hero;
 - lint, TypeScript e build continuam passando.

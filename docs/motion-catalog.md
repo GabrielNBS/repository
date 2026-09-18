@@ -54,7 +54,7 @@ Correções aplicadas durante a auditoria:
 | `ProjectDetailIntroTimeline` | Detalhe | GSAP timeline | `features/portfolio/project-detail/projectDetailMotion.ts` |
 | `ProjectDetailVisualParallax` | Detalhe | GSAP + ScrollTrigger | `features/portfolio/project-detail/projectDetailMotion.ts` |
 | `ProjectCursorFollow` | Projects | `quickTo` | `features/portfolio/projects/cursor/projectCursorMotion.ts` |
-| `ScrollSplitCardProgressController` | Detalhe | Framer Motion | `components/ui/scroll-split-card.tsx` |
+| `ScrollSplitCardProgressController` (arquivado) | Referência histórica do detalhe | Framer Motion | `docs/motion-catalog.md` · seção 8 |
 
 ## 1. Hero
 
@@ -385,13 +385,20 @@ Cursor customizado para ponteiro de mouse:
 O provider cancela o `requestAnimationFrame` de reveal ao trocar rapidamente de
 card. O hook remove listeners de media query e mata tweens no cleanup.
 
-## 8. `ScrollSplitCard` — animação não-GSAP
+## 8. `ScrollSplitCard` — animação não-GSAP arquivada
 
-**Arquivo:** `components/ui/scroll-split-card.tsx`
+**Status:** removida da interface ativa de detalhes.
 
-O card de detalhes usa Framer Motion, não GSAP. Ele deve ser tratado como uma
-unidade independente para não misturar dois controladores de scroll no mesmo
-elemento.
+Esta seção preserva a especificação do efeito de três painéis para eventual
+reutilização em outro projeto. O componente original foi removido do código
+ativo para que a página de detalhes mantenha uma narrativa textual em fluxo
+normal, sem o pin de `500vh`.
+
+**Implementação original:** `components/ui/scroll-split-card.tsx` (removida)
+
+O card de detalhes usava Framer Motion, não GSAP. A implementação foi removida
+da interface ativa e esta descrição permanece como referência independente para
+recriar o efeito sem misturar dois controladores de scroll no mesmo elemento.
 
 ### `ScrollSplitCardProgressController`
 
@@ -440,4 +447,4 @@ elemento.
 - [Skills motion](../features/portfolio/sections/skills/skillsMotion.ts)
 - [Detail motion](../features/portfolio/project-detail/projectDetailMotion.ts)
 - [Project cursor motion](../features/portfolio/projects/cursor/projectCursorMotion.ts)
-- [Scroll split card](../components/ui/scroll-split-card.tsx)
+- [Especificação arquivada do scroll split card](#8-scrollsplitcard--animação-não-gsap-arquivada)
