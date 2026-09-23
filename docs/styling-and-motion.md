@@ -1,15 +1,16 @@
 # Convenção de estilo e movimento
 
-Este projeto usa uma arquitetura Tailwind-first com fronteiras explícitas entre estilo, estado e
-movimento.
+Este projeto usa CSS Modules como padrão para estilos de componentes, com fronteiras explícitas
+entre estilo, estado e movimento.
 
 ## Camadas
 
 - `app/globals.css`: tokens do design, reset, estilos base, acessibilidade e regras globais de
   `prefers-reduced-motion`.
-- Tailwind: layout, espaçamento, tipografia, cores, responsividade e estados simples de componentes.
-- CSS Modules: regras complexas de layout, seletores aninhados, pseudo-elementos e componentes com
-  muitos estados visuais.
+- CSS Modules: layout, espaçamento, tipografia, cores, responsividade, pseudo-elementos e estados
+  visuais de cada componente. Cada componente visual isolado deve manter seu módulo ao lado do TSX.
+- Tailwind: somente ajustes rápidos e de baixa complexidade, sem concentrar layout responsivo,
+  estados ou estrutura visual de um componente.
 - GSAP: animações dirigidas por JavaScript, scroll, cursor, timelines, física e transições que
   precisam de controle temporal.
 - `style` inline: somente valores dinâmicos, dimensões calculadas ou variáveis CSS.
