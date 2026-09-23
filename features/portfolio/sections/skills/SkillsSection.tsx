@@ -125,23 +125,25 @@ export default function SkillsSection() {
                   aria-setsize={skills.length}
                   aria-label={`${skill.title}: ${skill.description}`}
                 >
-                  <div className={styles.cardVisual}>
-                    <span className={styles.cardMark} aria-hidden="true">
-                      0{index + 1}.
-                    </span>
-                    <video
-                      className={styles.cardVideo}
-                      src={skill.video}
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className={styles.cardCopy}>
-                    <h3 className={styles.cardTitle}>{skill.title}</h3>
-                    <p className={styles.cardDescription}>{skill.description}</p>
+                  <div className={styles.cardSurface}>
+                    <div className={styles.cardVisual}>
+                      <span className={styles.cardMark} aria-hidden="true">
+                        0{index + 1}.
+                      </span>
+                      <video
+                        className={styles.cardVideo}
+                        src={skill.video}
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className={styles.cardCopy}>
+                      <h3 className={styles.cardTitle}>{skill.title}</h3>
+                      <p className={styles.cardDescription}>{skill.description}</p>
+                    </div>
                   </div>
                 </article>
               ))}

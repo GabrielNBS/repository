@@ -136,8 +136,16 @@
 }
 
 .card {
+  --stamp-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M20 8Q50 0 80 8Q110 16 140 8Q170 0 200 8Q230 16 260 8Q290 0 320 8Q350 16 380 8Q410 0 440 8Q470 16 500 8Q530 0 560 8Q590 16 620 8Q650 0 680 8Q710 16 740 8Q770 0 800 8Q830 16 860 8Q890 0 920 8Q950 16 980 8Q992 18 992 40Q1000 70 992 100Q984 130 992 160Q1000 190 992 220Q984 250 992 280Q1000 310 992 340Q984 370 992 400Q1000 430 992 460Q984 490 992 520Q1000 550 992 580Q984 610 992 640Q1000 670 992 700Q984 730 992 760Q1000 790 992 820Q984 850 992 880Q1000 910 992 940Q984 970 992 992Q970 1000 940 992Q910 984 880 992Q850 1000 820 992Q790 984 760 992Q730 1000 700 992Q670 984 640 992Q610 1000 580 992Q550 984 520 992Q490 1000 460 992Q430 984 400 992Q370 1000 340 992Q310 984 280 992Q250 1000 220 992Q190 984 160 992Q130 1000 100 992Q70 984 40 992Q10 984 8 960Q0 930 8 900Q16 870 8 840Q0 810 8 780Q16 750 8 720Q0 690 8 660Q16 630 8 600Q0 570 8 540Q16 510 8 480Q0 450 8 420Q16 390 8 360Q0 330 8 300Q16 270 8 240Q0 210 8 180Q16 150 8 120Q0 90 8 60Q16 30 8 20Q10 10 20 8Z'/%3E%3C/svg%3E");
+  --card-frame: color-mix(in srgb, var(--card-tone) 88%, var(--color-ink));
   flex: 0 0 clamp(17.5rem, 24.6vw, 22.2rem);
   min-width: 0;
+  padding: clamp(0.45rem, 0.85vw, 0.65rem);
+  overflow: clip;
+  background: var(--card-frame);
+  clip-path: inset(0 round 1.1rem);
+  -webkit-mask: var(--stamp-mask) center / 100% 100% no-repeat;
+  mask: var(--stamp-mask) center / 100% 100% no-repeat;
   cursor: grab;
 }
 
@@ -150,11 +158,23 @@
   outline-offset: 5px;
 }
 
+.cardSurface {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: clip;
+  background: var(--card-tone);
+  clip-path: inset(0 round 1.1rem);
+  -webkit-mask: var(--stamp-mask) center / 100% 100% no-repeat;
+  mask: var(--stamp-mask) center / 100% 100% no-repeat;
+}
+
 .cardVisual,
 .cardCopy {
   position: relative;
-  border: 1px solid var(--color-ink);
-  border-radius: 0.6rem;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 0;
 }
 
 .cardVisual {
@@ -165,24 +185,24 @@
   isolation: isolate;
 }
 
-.card[data-variant='peach'] .cardVisual,
-.card[data-variant='peach'] .cardCopy {
-  background: var(--color-peach);
+.card[data-variant='peach'] {
+  --card-tone: var(--color-peach);
 }
 
-.card[data-variant='lilac'] .cardVisual,
-.card[data-variant='lilac'] .cardCopy {
-  background: var(--color-lilac);
+.card[data-variant='lilac'] {
+  --card-tone: var(--color-lilac);
 }
 
-.card[data-variant='rose'] .cardVisual,
-.card[data-variant='rose'] .cardCopy {
-  background: var(--color-rose);
+.card[data-variant='rose'] {
+  --card-tone: var(--color-rose);
 }
 
-.card[data-variant='cream'] .cardVisual,
-.card[data-variant='cream'] .cardCopy {
-  background: var(--color-cream);
+.card[data-variant='cream'] {
+  --card-tone: var(--color-cream);
+}
+
+.cardVisual {
+  background: var(--card-tone);
 }
 
 .cardMark {
@@ -219,11 +239,25 @@
 
 .cardCopy {
   height: 4.5rem;
-  margin-top: -1px;
+  margin-top: 0;
   padding: 1.1rem 1.25rem 0.9rem;
+  background: var(--card-tone);
   overflow: hidden;
   color: var(--color-ink);
   transition: padding 180ms ease;
+}
+
+.cardCopy::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  left: 50%;
+  width: 68%;
+  height: 0.35rem;
+  background: var(--card-frame);
+  transform: translateX(-50%);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1 4C34 1 66 6 100 4S166 1 199 4' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1 4C34 1 66 6 100 4S166 1 199 4' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 
 .cardTitle {
