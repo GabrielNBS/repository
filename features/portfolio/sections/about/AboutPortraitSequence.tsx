@@ -8,6 +8,7 @@ import {
   type AboutPortraitMode
 } from './aboutPortraitFrames';
 import { useAboutPortraitMotion } from './aboutPortraitMotion';
+import styles from './AboutPortraitSequence.module.css';
 
 const HYBRID_MOTION_QUERY =
   '(min-width: 801px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
@@ -63,14 +64,14 @@ export default function AboutPortraitSequence() {
   return (
     <figure
       ref={root}
-      className="border-ink/15 bg-paper relative isolate aspect-[561/701] w-full overflow-hidden rounded-t-[45%] rounded-b-3xl border shadow-[0_1.4rem_3.5rem_rgb(37_34_31_/_0.14)] max-[800px]:w-[min(100%,22rem)]"
+      className={styles.figure}
       data-interaction-mode={mode}
       data-motion="about-portrait"
     >
       <Image
         src={aboutPortraitPoster.src}
         alt="Retrato editorial em recorte e colagem de Gabriel Nascimento"
-        className="pointer-events-none absolute inset-0 z-0 size-full object-cover object-center select-none"
+        className={styles.poster}
         data-about-poster
         draggable={false}
         fill
@@ -87,7 +88,7 @@ export default function AboutPortraitSequence() {
           src={src}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none invisible absolute inset-0 z-1 size-full object-cover object-center opacity-0 select-none"
+          className={styles.frame}
           data-about-frame
           data-frame-id={id}
           data-frame-index={overlayIndex + 1}
@@ -100,9 +101,9 @@ export default function AboutPortraitSequence() {
         />
       ))}
 
-      <figcaption className="border-ink/15 bg-paper/92 text-ink text-label-sm absolute right-3 bottom-3 left-3 z-10 flex items-center justify-between gap-3 rounded-xl border px-3 py-2 font-extrabold tracking-[0.09em] uppercase shadow-[0_0.45rem_1.2rem_rgb(37_34_31_/_0.12)] backdrop-blur-sm max-[480px]:right-2.5 max-[480px]:bottom-2.5 max-[480px]:left-2.5 max-[480px]:gap-2 max-[480px]:px-2.5">
+      <figcaption className={styles.caption}>
         <span>Gabriel Nascimento</span>
-        <span className="shrink-0 text-right">São Paulo / BR</span>
+        <span className={styles.location}>São Paulo / BR</span>
       </figcaption>
     </figure>
   );
