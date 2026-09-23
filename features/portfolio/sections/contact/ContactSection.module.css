@@ -1,0 +1,16 @@
+.section { position: relative; z-index: 10; scroll-margin-top: 6rem; padding: 12rem clamp(1.25rem, 3vw, 3.75rem) 5rem; background: var(--color-paper); }
+.content { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 2rem; padding-top: 1.25rem; border-top: 1px solid rgb(37 34 31 / 15%); }
+.eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; margin: 0; color: var(--color-muted); font-family: var(--font-ui); font-size: var(--text-label); font-weight: 700; letter-spacing: 0.12em; line-height: 1.25; text-transform: uppercase; }
+.eyebrow::before { width: 1.75rem; height: 1px; background: currentColor; content: ''; }
+.title { max-width: 8ch; margin: 0; font-size: var(--text-display-xl); font-weight: 400; letter-spacing: -0.08em; line-height: 0.84; }
+.form { align-self: end; }
+.label { display: block; margin-bottom: 0.75rem; color: var(--color-muted); font-family: var(--font-ui); font-size: var(--text-label); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.inputRow { display: flex; align-items: center; border-bottom: 1px solid var(--color-ink); }
+.input { min-width: 0; flex: 1; padding: 0.75rem 0; border: 0; outline: none; background: transparent; color: var(--color-ink); font-size: var(--text-contact-input); letter-spacing: -0.07em; }
+.input::placeholder { color: rgb(37 34 31 / 35%); }
+.input:focus-visible { outline: 3px solid var(--color-ink); outline-offset: 0.25rem; }
+.submit { display: grid; width: 3rem; height: 3rem; flex-shrink: 0; place-items: center; border: 0; border-radius: 50%; background: var(--color-peach); color: var(--color-ink); font-size: var(--text-action-icon); transition: background 200ms ease, color 200ms ease, transform 200ms ease; }
+.submit:is(:hover, :focus-visible) { background: var(--color-ink); color: var(--color-paper); transform: rotate(45deg); }
+.status { margin: 0.75rem 0 0; color: var(--color-muted); font-family: var(--font-ui); font-size: var(--text-meta); }
+@media (max-width: 800px) { .section { padding-top: 7rem; } .content { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .section { padding-block: 5.5rem; } .inputRow { gap: 0.5rem; } }
