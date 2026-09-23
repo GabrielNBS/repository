@@ -1,0 +1,21 @@
+.main { overflow-x: clip; }
+.main:focus { outline: none; }
+
+.skipLink {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: translate(-50%, -160%);
+  transition: transform 200ms ease;
+}
+.skipLink:focus { outline: 3px solid var(--color-peach); outline-offset: 3px; transform: translate(-50%, 0); }

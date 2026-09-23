@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import styles from './PortfolioNav.module.css';
 
 export default function PortfolioNav() {
   const [open, setOpen] = useState(false);
@@ -18,13 +19,13 @@ export default function PortfolioNav() {
 
   return (
     <nav
-      className="data-[state=scrolled]:border-ink/15 data-[state=scrolled]:bg-paper/80 ease-spring fixed top-4 left-1/2 z-11 flex w-[calc(100%-2rem)] max-w-328 -translate-x-1/2 items-center justify-between rounded-full border border-transparent py-2 pr-2 pl-4 transition-all duration-500 data-[state=scrolled]:max-w-126 data-[state=scrolled]:opacity-100 data-[state=scrolled]:shadow-[0_1rem_3rem_rgb(37_34_31/0.08)] data-[state=scrolled]:backdrop-blur-[18px] max-[800px]:w-[calc(100%-1.5rem)] max-[800px]:data-[state=scrolled]:max-w-[calc(100%-1.5rem)] lg:opacity-0"
+      className={styles.nav}
       aria-label="Navegação principal"
       onKeyDown={handleKeyDown}
       data-component="navigation"
     >
       <Link
-        className="before:bg-peach text-meta inline-flex min-h-11 animate-pulse items-center gap-2 font-extrabold tracking-tight uppercase before:size-2.5 before:rounded-full before:content-['']"
+        className={styles.brand}
         href="/"
         onClick={closeMenu}
       >
@@ -32,24 +33,24 @@ export default function PortfolioNav() {
       </Link>
       <div
         id={menuId}
-        className={`nav-links max-[800px]:border-ink/15 max-[800px]:bg-paper flex items-center gap-1 max-[800px]:absolute max-[800px]:top-[calc(100%+0.5rem)] max-[800px]:right-0 max-[800px]:left-0 max-[800px]:flex-col max-[800px]:items-stretch max-[800px]:rounded-[1.3rem] max-[800px]:border max-[800px]:p-2 max-[800px]:shadow-[0_1rem_2rem_rgb(37_34_31_/_0.1)] ${open ? 'max-[800px]:flex' : 'max-[800px]:hidden'}`}
+        className={`${styles.links} ${open ? styles.linksOpen : ''}`}
       >
         <Link
-          className="hover:bg-ink/7 focus-visible:bg-ink/7 text-nav focus-visible:outline-ink inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className={styles.link}
           href="/#projetos"
           onClick={closeMenu}
         >
           Projetos
         </Link>
         <Link
-          className="hover:bg-ink/7 focus-visible:bg-ink/7 text-nav focus-visible:outline-ink inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className={styles.link}
           href="/#sobre"
           onClick={closeMenu}
         >
           Sobre
         </Link>
         <Link
-          className="bg-ink text-paper hover:bg-peach hover:text-ink focus-visible:bg-peach focus-visible:text-ink text-nav focus-visible:outline-ink inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 font-bold tracking-[0.04em] uppercase transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 max-[800px]:min-h-[2.9rem] max-[800px]:px-3.5"
+          className={`${styles.link} ${styles.linkPrimary}`}
           href="/#contato"
           onClick={closeMenu}
         >
@@ -58,7 +59,7 @@ export default function PortfolioNav() {
       </div>
       <button
         ref={menuButton}
-        className="nav-menu bg-ink text-paper text-menu-icon hidden size-11 items-center justify-center rounded-full border-0 leading-none max-[800px]:inline-flex"
+        className={styles.menuButton}
         type="button"
         aria-controls={menuId}
         aria-expanded={open}
