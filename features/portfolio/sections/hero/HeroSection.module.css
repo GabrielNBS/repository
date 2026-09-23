@@ -15,18 +15,6 @@
   isolation: isolate;
 }
 
-.stage::after {
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  left: 1.5rem;
-  z-index: 0;
-  height: 1px;
-  background: color-mix(in srgb, var(--color-ink) 12%, transparent);
-  content: '';
-  transform: translateY(-50%);
-  pointer-events: none;
-}
 
 .loader {
   position: fixed;
@@ -209,26 +197,6 @@
   font-size: 1rem;
 }
 
-.statementOrb {
-  position: absolute;
-  right: clamp(5%, 11vw, 12rem);
-  bottom: clamp(12%, 20vh, 13rem);
-  z-index: 1;
-  width: clamp(8rem, 15vw, 14rem);
-  aspect-ratio: 1;
-  border: 1px solid var(--color-ink);
-  border-radius: 50%;
-  background: var(--color-lilac);
-  opacity: 0.82;
-  pointer-events: none;
-}
-
-.statementOrb span {
-  position: absolute;
-  inset: 20%;
-  border: 1px solid var(--color-ink);
-  border-radius: 50%;
-}
 
 .footerDrift {
   bottom: clamp(1.25rem, 2vw, 2rem);
@@ -237,7 +205,7 @@
 .footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   font-size: var(--text-label);
   font-weight: 800;
@@ -260,10 +228,6 @@
     min-height: 44rem;
   }
 
-  .stage::after {
-    right: 1.25rem;
-    left: 1.25rem;
-  }
 
   .meta {
     justify-content: space-between;
@@ -303,11 +267,6 @@
     font-size: var(--text-body-sm);
   }
 
-  .statementOrb {
-    right: 4%;
-    bottom: 24%;
-    width: clamp(6rem, 24vw, 9rem);
-  }
 
   .footer > span:first-child {
     display: none;

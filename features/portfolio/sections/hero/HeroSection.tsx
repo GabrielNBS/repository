@@ -57,7 +57,6 @@ export default function HeroSection() {
       <div className={styles.stage}>
         <div className={styles.metaDrift} data-motion="hero-meta-drift">
           <div className={styles.meta}>
-            <span>Portfólio / 26</span>
             <span>Juiz de Fora, BR</span>
             <span>Interfaces com intenção</span>
           </div>
@@ -83,19 +82,19 @@ export default function HeroSection() {
             <p className={styles.statementCopy} data-motion="hero-name-support">
               Código com olhar de direção para transformar ideias em experiências que fazem sentido.
             </p>
-            <a className={styles.statementAction} href="#manifesto-title" data-motion="hero-name-support">
+            <a
+              className={styles.statementAction}
+              href="#manifesto-title"
+              data-motion="hero-name-support"
+            >
               Ver o trabalho <FiArrowDown aria-hidden="true" />
             </a>
           </div>
         </div>
 
-        <div className={styles.statementOrb} aria-hidden="true">
-          <span />
-        </div>
 
         <div className={styles.footerDrift} data-motion="hero-footer-drift">
           <div className={styles.footer}>
-            <span>Gabriel do Nascimento / 2026</span>
             <span className={styles.scrollCue}>
               Role para abrir o manifesto <FiArrowDown aria-hidden="true" />
             </span>
