@@ -145,16 +145,19 @@
   inset: 0;
   border: 1px solid var(--color-ink);
   border-radius: clamp(1.1rem, 2.4vw, 2rem);
-  will-change: transform, opacity;
+  transform-origin: center;
+  will-change: transform, opacity, background-color;
 }
 
 .backCardLilac {
   background: var(--color-lilac);
+  box-shadow: 0 0.8rem 1.8rem rgb(37 34 31 / 0.08);
   transform: translate3d(-1.15rem, 1.05rem, 0) rotate(-2.2deg);
 }
 
 .backCardPeach {
   background: var(--color-peach);
+  box-shadow: 0 0.55rem 1.3rem rgb(37 34 31 / 0.07);
   transform: translate3d(1.2rem, 0.75rem, 0) rotate(2deg);
 }
 
@@ -164,14 +167,6 @@
   color: var(--color-paper);
   box-shadow: 0 1.6rem 4rem rgb(37 34 31 / 0.18);
   isolation: isolate;
-}
-
-.projectMedia {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.48;
-  mix-blend-mode: screen;
 }
 
 .field {
@@ -199,6 +194,7 @@
 }
 
 .beat {
+  --beat-underlay: var(--color-lilac);
   position: absolute;
   inset: 0;
   display: flex;
@@ -209,11 +205,45 @@
   padding: clamp(4rem, 9vh, 7rem) clamp(1.5rem, 6vw, 6rem);
   text-align: center;
   color: var(--color-ink);
-  background-color: var(--color-cream);
+  background-color: var(--color-paper);
+  will-change: transform, opacity, background-color;
 }
 
 .beat:first-child {
   visibility: visible;
+}
+
+.beat:nth-child(2) {
+  --beat-underlay: var(--color-peach);
+  background-color: var(--color-lilac);
+}
+
+.beat:nth-child(3) {
+  --beat-underlay: var(--color-cream);
+  background-color: var(--color-peach);
+}
+
+/* Os três pontos preservam a ideia de perfurações do caderno, mas existem no
+   DOM para ganhar um pulso de onda no carrossel mobile. */
+.beatDots {
+  position: absolute;
+  top: clamp(1.5rem, 3vh, 2.35rem);
+  right: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  align-items: center;
+  gap: 0.78rem;
+  pointer-events: none;
+}
+
+.beatDots span {
+  display: block;
+  width: 0.86rem;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 32%, transparent);
+  border-radius: 50%;
+  background: var(--beat-underlay);
+  box-shadow: 0 0.08rem 0.06rem rgb(37 34 31 / 0.12);
+  will-change: transform;
 }
 
 .beatMeta {
@@ -235,7 +265,7 @@
   padding: 0.75rem 1.1rem;
   border: 1px solid var(--color-ink);
   border-radius: 999px;
-  background: var(--color-paper);
+  background: var(--color-lilac);
   color: var(--color-ink);
   box-shadow: 0.25rem 0.3rem 0 var(--color-ink);
   font-size: var(--text-label);
@@ -251,32 +281,34 @@
 }
 
 .beat:nth-child(3) .beatKeyword {
-  background: var(--color-paper);
+  background: var(--color-cream);
   transform: rotate(-4deg);
 }
 
 .beatTitle {
   max-width: 13ch;
   margin: 0;
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+  overflow: visible;
   font-size: clamp(3.2rem, 6.8vw, 7.6rem);
   font-weight: 400;
   letter-spacing: -0.095em;
-  line-height: 0.82;
+  line-height: 0.9;
+}
+
+/* A entrada por palavra mantém overflow: clip na máscara. Esta folga local
+   protege descendentes e acentos sem abrir o overflow do card inteiro. */
+.beatTitle :global(.split-motion-word-mask) {
+  padding-block: 0.16em !important;
+  margin-block: -0.16em !important;
 }
 
 .beatTitle em {
-  color: var(--color-peach);
+  color: var(--color-ink);
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 400;
-}
-
-.beat[data-tone='lilac'] .beatTitle em {
-  color: var(--color-lilac);
-}
-
-.beat[data-tone='paper'] .beatTitle em {
-  color: var(--color-paper);
 }
 
 .beatCopy {
@@ -372,12 +404,6 @@
   font-weight: 400;
   letter-spacing: -0.095em;
   line-height: 0.82;
-}
-
-.closing em {
-  color: var(--color-peach);
-  font-family: var(--font-serif);
-  font-style: normal;
 }
 
 .closingLine {
@@ -509,8 +535,58 @@
     color: var(--color-ink);
   }
 
+  .beatDots {
+    top: 1.4rem;
+    right: 1.2rem;
+    transform: scale(0.88);
+    transform-origin: top right;
+  }
+
+  /* O primeiro card móvel usa fundo escuro; os demais preservam ink sobre
+     fundos claros. Assim o trecho em itálico nunca perde contraste. */
+  .beat:first-child .beatTitle em {
+    color: var(--color-paper);
+  }
+
+  .beat:first-child .beatCopy {
+    color: var(--color-paper);
+  }
+
   .beatTitle {
     font-size: clamp(2.8rem, 13vw, 5rem);
+  }
+}
+
+/* No mobile, os princípios mantêm a leitura vertical dentro de cada cartão,
+   mas avançam lateralmente como em "Como construo". O próximo cartão fica
+   parcialmente exposto para tornar o gesto descobrível sem controles extras. */
+@media (max-width: 800px) {
+  .beats {
+    display: flex;
+    width: calc(100% + 2.5rem);
+    gap: 1rem;
+    margin-inline: -1.25rem;
+    padding: 0 1.25rem 0.75rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 1.25rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .beats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .beat,
+  .beat:first-child {
+    flex: 0 0 min(84vw, 22rem);
+    width: min(84vw, 22rem);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    touch-action: pan-x;
   }
 }
 

@@ -76,6 +76,16 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
         return;
       }
 
+      // As cores vêm dos tokens globais, para que a timeline acompanhe a
+      // identidade visual sem duplicar hexadecimais no código de animação.
+      const color = (token: string) => getComputedStyle(section).getPropertyValue(token).trim();
+      const palette = {
+        paper: color('--color-paper'),
+        lilac: color('--color-lilac'),
+        peach: color('--color-peach'),
+        cream: color('--color-cream')
+      };
+
       // Curva base compartilhada por entradas e transições da narrativa. Para
       // deixar o manifesto mais rápido/lento, ajuste esta curva ou os labels,
       // não cada tween individualmente.
@@ -257,34 +267,83 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
             )
             .to(progress, { scaleX: 0.4, duration: 1.3, ease: 'none' }, 'converge')
             .addLabel('rhythm', 'converge+=1.45')
+            .addLabel('rhythm:prepare', 'rhythm')
+            .addLabel('rhythm:surface', 'rhythm+=0.18')
+            .addLabel('rhythm:content', 'rhythm+=0.28')
+            .addLabel('rhythm:settle', 'rhythm+=0.72')
             .to(
               titleWords[0],
               { autoAlpha: 0, rotate: -2, yPercent: -115, duration: 0.38, stagger: 0.025 },
-              'rhythm'
+              'rhythm:prepare'
             )
-            .to(beats[0], { autoAlpha: 0, duration: 0.3 }, 'rhythm+=0.18')
-            .to(beats[1], { autoAlpha: 1, duration: 0.35 }, 'rhythm+=0.22')
+            // O próximo beat precisa cobrir o teaser antes do anterior perder
+            // opacidade. Um fade cruzado deixava ambos parcialmente
+            // transparentes por alguns frames e revelava a mídia de fundo.
+            // A variável também é a tinta dos três furos; como pertence a esta
+            // timeline scrubbada, sua troca acompanha o scroll sem saltos.
+            .set(
+              beats[1],
+              {
+                autoAlpha: 1,
+                backgroundColor: palette.paper,
+                '--beat-underlay': palette.lilac
+              },
+              'rhythm:surface'
+            )
+            .to(
+              beats[1],
+              {
+                backgroundColor: palette.lilac,
+                '--beat-underlay': palette.peach,
+                duration: 0.48,
+                ease: 'power1.inOut'
+              },
+              'rhythm:surface'
+            )
+            .to(beats[0], { autoAlpha: 0, duration: 0.3 }, 'rhythm:surface')
             .to(
               titleWords[1],
               { autoAlpha: 1, rotate: 0, yPercent: 0, duration: 0.55, stagger: 0.05 },
-              'rhythm+=0.28'
+              'rhythm:content'
             )
             .fromTo(
               beats[1].querySelectorAll('p'),
               { autoAlpha: 0, y: 18 },
               { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.08 },
-              'rhythm+=0.38'
+              'rhythm:content+=0.1'
             )
             // MorphSVG muda a silhueta do blob de ritmo para forma sem trocar
             // o elemento; isso mantém o fluxo visual e o DOM estáveis.
             .to(
               blob,
               { morphSVG: { shape: rhythmShape, type: 'rotational' }, duration: 1.05 },
-              'rhythm'
+              'rhythm:prepare'
             )
-            .to(frame, { y: -14, rotate: 1.2, duration: 0.65 }, 'rhythm')
-            .to(cards[0], { x: -32, y: 20, rotate: -4.5, duration: 0.72 }, 'rhythm')
-            .to(cards[1], { x: 30, y: 16, rotate: 4.2, duration: 0.72 }, 'rhythm')
+            .to(frame, { y: -14, rotate: 1.2, duration: 0.65 }, 'rhythm:prepare')
+            .to(
+              cards[0],
+              {
+                x: -48,
+                y: 30,
+                rotate: -6.4,
+                scale: 0.968,
+                backgroundColor: palette.peach,
+                duration: 0.72
+              },
+              'rhythm:prepare'
+            )
+            .to(
+              cards[1],
+              {
+                x: 34,
+                y: 18,
+                rotate: 4.8,
+                scale: 0.985,
+                backgroundColor: palette.cream,
+                duration: 0.72
+              },
+              'rhythm:prepare+=0.04'
+            )
             .to(
               orbitTag,
               {
@@ -298,35 +357,82 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
                 duration: 1.1,
                 ease: 'none'
               },
-              'rhythm'
+              'rhythm:prepare'
             )
             .to(progress, { scaleX: 0.68, duration: 1.2, ease: 'none' }, 'rhythm')
             .addLabel('form', 'rhythm+=1.5')
+            .addLabel('form:prepare', 'form')
+            .addLabel('form:surface', 'form+=0.18')
+            .addLabel('form:content', 'form+=0.28')
+            .addLabel('form:settle', 'form+=0.72')
             .to(
               titleWords[1],
               { autoAlpha: 0, rotate: -2, yPercent: -115, duration: 0.38, stagger: 0.025 },
-              'form'
+              'form:prepare'
             )
-            .to(beats[1], { autoAlpha: 0, duration: 0.3 }, 'form+=0.18')
-            .to(beats[2], { autoAlpha: 1, duration: 0.35 }, 'form+=0.22')
+            // Mantém uma superfície opaca sobre o teaser também na segunda
+            // troca; o texto seguinte continua entrando pela timeline abaixo.
+            .set(
+              beats[2],
+              {
+                autoAlpha: 1,
+                backgroundColor: palette.lilac,
+                '--beat-underlay': palette.peach
+              },
+              'form:surface'
+            )
+            .to(
+              beats[2],
+              {
+                backgroundColor: palette.peach,
+                '--beat-underlay': palette.cream,
+                duration: 0.48,
+                ease: 'power1.inOut'
+              },
+              'form:surface'
+            )
+            .to(beats[1], { autoAlpha: 0, duration: 0.3 }, 'form:surface')
             .to(
               titleWords[2],
               { autoAlpha: 1, rotate: 0, yPercent: 0, duration: 0.55, stagger: 0.05 },
-              'form+=0.28'
+              'form:content'
             )
             .fromTo(
               beats[2].querySelectorAll('p'),
               { autoAlpha: 0, y: 18 },
               { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.08 },
-              'form+=0.38'
+              'form:content+=0.1'
             )
             .to(
               blob,
               { morphSVG: { shape: formShape, type: 'rotational' }, duration: 1.05 },
-              'form'
+              'form:prepare'
             )
-            .to(frame, { y: 0, rotate: -0.7, duration: 0.72 }, 'form')
-            .to(cards, { x: 0, y: 0, rotate: 0, duration: 0.72 }, 'form')
+            .to(frame, { y: 0, rotate: -0.7, duration: 0.72 }, 'form:prepare')
+            .to(
+              cards[0],
+              {
+                x: -56,
+                y: 34,
+                rotate: -7,
+                scale: 0.964,
+                backgroundColor: palette.cream,
+                duration: 0.72
+              },
+              'form:prepare'
+            )
+            .to(
+              cards[1],
+              {
+                x: 38,
+                y: 20,
+                rotate: 5.6,
+                scale: 0.98,
+                backgroundColor: palette.paper,
+                duration: 0.72
+              },
+              'form:prepare+=0.04'
+            )
             .to(
               orbitTag,
               {
@@ -340,7 +446,7 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
                 duration: 1.1,
                 ease: 'none'
               },
-              'form'
+              'form:prepare'
             )
             .to(progress, { scaleX: 0.9, duration: 1.2, ease: 'none' }, 'form')
             // No final, a composição permanece no lugar e abre espaço para a
@@ -379,6 +485,213 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
             introSplit.revert();
             titleSplits.forEach((split) => split.revert());
             timeline.kill();
+          };
+        }
+      );
+
+      media.add(
+        {
+          mobile: '(max-width: 800px)',
+          motion: '(prefers-reduced-motion: no-preference)'
+        },
+        (mediaContext) => {
+          const { mobile, motion } = mediaContext.conditions ?? {};
+          const carousel = section.querySelector<HTMLElement>('[data-manifesto-beats]');
+
+          if (!mobile || !motion || !carousel) return;
+
+          const mobileBeats = gsap.utils.toArray<HTMLElement>('[data-manifesto-beat]', carousel);
+          if (mobileBeats.length !== 3) return;
+
+          let activeBeat = -1;
+          let carouselVisible = false;
+          let animationFrame = 0;
+          let entryTimeline: gsap.core.Timeline | undefined;
+          let keywordFloat: gsap.core.Tween | undefined;
+          let dotsWave: gsap.core.Timeline | undefined;
+
+          const getBeatTargets = (beat: HTMLElement) => {
+            const keyword = beat.querySelector<HTMLElement>('[data-manifesto-card-keyword]');
+            const title = beat.querySelector<HTMLElement>('[data-manifesto-card-title]');
+            const copy = beat.querySelector<HTMLElement>('[data-manifesto-card-copy]');
+            const dots = gsap.utils.toArray<HTMLElement>('[data-manifesto-card-dots] span', beat);
+
+            if (!keyword || !title || !copy || dots.length !== 3) return null;
+
+            return { keyword, title, copy, dots };
+          };
+
+          // No modo com movimento, cada card aguarda fora de cena. Assim a
+          // animação começa pelo estado escondido — nunca pelo conteúdo já
+          // desenhado que volta para trás em um salto visível.
+          const prepareBeat = (beat: HTMLElement) => {
+            const targets = getBeatTargets(beat);
+            if (!targets) return;
+
+            const { keyword, title, copy, dots } = targets;
+            gsap.killTweensOf([keyword, title, copy, ...dots]);
+            gsap.set(keyword, { autoAlpha: 0, y: -22, scale: 0.74 });
+            gsap.set(title, { autoAlpha: 0, y: 30 });
+            gsap.set(copy, { autoAlpha: 0, y: 18 });
+            gsap.set(dots, { autoAlpha: 0, y: 0, scale: 0.6 });
+          };
+
+          mobileBeats.forEach(prepareBeat);
+
+          const setActiveBeat = (nextBeat: number) => {
+            activeBeat = nextBeat;
+            mobileBeats.forEach((beat, index) => {
+              beat.dataset.active = String(index === nextBeat);
+              beat.removeAttribute('aria-hidden');
+            });
+          };
+
+          const pauseAmbientMotion = () => {
+            keywordFloat?.pause();
+            dotsWave?.pause();
+          };
+
+          const getCenteredBeat = () => {
+            const carouselBounds = carousel.getBoundingClientRect();
+            const carouselCenter = carouselBounds.left + carouselBounds.width / 2;
+
+            return mobileBeats.reduce((closestIndex, beat, index) => {
+              const beatBounds = beat.getBoundingClientRect();
+              const beatCenter = beatBounds.left + beatBounds.width / 2;
+              const closestBounds = mobileBeats[closestIndex].getBoundingClientRect();
+              const closestCenter = closestBounds.left + closestBounds.width / 2;
+
+              return Math.abs(beatCenter - carouselCenter) < Math.abs(closestCenter - carouselCenter)
+                ? index
+                : closestIndex;
+            }, 0);
+          };
+
+          const startAmbientMotion = (nextBeat: number) => {
+            const targets = getBeatTargets(mobileBeats[nextBeat]);
+            if (!targets) return;
+            const { keyword, dots } = targets;
+
+            keywordFloat = gsap.to(keyword, {
+              y: -7,
+              duration: 1.15,
+              delay: 0.52,
+              ease: 'sine.inOut',
+              yoyo: true,
+              repeat: -1
+            });
+
+            // Cada ponto sobe e retorna com um pequeno atraso em relação ao
+            // anterior: uma onda contínua de carregamento, não um pulso único.
+            dotsWave = gsap
+              .timeline({ delay: 0.72, repeat: -1, repeatDelay: 0.18 })
+              .to(dots, { y: -5, scale: 1.16, duration: 0.18, ease: 'sine.out', stagger: 0.1 })
+              .to(
+                dots,
+                { y: 0, scale: 1, duration: 0.25, ease: 'sine.in', stagger: 0.1 },
+                0.18
+              );
+          };
+
+          const activateBeat = (nextBeat: number) => {
+            const beat = mobileBeats[nextBeat];
+            const targets = getBeatTargets(beat);
+            if (!targets) return;
+            const { keyword, title, copy, dots } = targets;
+
+            entryTimeline?.kill();
+            keywordFloat?.kill();
+            dotsWave?.kill();
+            mobileBeats.forEach((candidate, index) => {
+              if (index !== nextBeat) prepareBeat(candidate);
+            });
+            prepareBeat(beat);
+            entryTimeline = gsap
+              .timeline({ defaults: { overwrite: 'auto' } })
+              .to(keyword, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.46,
+                ease: 'back.out(1.55)'
+              })
+              .to(
+                title,
+                { autoAlpha: 1, y: 0, duration: 0.48, ease: 'power3.out' },
+                '-=0.16'
+              )
+              .to(
+                copy,
+                { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power2.out' },
+                '-=0.25'
+              )
+              .to(
+                dots,
+                { autoAlpha: 1, scale: 1, duration: 0.28, ease: 'back.out(1.8)', stagger: 0.06 },
+                '-=0.22'
+              );
+
+            startAmbientMotion(nextBeat);
+          };
+
+          const syncActiveBeat = (force = false) => {
+            if (!carouselVisible) {
+              pauseAmbientMotion();
+              return;
+            }
+
+            const nextBeat = getCenteredBeat();
+            if (force || nextBeat !== activeBeat) {
+              setActiveBeat(nextBeat);
+              activateBeat(nextBeat);
+              return;
+            }
+
+            keywordFloat?.play();
+            dotsWave?.play();
+          };
+
+          const requestSync = () => {
+            if (animationFrame) return;
+            animationFrame = window.requestAnimationFrame(() => {
+              animationFrame = 0;
+              syncActiveBeat();
+            });
+          };
+
+          const observer = new IntersectionObserver(
+            ([entry]) => {
+              const wasVisible = carouselVisible;
+              carouselVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+              syncActiveBeat(carouselVisible && !wasVisible);
+            },
+            { threshold: [0, 0.45, 0.8] }
+          );
+
+          observer.observe(carousel);
+          carousel.addEventListener('scroll', requestSync, { passive: true });
+          window.addEventListener('resize', requestSync, { passive: true });
+
+          const initialBounds = carousel.getBoundingClientRect();
+          carouselVisible = initialBounds.top < window.innerHeight && initialBounds.bottom > 0;
+          syncActiveBeat(carouselVisible);
+
+          return () => {
+            observer.disconnect();
+            carousel.removeEventListener('scroll', requestSync);
+            window.removeEventListener('resize', requestSync);
+            if (animationFrame) window.cancelAnimationFrame(animationFrame);
+            entryTimeline?.kill();
+            keywordFloat?.kill();
+            dotsWave?.kill();
+            mobileBeats.forEach((beat) => {
+              const targets = getBeatTargets(beat);
+              if (!targets) return;
+              gsap.set([targets.keyword, targets.title, targets.copy, ...targets.dots], {
+                clearProps: 'transform,opacity,visibility'
+              });
+            });
+            mobileBeats.forEach((beat) => beat.removeAttribute('aria-hidden'));
           };
         }
       );

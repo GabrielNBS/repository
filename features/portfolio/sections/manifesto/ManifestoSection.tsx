@@ -1,8 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import projects, { getProjectTeaser } from '@/features/portfolio/projects/data/projects';
-import ProjectTeaser from '@/features/portfolio/projects/ProjectTeaser';
 import styles from './ManifestoSection.module.css';
 import { useManifestoStoryMotion } from './manifestoStoryMotion';
 
@@ -13,11 +11,10 @@ const beats = [
       <>
         Antes da tela,
         <br />
-        <em>vem a escolha.</em>
+        <em>vem a escolha</em>
       </>
     ),
-    copy: 'Eu começo retirando o excesso, até restar uma ideia que possa ser entendida sem pedir licença.',
-    tone: 'lilac'
+    copy: 'Eu começo retirando o excesso, até restar uma ideia que possa ser entendida sem pedir licença'
   },
   {
     principle: 'Ritmo',
@@ -25,23 +22,21 @@ const beats = [
       <>
         Cada pausa
         <br />
-        <em>também comunica.</em>
+        <em>também comunica</em>
       </>
     ),
-    copy: 'Hierarquia, resposta e movimento conduzem o olhar. Nada aparece antes de ter um motivo para existir.',
-    tone: 'lilac'
+    copy: 'Hierarquia, resposta e movimento conduzem o olhar. Nada aparece antes de ter um motivo para existir'
   },
   {
     principle: 'Forma',
     title: (
       <>
-        A ideia ganha corpo.
+        A ideia ganha corpo
         <br />
-        <em>E permanece.</em>
+        <em>e permanece</em>
       </>
     ),
-    copy: 'Quando direção visual e código falam a mesma língua, a experiência deixa de ser interface e vira presença.',
-    tone: 'lilac'
+    copy: 'Quando direção visual e código falam a mesma língua, a experiência deixa de ser interface e vira presença'
   }
 ] as const;
 
@@ -56,9 +51,9 @@ export default function ManifestoSection() {
           <div className={styles.atmosphere} aria-hidden="true" data-manifesto-atmosphere />
 
           <div className={styles.intro} data-manifesto-intro>
-            <p>Design não começa no software.</p>
+            <p>Design não começa no software</p>
             <h2 id="manifesto-title" data-manifesto-intro-title>
-              Começa com uma decisão.
+              Começa com uma decisão
             </h2>
           </div>
 
@@ -81,13 +76,6 @@ export default function ManifestoSection() {
             />
 
             <div className={styles.frame} data-manifesto-frame>
-              <ProjectTeaser
-                teaser={getProjectTeaser(projects[0])}
-                className={styles.projectMedia}
-                priority
-                label="Pré-carregando teaser"
-                sizes="(max-width: 800px) 100vw, 35vw"
-              />
               <svg
                 className={styles.field}
                 viewBox="0 0 1000 700"
@@ -108,22 +96,44 @@ export default function ManifestoSection() {
                 />
               </svg>
 
-              <div className={styles.beats}>
+              <div
+                className={styles.beats}
+                data-manifesto-beats
+                role="region"
+                aria-label="Princípios do manifesto"
+                tabIndex={0}
+              >
                 {beats.map((beat, index) => (
                   <article
                     key={beat.principle}
                     className={styles.beat}
                     data-manifesto-beat
-                    data-tone={beat.tone}
                     data-active={index === 0 ? 'true' : 'false'}
+                    aria-label={`${beat.principle}, princípio ${index + 1} de ${beats.length}`}
+                    aria-posinset={index + 1}
+                    aria-roledescription="cartão"
+                    aria-setsize={beats.length}
                   >
-                    <p className={styles.beatMeta}>
-                      <span className={styles.beatKeyword}>{beat.principle}</span>
+                    <div className={styles.beatDots} aria-hidden="true" data-manifesto-card-dots>
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <p className={styles.beatMeta} data-manifesto-card-meta>
+                      <span className={styles.beatKeyword} data-manifesto-card-keyword>
+                        {beat.principle}
+                      </span>
                     </p>
-                    <h3 className={styles.beatTitle} data-manifesto-beat-title>
+                    <h3
+                      className={styles.beatTitle}
+                      data-manifesto-beat-title
+                      data-manifesto-card-title
+                    >
                       {beat.title}
                     </h3>
-                    <p className={styles.beatCopy}>{beat.copy}</p>
+                    <p className={styles.beatCopy} data-manifesto-card-copy>
+                      {beat.copy}
+                    </p>
                   </article>
                 ))}
               </div>
@@ -150,7 +160,7 @@ export default function ManifestoSection() {
               </span>
               <span className={styles.closingAction} aria-hidden="true" data-manifesto-closing-part>
                 <span className={styles.closingWord}>entra</span>
-                <em>em prática.</em>
+                em prática
               </span>
             </p>
           </div>
