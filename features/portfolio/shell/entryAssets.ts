@@ -7,51 +7,22 @@ type EntryPreloadResult = EntryProgress & {
   timedOut: boolean;
 };
 
+// Apenas materiais essenciais de entrada imediata (Hero e início da narrativa).
+// Mídias subsequentes são carregadas sob demanda conforme entram na viewport.
 const imageAssets = [
   '/images/hero/front-end-collage-paper-bg.png',
   '/images/hero/front-end-editorial.png',
+  '/images/hero/loader-ball-cream.png',
+  '/images/hero/loader-ball-lilac.png',
+  '/images/hero/loader-ball-peach.png',
   '/images/about/gabriel-editorial-portrait.png',
-  '/images/about/gabriel-editorial-portrait-v2.png',
-  '/images/about/gabriel-editorial-collage-integrated.png',
-  '/images/about/gabriel-editorial-collage-bw.png',
-  '/images/about/front-end-editorial.png',
-  '/images/about/front-end-collage-wordmark.png',
-  '/images/about/front-end-collage-paper-bg.png',
-  '/images/about/frames/about-collage-transition-00.png',
-  '/images/about/frames/about-collage-transition-01.png',
-  '/images/about/frames/about-collage-transition-02.png',
-  '/images/about/frames/about-collage-transition-03.png',
-  '/images/about/frames/about-collage-look-low-00.png',
-  '/images/about/frames/about-collage-look-low-01.png',
-  '/images/about/frames/about-collage-look-low-02.png',
-  '/images/about/frames/about-collage-look-low-03.png',
   '/videos/projects/regula-poster.webp',
-  '/videos/projects/e-food-poster.webp',
-  '/videos/projects/e-play-poster.webp',
-  '/videos/projects/to-do-poster.webp',
-  '/videos/projects/spider-verse-poster.webp',
-  '/videos/projects/clone-disney-poster.webp',
-  '/videos/projects/hoje-ta-doce-poster.webp'
+  '/videos/projects/e-food-poster.webp'
 ] as const;
 
-// A abertura aquece apenas os metadados dos vídeos. Baixar todos os arquivos
-// completos antes da primeira interação deixaria a experiência pesada sem
-// melhorar a primeira pintura; cada teaser continua a carregar seu conteúdo
-// quando entra na narrativa.
 const motionAssets = [
   '/videos/projects/regula.webm',
-  '/videos/projects/e-food.webm',
-  '/videos/projects/e-play.webm',
-  '/videos/projects/to-do.webm',
-  '/videos/projects/spider-verse.webm',
-  '/videos/projects/clone-disney.webm',
-  '/videos/projects/hoje-ta-doce.webm',
-  '/videos/skills/typescript.mp4',
-  '/videos/skills/react-next.mp4',
-  '/videos/skills/design-system.mp4',
-  '/videos/skills/performance.mp4',
-  '/videos/skills/ai-frontend.mp4',
-  '/videos/skills/accessibility.mp4'
+  '/videos/projects/e-food.webm'
 ] as const;
 
 const ENTRY_TIMEOUT_MS = 9000;
@@ -62,9 +33,6 @@ function preloadImage(src: string) {
     const settle = () => resolve();
 
     image.onload = () => {
-      // decode evita que a máscara de entrada revele uma imagem ainda em
-      // processamento no thread de pintura. Navegadores antigos seguem pelo
-      // mesmo caminho ao resolver o load.
       void image.decode?.().catch(() => undefined).finally(settle);
     };
     image.onerror = settle;
@@ -95,9 +63,8 @@ function preloadVideoMetadata(src: string) {
 }
 
 /**
- * Prepara os materiais que dão continuidade à abertura: fotografia, colagem,
- * pôsteres e a informação inicial dos vídeos. A proteção por tempo impede que
- * uma conexão degradada transforme a entrada em uma tela de bloqueio.
+ * Prepara os materiais prioritários de entrada. A proteção por tempo impede que
+ * uma conexão instável trave o carregamento indefinidamente.
  */
 export function preloadEntryAssets(onProgress: (progress: EntryProgress) => void) {
   const preloaders = [
