@@ -13,9 +13,9 @@ export default function ProjectStackIcons({ stacks }: ProjectStackIconsProps) {
 
         return (
           <span
-            className={`${styles.icon} ${index ? styles.overlap : ''} ${icon.tone}`}
+            className={`${styles.icon} ${index ? styles.overlap : ''}`}
             key={stack.name}
-            style={{ transitionDelay: `${index * 24}ms` }}
+            style={{ color: icon.color, transitionDelay: `${index * 24}ms` }}
           >
             <StackIcon aria-hidden="true" className={styles.svg} />
             <span className={styles.tooltip}>
