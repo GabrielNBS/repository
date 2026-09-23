@@ -1,0 +1,8 @@
+.stack { display: flex; align-items: center; padding-left: 0.5rem; }
+.icon { position: relative; display: grid; width: 2.25rem; height: 2.25rem; flex-shrink: 0; place-items: center; border: 1px solid rgb(246 239 229 / 80%); border-radius: 50%; background: rgb(246 239 229 / 85%); box-shadow: 0 0.3rem rgb(37 34 31 / 12%); transition: transform 300ms ease, z-index 300ms ease; }
+.overlap { margin-left: -0.625rem; }
+:global([data-component='project-card']:hover) .icon { transform: translateY(-0.25rem); }
+.icon:hover { z-index: 10; }
+.svg { width: 1.05rem; height: 1.05rem; }
+.tooltip { position: absolute; bottom: calc(100% + 0.65rem); left: 50%; z-index: 20; width: max-content; max-width: 9rem; padding: 0.375rem 0.625rem; border-radius: 999px; background: var(--color-ink); color: var(--color-paper); box-shadow: 0 0.45rem 1rem rgb(37 34 31 / 18%); font-family: var(--font-ui); font-size: var(--text-utility-2xs); font-weight: 600; letter-spacing: 0.08em; text-align: center; transform: translate(-50%, 0.25rem); opacity: 0; pointer-events: none; transition: transform 200ms ease, opacity 200ms ease; }
+.icon:hover .tooltip { transform: translate(-50%, 0); opacity: 1; }

@@ -1,0 +1,17 @@
+.visual { position: relative; isolation: isolate; display: flex; min-height: 100%; flex-direction: column; justify-content: space-between; overflow: hidden; color: var(--color-ink); transition: transform 500ms var(--ease-editorial); }
+.visual[data-variant='peach'] { background: var(--color-peach); }
+.visual[data-variant='lilac'] { background: var(--color-lilac); }
+.visual[data-variant='cream'] { background: var(--color-cream); }
+.visual[data-variant='rose'] { background: var(--color-rose); }
+:global([data-component='project-card']:hover) .visual { transform: scale(0.98); }
+.teaser { position: absolute; inset: 0; z-index: 10; opacity: 0.95; pointer-events: none; }
+.orbPrimary, .orbSecondary { position: absolute; aspect-ratio: 1; border: 1px solid rgb(37 34 31 / 35%); border-radius: 50%; transition: transform 600ms var(--ease-editorial); }
+.orbPrimary { top: 17%; left: 17%; width: 65%; background: rgb(246 239 229 / 35%); }
+.orbSecondary { right: -17%; bottom: -22%; width: 56%; background: var(--color-peach); mix-blend-mode: multiply; }
+:global([data-component='project-card']:hover) .orbPrimary { transform: translate(6%, -4%) rotate(18deg); }
+:global([data-component='project-card']:hover) .orbSecondary { transform: translate(-10%, -8%) rotate(-20deg); }
+.label { position: relative; z-index: 2; display: flex; justify-content: space-between; padding: 1.25rem; font-family: var(--font-ui); font-size: var(--text-label); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.name { position: relative; z-index: 1; align-self: center; margin-block: auto; color: var(--color-ink); font-size: var(--text-display-md); font-weight: 400; letter-spacing: -0.12em; line-height: 0.76; text-align: center; transform: rotate(-9deg); transition: transform 450ms var(--ease-editorial); }
+:global([data-component='project-card']:hover) .name { transform: scale(1.05) rotate(3deg); }
+@media (max-width: 800px) { .visual { min-height: 22rem; } }
+@media (max-width: 480px) { .visual { min-height: 19rem; } .name { font-size: var(--text-visual-mobile); } }

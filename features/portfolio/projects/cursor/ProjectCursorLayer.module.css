@@ -1,0 +1,3 @@
+.cursor { position: fixed; top: 0; left: 0; z-index: 120; display: block; width: 0; overflow: hidden; border-radius: 999px; background: var(--color-ink); color: var(--color-paper); box-shadow: 0 0.75rem rgb(37 34 31 / 18%); opacity: 0; pointer-events: none; white-space: nowrap; }
+.content { display: flex; width: max-content; flex: none; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem 0.75rem 1rem; font-family: var(--font-ui); font-size: var(--text-utility); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.accent { color: var(--color-peach); font-size: var(--text-icon); line-height: 1; }

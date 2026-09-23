@@ -3,6 +3,7 @@
 import type { RefObject } from 'react';
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import { getProjectCursorIcon } from '../data/projectCursorContent';
+import styles from './ProjectCursorLayer.module.css';
 
 type ProjectCursorLayerProps = {
   cursorRef: RefObject<HTMLSpanElement | null>;
@@ -15,15 +16,15 @@ export default function ProjectCursorLayer({ cursorRef, project }: ProjectCursor
   return (
     <span
       ref={cursorRef}
-      className="bg-ink text-paper pointer-events-none fixed top-0 left-0 z-120 block w-0 overflow-hidden rounded-full whitespace-nowrap opacity-0 shadow-[0_0.75rem_rgb(37_34_31_/_0.18)]"
+      className={styles.cursor}
       aria-hidden="true"
     >
       <span
-        className="flex w-max flex-none items-center gap-2 px-4 pr-5 py-3 text-utility font-extrabold tracking-[0.08em] uppercase"
+        className={styles.content}
         data-component="project-cursor-content"
       >
-        <span className="text-peach text-icon leading-none">{cursorIcon}</span>
-        Ver {project?.name ?? 'projeto'} <span className="text-peach text-icon leading-none">↗</span>
+        <span className={styles.accent}>{cursorIcon}</span>
+        Ver {project?.name ?? 'projeto'} <span className={styles.accent}>↗</span>
       </span>
     </span>
   );

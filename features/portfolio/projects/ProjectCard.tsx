@@ -5,6 +5,7 @@ import type { Project } from '@/features/portfolio/projects/data/projects';
 import ProjectVisual from './ProjectVisual';
 import { useProjectCursor } from './cursor/ProjectCursorProvider';
 import ProjectStackIcons from './ProjectStackIcons';
+import styles from './ProjectCard.module.css';
 
 type ProjectCardProps = { project: Project; index: number };
 
@@ -13,7 +14,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <Link
-      className="group focus-visible:**:data-[component=project-card]:border-ink block rounded-4xl focus-visible:outline-3 focus-visible:outline-ink focus-visible:outline-offset-4 focus-visible:**:data-[component=project-card]:shadow-[0_0_0_4px_#f6efe5,0_0_0_7px_#25221f]"
+      className={styles.link}
       href={`/projetos/${project.slug}`}
       aria-label={`Abrir detalhes do projeto ${project.name}. Tecnologias: ${project.techs.map((tech) => tech.name).join(', ')}`}
       onPointerEnter={(event) => onProjectPointerEnter(event, project)}
@@ -21,37 +22,38 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       onPointerMove={onProjectPointerMove}
     >
       <article
-        className={`border-ink/15 group-hover:border-ink/40 ease-editorial relative grid min-h-128 grid-cols-[minmax(0,1.25fr)_minmax(15rem,0.75fr)] overflow-hidden rounded-4xl border p-[clamp(1rem,2vw,1.5rem)] transition duration-450 group-hover:-translate-y-2.5 group-hover:shadow-[0_2rem_5rem_rgb(37_34_31/0.1)] max-[800px]:min-h-0 max-[800px]:grid-cols-1 max-[800px]:group-hover:-translate-y-1.5 ${['bg-peach/15', 'bg-lilac/15', 'bg-cream/35', 'bg-rose/20'][index % 4]} ${index % 2 === 1 ? 'min-[801px]:translate-x-[clamp(0rem,4vw,5rem)] min-[801px]:group-hover:translate-x-[clamp(0rem,4vw,5rem)]' : ''}`}
+        className={`${styles.card} ${index % 2 === 1 ? styles.offset : ''}`}
         data-component="project-card"
+        data-variant={['peach', 'lilac', 'cream', 'rose'][index % 4]}
       >
-        <div className="flex min-h-80 flex-col justify-between px-2.5 pt-4 pb-2.5 max-[480px]:min-h-68 max-[480px]:p-2">
+        <div className={styles.content}>
           <div>
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-muted text-meta font-bold tracking-[0.08em]">
+            <div className={styles.meta}>
+              <span className={styles.projectNumber}>
                 Projeto / 0{index + 1}
               </span>
-              <span className="text-muted hidden text-meta font-bold tracking-[0.08em] max-[800px]:inline">
+              <span className={styles.year}>
                 {project.year}
               </span>
             </div>
-            <h3 className="text-project-card max-[480px]:text-project-card-mobile m-0 mt-2.5 mb-4 max-w-[7ch] leading-[0.82] font-normal tracking-[-0.105em]">
+            <h3 className={styles.title}>
               {project.name}
             </h3>
-            <p className="text-muted text-body m-0 max-w-xs leading-[1.35] tracking-tight">
+            <p className={styles.description}>
               {project.description}
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className={styles.actions}>
             <ProjectStackIcons stacks={project.techs} />
             <span
-              className="bg-ink text-paper hidden min-h-11 shrink-0 items-center gap-2 rounded-full px-3.5 text-label font-extrabold tracking-[0.06em] uppercase max-[800px]:ml-auto max-[800px]:inline-flex"
+              className={styles.details}
               aria-hidden="true"
             >
               Detalhes <span aria-hidden="true">↗</span>
             </span>
           </div>
         </div>
-        <ProjectVisual project={project} className="max-[800px]:hidden" priority={index === 0} />
+        <ProjectVisual project={project} className={styles.visual} priority={index === 0} />
       </article>
     </Link>
   );
