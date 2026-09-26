@@ -45,7 +45,7 @@ export default function ManifestoSection() {
   useManifestoStoryMotion(root);
 
   return (
-    <section ref={root} className={styles.section} aria-labelledby="manifesto-title">
+    <section id="manifesto" ref={root} className={styles.section} aria-labelledby="manifesto-title">
       <div className={styles.pin} data-manifesto-pin>
         <div className={styles.stage}>
           <div className={styles.atmosphere} aria-hidden="true" data-manifesto-atmosphere />

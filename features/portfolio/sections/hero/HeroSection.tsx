@@ -23,7 +23,7 @@ export default function HeroSection() {
   useHeroMotion(root);
 
   return (
-    <section ref={root} className={styles.section} aria-labelledby="hero-title">
+    <section id="inicio" ref={root} className={styles.section} aria-labelledby="hero-title">
       <noscript>
         <style>{`[data-motion="hero-loader"] { display: none !important; }`}</style>
       </noscript>
