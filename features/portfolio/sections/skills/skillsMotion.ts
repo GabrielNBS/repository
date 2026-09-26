@@ -35,7 +35,6 @@ export function useSkillsMotion({
       const shellElement = shell.current;
       const trackElement = track.current;
       const viewportElement = viewport.current;
-      const headingElement = sectionElement?.querySelector<HTMLElement>('#skills-title');
       const cards = cardsRef.current.filter(Boolean) as HTMLElement[];
       const navItems = navRef.current.filter(Boolean) as HTMLButtonElement[];
 
@@ -44,7 +43,6 @@ export function useSkillsMotion({
         !shellElement ||
         !trackElement ||
         !viewportElement ||
-        !headingElement ||
         cards.length < 2
       ) {
         return undefined;
@@ -63,9 +61,11 @@ export function useSkillsMotion({
       let position = 0;
       let maxTranslate = 0;
       let pinDistance = 0;
+      let firstCardHoldDistance = 0;
       let dragging = false;
       const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const compactQuery = window.matchMedia('(max-width: 800px), (pointer: coarse)');
+      const firstCardReadingBreath = 0.34;
       const lastCardBreath = 0.14;
       const switchThreshold = 0.6;
 
@@ -87,15 +87,22 @@ export function useSkillsMotion({
 
       // Todas as leituras de layout ficam concentradas aqui. `pinDistance`
       // transforma a largura excedente do track em distância vertical de
-      // scroll e acrescenta um respiro para o último card.
+      // scroll, acrescenta retenção de leitura no primeiro card e um respiro
+      // equivalente no último.
       const measure = () => {
         const cardWidth = cards[0].getBoundingClientRect().width;
         const gap = parseFloat(getComputedStyle(trackElement).gap) || 0;
         step = cardWidth + gap;
         maxTranslate = Math.max(0, trackElement.scrollWidth - viewportElement.clientWidth);
-        pinDistance = maxTranslate + window.innerHeight * lastCardBreath;
+        firstCardHoldDistance = window.innerHeight * firstCardReadingBreath;
+        pinDistance = maxTranslate + firstCardHoldDistance + window.innerHeight * lastCardBreath;
         sectionElement.style.setProperty('--skills-scroll-distance', `${pinDistance}px`);
       };
+
+      // O primeiro trecho do pin não move o carrossel. Após esse respiro, o
+      // restante volta à relação 1:1 entre scroll vertical e eixo horizontal.
+      const progressToPosition = (progress: number) =>
+        Math.max(0, progress * pinDistance - firstCardHoldDistance);
 
       // Alterna o conteúdo expandido do card, o estado acessível da navegação
       // e a reprodução dos vídeos. A altura é o único valor de layout animado
@@ -123,6 +130,7 @@ export function useSkillsMotion({
             gsap.killTweensOf([copy, description]);
             gsap.set(copy, { clearProps: 'height' });
             gsap.set(description, { clearProps: 'opacity,transform' });
+            gsap.set(card, { clearProps: '--card-divider-progress' });
             return;
           }
 
@@ -141,6 +149,19 @@ export function useSkillsMotion({
             duration: shouldAnimate ? 0.42 : 0,
             ease,
             overwrite: true
+          });
+
+          if (reduceMotionQuery.matches) {
+            gsap.set(card, { clearProps: '--card-divider-progress' });
+            return;
+          }
+
+          gsap.to(card, {
+            '--card-divider-progress': isActive ? 1 : 0,
+            delay: isActive ? 0.08 : 0,
+            duration: shouldAnimate ? 0.38 : 0,
+            ease,
+            overwrite: 'auto'
           });
         });
 
@@ -255,8 +276,9 @@ export function useSkillsMotion({
 
         const scrollTrigger = ScrollTrigger.getById('skills-horizontal-track');
         const start = scrollTrigger?.start ?? sectionElement.offsetTop;
-        const end = scrollTrigger?.end ?? start + pinDistance;
-        const target = start + (end - start) * (index / (cards.length - 1));
+        const progress = index / (cards.length - 1);
+        const target =
+          start + (index === 0 ? 0 : firstCardHoldDistance + progress * maxTranslate);
         window.scrollTo({ top: target, behavior: 'smooth' });
       };
 
@@ -266,19 +288,19 @@ export function useSkillsMotion({
       // e também pode ser controlado pelo drag do ponteiro.
       const scrollTrigger = ScrollTrigger.create({
         id: 'skills-horizontal-track',
-        // O H2 é a âncora semântica da cena: o pin começa quando o título
-        // chega ao centro, deixando o carrossel ligeiramente abaixo dele.
-        trigger: headingElement,
-        start: 'center center',
+        // O track só inicia quando o shell sticky já está fixo no topo. Isso
+        // dá ao primeiro card seu próprio trecho de leitura antes do avanço.
+        trigger: sectionElement,
+        start: 'top top',
         end: () => `+=${pinDistance}`,
         invalidateOnRefresh: true,
         onRefresh: (self) => {
           measure();
-          setPosition(Math.min(maxTranslate, self.progress * pinDistance), true);
+          setPosition(Math.min(maxTranslate, progressToPosition(self.progress)), true);
         },
         onUpdate: (self) => {
           if (!dragging && !compactQuery.matches) {
-            setPosition(Math.min(maxTranslate, self.progress * pinDistance));
+            setPosition(Math.min(maxTranslate, progressToPosition(self.progress)));
           }
         }
       });
@@ -289,9 +311,13 @@ export function useSkillsMotion({
         measure();
         if (compactQuery.matches) {
           gsap.set(trackElement, { clearProps: 'transform' });
+          cards.forEach((card) => gsap.set(card, { clearProps: '--card-divider-progress' }));
           setActive(activeIndex, false);
         } else {
-          setPosition(Math.min(maxTranslate, scrollTrigger.progress * pinDistance), true);
+          cards.forEach((card, index) =>
+            gsap.set(card, { '--card-divider-progress': index === activeIndex ? 1 : 0 })
+          );
+          setPosition(Math.min(maxTranslate, progressToPosition(scrollTrigger.progress)), true);
         }
         ScrollTrigger.refresh();
       };
