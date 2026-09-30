@@ -11,7 +11,6 @@ import HeroSection from '../sections/hero/HeroSection';
 import ManifestoSection from '../sections/manifesto/ManifestoSection';
 import ProjectsSection from '../sections/projects/ProjectsSection';
 import SkillsSection from '../sections/skills/SkillsSection';
-import TransitionCascade from '../sections/transition/TransitionCascade';
 import styles from './PortfolioHome.module.css';
 
 export default function PortfolioHome() {
@@ -21,15 +20,11 @@ export default function PortfolioHome() {
   return (
     <ProjectCursorProvider>
       <main ref={root} className={styles.main} tabIndex={-1}>
-        <a
-          className={styles.skipLink}
-          href="#hero-title"
-        >
+        <a className={styles.skipLink} href="#hero-title">
           Pular para o conteúdo
         </a>
         <PortfolioNav />
         <HeroSection />
-        <TransitionCascade />
         <ManifestoSection />
         <ProjectsSection />
         <AboutSection />

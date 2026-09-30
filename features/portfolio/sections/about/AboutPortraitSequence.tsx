@@ -75,7 +75,7 @@ export default function AboutPortraitSequence() {
         data-about-poster
         draggable={false}
         fill
-        loading="eager"
+        loading="lazy"
         placeholder="blur"
         blurDataURL={posterBlurDataUrl}
         quality={75}

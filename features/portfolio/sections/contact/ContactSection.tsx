@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
@@ -14,19 +15,20 @@ export default function ContactSection() {
   }
 
   return (
-    <section
-      id="contato"
-      className={styles.section}
-      aria-labelledby="contact-title"
-    >
-      <div
-        className={styles.content}
-        data-motion="blur-reveal"
-      >
-        <div>
-          <p className={styles.eyebrow}>
-            05 / Contato
-          </p>
+    <section id="contato" className={styles.section} aria-labelledby="contact-title">
+      <div className={styles.artwork} aria-hidden="true">
+        <Image
+          src="/images/contact/contact-binocular-family-v2.png"
+          alt=""
+          className={styles.artworkImage}
+          fill
+          loading="lazy"
+          sizes="(max-width: 800px) 52vw, 26vw"
+        />
+      </div>
+      <div className={styles.content} data-motion="blur-reveal">
+        <div className={styles.heading}>
+          <p className={styles.eyebrow}>05 / Contato</p>
           <HeadingSplit
             as="h2"
             id="contact-title"
@@ -37,10 +39,7 @@ export default function ContactSection() {
           </HeadingSplit>
         </div>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <label
-            className={styles.label}
-            htmlFor="contact-email"
-          >
+          <label className={styles.label} htmlFor="contact-email">
             Deixe seu melhor e-mail
           </label>
           <div className={styles.inputRow}>
@@ -53,11 +52,7 @@ export default function ContactSection() {
               required
               aria-describedby="contact-status"
             />
-            <button
-              className={styles.submit}
-              type="submit"
-              aria-label="Enviar e-mail"
-            >
+            <button className={styles.submit} type="submit" aria-label="Enviar e-mail">
               ↗
             </button>
           </div>

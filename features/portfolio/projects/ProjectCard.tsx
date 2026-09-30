@@ -16,7 +16,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     <Link
       className={styles.link}
       href={`/projetos/${project.slug}`}
-      aria-label={`Abrir detalhes do projeto ${project.name}. Tecnologias: ${project.techs.map((tech) => tech.name).join(', ')}`}
       onPointerEnter={(event) => onProjectPointerEnter(event, project)}
       onPointerLeave={onProjectPointerLeave}
       onPointerMove={onProjectPointerMove}
@@ -53,7 +52,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </span>
           </div>
         </div>
-        <ProjectVisual project={project} className={styles.visual} priority={index === 0} />
+        <ProjectVisual project={project} className={styles.visual} />
       </article>
     </Link>
   );

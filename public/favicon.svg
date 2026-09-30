@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>GN</title>
+  <rect width="64" height="64" rx="16" fill="#25221f" />
+  <path fill="#f6efe5" d="M17 17h8v21.5c0 3.7 2.1 5.5 5.1 5.5 3 0 5.1-1.8 5.1-5.5V17h8v22c0 8.5-5.1 12-13.1 12S17 47.5 17 39V17Zm31 0h-7v34h7V17Z" />
+</svg>

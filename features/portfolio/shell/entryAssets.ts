@@ -7,8 +7,6 @@ type EntryPreloadResult = EntryProgress & {
   timedOut: boolean;
 };
 
-// Apenas materiais essenciais de entrada imediata (Hero e início da narrativa).
-// Mídias subsequentes são carregadas sob demanda conforme entram na viewport.
 const imageAssets = [
   '/images/hero/front-end-collage-paper-bg.png',
   '/images/hero/front-end-editorial.png',
@@ -62,10 +60,6 @@ function preloadVideoMetadata(src: string) {
   });
 }
 
-/**
- * Prepara os materiais prioritários de entrada. A proteção por tempo impede que
- * uma conexão instável trave o carregamento indefinidamente.
- */
 export function preloadEntryAssets(onProgress: (progress: EntryProgress) => void) {
   const preloaders = [
     ...imageAssets.map((src) => () => preloadImage(src)),

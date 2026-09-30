@@ -2,21 +2,155 @@
 
 import Image from 'next/image';
 import { useRef } from 'react';
-import { FiArrowDown } from 'react-icons/fi';
 import styles from './HeroSection.module.css';
 import { useHeroMotion } from './heroMotion';
 
-const frontEndWordmark = {
-  height: 901,
-  src: '/images/hero/front-end-collage-paper-bg.png',
-  width: 1746
-} as const;
+type StickerKind = 'solutions' | 'create' | 'scale' | 'animate' | 'optimize' | 'connect';
+
+type AnimatedWord = {
+  id: string;
+  prefix: string;
+  letter: string;
+  suffix: string;
+  sticker: StickerKind;
+  alt: string;
+};
+
+const animatedWords: AnimatedWord[] = [
+  {
+    id: 'criar',
+    prefix: 'Que cr',
+    letter: 'i',
+    suffix: 'am',
+    sticker: 'create',
+    alt: 'Criação e engenharia front-end'
+  },
+  {
+    id: 'escalar',
+    prefix: 'Que esc',
+    letter: 'a',
+    suffix: 'lam',
+    sticker: 'scale',
+    alt: 'Arquitetura escalável com Next.js'
+  },
+  {
+    id: 'animar',
+    prefix: 'Que an',
+    letter: 'i',
+    suffix: 'mam',
+    sticker: 'animate',
+    alt: 'Interações e motion com GSAP'
+  },
+  {
+    id: 'otimizar',
+    prefix: 'Que ot',
+    letter: 'i',
+    suffix: 'mizam',
+    sticker: 'optimize',
+    alt: 'Performance e Web Vitals'
+  },
+  {
+    id: 'conectar',
+    prefix: 'Que con',
+    letter: 'e',
+    suffix: 'ctam',
+    sticker: 'connect',
+    alt: 'Integrações de sistemas e APIs'
+  }
+];
 
 const loaderBallAssets = [
   { height: 1254, id: 'cream', src: '/images/hero/loader-ball-cream.png', width: 1254 },
   { height: 1254, id: 'lilac', src: '/images/hero/loader-ball-lilac.png', width: 1254 },
   { height: 1254, id: 'peach', src: '/images/hero/loader-ball-peach.png', width: 1254 }
 ] as const;
+
+const stickerFrames: Record<StickerKind, readonly string[]> = {
+  solutions: [
+    '/images/hero/title-elements/solucoes-frame-04.png',
+    '/images/hero/title-elements/solucoes-frame-03.png',
+    '/images/hero/title-elements/solucoes-frame-02.png',
+    '/images/hero/title-elements/solucoes-frame-01.png',
+    '/images/hero/title-elements/solucoes-frame-02.png',
+    '/images/hero/title-elements/solucoes-frame-03.png'
+  ],
+  create: ['/images/hero/title-elements/criam-code.png'],
+  scale: ['/images/hero/title-elements/escalam.png'],
+  animate: [
+    '/images/hero/title-elements/animam-frame-01.png',
+    '/images/hero/title-elements/animam-frame-02.png',
+    '/images/hero/title-elements/animam-frame-03.png',
+    '/images/hero/title-elements/animam-frame-04.png',
+    '/images/hero/title-elements/animam-frame-05.png'
+  ],
+  optimize: ['/images/hero/title-elements/otimizam.png'],
+  connect: ['/images/hero/title-elements/conectam-dialogo.png']
+};
+
+function StickerArtwork({ kind }: { kind: StickerKind }) {
+  const frames = stickerFrames[kind];
+  const motionClass =
+    frames.length === 6 ? styles.stopMotionSix : frames.length === 5 ? styles.stopMotionFive : '';
+
+  return (
+    <span
+      className={[styles.artworkFrames, motionClass].filter(Boolean).join(' ')}
+      data-artwork={kind}
+      aria-hidden="true"
+    >
+      {frames.map((src, index) => (
+        <Image
+          key={`${kind}-${index}`}
+          alt=""
+          aria-hidden="true"
+          className={styles.artworkFrame}
+          draggable={false}
+          height={1254}
+          loading="eager"
+          quality={75}
+          sizes="160px"
+          src={src}
+          width={1254}
+        />
+      ))}
+      {kind === 'solutions' ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className={styles.solutionLamp}
+          draggable={false}
+          height={1254}
+          loading="eager"
+          quality={75}
+          sizes="88px"
+          src="/images/hero/title-elements/solucoes-lampada.png"
+          width={1254}
+        />
+      ) : null}
+    </span>
+  );
+}
+
+function AnimatedWordLine({ word }: { word: AnimatedWord }) {
+  return (
+    <span className={styles.dynamicWord} data-motion="dynamic-word" data-word={word.id}>
+      <span className={styles.wordContent} data-motion="word-content">
+        <span>{word.prefix}</span>
+        <span className={styles.fakeLetter} data-motion="fake-letter">
+          <span className={styles.hiddenLetter} aria-hidden="true">
+            {word.letter}
+          </span>
+          <span className={styles.stickerShell} data-motion="sticker" aria-label={word.alt}>
+            <span className={styles.stickerArtwork}>
+              <StickerArtwork kind={word.sticker} />
+            </span>
+          </span>
+        </span>
+        <span>{word.suffix}</span>
+      </span>
+    </span>
+  );
+}
 
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
@@ -28,16 +162,20 @@ export default function HeroSection() {
         <style>{`[data-motion="hero-loader"] { display: none !important; }`}</style>
       </noscript>
 
-      <div className={styles.loader} data-motion="hero-loader" aria-hidden="true">
+      <div
+        className={styles.loader}
+        data-loader-state="active"
+        data-motion="hero-loader"
+        aria-hidden="true"
+      >
         <div className={styles.loaderContent}>
           <span className={styles.loaderProgress} data-motion="hero-loader-index">
             000%
           </span>
-          <div className={styles.loaderBalls} data-motion="loader-balls" aria-hidden="true">
+          <div className={styles.loaderBalls} data-motion="loader-balls">
             {loaderBallAssets.map(({ height, id, src, width }) => (
               <Image
                 key={id}
-                src={src}
                 alt=""
                 aria-hidden="true"
                 className={styles.loaderBall}
@@ -45,7 +183,8 @@ export default function HeroSection() {
                 draggable={false}
                 height={height}
                 loading="eager"
-                quality={78}
+                quality={75}
+                src={src}
                 width={width}
               />
             ))}
@@ -54,50 +193,39 @@ export default function HeroSection() {
         <span className={styles.loaderCaption}>Gabriel do Nascimento / 2026</span>
       </div>
 
-      <div className={styles.stage}>
-        <div className={styles.metaDrift} data-motion="hero-meta-drift">
-          <div className={styles.meta}>
-            <span>Juiz de Fora, BR</span>
-            <span>Interfaces com intenção</span>
-          </div>
-        </div>
+      <div className={styles.heroContent}>
+        <p className={styles.badge} data-motion="hero-reveal">
+          Desenvolvedor Front-end • React & Next.js • 2026
+        </p>
 
-        <div className={styles.nameDrift} data-motion="hero-name-drift">
-          <div className={styles.statement}>
-            <span className={styles.statementEyebrow} data-motion="hero-name-support">
-              Gabriel do Nascimento / Desenvolvedor front-end
-            </span>
-            <h1 id="hero-title" className={styles.statementTitle} data-motion="hero-title">
-              <Image
-                src={frontEndWordmark.src}
-                alt="Front-end"
-                className={styles.wordmark}
-                height={frontEndWordmark.height}
-                priority
-                sizes="(max-width: 800px) 88vw, min(45vw, 46rem)"
-                width={frontEndWordmark.width}
-              />
-              <em>com intenção</em>
-            </h1>
-            <p className={styles.statementCopy} data-motion="hero-name-support">
-              Código com olhar de direção para transformar ideias em experiências que fazem sentido.
-            </p>
-            <a
-              className={styles.statementAction}
-              href="#manifesto-title"
-              data-motion="hero-name-support"
+        <div className={styles.titleLoopBox} data-motion="title-loop-box">
+          <div className={styles.titleLoop} data-motion="title-loop">
+            <div className={[styles.titleRow, styles.introRow].join(' ')} data-motion="title-row">
+              <span className={styles.titleContent} data-motion="title-content">
+                Especializado em
+              </span>
+            </div>
+            <h1
+              id="hero-title"
+              className={[styles.titleRow, styles.staticRow].join(' ')}
+              data-motion="title-row"
             >
-              Ver o trabalho <FiArrowDown aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-
-        <div className={styles.footerDrift} data-motion="hero-footer-drift">
-          <div className={styles.footer}>
-            <span className={styles.scrollCue}>
-              Role para abrir o manifesto <FiArrowDown aria-hidden="true" />
-            </span>
+              <span className={styles.titleContent} data-motion="title-content">
+                <span>soluções</span>
+                <span className={styles.fakeLetter} data-motion="static-slot" aria-hidden="true">
+                  <span className={styles.stickerShell} data-motion="static-sticker">
+                    <span className={styles.stickerArtwork}>
+                      <StickerArtwork kind="solutions" />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </h1>
+            <div className={[styles.titleRow, styles.dynamicRow].join(' ')} data-motion="title-row">
+              {animatedWords.map((word) => (
+                <AnimatedWordLine key={word.id} word={word} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -65,6 +65,14 @@
     scroll-behavior: smooth;
     background: var(--color-paper);
   }
+  html[data-hero-loading='true'],
+  html[data-hero-loading='true'] body,
+  html:has([data-motion='hero-loader'][data-loader-state='active']),
+  html:has([data-motion='hero-loader'][data-loader-state='active']) body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
   body {
     margin: 0;
     background: var(--color-paper);

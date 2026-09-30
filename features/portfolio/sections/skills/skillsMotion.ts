@@ -63,6 +63,7 @@ export function useSkillsMotion({
       let pinDistance = 0;
       let firstCardHoldDistance = 0;
       let dragging = false;
+      let sectionInView = false;
       const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const compactQuery = window.matchMedia('(max-width: 800px), (pointer: coarse)');
       const firstCardReadingBreath = 0.34;
@@ -75,7 +76,7 @@ export function useSkillsMotion({
         videos.forEach((video, index) => {
           const isActive = index === activeIndex;
 
-          if (reduceMotionQuery.matches || !isActive) {
+          if (reduceMotionQuery.matches || !sectionInView || !isActive) {
             video.pause();
             if (!isActive && video.readyState > 0) video.currentTime = 0;
             return;
@@ -84,6 +85,15 @@ export function useSkillsMotion({
           void video.play().catch(() => undefined);
         });
       };
+
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          sectionInView = entry.isIntersecting;
+          syncVideoMotion();
+        },
+        { rootMargin: '320px 0px' }
+      );
+      visibilityObserver.observe(sectionElement);
 
       // Todas as leituras de layout ficam concentradas aqui. `pinDistance`
       // transforma a largura excedente do track em distância vertical de
@@ -232,6 +242,7 @@ export function useSkillsMotion({
         return () => {
           viewportElement.removeEventListener('scroll', onCompactScroll);
           trackElement.removeEventListener('focusin', onCardFocus);
+          visibilityObserver.disconnect();
           videos.forEach((video) => video.pause());
         };
       }
@@ -240,6 +251,7 @@ export function useSkillsMotion({
       // fluxo normal e não cria um carrossel pinado nem listeners de drag.
       if (reduceMotionQuery.matches) {
         setActive(0, false);
+        visibilityObserver.disconnect();
         return undefined;
       }
 
@@ -370,6 +382,7 @@ export function useSkillsMotion({
         reduceMotionQuery.removeEventListener('change', syncVideoMotion);
         scrollTrigger.kill();
         sectionElement.style.removeProperty('--skills-scroll-distance');
+        visibilityObserver.disconnect();
       };
     },
     { scope: section, dependencies: [] }

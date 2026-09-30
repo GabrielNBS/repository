@@ -3,17 +3,13 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
-import {
-  FiBookOpen,
-  FiDownload,
-  FiGrid,
-  FiHome,
-  FiMail,
-  FiSliders,
-  FiUser
-} from 'react-icons/fi';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { FiBookOpen, FiDownload, FiGrid, FiHome, FiMail, FiSliders, FiUser } from 'react-icons/fi';
 import type { IconType } from 'react-icons';
 import styles from './PortfolioNav.module.css';
+
+gsap.registerPlugin(useGSAP);
 
 type SectionId = 'inicio' | 'manifesto' | 'projetos' | 'sobre' | 'skills' | 'contato';
 
@@ -33,16 +29,47 @@ const navigationItems: NavigationItem[] = [
   { href: '/#contato', icon: FiMail, id: 'contato', label: 'Contato' }
 ];
 
-const resumeHref = '/curriculo.pdf';
+const resumeHref = '/public/documents/Gabriel_Nascimento_Desenvolvedor_Frontend.pd.pdf';
 
 export default function PortfolioNav() {
   const [activeSection, setActiveSection] = useState<SectionId>('inicio');
   const [open, setOpen] = useState(false);
   const menuId = useId();
+  const nav = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
-  const activeItem = navigationItems.find((item) => item.id === activeSection) ?? navigationItems[0];
+  const compactWidthBeforeChange = useRef<number | null>(null);
+  const activeItem =
+    navigationItems.find((item) => item.id === activeSection) ?? navigationItems[0];
   const ActiveIcon = activeItem.icon;
   const closeMenu = () => setOpen(false);
+
+  useGSAP(
+    () => {
+      const navElement = nav.current;
+      const previousWidth = compactWidthBeforeChange.current;
+      compactWidthBeforeChange.current = null;
+
+      if (!navElement || previousWidth === null) return;
+
+      gsap.set(navElement, { width: 'fit-content' });
+      const nextWidth = navElement.getBoundingClientRect().width;
+
+      if (Math.abs(nextWidth - previousWidth) < 1) {
+        gsap.set(navElement, { clearProps: 'width' });
+        return;
+      }
+
+      gsap.set(navElement, { width: previousWidth });
+      gsap.to(navElement, {
+        width: nextWidth,
+        duration: 0.72,
+        ease: 'power3.out',
+        overwrite: true,
+        onComplete: () => gsap.set(navElement, { clearProps: 'width' })
+      });
+    },
+    { dependencies: [activeSection], scope: nav, revertOnUpdate: true }
+  );
 
   useEffect(() => {
     const sections = navigationItems
@@ -55,16 +82,39 @@ export default function PortfolioNav() {
     const updateActiveSection = () => {
       frameId = 0;
       const viewportMarker = window.innerHeight * 0.46;
-      const closestSection = sections.reduce((closest, section) => {
-        const rect = section.element.getBoundingClientRect();
-        const distance =
-          rect.top <= viewportMarker && rect.bottom >= viewportMarker
-            ? 0
-            : Math.min(Math.abs(rect.top - viewportMarker), Math.abs(rect.bottom - viewportMarker));
-        return distance < closest.distance ? { distance, id: section.id } : closest;
-      }, { distance: Number.POSITIVE_INFINITY, id: sections[0].id });
+      const closestSection = sections.reduce(
+        (closest, section) => {
+          const rect = section.element.getBoundingClientRect();
+          const distance =
+            rect.top <= viewportMarker && rect.bottom >= viewportMarker
+              ? 0
+              : Math.min(
+                  Math.abs(rect.top - viewportMarker),
+                  Math.abs(rect.bottom - viewportMarker)
+                );
+          return distance < closest.distance ? { distance, id: section.id } : closest;
+        },
+        { distance: Number.POSITIVE_INFINITY, id: sections[0].id }
+      );
 
-      setActiveSection((current) => (current === closestSection.id ? current : closestSection.id));
+      setActiveSection((current) => {
+        if (current === closestSection.id) return current;
+
+        const navElement = nav.current;
+        const canAnimateCompactWidth =
+          navElement &&
+          window.matchMedia('(min-width: 801px) and (prefers-reduced-motion: no-preference)')
+            .matches &&
+          !navElement.matches(':hover, :focus-within');
+
+        if (canAnimateCompactWidth) {
+          gsap.killTweensOf(navElement);
+          compactWidthBeforeChange.current = navElement.getBoundingClientRect().width;
+          navElement.style.width = `${compactWidthBeforeChange.current}px`;
+        }
+
+        return closestSection.id;
+      });
     };
 
     const requestUpdate = () => {
@@ -97,18 +147,14 @@ export default function PortfolioNav() {
 
   return (
     <nav
+      ref={nav}
       className={styles.nav}
       aria-label="Navegação principal"
       data-active-section={activeSection}
       data-component="navigation"
       onKeyDown={handleKeyDown}
     >
-      <Link
-        className={styles.brand}
-        href="/#inicio"
-        onClick={closeMenu}
-        aria-label="Gabriel do Nascimento — início"
-      >
+      <Link className={styles.brand} href="/#inicio" onClick={closeMenu}>
         <span aria-hidden="true">GN</span>
         <span className={styles.brandLabel}>Gabriel Nascimento</span>
         <span className={styles.mobileBrandLabel}>Portfólio / 26</span>
@@ -138,7 +184,12 @@ export default function PortfolioNav() {
             {item.label}
           </Link>
         ))}
-        <a className={`${styles.link} ${styles.mobileResume}`} href={resumeHref} download onClick={closeMenu}>
+        <a
+          className={`${styles.link} ${styles.mobileResume}`}
+          href={resumeHref}
+          download
+          onClick={closeMenu}
+        >
           Baixar currículo <FiDownload aria-hidden="true" />
         </a>
       </div>

@@ -72,7 +72,6 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                 href={`/projetos/${project.slug}`}
                 data-motion="agenda-enter project-elastic"
                 className={styles.day}
-                aria-label={`Abrir detalhes do projeto ${project.name}`}
                 onPointerEnter={(event) => onProjectPointerEnter(event, project)}
                 onPointerLeave={onProjectPointerLeave}
                 onPointerMove={onProjectPointerMove}
@@ -104,7 +103,6 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                     key={project.slug}
                     href={`/projetos/${project.slug}`}
                     className={styles.archiveCard}
-                    aria-label={`Abrir detalhes do projeto ${project.name}`}
                     onPointerEnter={(event) => onProjectPointerEnter(event, project)}
                     onPointerLeave={onProjectPointerLeave}
                     onPointerMove={onProjectPointerMove}
