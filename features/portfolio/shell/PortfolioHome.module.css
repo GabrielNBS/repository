@@ -1,13 +1,17 @@
-.main { overflow-x: clip; }
-.main:focus { outline: none; }
+.main {
+  overflow-x: clip;
+}
+.main:focus {
+  outline: none;
+}
 
 .skipLink {
   position: fixed;
   top: 0.75rem;
   left: 50%;
-  z-index: 100;
+  z-index: var(--layer-floating);
   padding: 0.75rem 1rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-ui);
@@ -18,4 +22,8 @@
   transform: translate(-50%, -160%);
   transition: transform 200ms ease;
 }
-.skipLink:focus { outline: 3px solid var(--color-peach); outline-offset: 3px; transform: translate(-50%, 0); }
+.skipLink:focus {
+  outline: 3px solid var(--color-peach);
+  outline-offset: 3px;
+  transform: translate(-50%, 0);
+}

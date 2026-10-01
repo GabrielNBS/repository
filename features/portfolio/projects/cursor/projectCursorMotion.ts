@@ -2,7 +2,7 @@
 
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 // O cursor usa apenas o core do GSAP e o hook de React; o registro fora do
 // hook evita re-registros em renders subsequentes.
@@ -115,11 +115,18 @@ export function useProjectCursorMotion() {
     { scope: cursor }
   );
 
+  const moveCursor = useCallback(
+    (event: CursorPointer, immediate = false) =>
+      actions.current?.moveCursor(event, immediate) ?? false,
+    []
+  );
+  const showCursor = useCallback((event: CursorPointer) => actions.current?.showCursor(event), []);
+  const hideCursor = useCallback((event: CursorPointer) => actions.current?.hideCursor(event), []);
+
   return {
     cursorRef: cursor,
-    moveCursor: (event: CursorPointer, immediate = false) =>
-      actions.current?.moveCursor(event, immediate) ?? false,
-    showCursor: (event: CursorPointer) => actions.current?.showCursor(event),
-    hideCursor: (event: CursorPointer) => actions.current?.hideCursor(event)
+    moveCursor,
+    showCursor,
+    hideCursor
   };
 }

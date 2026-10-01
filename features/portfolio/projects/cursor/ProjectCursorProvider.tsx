@@ -1,6 +1,14 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import type { PointerEvent, PropsWithChildren } from 'react';
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import ProjectCursorLayer from './ProjectCursorLayer';
@@ -26,36 +34,45 @@ export function ProjectCursorProvider({ children }: PropsWithChildren) {
     []
   );
 
-  function onProjectPointerEnter(event: PointerEvent<HTMLAnchorElement>, project: Project) {
-    if (event.pointerType !== 'mouse') return;
+  const onProjectPointerEnter = useCallback(
+    (event: PointerEvent<HTMLAnchorElement>, project: Project) => {
+      if (event.pointerType !== 'mouse') return;
 
-    const pointer = {
-      clientX: event.clientX,
-      clientY: event.clientY,
-      pointerType: event.pointerType
-    };
+      const pointer = {
+        clientX: event.clientX,
+        clientY: event.clientY,
+        pointerType: event.pointerType
+      };
 
-    setActiveProject(project);
-    if (revealFrame.current !== null) window.cancelAnimationFrame(revealFrame.current);
-    revealFrame.current = window.requestAnimationFrame(() => {
-      revealFrame.current = null;
-      showCursor(pointer);
-    });
-  }
+      setActiveProject(project);
+      if (revealFrame.current !== null) window.cancelAnimationFrame(revealFrame.current);
+      revealFrame.current = window.requestAnimationFrame(() => {
+        revealFrame.current = null;
+        showCursor(pointer);
+      });
+    },
+    [showCursor]
+  );
 
-  function onProjectPointerLeave(event: PointerEvent<HTMLAnchorElement>) {
-    if (revealFrame.current !== null) {
-      window.cancelAnimationFrame(revealFrame.current);
-      revealFrame.current = null;
-    }
-    hideCursor(event);
-  }
+  const onProjectPointerLeave = useCallback(
+    (event: PointerEvent<HTMLAnchorElement>) => {
+      if (revealFrame.current !== null) {
+        window.cancelAnimationFrame(revealFrame.current);
+        revealFrame.current = null;
+      }
+      hideCursor(event);
+    },
+    [hideCursor]
+  );
 
-  const value = {
-    onProjectPointerEnter,
-    onProjectPointerLeave,
-    onProjectPointerMove: moveCursor
-  };
+  const value = useMemo(
+    () => ({
+      onProjectPointerEnter,
+      onProjectPointerLeave,
+      onProjectPointerMove: moveCursor
+    }),
+    [moveCursor, onProjectPointerEnter, onProjectPointerLeave]
+  );
 
   return (
     <ProjectCursorContext.Provider value={value}>

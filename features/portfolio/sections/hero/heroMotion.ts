@@ -123,10 +123,11 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
       };
 
       const media = gsap.matchMedia();
-      media.add('(prefers-reduced-motion: reduce)', setReducedMotionState);
-      media.add('(prefers-reduced-motion: no-preference)', () => {
+      // Em telas compactas a primeira dobra é conteúdo, não uma espera. A
+      // coreografia completa permanece como assinatura do desktop.
+      media.add('(prefers-reduced-motion: reduce), (max-width: 800px)', setReducedMotionState);
+      media.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)', () => {
         let entryTimeline: gsap.core.Timeline | undefined;
-        let designTimer: number | undefined;
         let cancelled = false;
 
         // O overlay começa visível no primeiro paint. O conteúdo da hero fica
@@ -380,18 +381,11 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
         });
         ballsWave.play(0);
 
-        const designDelay = new Promise<void>((resolve) => {
-          designTimer = window.setTimeout(resolve, 3000);
-        });
-
-        void Promise.all([
-          preloadEntryAssets(({ complete, total }) => {
-            if (cancelled) return;
-            const progress = Math.round((complete / Math.max(total, 1)) * 100);
-            loaderIndex.textContent = `${String(progress).padStart(3, '0')}%`;
-          }),
-          designDelay
-        ]).then(() => {
+        void preloadEntryAssets(section, ({ complete, total }) => {
+          if (cancelled) return;
+          const progress = Math.round((complete / Math.max(total, 1)) * 100);
+          loaderIndex.textContent = `${String(progress).padStart(3, '0')}%`;
+        }).then(() => {
           if (cancelled) return;
 
           loaderIndex.textContent = '100%';
@@ -422,7 +416,6 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
           setHeroLoadingLock(false);
           delete section.dataset.heroLoading;
           loader.dataset.loaderState = 'hidden';
-          if (designTimer !== undefined) window.clearTimeout(designTimer);
           entryTimeline?.kill();
           ballsWave.kill();
           intro.kill();

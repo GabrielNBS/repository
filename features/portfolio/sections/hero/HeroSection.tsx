@@ -89,6 +89,7 @@ const stickerFrames: Record<StickerKind, readonly string[]> = {
 
 function StickerArtwork({ kind }: { kind: StickerKind }) {
   const frames = stickerFrames[kind];
+  const isEntryArtwork = kind === 'solutions';
   const motionClass =
     frames.length === 6 ? styles.stopMotionSix : frames.length === 5 ? styles.stopMotionFive : '';
 
@@ -104,9 +105,10 @@ function StickerArtwork({ kind }: { kind: StickerKind }) {
           alt=""
           aria-hidden="true"
           className={styles.artworkFrame}
+          data-entry-asset={isEntryArtwork ? '' : undefined}
           draggable={false}
           height={1254}
-          loading="eager"
+          loading={isEntryArtwork ? 'eager' : 'lazy'}
           quality={75}
           sizes="160px"
           src={src}
@@ -118,6 +120,7 @@ function StickerArtwork({ kind }: { kind: StickerKind }) {
           alt=""
           aria-hidden="true"
           className={styles.solutionLamp}
+          data-entry-asset=""
           draggable={false}
           height={1254}
           loading="eager"
@@ -140,7 +143,12 @@ function AnimatedWordLine({ word }: { word: AnimatedWord }) {
           <span className={styles.hiddenLetter} aria-hidden="true">
             {word.letter}
           </span>
-          <span className={styles.stickerShell} data-motion="sticker" aria-label={word.alt}>
+          <span
+            className={styles.stickerShell}
+            data-motion="sticker"
+            role="img"
+            aria-label={word.alt}
+          >
             <span className={styles.stickerArtwork}>
               <StickerArtwork kind={word.sticker} />
             </span>
@@ -164,7 +172,7 @@ export default function HeroSection() {
 
       <div
         className={styles.loader}
-        data-loader-state="active"
+        data-loader-state="pending"
         data-motion="hero-loader"
         aria-hidden="true"
       >
@@ -180,10 +188,12 @@ export default function HeroSection() {
                 aria-hidden="true"
                 className={styles.loaderBall}
                 data-motion="loader-ball"
+                data-entry-asset=""
                 draggable={false}
                 height={height}
                 loading="eager"
                 quality={75}
+                sizes="(max-width: 800px) 64px, 112px"
                 src={src}
                 width={width}
               />

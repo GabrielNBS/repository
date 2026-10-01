@@ -1,17 +1,12 @@
-'use client';
-
 import Link from 'next/link';
-import { useRef } from 'react';
 import ProjectVisual from '../projects/ProjectVisual';
 import type { Project } from '../projects/data/projects';
 import { getStackIcon } from '../projects/data/projectStackIconLogic';
-import { useDetailMotion } from './projectDetailMotion';
 import HeadingSplit from '../shared/motion/HeadingSplit';
+import ProjectDetailExperience from './ProjectDetailExperience';
 import styles from './ProjectDetail.module.css';
 
 export default function ProjectDetail({ project }: { project: Project }) {
-  const root = useRef<HTMLElement>(null);
-  useDetailMotion(root);
   const galleryItems =
     project.gallery.desktop.length > 0 ? project.gallery.desktop : project.gallery.mobile;
   const coverImage = galleryItems[0];
@@ -28,9 +23,11 @@ export default function ProjectDetail({ project }: { project: Project }) {
     { label: 'A solução', body: project.solution },
     { label: 'O que ficou', body: project.summary }
   ];
+  const hasSeparateDeploy = project.deploy !== project.github;
+  const hasLongTitlePart = project.name.split(/\s+/).some((part) => part.length > 10);
 
   return (
-    <main ref={root} className={styles.main} tabIndex={-1}>
+    <ProjectDetailExperience>
       <a className={styles.skipLink} href="#projeto-titulo">
         Pular para o conteúdo
       </a>
@@ -43,22 +40,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
           <div className={styles.heroGrid}>
             <aside className={styles.asideMeta}>
               <div>
-                <p className={styles.projectEyebrow}>
-                  Projeto / 0{project.id}
-                </p>
+                <p className={styles.projectEyebrow}>Projeto / 0{project.id}</p>
                 <h1
                   id="projeto-titulo"
-                  className={styles.projectTitle}
+                  className={`${styles.projectTitle} ${hasLongTitlePart ? styles.projectTitleCompact : ''}`}
                   data-detail-title
                 >
                   {project.name}
                 </h1>
-                <p className={styles.projectDescription}>
-                  {project.description}
-                </p>
-                <p className={styles.projectSubtitle}>
-                  {project.subtitle}
-                </p>
+                <p className={styles.projectDescription}>{project.description}</p>
+                <p className={styles.projectSubtitle}>{project.subtitle}</p>
               </div>
               <div className={styles.metaSpecs}>
                 <div>
@@ -97,14 +88,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
       >
         <div className={styles.narrativeContainer}>
           <div data-detail-narrative-heading className={styles.narrativeLeft}>
-            <p className={styles.narrativeEyebrow}>
-              01 / Leitura do projeto
-            </p>
-            <HeadingSplit
-              as="h2"
-              className={styles.narrativeHeading}
-              data-split="lines"
-            >
+            <p className={styles.narrativeEyebrow}>01 / Leitura do projeto</p>
+            <HeadingSplit as="h2" className={styles.narrativeHeading} data-split="lines">
               Do problema ao produto.
             </HeadingSplit>
             <p className={styles.narrativeIntro}>
@@ -113,9 +98,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             </p>
 
             <figure className={styles.coverFigure}>
-              <span className={styles.badgeNumber}>
-                {String(project.id).padStart(2, '0')}
-              </span>
+              <span className={styles.badgeNumber}>{String(project.id).padStart(2, '0')}</span>
               <div
                 className={styles.coverCard}
                 role="img"
@@ -132,9 +115,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 }
               >
                 {!coverImage && (
-                  <span className={styles.coverMonogram}>
-                    {project.name.slice(0, 1)}
-                  </span>
+                  <span className={styles.coverMonogram}>{project.name.slice(0, 1)}</span>
                 )}
                 <span className={styles.coverLabel}>
                   {coverImage?.label ?? 'Sistema em construção'}
@@ -151,16 +132,10 @@ export default function ProjectDetail({ project }: { project: Project }) {
             <div className={styles.articlesList}>
               {narrativeSections.map((section, index) => (
                 <article key={section.label} className={styles.articleItem}>
-                  <span className={styles.articleIndex}>
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+                  <span className={styles.articleIndex}>{String(index + 1).padStart(2, '0')}</span>
                   <div>
-                    <h3 className={styles.articleTitle}>
-                      {section.label}
-                    </h3>
-                    <p className={styles.articleBody}>
-                      {section.body}
-                    </p>
+                    <h3 className={styles.articleTitle}>{section.label}</h3>
+                    <p className={styles.articleBody}>{section.body}</p>
                   </div>
                 </article>
               ))}
@@ -168,9 +143,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
             <div className={styles.deliverablesGrid}>
               <div>
-                <p className={styles.deliverablesHeading}>
-                  Sinais de entrega
-                </p>
+                <p className={styles.deliverablesHeading}>Sinais de entrega</p>
                 <ul className={styles.highlightsList} aria-label="Destaques do projeto">
                   {project.highlights.map((highlight) => (
                     <li key={highlight} className={styles.highlightTag}>
@@ -180,9 +153,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 </ul>
               </div>
               <div>
-                <p className={styles.deliverablesHeading}>
-                  Tecnologias
-                </p>
+                <p className={styles.deliverablesHeading}>Tecnologias</p>
                 <ul className={styles.techsList} aria-label="Tecnologias utilizadas">
                   {technologies.map((technology) => (
                     <li key={technology.name} className={styles.techItem}>
@@ -204,23 +175,25 @@ export default function ProjectDetail({ project }: { project: Project }) {
       </section>
 
       <nav aria-label="Navegação do projeto" className={styles.projectActionsNav}>
-        <a
-          className={styles.actionButton}
-          href={project.deploy}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Ver ${project.name} em uma nova guia`}
-        >
-          Ver projeto ↗
-        </a>
+        {hasSeparateDeploy ? (
+          <a
+            className={styles.actionButton}
+            href={project.deploy}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver projeto ${project.name} em uma nova guia`}
+          >
+            Ver projeto ↗
+          </a>
+        ) : null}
         <a
           className={styles.actionButton}
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Ver o código de ${project.name} em uma nova guia`}
+          aria-label={`${hasSeparateDeploy ? 'Código' : 'Repositório'} de ${project.name} em uma nova guia`}
         >
-          Código ↗
+          {hasSeparateDeploy ? 'Código' : 'Repositório'} ↗
         </a>
       </nav>
 
@@ -228,6 +201,6 @@ export default function ProjectDetail({ project }: { project: Project }) {
         <span>Gabriel Nascimento © 2026</span>
         <Link href="/#contato">Próximo papo ↗</Link>
       </footer>
-    </main>
+    </ProjectDetailExperience>
   );
 }

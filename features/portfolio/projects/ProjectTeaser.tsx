@@ -22,13 +22,18 @@ export default function ProjectTeaser({
 }: ProjectTeaserProps) {
   const root = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(priority);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    if (!teaser || priority) return;
+    if (!teaser) return;
+
+    if (priority) {
+      const timeoutId = window.setTimeout(() => setShouldLoad(true), 900);
+      return () => window.clearTimeout(timeoutId);
+    }
 
     const element = root.current;
     if (!element) return;
@@ -55,11 +60,7 @@ export default function ProjectTeaser({
   if (!teaser) return null;
 
   return (
-    <div
-      ref={root}
-      className={`${styles.root} ${className}`}
-      aria-hidden="true"
-    >
+    <div ref={root} className={`${styles.root} ${className}`} aria-hidden="true">
       <Image
         className={styles.poster}
         src={teaser.poster}

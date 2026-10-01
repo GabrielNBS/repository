@@ -29,7 +29,7 @@ const navigationItems: NavigationItem[] = [
   { href: '/#contato', icon: FiMail, id: 'contato', label: 'Contato' }
 ];
 
-const resumeHref = '/public/documents/Gabriel_Nascimento_Desenvolvedor_Frontend.pd.pdf';
+const resumeHref = '/documents/Gabriel_Nascimento_Desenvolvedor_Frontend.pdf';
 
 export default function PortfolioNav() {
   const [activeSection, setActiveSection] = useState<SectionId>('inicio');
@@ -178,7 +178,7 @@ export default function PortfolioNav() {
             key={item.id}
             className={`${styles.link} ${activeSection === item.id ? styles.linkActive : ''}`}
             href={item.href}
-            aria-current={activeSection === item.id ? 'page' : undefined}
+            aria-current={activeSection === item.id ? 'location' : undefined}
             onClick={() => handleNavigation(item)}
           >
             {item.label}

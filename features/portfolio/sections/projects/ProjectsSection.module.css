@@ -1,5 +1,5 @@
 .section {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: var(--nav-clearance);
 }
 .story {
   min-height: 100dvh;
@@ -83,7 +83,7 @@
   width: 0.86rem;
   aspect-ratio: 1;
   border: 1px solid var(--color-ink);
-  border-radius: 50%;
+  border-radius: var(--radius-round);
   background: var(--color-paper);
   box-shadow: 0 0 1.25rem rgb(239 174 130 / 0.9);
   transform: translateX(-50%);
@@ -93,7 +93,7 @@
   left: calc(50% + 1.7rem);
   width: 10rem;
   height: 4rem;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
   background: radial-gradient(ellipse, rgb(239 174 130 / 0.45), transparent 67%);
   filter: blur(2px);
   transform: translateX(-50%);
@@ -136,6 +136,7 @@
 }
 .day {
   position: relative;
+  z-index: 0;
   display: flex;
   min-height: 40rem;
   flex-direction: column;
@@ -144,10 +145,38 @@
   border: 1px solid rgb(37 34 31/0.2);
   background: var(--color-paper);
   color: var(--color-ink);
-  box-shadow: 0.28rem 0.36rem 0 rgb(37 34 31 / 0.1);
+  box-shadow:
+    0.18rem 0.2rem 0 #fffaf1,
+    0.36rem 0.4rem 0 rgb(226 213 194),
+    0.58rem 0.64rem 0 rgb(37 34 31 / 0.12);
+  isolation: isolate;
   text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
+  overflow: visible;
+  will-change: transform;
+}
+.day::before,
+.day::after {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+}
+.day::before {
+  top: 0.3rem;
+  right: -0.42rem;
+  bottom: -0.38rem;
+  width: 0.42rem;
+  border: 1px solid rgb(37 34 31 / 0.18);
+  background: repeating-linear-gradient(0deg, #fffaf1 0 3px, rgb(220 207 189) 3px 4px);
+}
+.day::after {
+  right: -0.42rem;
+  bottom: -0.38rem;
+  left: 0.22rem;
+  height: 0.38rem;
+  border: 1px solid rgb(37 34 31 / 0.16);
+  background: repeating-linear-gradient(90deg, #fffaf1 0 3px, rgb(220 207 189) 3px 4px);
 }
 .day > span,
 .day > h3,
@@ -193,7 +222,6 @@
   right: 1rem;
   bottom: 1rem;
 }
-
 .archive {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -271,7 +299,7 @@
   bottom: 0.7rem;
 }
 .fallback {
-  padding: 7rem clamp(1.25rem, 3vw, 3.75rem) 2rem;
+  padding: 7rem var(--gutter-page) var(--space-8);
 }
 .mobileArchive {
   display: none;
@@ -419,7 +447,7 @@
     animation: none;
   }
 }
-@media (max-width: 1050px) {
+@media (max-width: 1024px) {
   .agenda {
     grid-template-columns: 1fr;
   }

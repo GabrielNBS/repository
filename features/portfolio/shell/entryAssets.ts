@@ -7,65 +7,46 @@ type EntryPreloadResult = EntryProgress & {
   timedOut: boolean;
 };
 
-const imageAssets = [
-  '/images/hero/front-end-collage-paper-bg.png',
-  '/images/hero/front-end-editorial.png',
-  '/images/hero/loader-ball-cream.png',
-  '/images/hero/loader-ball-lilac.png',
-  '/images/hero/loader-ball-peach.png',
-  '/images/about/gabriel-editorial-portrait.png',
-  '/videos/projects/regula-poster.webp',
-  '/videos/projects/e-food-poster.webp'
-] as const;
+const ENTRY_TIMEOUT_MS = 6000;
 
-const motionAssets = [
-  '/videos/projects/regula.webm',
-  '/videos/projects/e-food.webm'
-] as const;
-
-const ENTRY_TIMEOUT_MS = 9000;
-
-function preloadImage(src: string) {
+function waitForImage(image: HTMLImageElement) {
   return new Promise<void>((resolve) => {
-    const image = new Image();
-    const settle = () => resolve();
-
-    image.onload = () => {
-      void image.decode?.().catch(() => undefined).finally(settle);
-    };
-    image.onerror = settle;
-    image.src = src;
-
-    if (image.complete) {
-      void image.decode?.().catch(() => undefined).finally(settle);
-    }
-  });
-}
-
-function preloadVideoMetadata(src: string) {
-  return new Promise<void>((resolve) => {
-    const video = document.createElement('video');
-    const settle = () => {
-      video.removeAttribute('src');
-      video.load();
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      image.removeEventListener('load', decodeAndFinish);
+      image.removeEventListener('error', finish);
       resolve();
     };
+    const decodeAndFinish = () => {
+      void image
+        .decode?.()
+        .catch(() => undefined)
+        .finally(finish);
+    };
 
-    video.muted = true;
-    video.preload = 'metadata';
-    video.onloadedmetadata = settle;
-    video.onerror = settle;
-    video.src = src;
-    video.load();
+    if (image.complete) {
+      decodeAndFinish();
+      return;
+    }
+
+    image.addEventListener('load', decodeAndFinish, { once: true });
+    image.addEventListener('error', finish, { once: true });
   });
 }
 
-export function preloadEntryAssets(onProgress: (progress: EntryProgress) => void) {
-  const preloaders = [
-    ...imageAssets.map((src) => () => preloadImage(src)),
-    ...motionAssets.map((src) => () => preloadVideoMetadata(src))
-  ];
-  const total = preloaders.length + (document.fonts ? 1 : 0);
+/**
+ * Aguarda apenas imagens críticas que já pertencem ao markup do hero.
+ * Assim o browser reutiliza as URLs responsivas do next/image e nenhuma mídia
+ * abaixo da dobra é baixada só para alimentar o progresso do loader.
+ */
+export function preloadEntryAssets(
+  root: ParentNode,
+  onProgress: (progress: EntryProgress) => void
+) {
+  const images = Array.from(root.querySelectorAll<HTMLImageElement>('img[data-entry-asset]'));
+  const total = images.length + (document.fonts ? 1 : 0);
   let complete = 0;
   let settled = false;
 
@@ -78,7 +59,7 @@ export function preloadEntryAssets(onProgress: (progress: EntryProgress) => void
   report();
 
   const tasks = [
-    ...preloaders.map((preload) => Promise.resolve(preload()).finally(markComplete)),
+    ...images.map((image) => waitForImage(image).finally(markComplete)),
     ...(document.fonts ? [document.fonts.ready.catch(() => undefined).finally(markComplete)] : [])
   ];
 

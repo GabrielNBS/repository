@@ -1,8 +1,9 @@
 .section {
   --skills-outline-bleed: clamp(0.75rem, 1.15vw, 1rem);
   position: relative;
-  z-index: 10;
+  z-index: var(--layer-content);
   min-height: calc(100dvh + var(--skills-scroll-distance, 0px));
+  scroll-margin-top: var(--nav-clearance);
   overflow: clip;
   background: var(--color-paper);
   color: var(--color-ink);
@@ -65,8 +66,11 @@
 }
 
 .navButton {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   border: 2px solid transparent;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;
@@ -300,7 +304,7 @@
   margin: 1.35rem 0 0;
   color: var(--color-ink);
   font-size: var(--text-card-body);
-  line-height: 1.18;
+  line-height: var(--leading-body-compact);
   letter-spacing: -0.025em;
   opacity: 0;
   transform: translateY(0.5rem);

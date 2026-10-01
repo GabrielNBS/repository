@@ -4,8 +4,8 @@
 .visual[data-variant='cream'] { background: var(--color-cream); }
 .visual[data-variant='rose'] { background: var(--color-rose); }
 :global([data-component='project-card']:hover) .visual { transform: scale(0.98); }
-.teaser { position: absolute; inset: 0; z-index: 10; opacity: 0.95; pointer-events: none; }
-.orbPrimary, .orbSecondary { position: absolute; aspect-ratio: 1; border: 1px solid rgb(37 34 31 / 35%); border-radius: 50%; transition: transform 600ms var(--ease-editorial); }
+.teaser { position: absolute; inset: 0; z-index: var(--layer-content); opacity: 0.95; pointer-events: none; }
+.orbPrimary, .orbSecondary { position: absolute; aspect-ratio: 1; border: 1px solid rgb(37 34 31 / 35%); border-radius: var(--radius-round); transition: transform 600ms var(--ease-editorial); }
 .orbPrimary { top: 17%; left: 17%; width: 65%; background: rgb(246 239 229 / 35%); }
 .orbSecondary { right: -17%; bottom: -22%; width: 56%; background: var(--color-peach); mix-blend-mode: multiply; }
 :global([data-component='project-card']:hover) .orbPrimary { transform: translate(6%, -4%) rotate(18deg); }
