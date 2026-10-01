@@ -171,6 +171,30 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
           gsap.set(closingParts, { autoAlpha: 0, yPercent: 42 });
           setActiveBeat(-1);
 
+          // A tese começa a se revelar enquanto o manifesto ainda entra na
+          // viewport. O pin continua reservado para `top top`, evitando salto
+          // de layout, mas a travessia vinda da hero deixa de terminar em uma
+          // tela quase vazia antes de a narrativa começar.
+          const leadIn = gsap.timeline({
+            defaults: { ease: 'manifesto-focus' },
+            scrollTrigger: {
+              id: 'manifesto-lead-in',
+              trigger: section,
+              start: 'top 38%',
+              end: 'top 6%',
+              scrub: 0.55,
+              invalidateOnRefresh: true
+            }
+          });
+
+          leadIn.to(introSplit.words, {
+            autoAlpha: 1,
+            duration: 1,
+            rotate: 0,
+            stagger: 0.075,
+            yPercent: 0
+          });
+
           // Timeline principal do manifesto. O pin segura a cena no viewport e
           // `scrub: 1.05` faz o playhead acompanhar o scroll com amortecimento.
           const timeline = gsap.timeline({
@@ -201,11 +225,6 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
             .to(
               atmosphere,
               { xPercent: 3, yPercent: -18, duration: 5, ease: 'none' },
-              'thesis'
-            )
-            .to(
-              introSplit.words,
-              { autoAlpha: 1, rotate: 0, yPercent: 0, duration: 0.72, stagger: 0.055 },
               'thesis'
             )
             // MotionPath move a tag pelo mesmo orbit em trechos diferentes,
@@ -484,6 +503,7 @@ export function useManifestoStoryMotion(root: RefObject<HTMLElement | null>) {
             beats.forEach((beat) => beat.removeAttribute('aria-hidden'));
             introSplit.revert();
             titleSplits.forEach((split) => split.revert());
+            leadIn.kill();
             timeline.kill();
           };
         }

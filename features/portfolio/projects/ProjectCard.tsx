@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import ProjectVisual from './ProjectVisual';
+import { markProjectReturnIntent } from './projectReturnNavigation';
 import { useProjectCursor } from './cursor/ProjectCursorProvider';
 import ProjectStackIcons from './ProjectStackIcons';
 import styles from './ProjectCard.module.css';
@@ -16,6 +17,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     <Link
       className={styles.link}
       href={`/projetos/${project.slug}`}
+      onClick={markProjectReturnIntent}
       onPointerEnter={(event) => onProjectPointerEnter(event, project)}
       onPointerLeave={onProjectPointerLeave}
       onPointerMove={onProjectPointerMove}

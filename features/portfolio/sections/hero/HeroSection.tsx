@@ -238,6 +238,35 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
+
+        <a
+          className={styles.scrollCue}
+          data-component="hero-scroll-cue"
+          data-motion="hero-reveal"
+          href="#manifesto"
+        >
+          <span className={styles.scrollCueLabel} data-motion="scroll-cue-label">
+            Role para continuar
+          </span>
+          <span className={styles.scrollCueTrack} aria-hidden="true">
+            <span className={styles.scrollCueMarkerRail}>
+              <span className={styles.scrollCueMarker} data-motion="scroll-cue-marker">
+                <Image
+                  alt=""
+                  aria-hidden="true"
+                  className={styles.scrollCueBall}
+                  draggable={false}
+                  height={1254}
+                  quality={75}
+                  sizes="28px"
+                  src="/images/hero/loader-ball-lilac.png"
+                  width={1254}
+                />
+              </span>
+            </span>
+            <span className={styles.scrollCueArrow} />
+          </span>
+        </a>
       </div>
     </section>
   );

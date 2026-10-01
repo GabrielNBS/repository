@@ -5,7 +5,15 @@ import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { FiBookOpen, FiDownload, FiGrid, FiHome, FiMail, FiSliders, FiUser } from 'react-icons/fi';
+import {
+  FiBookOpen,
+  FiChevronDown,
+  FiGrid,
+  FiHome,
+  FiMail,
+  FiSliders,
+  FiUser
+} from 'react-icons/fi';
 import type { IconType } from 'react-icons';
 import styles from './PortfolioNav.module.css';
 
@@ -29,47 +37,63 @@ const navigationItems: NavigationItem[] = [
   { href: '/#contato', icon: FiMail, id: 'contato', label: 'Contato' }
 ];
 
-const resumeHref = '/documents/Gabriel_Nascimento_Desenvolvedor_Frontend.pdf';
-
 export default function PortfolioNav() {
   const [activeSection, setActiveSection] = useState<SectionId>('inicio');
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const nav = useRef<HTMLElement>(null);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const compactWidthBeforeChange = useRef<number | null>(null);
+
   const activeItem =
     navigationItems.find((item) => item.id === activeSection) ?? navigationItems[0];
   const ActiveIcon = activeItem.icon;
+
   const closeMenu = () => setOpen(false);
 
   useGSAP(
     () => {
-      const navElement = nav.current;
+      const triggerElement = triggerRef.current;
       const previousWidth = compactWidthBeforeChange.current;
       compactWidthBeforeChange.current = null;
 
-      if (!navElement || previousWidth === null) return;
+      if (!triggerElement || previousWidth === null) return;
 
-      gsap.set(navElement, { width: 'fit-content' });
-      const nextWidth = navElement.getBoundingClientRect().width;
+      gsap.set(triggerElement, { width: 'fit-content' });
+      const nextWidth = triggerElement.getBoundingClientRect().width;
 
       if (Math.abs(nextWidth - previousWidth) < 1) {
-        gsap.set(navElement, { clearProps: 'width' });
+        gsap.set(triggerElement, { clearProps: 'width' });
         return;
       }
 
-      gsap.set(navElement, { width: previousWidth });
-      gsap.to(navElement, {
+      gsap.set(triggerElement, { width: previousWidth });
+      gsap.to(triggerElement, {
         width: nextWidth,
-        duration: 0.72,
+        duration: 0.45,
         ease: 'power3.out',
         overwrite: true,
-        onComplete: () => gsap.set(navElement, { clearProps: 'width' })
+        onComplete: () => gsap.set(triggerElement, { clearProps: 'width' })
       });
     },
     { dependencies: [activeSection], scope: nav, revertOnUpdate: true }
   );
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (nav.current && !nav.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
 
   useEffect(() => {
     const sections = navigationItems
@@ -100,17 +124,16 @@ export default function PortfolioNav() {
       setActiveSection((current) => {
         if (current === closestSection.id) return current;
 
-        const navElement = nav.current;
-        const canAnimateCompactWidth =
-          navElement &&
-          window.matchMedia('(min-width: 801px) and (prefers-reduced-motion: no-preference)')
-            .matches &&
-          !navElement.matches(':hover, :focus-within');
+        const triggerElement = triggerRef.current;
+        const canAnimate =
+          triggerElement &&
+          window.matchMedia('(prefers-reduced-motion: no-preference)').matches &&
+          !open;
 
-        if (canAnimateCompactWidth) {
-          gsap.killTweensOf(navElement);
-          compactWidthBeforeChange.current = navElement.getBoundingClientRect().width;
-          navElement.style.width = `${compactWidthBeforeChange.current}px`;
+        if (canAnimate) {
+          gsap.killTweensOf(triggerElement);
+          compactWidthBeforeChange.current = triggerElement.getBoundingClientRect().width;
+          triggerElement.style.width = `${compactWidthBeforeChange.current}px`;
         }
 
         return closestSection.id;
@@ -132,12 +155,13 @@ export default function PortfolioNav() {
       window.removeEventListener('resize', requestUpdate);
       window.removeEventListener('hashchange', requestUpdate);
     };
-  }, []);
+  }, [open]);
 
   function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
-    if (event.key !== 'Escape' || !open) return;
-    closeMenu();
-    menuButton.current?.focus();
+    if (event.key === 'Escape' && open) {
+      closeMenu();
+      triggerRef.current?.focus();
+    }
   }
 
   function handleNavigation(item: NavigationItem) {
@@ -154,62 +178,55 @@ export default function PortfolioNav() {
       data-component="navigation"
       onKeyDown={handleKeyDown}
     >
-      <Link className={styles.brand} href="/#inicio" onClick={closeMenu}>
-        <span aria-hidden="true">GN</span>
-        <span className={styles.brandLabel}>Gabriel Nascimento</span>
-        <span className={styles.mobileBrandLabel}>Portfólio / 26</span>
-      </Link>
-
-      <div
-        key={activeItem.id}
-        className={styles.chapterCue}
-        aria-label={`Seção atual: ${activeItem.label}`}
-        tabIndex={0}
+      <button
+        ref={triggerRef}
+        type="button"
+        className={styles.trigger}
+        aria-expanded={open}
+        aria-controls={menuId}
+        aria-haspopup="true"
+        aria-label={`Seção atual: ${activeItem.label}. Clique para abrir o menu de seções.`}
+        onClick={() => setOpen((current) => !current)}
       >
         <span className={styles.chapterIcon} aria-hidden="true">
           <ActiveIcon />
         </span>
-        <span>{activeItem.label}</span>
-      </div>
-
-      <div id={menuId} className={`${styles.links} ${open ? styles.linksOpen : ''}`}>
-        {navigationItems.map((item) => (
-          <Link
-            key={item.id}
-            className={`${styles.link} ${activeSection === item.id ? styles.linkActive : ''}`}
-            href={item.href}
-            aria-current={activeSection === item.id ? 'location' : undefined}
-            onClick={() => handleNavigation(item)}
-          >
-            {item.label}
-          </Link>
-        ))}
-        <a
-          className={`${styles.link} ${styles.mobileResume}`}
-          href={resumeHref}
-          download
-          onClick={closeMenu}
-        >
-          Baixar currículo <FiDownload aria-hidden="true" />
-        </a>
-      </div>
-
-      <a className={styles.desktopResume} href={resumeHref} download onClick={closeMenu}>
-        <span>Baixar currículo</span>
-        <FiDownload aria-hidden="true" />
-      </a>
-
-      <button
-        ref={menuButton}
-        className={styles.menuButton}
-        type="button"
-        aria-controls={menuId}
-        aria-expanded={open}
-        aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-        onClick={() => setOpen((current) => !current)}
-      >
-        {open ? '×' : '＋'}
+        <span key={activeItem.id} className={styles.chapterLabel}>
+          {activeItem.label}
+        </span>
+        <span className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`} aria-hidden="true">
+          <FiChevronDown />
+        </span>
       </button>
+
+      <div
+        id={menuId}
+        role="menu"
+        aria-label="Seções do portfólio"
+        className={`${styles.dropdown} ${open ? styles.dropdownOpen : ''}`}
+      >
+        {navigationItems.map((item) => {
+          const ItemIcon = item.icon;
+          const isCurrent = activeSection === item.id;
+
+          return (
+            <Link
+              key={item.id}
+              role="menuitem"
+              className={`${styles.dropdownItem} ${isCurrent ? styles.dropdownItemActive : ''}`}
+              href={item.href}
+              aria-current={isCurrent ? 'location' : undefined}
+              onClick={() => handleNavigation(item)}
+            >
+              <span className={styles.itemIcon} aria-hidden="true">
+                <ItemIcon />
+              </span>
+              <span className={styles.itemLabel}>{item.label}</span>
+              {isCurrent && <span className={styles.activeDot} aria-hidden="true" />}
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 }

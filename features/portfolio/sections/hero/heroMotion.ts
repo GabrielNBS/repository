@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 import type { RefObject } from 'react';
+import { hasProjectReturnIntent } from '../../projects/projectReturnNavigation';
 import { preloadEntryAssets } from '../../shell/entryAssets';
 
 gsap.registerPlugin(useGSAP, CustomEase);
@@ -79,6 +80,8 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
       const titleLoopBox = section.querySelector<HTMLElement>('[data-motion="title-loop-box"]');
       const titleLoop = section.querySelector<HTMLElement>('[data-motion="title-loop"]');
       const revealTargets = Array.from(section.querySelectorAll<HTMLElement>('[data-motion="hero-reveal"]'));
+      const scrollCueLabel = section.querySelector<HTMLElement>('[data-motion="scroll-cue-label"]');
+      const scrollCueMarker = section.querySelector<HTMLElement>('[data-motion="scroll-cue-marker"]');
       const loader = section.querySelector<HTMLElement>('[data-motion="hero-loader"]');
       const loaderIndex = section.querySelector<HTMLElement>('[data-motion="hero-loader-index"]');
       const loaderBalls = Array.from(section.querySelectorAll<HTMLElement>('[data-motion="loader-ball"]'));
@@ -94,6 +97,8 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
         !titleLoop ||
         !staticSlot ||
         !staticSticker ||
+        !scrollCueLabel ||
+        !scrollCueMarker ||
         revealTargets.length === 0 ||
         !loader ||
         !loaderIndex ||
@@ -123,10 +128,85 @@ export function useHeroMotion(root: RefObject<HTMLElement | null>) {
       };
 
       const media = gsap.matchMedia();
+      const shouldSkipEntry =
+        hasProjectReturnIntent() ||
+        document.documentElement.dataset.homeScrollTarget === 'projects' ||
+        section.closest('[data-project-return-pending="true"]') !== null;
+
+      if (!shouldSkipEntry) {
+        window.history.scrollRestoration = 'manual';
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+
+      media.add(
+        {
+          motion: '(prefers-reduced-motion: no-preference)',
+          reducedMotion: '(prefers-reduced-motion: reduce)'
+        },
+        (mediaContext) => {
+          const { motion, reducedMotion } = mediaContext.conditions ?? {};
+
+          if (reducedMotion) {
+            gsap.set(scrollCueLabel, { autoAlpha: 1 });
+            gsap.set(scrollCueMarker, { autoAlpha: 1, scale: 1, y: 22 });
+            return;
+          }
+
+          if (!motion) return;
+
+          const scrollCueLoop = gsap.timeline({
+            repeat: -1,
+            repeatDelay: 0.38
+          });
+
+          scrollCueLoop
+            .fromTo(
+              scrollCueLabel,
+              { autoAlpha: 0.58 },
+              {
+                autoAlpha: 1,
+                duration: 0.7,
+                ease: 'sine.inOut',
+                repeat: 1,
+                yoyo: true
+              },
+              0
+            )
+            .fromTo(
+              scrollCueMarker,
+              { autoAlpha: 0, rotation: -8, scale: 0.78, y: 0 },
+              {
+                autoAlpha: 1,
+                duration: 0.38,
+                ease: 'power2.out',
+                rotation: 2,
+                scale: 1,
+                y: 12
+              },
+              0.08
+            )
+            .to(scrollCueMarker, {
+              autoAlpha: 0,
+              duration: 0.72,
+              ease: 'power2.in',
+              rotation: 12,
+              scale: 0.82,
+              y: 35
+            });
+
+          return () => scrollCueLoop.kill();
+        }
+      );
+
       // Em telas compactas a primeira dobra é conteúdo, não uma espera. A
       // coreografia completa permanece como assinatura do desktop.
       media.add('(prefers-reduced-motion: reduce), (max-width: 800px)', setReducedMotionState);
       media.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)', () => {
+        if (shouldSkipEntry) {
+          setReducedMotionState();
+          return;
+        }
+
         let entryTimeline: gsap.core.Timeline | undefined;
         let cancelled = false;
 

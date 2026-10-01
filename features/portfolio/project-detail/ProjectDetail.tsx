@@ -3,6 +3,7 @@ import ProjectVisual from '../projects/ProjectVisual';
 import type { Project } from '../projects/data/projects';
 import { getStackIcon } from '../projects/data/projectStackIconLogic';
 import HeadingSplit from '../shared/motion/HeadingSplit';
+import ProjectBackLink from './ProjectBackLink';
 import ProjectDetailExperience from './ProjectDetailExperience';
 import styles from './ProjectDetail.module.css';
 
@@ -31,9 +32,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
       <a className={styles.skipLink} href="#projeto-titulo">
         Pular para o conteúdo
       </a>
-      <Link className={styles.backButton} href="/">
-        ← Voltar
-      </Link>
+      <ProjectBackLink className={styles.backButton} />
 
       <section className={styles.heroSection} data-detail-hero>
         <div className={styles.heroVisualContainer} data-detail-visual>

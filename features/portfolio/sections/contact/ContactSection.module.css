@@ -308,9 +308,14 @@
   }
 
   .artwork {
+    bottom: 0;
     left: -31vw;
     width: 122vw;
     height: 43dvh;
+  }
+
+  .heading {
+    justify-content: flex-start;
   }
 
   .content {

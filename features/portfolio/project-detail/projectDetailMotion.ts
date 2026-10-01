@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { RefObject } from 'react';
+import { hasProjectReturnIntent } from '../projects/projectReturnNavigation';
 import { createHeadingSplitAnimation } from '../shared/motion/headingSplitMotion';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -26,16 +27,21 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       if (!page) return;
 
       // Cada rota começa no topo para que a leitura do case seja previsível.
-      const previousScrollRestoration = window.history.scrollRestoration;
       window.history.scrollRestoration = 'manual';
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       ScrollTrigger.clearScrollMemory();
       ScrollTrigger.refresh();
 
+      // Quando o case foi aberto pela grade da home, deixamos preparada a
+      // cortina do retorno. Ela não afeta esta rota; apenas impede que a Home
+      // revele a Hero antes de recuperar a posição de Projetos, inclusive ao
+      // usar o botão Voltar do navegador.
+      if (hasProjectReturnIntent()) {
+        document.documentElement.dataset.homeScrollTarget = 'projects';
+      }
+
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return () => {
-          window.history.scrollRestoration = previousScrollRestoration;
-        };
+        return;
       }
 
       // Entrada do conteúdo do hero: apenas transform e opacity para não
@@ -81,7 +87,6 @@ export function useDetailMotion(root: RefObject<HTMLElement | null>) {
       return () => {
         disposed = true;
         cancelAnimationFrame(refreshFrame);
-        window.history.scrollRestoration = previousScrollRestoration;
         images.forEach((image) => image.removeEventListener('load', refresh));
         visualParallax.kill();
         intro.kill();

@@ -9,13 +9,26 @@ import styles from './PortfolioHome.module.css';
  * Limite cliente da home. O conteúdo editorial continua renderizado no servidor;
  * apenas o root que coordena motion e cursor é hidratado no navegador.
  */
-export default function PortfolioExperience({ children }: PropsWithChildren) {
+type PortfolioExperienceProps = PropsWithChildren<{
+  returnToProjects: boolean;
+}>;
+
+export default function PortfolioExperience({
+  children,
+  returnToProjects
+}: PortfolioExperienceProps) {
   const root = useRef<HTMLElement>(null);
-  usePortfolioMotion(root);
+  usePortfolioMotion(root, returnToProjects);
 
   return (
     <ProjectCursorProvider>
-      <main ref={root} className={styles.main} tabIndex={-1}>
+      <main
+        ref={root}
+        className={styles.main}
+        data-portfolio-home
+        data-project-return-pending={returnToProjects ? 'true' : undefined}
+        tabIndex={-1}
+      >
         <a className={styles.skipLink} href="#hero-title">
           Pular para o conteúdo
         </a>

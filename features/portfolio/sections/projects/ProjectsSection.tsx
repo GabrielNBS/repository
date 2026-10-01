@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
 import ProjectCard from '../../projects/ProjectCard';
 import { useProjectCursor } from '../../projects/cursor/ProjectCursorProvider';
+import { markProjectReturnIntent } from '../../projects/projectReturnNavigation';
 import styles from './ProjectsSection.module.css';
 import { useProjectsAgendaMotion, useProjectElastic } from './projectsAgendaMotion';
 
@@ -72,6 +73,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                 href={`/projetos/${project.slug}`}
                 data-motion="agenda-enter project-elastic"
                 className={styles.day}
+                onClick={markProjectReturnIntent}
                 onPointerEnter={(event) => onProjectPointerEnter(event, project)}
                 onPointerLeave={onProjectPointerLeave}
                 onPointerMove={onProjectPointerMove}
@@ -103,6 +105,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                     key={project.slug}
                     href={`/projetos/${project.slug}`}
                     className={styles.archiveCard}
+                    onClick={markProjectReturnIntent}
                     onPointerEnter={(event) => onProjectPointerEnter(event, project)}
                     onPointerLeave={onProjectPointerLeave}
                     onPointerMove={onProjectPointerMove}

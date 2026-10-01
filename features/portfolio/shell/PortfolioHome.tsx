@@ -8,9 +8,9 @@ import ProjectsSection from '../sections/projects/ProjectsSection';
 import SkillsSection from '../sections/skills/SkillsSection';
 import PortfolioExperience from './PortfolioExperience';
 
-export default function PortfolioHome() {
+export default function PortfolioHome({ returnToProjects = false }: { returnToProjects?: boolean }) {
   return (
-    <PortfolioExperience>
+    <PortfolioExperience returnToProjects={returnToProjects}>
       <PortfolioNav />
       <HeroSection />
       <ManifestoSection />
