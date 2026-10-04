@@ -26,6 +26,8 @@ Escopo exclusivo: acessibilidade da home e das páginas de projetos. Skill aplic
 
 ## Limites e verificações restantes
 
+Atualização solicitada: o controle de pausa fica visualmente oculto no uso com mouse/toque, permanece na árvore de acessibilidade e aparece ao receber foco visível pelo teclado. Não há detecção de leitor de tela.
+
 Não constitui certificação de conformidade WCAG. Não foi executado axe/Lighthouse: Playwright não estava disponível no cache local; as verificações interativas usaram o navegador do Codex. Não houve validação com NVDA/JAWS, zoom de 200%/400%, dispositivos móveis ou mensuração exaustiva de contraste em todos os frames animados. O fluxo completo de foco dos seis cartões e o retorno dos vídeos após pausa precisam de verificação adicional no navegador. O controle adicionado pausa vídeos; animações GSAP continuam seguindo as preferências de movimento já implementadas no projeto. O PDF do currículo não foi auditado.
 
 Fontes: [Disclosure Navigation — W3C](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/), [Pause, Stop, Hide — W3C](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide/).

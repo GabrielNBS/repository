@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-/** A single keyboard-accessible control covers decorative videos on both routes. */
+/** Visually hidden until keyboard focus; always available to assistive technology. */
 export default function VideoMotionControl() {
   const [paused, setPaused] = useState(false);
 
