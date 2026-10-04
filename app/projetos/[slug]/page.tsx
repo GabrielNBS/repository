@@ -12,7 +12,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
-  return { title: `${project.name} — Gabriel Nascimento`, description: project.summary };
+  return {
+    title: `${project.name} — Gabriel Nascimento`,
+    description: project.summary,
+    alternates: { canonical: `/projetos/${project.slug}` },
+    openGraph: {
+      title: `${project.name} — Gabriel Nascimento`,
+      description: project.summary,
+      url: `/projetos/${project.slug}`,
+      type: 'website',
+      locale: 'pt_BR'
+    }
+  };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {

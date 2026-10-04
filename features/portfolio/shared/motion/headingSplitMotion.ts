@@ -71,7 +71,7 @@ export function findPinnedContainer(element: HTMLElement): HTMLElement | null {
  * Creates letter-by-letter split animation with viewport enter/exit for a single element,
  * properly adapting when inside pinned containers so text is not removed prematurely.
  */
-export function createHeadingSplitAnimation(
+function createHeadingSplitNow(
   target: HTMLElement | string,
   options?: HeadingSplitOptions
 ) {
@@ -85,7 +85,6 @@ export function createHeadingSplitAnimation(
   // O mesmo heading pode ser registrado pelo componente e por uma motion
   // orchestration da página. Reutilizar a primeira instância mantém o estado
   // dos caracteres e o progresso do ScrollTrigger determinísticos.
-  if (activeHeadingSplits.has(element)) return () => {};
 
   // Divide o heading em palavras e caracteres. A máscara evita que cada
   // caractere apareça fora do seu recorte enquanto sobe e perde o blur.
@@ -149,10 +148,44 @@ export function createHeadingSplitAnimation(
   const cleanup = () => {
     timeline.kill();
     split.revert();
-    activeHeadingSplits.delete(element);
   };
 
+  return cleanup;
+}
+
+/** Defer expensive character layout until the heading approaches the viewport. */
+export function createHeadingSplitAnimation(
+  target: HTMLElement | string,
+  options?: HeadingSplitOptions
+) {
+  const element = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
+  if (!element || activeHeadingSplits.has(element)) return () => {};
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  let revertSplit: (() => void) | undefined;
+  const context = gsap.context(() => {}, element);
+  const initialize = () => {
+    if (revertSplit) return;
+    context.add(() => {
+      revertSplit = createHeadingSplitNow(element, options);
+    });
+  };
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      initialize();
+    },
+    { rootMargin: '240px 0px' }
+  );
+  const cleanup = () => {
+    observer.disconnect();
+    revertSplit?.();
+    context.revert();
+    activeHeadingSplits.delete(element);
+  };
   activeHeadingSplits.set(element, cleanup);
+  observer.observe(element);
   return cleanup;
 }
 

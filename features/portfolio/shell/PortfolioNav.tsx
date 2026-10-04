@@ -1,20 +1,13 @@
 'use client';
 
+import AppIcon from '@/features/portfolio/shared/AppIcon';
+
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import {
-  FiBookOpen,
-  FiChevronDown,
-  FiGrid,
-  FiHome,
-  FiMail,
-  FiSliders,
-  FiUser
-} from 'react-icons/fi';
-import type { IconType } from 'react-icons';
+import type { AppIconName } from '@/features/portfolio/shared/AppIcon';
 import styles from './PortfolioNav.module.css';
 
 gsap.registerPlugin(useGSAP);
@@ -23,18 +16,18 @@ type SectionId = 'inicio' | 'manifesto' | 'projetos' | 'sobre' | 'skills' | 'con
 
 type NavigationItem = {
   href: `/#${SectionId}`;
-  icon: IconType;
+  icon: AppIconName;
   id: SectionId;
   label: string;
 };
 
 const navigationItems: NavigationItem[] = [
-  { href: '/#inicio', icon: FiHome, id: 'inicio', label: 'Início' },
-  { href: '/#manifesto', icon: FiBookOpen, id: 'manifesto', label: 'Manifesto' },
-  { href: '/#projetos', icon: FiGrid, id: 'projetos', label: 'Projetos' },
-  { href: '/#sobre', icon: FiUser, id: 'sobre', label: 'Sobre' },
-  { href: '/#skills', icon: FiSliders, id: 'skills', label: 'Habilidades' },
-  { href: '/#contato', icon: FiMail, id: 'contato', label: 'Contato' }
+  { href: '/#inicio', icon: 'home', id: 'inicio', label: 'Início' },
+  { href: '/#manifesto', icon: 'book', id: 'manifesto', label: 'Manifesto' },
+  { href: '/#projetos', icon: 'projects', id: 'projetos', label: 'Projetos' },
+  { href: '/#sobre', icon: 'user', id: 'sobre', label: 'Sobre' },
+  { href: '/#skills', icon: 'skills', id: 'skills', label: 'Habilidades' },
+  { href: '/#contato', icon: 'email', id: 'contato', label: 'Contato' }
 ];
 
 export default function PortfolioNav() {
@@ -47,7 +40,6 @@ export default function PortfolioNav() {
 
   const activeItem =
     navigationItems.find((item) => item.id === activeSection) ?? navigationItems[0];
-  const ActiveIcon = activeItem.icon;
 
   const closeMenu = () => setOpen(false);
 
@@ -177,6 +169,9 @@ export default function PortfolioNav() {
       data-active-section={activeSection}
       data-component="navigation"
       onKeyDown={handleKeyDown}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) closeMenu();
+      }}
     >
       <button
         ref={triggerRef}
@@ -184,42 +179,45 @@ export default function PortfolioNav() {
         className={styles.trigger}
         aria-expanded={open}
         aria-controls={menuId}
-        aria-haspopup="true"
-        aria-label={`Seção atual: ${activeItem.label}. Clique para abrir o menu de seções.`}
+        aria-label={`Seção atual: ${activeItem.label}. ${open ? 'Fechar' : 'Abrir'} navegação de seções.`}
         onClick={() => setOpen((current) => !current)}
       >
         <span className={styles.chapterIcon} aria-hidden="true">
-          <ActiveIcon />
+          <AppIcon name={activeItem.icon} size="compact" />
         </span>
         <span key={activeItem.id} className={styles.chapterLabel}>
           {activeItem.label}
         </span>
         <span className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`} aria-hidden="true">
-          <FiChevronDown />
+          <AppIcon name="caretDown" />
         </span>
       </button>
 
       <div
         id={menuId}
-        role="menu"
-        aria-label="Seções do portfólio"
+        inert={!open}
         className={`${styles.dropdown} ${open ? styles.dropdownOpen : ''}`}
       >
         {navigationItems.map((item) => {
-          const ItemIcon = item.icon;
           const isCurrent = activeSection === item.id;
 
           return (
             <Link
               key={item.id}
-              role="menuitem"
               className={`${styles.dropdownItem} ${isCurrent ? styles.dropdownItemActive : ''}`}
               href={item.href}
               aria-current={isCurrent ? 'location' : undefined}
-              onClick={() => handleNavigation(item)}
+              onClick={() => {
+                handleNavigation(item);
+                const section = document.getElementById(item.id);
+                if (section) {
+                  section.tabIndex = -1;
+                  section.focus({ preventScroll: true });
+                }
+              }}
             >
               <span className={styles.itemIcon} aria-hidden="true">
-                <ItemIcon />
+                <AppIcon name={item.icon} size="compact" />
               </span>
               <span className={styles.itemLabel}>{item.label}</span>
               {isCurrent && <span className={styles.activeDot} aria-hidden="true" />}

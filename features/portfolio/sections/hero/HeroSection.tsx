@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRef } from 'react';
 import styles from './HeroSection.module.css';
+import HeroComposition from './HeroComposition';
 import { useHeroMotion } from './heroMotion';
 
 type StickerKind = 'solutions' | 'create' | 'scale' | 'animate' | 'optimize' | 'connect';
@@ -19,7 +20,7 @@ type AnimatedWord = {
 const animatedWords: AnimatedWord[] = [
   {
     id: 'criar',
-    prefix: 'Que cr',
+    prefix: 'Que cri',
     letter: 'i',
     suffix: 'am',
     sticker: 'create',
@@ -27,7 +28,7 @@ const animatedWords: AnimatedWord[] = [
   },
   {
     id: 'escalar',
-    prefix: 'Que esc',
+    prefix: 'Que esca',
     letter: 'a',
     suffix: 'lam',
     sticker: 'scale',
@@ -35,7 +36,7 @@ const animatedWords: AnimatedWord[] = [
   },
   {
     id: 'animar',
-    prefix: 'Que an',
+    prefix: 'Que ani',
     letter: 'i',
     suffix: 'mam',
     sticker: 'animate',
@@ -43,7 +44,7 @@ const animatedWords: AnimatedWord[] = [
   },
   {
     id: 'otimizar',
-    prefix: 'Que ot',
+    prefix: 'Que oti',
     letter: 'i',
     suffix: 'mizam',
     sticker: 'optimize',
@@ -51,7 +52,7 @@ const animatedWords: AnimatedWord[] = [
   },
   {
     id: 'conectar',
-    prefix: 'Que con',
+    prefix: 'Que cone',
     letter: 'e',
     suffix: 'ctam',
     sticker: 'connect',
@@ -105,10 +106,10 @@ function StickerArtwork({ kind }: { kind: StickerKind }) {
           alt=""
           aria-hidden="true"
           className={styles.artworkFrame}
-          data-entry-asset={isEntryArtwork ? '' : undefined}
+          data-entry-asset={isEntryArtwork && index === 0 ? '' : undefined}
           draggable={false}
           height={1254}
-          loading={isEntryArtwork ? 'eager' : 'lazy'}
+          loading={isEntryArtwork && index === 0 ? 'eager' : 'lazy'}
           quality={75}
           sizes="160px"
           src={src}
@@ -191,7 +192,7 @@ export default function HeroSection() {
                 data-entry-asset=""
                 draggable={false}
                 height={height}
-                loading="eager"
+                loading="lazy"
                 quality={75}
                 sizes="(max-width: 800px) 64px, 112px"
                 src={src}
@@ -217,6 +218,7 @@ export default function HeroSection() {
             </div>
             <h1
               id="hero-title"
+              tabIndex={-1}
               className={[styles.titleRow, styles.staticRow].join(' ')}
               data-motion="title-row"
             >
@@ -239,34 +241,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <a
-          className={styles.scrollCue}
-          data-component="hero-scroll-cue"
-          data-motion="hero-reveal"
-          href="#manifesto"
-        >
-          <span className={styles.scrollCueLabel} data-motion="scroll-cue-label">
-            Role para continuar
-          </span>
-          <span className={styles.scrollCueTrack} aria-hidden="true">
-            <span className={styles.scrollCueMarkerRail}>
-              <span className={styles.scrollCueMarker} data-motion="scroll-cue-marker">
-                <Image
-                  alt=""
-                  aria-hidden="true"
-                  className={styles.scrollCueBall}
-                  draggable={false}
-                  height={1254}
-                  quality={75}
-                  sizes="28px"
-                  src="/images/hero/loader-ball-lilac.png"
-                  width={1254}
-                />
-              </span>
-            </span>
-            <span className={styles.scrollCueArrow} />
-          </span>
-        </a>
+        <HeroComposition />
       </div>
     </section>
   );

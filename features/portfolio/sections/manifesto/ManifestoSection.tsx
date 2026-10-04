@@ -1,59 +1,85 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './ManifestoSection.module.css';
-import { useManifestoStoryMotion } from './manifestoStoryMotion';
+const ManifestoMotion = dynamic(() => import('./ManifestoMotion'), { ssr: false });
+const ManifestoMobileMotion = dynamic(() => import('./ManifestoMobileMotion'), { ssr: false });
 
 const beats = [
   {
-    principle: 'Intenção',
+    principle: 'Clareza',
     title: (
       <>
-        Antes da tela,
+        Antes do código,
         <br />
-        <em>vem a escolha</em>
+        <em>entendo o problema</em>
       </>
     ),
-    copy: 'Eu começo retirando o excesso, até restar uma ideia que possa ser entendida sem pedir licença'
+    copy: 'Entendo o que a interface precisa resolver antes de escolher como construir. Isso orienta os componentes, os estados e o fluxo de uso.'
   },
   {
-    principle: 'Ritmo',
+    principle: 'Interação',
     title: (
       <>
-        Cada pausa
+        Cada ação merece
         <br />
-        <em>também comunica</em>
+        <em>uma resposta</em>
       </>
     ),
-    copy: 'Hierarquia, resposta e movimento conduzem o olhar. Nada aparece antes de ter um motivo para existir'
+    copy: 'Do clique ao carregamento, cuido de como a interface responde. Estados claros e movimento com propósito ajudam a experiência a fazer sentido.'
   },
   {
-    principle: 'Forma',
+    principle: 'Estrutura',
     title: (
       <>
-        A ideia ganha corpo
+        Cuidado na tela,
         <br />
-        <em>e permanece</em>
+        <em>e no código</em>
       </>
     ),
-    copy: 'Quando direção visual e código falam a mesma língua, a experiência deixa de ser interface e vira presença'
+    copy: 'Construo pensando em quem usa e em quem vai dar continuidade. Componentes reutilizáveis, acessibilidade e performance fazem parte desse cuidado.'
   }
 ] as const;
 
 export default function ManifestoSection() {
   const root = useRef<HTMLElement>(null);
-  useManifestoStoryMotion(root);
+  const [motionMode, setMotionMode] = useState<'desktop' | 'mobile' | 'none'>('none');
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 801px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setMotionMode(reduced.matches ? 'none' : media.matches ? 'desktop' : 'mobile');
+    sync();
+    media.addEventListener('change', sync);
+    reduced.addEventListener('change', sync);
+    return () => {
+      media.removeEventListener('change', sync);
+      reduced.removeEventListener('change', sync);
+    };
+  }, []);
 
   return (
     <section id="manifesto" ref={root} className={styles.section} aria-labelledby="manifesto-title">
+      {motionMode === 'desktop' && <ManifestoMotion root={root} />}
+      {motionMode === 'mobile' && <ManifestoMobileMotion root={root} />}
+      {motionMode === 'desktop' && (
+        <div className="sr-only">
+          {beats.map((beat) => (
+            <article key={beat.principle}>
+              <h3>{beat.title}</h3>
+              <p>{beat.principle}. {beat.copy}</p>
+            </article>
+          ))}
+        </div>
+      )}
       <div className={styles.pin} data-manifesto-pin>
         <div className={styles.stage}>
           <div className={styles.atmosphere} aria-hidden="true" data-manifesto-atmosphere />
 
           <div className={styles.intro} data-manifesto-intro>
-            <p>Design não começa no software</p>
+            <p>Uma interface vai além da tela</p>
             <h2 id="manifesto-title" data-manifesto-intro-title>
-              Começa com uma decisão
+              Cada detalhe pede uma decisão
             </h2>
           </div>
 
@@ -101,7 +127,8 @@ export default function ManifestoSection() {
                 data-manifesto-beats
                 role="region"
                 aria-label="Princípios do manifesto"
-                tabIndex={0}
+                aria-hidden={motionMode === 'desktop' ? true : undefined}
+                tabIndex={motionMode === 'desktop' ? -1 : 0}
               >
                 {beats.map((beat, index) => (
                   <article
@@ -110,9 +137,7 @@ export default function ManifestoSection() {
                     data-manifesto-beat
                     data-active={index === 0 ? 'true' : 'false'}
                     aria-label={`${beat.principle}, princípio ${index + 1} de ${beats.length}`}
-                    aria-posinset={index + 1}
                     aria-roledescription="cartão"
-                    aria-setsize={beats.length}
                   >
                     <div className={styles.beatDots} aria-hidden="true" data-manifesto-card-dots>
                       <span />
@@ -152,11 +177,11 @@ export default function ManifestoSection() {
 
           <div className={styles.closing} data-manifesto-closing>
             <span className={styles.closingEyebrow} data-manifesto-closing-part>
-              O manifesto termina aqui.
+              Das decisões à entrega
             </span>
-            <p aria-label="Agora, a ideia entra em prática.">
+            <p aria-label="Agora, o código entra em prática.">
               <span className={styles.closingLine} aria-hidden="true" data-manifesto-closing-part>
-                Agora, a ideia
+                Agora, o código
               </span>
               <span className={styles.closingAction} aria-hidden="true" data-manifesto-closing-part>
                 <span className={styles.closingWord}>entra</span>

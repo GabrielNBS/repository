@@ -5,7 +5,7 @@
   min-height: calc(100dvh + var(--skills-scroll-distance, 0px));
   scroll-margin-top: var(--nav-clearance);
   overflow: clip;
-  background: var(--color-paper);
+  background: transparent;
   color: var(--color-ink);
 }
 
@@ -51,7 +51,7 @@
 }
 
 .asideTitle em {
-  color: var(--color-peach);
+  color: var(--color-peach-text);
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 400;
@@ -116,11 +116,15 @@
 
 .cardViewport {
   min-width: 0;
+  padding-left: calc(var(--skills-portal-width) + 0.75rem);
   overflow-x: clip;
   overflow-clip-margin: var(--skills-outline-bleed);
 }
 
 .stage {
+  --skills-portal-width: clamp(2rem, 4.5vw, 4.5rem);
+  position: relative;
+  padding-block: calc(var(--skills-outline-bleed) + 0.25rem);
   min-width: 0;
   align-self: start;
   /* Offset visual fixo: a abertura do copy não pode recentrar o carrossel. */
@@ -138,6 +142,34 @@
   will-change: transform;
 }
 
+.paperPortal {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 3;
+  width: var(--skills-portal-width);
+  height: var(--skills-portal-height, 100%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.portalShadow {
+  fill: var(--color-ink);
+  opacity: 0.14;
+}
+
+.portalBack {
+  fill: var(--color-cream);
+  stroke: rgb(37 34 31 / 24%);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.portalFront {
+  fill: var(--color-paper);
+  stroke: rgb(37 34 31 / 18%);
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+}
 .isDragging {
   cursor: grabbing;
 }
@@ -231,6 +263,7 @@
 }
 
 .cardMark {
+  font-family: var(--font-numeric);
   position: absolute;
   top: 1.35rem;
   left: 1.35rem;
@@ -247,7 +280,8 @@
   letter-spacing: 0.02em;
 }
 
-.cardVideo {
+.cardVideo,
+.cardPoster {
   --video-inset: clamp(1rem, 2vw, 1.5rem);
   position: absolute;
   z-index: 1;
@@ -260,6 +294,21 @@
   mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
+}
+
+.cardPoster {
+  /* Override fill positioning to match the inset of the video exactly. */
+  inset: var(--video-inset) !important;
+  width: calc(100% - (var(--video-inset) * 2)) !important;
+  height: calc(100% - (var(--video-inset) * 2)) !important;
+}
+
+.cardVideo:not([data-ready='true']) {
+  opacity: 0;
+}
+
+.cardVisual:has(.cardVideo[data-ready='true']) .cardPoster {
+  display: none;
 }
 
 .cardCopy {
@@ -345,6 +394,7 @@
     overflow-x: auto;
     overflow-y: visible;
     padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+    padding-left: calc(var(--skills-portal-width) + 0.75rem);
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -355,8 +405,19 @@
     display: none;
   }
 
+  /* Activate native scrolling only when the carousel approaches the viewport.
+     An off-screen scroll container can suppress initial mobile LCP candidates. */
+  .cardViewport[data-near-viewport='false'] {
+    overflow: clip;
+  }
+
   .stage {
+    --skills-portal-width: clamp(1.5rem, 5vw, 2.5rem);
     transform: none;
+  }
+
+  .paperPortal {
+    top: 3rem;
   }
 
   .cardsTrack {
@@ -394,6 +455,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) and (min-width: 801px) {
+  .paperPortal {
+    display: none;
+  }
   .section {
     min-height: auto;
     overflow: visible;

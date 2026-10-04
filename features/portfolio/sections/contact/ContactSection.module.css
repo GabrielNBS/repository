@@ -6,7 +6,7 @@
   isolation: isolate;
   scroll-margin-top: var(--nav-clearance);
   padding-inline: var(--gutter-page);
-  background: var(--color-bg-canvas);
+  background-color: transparent;
 }
 
 .artwork {
@@ -104,21 +104,18 @@
   width: 100%;
 }
 
-.label {
-  display: block;
-  margin-bottom: 0.75rem;
-  color: var(--color-muted);
-  font-family: var(--font-ui);
-  font-size: var(--text-label);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .inputRow {
   display: flex;
   align-items: center;
+  gap: var(--space-6);
   border-bottom: 1px solid var(--color-ink);
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+  font-size: var(--text-body-sm);
 }
 
 .inputRow:has(.input[aria-invalid='true']) {
@@ -126,9 +123,10 @@
 }
 
 .input {
+  --input-active-background: color-mix(in srgb, var(--color-peach) 18%, var(--color-paper));
   min-width: 0;
   flex: 1;
-  padding: 0.75rem 0;
+  padding: var(--space-3);
   border: 0;
   outline: none;
   background: transparent;
@@ -139,6 +137,17 @@
 
 .input::placeholder {
   color: var(--color-text-placeholder);
+}
+
+.input:focus {
+  background-color: var(--input-active-background);
+}
+
+/* Cover the browser's autofill blue with the same soft peach surface. */
+.input:is(:autofill, :-webkit-autofill) {
+  box-shadow: inset 0 0 0 1000px var(--input-active-background);
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
 }
 
 .input:focus-visible {
@@ -155,23 +164,29 @@
   border: 0;
   border-radius: var(--radius-round);
   background: var(--color-peach);
+  box-shadow: var(--space-1) 0.3rem 0 var(--color-ink);
   color: var(--color-ink);
   cursor: pointer;
   font-size: var(--text-action-icon);
   transition:
     background 200ms ease,
     color 200ms ease,
-    transform 200ms ease;
+    box-shadow 200ms ease;
 }
 
 .submit svg {
   width: var(--text-action-icon);
   height: var(--text-action-icon);
+  transition: transform 200ms ease;
 }
 
 .submit:is(:hover, :focus-visible) {
   background: var(--color-ink);
   color: var(--color-paper);
+  box-shadow: var(--space-1) 0.3rem 0 color-mix(in srgb, var(--color-peach) 75%, var(--color-paper));
+}
+
+.submit:is(:hover, :focus-visible) svg {
   transform: rotate(45deg);
 }
 
@@ -224,7 +239,6 @@
   width: 1rem;
   height: 1rem;
   flex: 0 0 auto;
-  stroke-width: 1.8;
   transition: transform 240ms var(--ease-spring);
 }
 
@@ -255,18 +269,17 @@
 @media (max-width: 800px) {
   .artwork {
     bottom: 4.75rem;
-    left: -25vw;
+    left: 50%;
+    transform: translateX(-50%);
     width: 110vw;
     height: 46dvh;
     opacity: 1;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      #000 0%,
-      #000 78%,
-      rgb(0 0 0 / 76%) 90%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(90deg, #000 0%, #000 78%, rgb(0 0 0 / 76%) 90%, transparent 100%);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .artworkImage {
+    object-position: center bottom;
   }
 
   .content {
@@ -309,7 +322,6 @@
 
   .artwork {
     bottom: 0;
-    left: -31vw;
     width: 122vw;
     height: 43dvh;
   }
@@ -328,7 +340,7 @@
   }
 
   .inputRow {
-    gap: 0.5rem;
+    gap: var(--space-4);
   }
 
   .contactLink {

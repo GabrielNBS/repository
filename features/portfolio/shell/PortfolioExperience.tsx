@@ -4,6 +4,7 @@ import { useRef, type PropsWithChildren } from 'react';
 import { ProjectCursorProvider } from '../projects/cursor/ProjectCursorProvider';
 import { usePortfolioMotion } from './portfolioHomeMotion';
 import styles from './PortfolioHome.module.css';
+import AmbientBackground from '../shared/AmbientBackground';
 
 /**
  * Limite cliente da home. O conteúdo editorial continua renderizado no servidor;
@@ -29,6 +30,7 @@ export default function PortfolioExperience({
         data-project-return-pending={returnToProjects ? 'true' : undefined}
         tabIndex={-1}
       >
+        <AmbientBackground page={root} />
         <a className={styles.skipLink} href="#hero-title">
           Pular para o conteúdo
         </a>

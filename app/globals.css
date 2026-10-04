@@ -4,6 +4,7 @@
   --color-paper: #f6efe5;
   --color-ink: #25221f;
   --color-peach: #efae82;
+  --color-peach-text: #9b4e24;
   --color-lilac: #cdb8d8;
   --color-cream: #e7d6bb;
   --color-rose: #e8b6aa;
@@ -24,6 +25,7 @@
   --font-display: var(--font-serif);
   --font-body: var(--font-ui);
   --font-label: var(--font-ui);
+  --font-numeric: var(--font-ui);
   --ease-editorial: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -134,6 +136,7 @@
     color: var(--color-text-primary);
     font-size: var(--text-body-md);
     font-family: var(--font-serif);
+    font-variant-numeric: lining-nums tabular-nums;
     -webkit-font-smoothing: antialiased;
   }
   p,
@@ -191,6 +194,37 @@ body :where(button, input) {
   display: inline-block;
   padding-block: 0.04em;
   margin-block: -0.04em;
+}
+
+.video-motion-control {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: var(--layer-floating);
+  min-height: 2.75rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+}
+
+.video-motion-control[aria-pressed='true'] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+@media (max-width: 800px) {
+  /* Let the browser promote active animations on demand instead of retaining
+     layers for every off-screen section on memory-constrained devices. */
+  [data-portfolio-home] * {
+    will-change: auto !important;
+  }
+  :where([id], a, button, input, [tabindex]) {
+    scroll-margin-block-start: var(--nav-clearance);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

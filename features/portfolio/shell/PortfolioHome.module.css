@@ -1,4 +1,7 @@
 .main {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-paper);
   overflow-x: clip;
 }
 :global(html[data-home-scroll-target='projects']) .main,

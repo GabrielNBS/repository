@@ -1,0 +1,40 @@
+.button { display: none; }
+
+@media (max-width: 800px) {
+  .button {
+    position: fixed;
+    z-index: var(--layer-floating);
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+    background: var(--color-peach);
+    color: var(--color-ink);
+    box-shadow: 0.15rem 0.2rem 0 var(--color-ink);
+    text-decoration: none;
+  }
+  .button svg {
+    width: var(--text-action-icon);
+    height: var(--text-action-icon);
+    animation: point-up 1.8s ease-in-out infinite;
+  }
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+@keyframes point-up {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button svg { animation: none; }
+}

@@ -3,7 +3,7 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useCallback, useRef, type RefObject } from 'react';
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 import styles from './SkillsSection.module.css';
 
 type SkillsMotionRefs = {
@@ -13,10 +13,10 @@ type SkillsMotionRefs = {
   viewport: RefObject<HTMLDivElement | null>;
   cards: RefObject<Array<HTMLElement | null>>;
   nav: RefObject<Array<HTMLButtonElement | null>>;
+  nearViewport: boolean;
 };
 
-// ScrollTrigger controla o deslocamento horizontal do track; os demais tweens
-// continuam no core do GSAP e são criados dentro do useGSAP.
+// ScrollTrigger sincroniza o deslocamento horizontal com o scroll da página.
 gsap.registerPlugin(ScrollTrigger);
 
 export function useSkillsMotion({
@@ -25,12 +25,32 @@ export function useSkillsMotion({
   track,
   viewport,
   cards: cardsRef,
-  nav: navRef
+  nav: navRef,
+  nearViewport
 }: SkillsMotionRefs) {
   const navigateToIndexRef = useRef<(index: number) => void>(() => undefined);
+  const [layoutMode, setLayoutMode] = useState('');
+
+  useEffect(() => {
+    const compact = window.matchMedia('(max-width: 800px), (pointer: coarse)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMode = () => setLayoutMode(`${compact.matches}:${reduced.matches}`);
+    updateMode();
+    compact.addEventListener('change', updateMode);
+    reduced.addEventListener('change', updateMode);
+    return () => {
+      compact.removeEventListener('change', updateMode);
+      reduced.removeEventListener('change', updateMode);
+    };
+  }, []);
+
+  const ready = Boolean(layoutMode) && (!layoutMode.startsWith('true:') || nearViewport);
 
   useGSAP(
     () => {
+      // Wait for media detection so setup does not run twice on hydration.
+      // Desktop pins still initialize immediately to preserve scroll geometry.
+      if (!ready) return;
       const sectionElement = section.current;
       const shellElement = shell.current;
       const trackElement = track.current;
@@ -66,9 +86,43 @@ export function useSkillsMotion({
       let sectionInView = false;
       const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const compactQuery = window.matchMedia('(max-width: 800px), (pointer: coarse)');
+      const switchThreshold = 0.6;
       const firstCardReadingBreath = 0.34;
       const lastCardBreath = 0.14;
-      const switchThreshold = 0.6;
+
+      // A altura do portal depende do conteúdo completo, nunca dos tweens do copy.
+      let portalWidth = -1;
+      const measurePortal = () => {
+        const width = viewportElement.clientWidth;
+        if (width === portalWidth) return;
+        portalWidth = width;
+        const stage = viewportElement.parentElement;
+        if (!stage) return;
+        const stageStyles = getComputedStyle(stage);
+        const bleed = parseFloat(stageStyles.paddingTop) + parseFloat(stageStyles.paddingBottom);
+        const height = Math.max(
+          ...cards.map((card) => {
+            const visual = card.querySelector<HTMLElement>(`.${styles.cardVisual}`);
+            const title = card.querySelector<HTMLElement>(`.${styles.cardTitle}`);
+            const description = card.querySelector<HTMLElement>(`.${styles.cardDescription}`);
+            if (!visual || !title || !description) return card.offsetHeight;
+            const copyHeight =
+              title.offsetHeight +
+              description.offsetHeight +
+              parseFloat(getComputedStyle(description).marginTop) +
+              48;
+            return visual.offsetHeight + copyHeight;
+          })
+        );
+        sectionElement.style.setProperty('--skills-portal-height', `${height + bleed}px`);
+      };
+      measurePortal();
+      const portalObserver = new ResizeObserver(measurePortal);
+      portalObserver.observe(viewportElement);
+      const clearPortal = () => {
+        portalObserver.disconnect();
+        sectionElement.style.removeProperty('--skills-portal-height');
+      };
 
       // Mantém a mídia do card ativo sincronizada com a navegação e com a
       // preferência de movimento reduzido do usuário.
@@ -76,41 +130,70 @@ export function useSkillsMotion({
         videos.forEach((video, index) => {
           const isActive = index === activeIndex;
 
-          if (reduceMotionQuery.matches || !sectionInView || !isActive) {
+          if (reduceMotionQuery.matches || document.documentElement.dataset.videosPaused === 'true' || !sectionInView || !isActive) {
             video.pause();
-            if (!isActive && video.readyState > 0) video.currentTime = 0;
+            // O frame de preview preserva o esboço nos cards fora de destaque.
+            if (!isActive && video.readyState > 0 && video.currentTime !== 1) {
+              video.currentTime = 1;
+            }
             return;
           }
 
+          if (!video.getAttribute('src') && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
           void video.play().catch(() => undefined);
         });
       };
+
+      const markVideoReady = (event: Event) => {
+        const video = event.currentTarget as HTMLVideoElement;
+        video.dataset.ready = 'true';
+      };
+      const restoreVideoPoster = (event: Event) => {
+        const video = event.currentTarget as HTMLVideoElement;
+        delete video.dataset.ready;
+      };
+      videos.forEach((video) => {
+        video.addEventListener('loadeddata', syncVideoMotion);
+        video.addEventListener('playing', markVideoReady);
+        video.addEventListener('error', restoreVideoPoster);
+      });
+      const clearVideos = () => {
+        document.removeEventListener('portfolio-video-resume', syncVideoMotion);
+        videos.forEach((video) => {
+          video.removeEventListener('loadeddata', syncVideoMotion);
+          video.removeEventListener('playing', markVideoReady);
+          video.removeEventListener('error', restoreVideoPoster);
+          video.pause();
+        });
+      };
+      document.addEventListener('portfolio-video-resume', syncVideoMotion);
 
       const visibilityObserver = new IntersectionObserver(
         ([entry]) => {
           sectionInView = entry.isIntersecting;
           syncVideoMotion();
         },
-        { rootMargin: '320px 0px' }
+        { threshold: 0.15 }
       );
       visibilityObserver.observe(sectionElement);
 
-      // Todas as leituras de layout ficam concentradas aqui. `pinDistance`
-      // transforma a largura excedente do track em distância vertical de
-      // scroll, acrescenta retenção de leitura no primeiro card e um respiro
-      // equivalente no último.
+      // Reserva distância de scroll e tempo de leitura no primeiro e último card.
       const measure = () => {
         const cardWidth = cards[0].getBoundingClientRect().width;
         const gap = parseFloat(getComputedStyle(trackElement).gap) || 0;
         step = cardWidth + gap;
-        maxTranslate = Math.max(0, trackElement.scrollWidth - viewportElement.clientWidth);
+        const viewportInset = parseFloat(getComputedStyle(viewportElement).paddingLeft) || 0;
+        maxTranslate = Math.max(
+          0,
+          trackElement.scrollWidth + viewportInset - viewportElement.clientWidth
+        );
         firstCardHoldDistance = window.innerHeight * firstCardReadingBreath;
         pinDistance = maxTranslate + firstCardHoldDistance + window.innerHeight * lastCardBreath;
         sectionElement.style.setProperty('--skills-scroll-distance', `${pinDistance}px`);
       };
 
-      // O primeiro trecho do pin não move o carrossel. Após esse respiro, o
-      // restante volta à relação 1:1 entre scroll vertical e eixo horizontal.
       const progressToPosition = (progress: number) =>
         Math.max(0, progress * pinDistance - firstCardHoldDistance);
 
@@ -185,6 +268,8 @@ export function useSkillsMotion({
           item.setAttribute('aria-current', index === activeIndex ? 'step' : 'false');
         });
 
+        const activeVideo = videos[activeIndex];
+        if (activeVideo?.readyState > 0) activeVideo.currentTime = 0;
         syncVideoMotion();
       };
 
@@ -192,19 +277,16 @@ export function useSkillsMotion({
         const viewportBounds = viewportElement.getBoundingClientRect();
         const viewportCenter = viewportBounds.left + viewportBounds.width / 2;
 
-        return cards.reduce(
-          (closestIndex, card, index) => {
-            const bounds = card.getBoundingClientRect();
-            const closestBounds = cards[closestIndex].getBoundingClientRect();
-            const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
-            const closestDistance = Math.abs(
-              closestBounds.left + closestBounds.width / 2 - viewportCenter
-            );
+        return cards.reduce((closestIndex, card, index) => {
+          const bounds = card.getBoundingClientRect();
+          const closestBounds = cards[closestIndex].getBoundingClientRect();
+          const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
+          const closestDistance = Math.abs(
+            closestBounds.left + closestBounds.width / 2 - viewportCenter
+          );
 
-            return distance < closestDistance ? index : closestIndex;
-          },
-          0
-        );
+          return distance < closestDistance ? index : closestIndex;
+        }, 0);
       };
 
       // No mobile/tablet, o track usa o scroll horizontal nativo. O card mais
@@ -235,15 +317,32 @@ export function useSkillsMotion({
           });
         };
 
+        const scrollToCompactIndex = (index: number) => {
+          const nextIndex = Math.max(0, Math.min(cards.length - 1, index));
+          const targetLeft = Math.max(
+            0,
+            cards[nextIndex].offsetLeft -
+              (viewportElement.clientWidth - cards[nextIndex].offsetWidth) / 2
+          );
+          viewportElement.scrollTo({
+            left: targetLeft,
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth'
+          });
+          setActive(nextIndex);
+        };
+        navigateToIndexRef.current = scrollToCompactIndex;
         setActive(0, false);
+        onCompactScroll();
         viewportElement.addEventListener('scroll', onCompactScroll, { passive: true });
         trackElement.addEventListener('focusin', onCardFocus);
 
         return () => {
+          clearPortal();
+          navigateToIndexRef.current = () => undefined;
           viewportElement.removeEventListener('scroll', onCompactScroll);
           trackElement.removeEventListener('focusin', onCardFocus);
           visibilityObserver.disconnect();
-          videos.forEach((video) => video.pause());
+          clearVideos();
         };
       }
 
@@ -251,12 +350,19 @@ export function useSkillsMotion({
       // fluxo normal e não cria um carrossel pinado nem listeners de drag.
       if (reduceMotionQuery.matches) {
         setActive(0, false);
+        navigateToIndexRef.current = (index) => {
+          cards[index]?.focus({ preventScroll: true });
+          cards[index]?.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+        };
         visibilityObserver.disconnect();
-        return undefined;
+        return () => {
+          navigateToIndexRef.current = () => undefined;
+          clearPortal();
+          clearVideos();
+        };
       }
 
-      // Converte a posição horizontal em índice de card. O clamp impede que
-      // drag, resize ou ScrollTrigger levem o track para fora dos limites.
+      // Converte o drag horizontal em índice de card dentro dos limites.
       const setPosition = (nextPosition: number, immediate = false) => {
         position = Math.max(0, Math.min(maxTranslate, nextPosition));
         const trackProgress = maxTranslate ? position / maxTranslate : 0;
@@ -274,44 +380,29 @@ export function useSkillsMotion({
         if (indexChanged || immediate) setActive(nextIndex, !immediate);
       };
 
-      // Navegação manual: no mobile usa scroll nativo; no desktop converte o
-      // índice em uma posição vertical dentro do trecho pinado.
+      // Os botões e o drag navegam pela mesma distância vertical do scroll.
       const scrollToIndex = (index: number) => {
-        if (compactQuery.matches) {
-          cards[index]?.scrollIntoView({
-            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
-            block: 'center'
-          });
-          setActive(index, !reduceMotionQuery.matches);
-          return;
-        }
-
-        const scrollTrigger = ScrollTrigger.getById('skills-horizontal-track');
-        const start = scrollTrigger?.start ?? sectionElement.offsetTop;
-        const progress = index / (cards.length - 1);
-        const target =
-          start + (index === 0 ? 0 : firstCardHoldDistance + progress * maxTranslate);
+        const nextIndex = Math.max(0, Math.min(cards.length - 1, index));
+        const start = scrollTrigger.start;
+        const progress = nextIndex / (cards.length - 1);
+        const target = start + (nextIndex === 0 ? 0 : firstCardHoldDistance + progress * maxTranslate);
         window.scrollTo({ top: target, behavior: 'smooth' });
       };
 
       measure();
-
-      // Trigger standalone porque o track é atualizado manualmente no onUpdate
-      // e também pode ser controlado pelo drag do ponteiro.
+      viewportElement.scrollTo({ left: 0, behavior: 'instant' });
       const scrollTrigger = ScrollTrigger.create({
         id: 'skills-horizontal-track',
-        // O track só inicia quando o shell sticky já está fixo no topo. Isso
-        // dá ao primeiro card seu próprio trecho de leitura antes do avanço.
         trigger: sectionElement,
         start: 'top top',
         end: () => `+=${pinDistance}`,
         invalidateOnRefresh: true,
+        onRefreshInit: measure,
         onRefresh: (self) => {
-          measure();
           setPosition(Math.min(maxTranslate, progressToPosition(self.progress)), true);
         },
         onUpdate: (self) => {
-          if (!dragging && !compactQuery.matches) {
+          if (!dragging) {
             setPosition(Math.min(maxTranslate, progressToPosition(self.progress)));
           }
         }
@@ -319,7 +410,10 @@ export function useSkillsMotion({
 
       // Recalcula medidas após resize e restaura o modo correto de track para
       // desktop/mobile antes de pedir um refresh global ao ScrollTrigger.
-      const onResize = () => {
+      let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+      const syncLayout = () => {
+        dragging = false;
+        shellElement.classList.remove(styles.isDragging);
         measure();
         if (compactQuery.matches) {
           gsap.set(trackElement, { clearProps: 'transform' });
@@ -332,6 +426,10 @@ export function useSkillsMotion({
           setPosition(Math.min(maxTranslate, progressToPosition(scrollTrigger.progress)), true);
         }
         ScrollTrigger.refresh();
+      };
+      const onResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(syncLayout, 200);
       };
 
       // Drag horizontal opcional no desktop. O clique nos botões de navegação
@@ -363,6 +461,15 @@ export function useSkillsMotion({
       };
 
       navigateToIndexRef.current = scrollToIndex;
+      const onDesktopCardFocus = (event: FocusEvent) => {
+        const index = cards.indexOf(event.target as HTMLElement);
+        if (index < 0) return;
+        const progress = index / (cards.length - 1);
+        const target = scrollTrigger.start + (index === 0 ? 0 : firstCardHoldDistance + progress * maxTranslate);
+        window.scrollTo({ top: target, behavior: 'instant' });
+        setPosition(progress * maxTranslate, true);
+      };
+      trackElement.addEventListener('focusin', onDesktopCardFocus);
       shellElement.addEventListener('pointerdown', onPointerDown);
       shellElement.addEventListener('pointermove', onPointerMove);
       shellElement.addEventListener('pointerup', onPointerUp);
@@ -370,22 +477,27 @@ export function useSkillsMotion({
       window.addEventListener('resize', onResize);
       reduceMotionQuery.addEventListener('change', syncVideoMotion);
 
-      setPosition(0, true);
+      ScrollTrigger.refresh();
+      setPosition(Math.min(maxTranslate, progressToPosition(scrollTrigger.progress)), true);
 
       return () => {
+        clearPortal();
         navigateToIndexRef.current = () => undefined;
+        trackElement.removeEventListener('focusin', onDesktopCardFocus);
         shellElement.removeEventListener('pointerdown', onPointerDown);
         shellElement.removeEventListener('pointermove', onPointerMove);
         shellElement.removeEventListener('pointerup', onPointerUp);
         shellElement.removeEventListener('pointercancel', onPointerUp);
         window.removeEventListener('resize', onResize);
+        clearTimeout(resizeTimer);
         reduceMotionQuery.removeEventListener('change', syncVideoMotion);
         scrollTrigger.kill();
         sectionElement.style.removeProperty('--skills-scroll-distance');
         visibilityObserver.disconnect();
+        clearVideos();
       };
     },
-    { scope: section, dependencies: [] }
+    { scope: section, dependencies: [layoutMode, ready], revertOnUpdate: true }
   );
 
   return useCallback((index: number) => {

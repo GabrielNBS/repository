@@ -21,14 +21,21 @@ export function createBlurReveals(scope?: HTMLElement | null) {
   if (!elements.length) return () => {};
 
   // Prepara todos os alvos antes do primeiro callback do ScrollTrigger.
-  gsap.set(elements, blurReveal.hidden);
-  // Um único trigger é criado para o conjunto; os itens que entram próximos
-  // uns dos outros são revelados em lote, com stagger de 100ms.
-  const trigger = ScrollTrigger.batch(elements, {
-    start: 'top 88%',
-    once: true,
-    onEnter: (batch) => gsap.to(batch, { ...blurReveal.visible, stagger: 0.1 })
-  });
+  const context = gsap.context(() => {
+    gsap.set(elements, blurReveal.hidden);
+    // Um único trigger é criado para o conjunto; os itens que entram próximos
+    // uns dos outros são revelados em lote, com stagger de 100ms.
+    const trigger = ScrollTrigger.batch(elements, {
+      start: 'top 88%',
+      once: true,
+      onEnter: (batch) =>
+        context.add(() => {
+          gsap.to(batch, { ...blurReveal.visible, stagger: 0.1 });
+        })
+    });
 
-  return () => trigger.forEach((item) => item.kill());
+    return () => trigger.forEach((item) => item.kill());
+  }, scope ?? undefined);
+
+  return () => context.revert();
 }

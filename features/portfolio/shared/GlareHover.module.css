@@ -1,0 +1,42 @@
+.glareHover {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.glareHover::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--gh-angle),
+    transparent 60%,
+    var(--gh-color) 70%,
+    transparent 100%
+  );
+  background-size: var(--gh-size) var(--gh-size);
+  background-repeat: no-repeat;
+  background-position: -100% -100%;
+  opacity: var(--gh-opacity);
+  pointer-events: none;
+  content: '';
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .glareHover::before {
+    transition: background-position var(--gh-duration) ease;
+  }
+
+  .glareHover:hover::before {
+    background-position: 100% 100%;
+  }
+
+  .playOnce::before {
+    transition: none;
+  }
+
+  .playOnce:hover::before {
+    transition: background-position var(--gh-duration) ease;
+  }
+}

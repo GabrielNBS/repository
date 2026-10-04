@@ -1,5 +1,7 @@
 'use client';
 
+import AppIcon from '@/features/portfolio/shared/AppIcon';
+
 import Link from 'next/link';
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import ProjectVisual from './ProjectVisual';
@@ -17,6 +19,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     <Link
       className={styles.link}
       href={`/projetos/${project.slug}`}
+      prefetch={true}
       onClick={markProjectReturnIntent}
       onPointerEnter={(event) => onProjectPointerEnter(event, project)}
       onPointerLeave={onProjectPointerLeave}
@@ -30,27 +33,16 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <div className={styles.content}>
           <div>
             <div className={styles.meta}>
-              <span className={styles.projectNumber}>
-                Projeto / 0{index + 1}
-              </span>
-              <span className={styles.year}>
-                {project.year}
-              </span>
+              <span className={styles.projectNumber}>Projeto / 0{index + 1}</span>
+              <span className={styles.year}>{project.year}</span>
             </div>
-            <h3 className={styles.title}>
-              {project.name}
-            </h3>
-            <p className={styles.description}>
-              {project.description}
-            </p>
+            <h3 className={styles.title}>{project.name}</h3>
+            <p className={styles.description}>{project.description}</p>
           </div>
           <div className={styles.actions}>
             <ProjectStackIcons stacks={project.techs} />
-            <span
-              className={styles.details}
-              aria-hidden="true"
-            >
-              Detalhes <span aria-hidden="true">↗</span>
+            <span className={styles.details} aria-hidden="true">
+              Detalhes <AppIcon name="arrowUpRight" size="compact" />
             </span>
           </div>
         </div>

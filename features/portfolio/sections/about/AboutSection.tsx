@@ -1,4 +1,5 @@
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
+import GlareHover from '@/features/portfolio/shared/GlareHover';
 import AboutPortraitSequence from './AboutPortraitSequence';
 import styles from './AboutSection.module.css';
 
@@ -28,15 +29,23 @@ export default function AboutSection({ technologies = defaultTechnologies }: Abo
       <div className={styles.copy}>
         <p className={styles.eyebrow}>03 / Sobre</p>
         <HeadingSplit as="h2" id="about-title" className={styles.title} data-motion="text-split">
-          Código com olhar de direção.
+          Um pouco sobre mim
         </HeadingSplit>
         <p className={styles.intro}>
-          Sou Gabriel Nascimento, desenvolvedor front-end. Gosto de aproximar lógica e sensibilidade
-          para transformar produtos digitais em experiências que fazem sentido.
+          Já desenvolvi pessoas liderando equipes; hoje, desenvolvo sistemas com foco no front-end.
+          Dessa trajetória, trouxe a escuta, a atenção aos processos e o hábito de entender um
+          problema antes de propor uma solução.
+        </p>
+        <p className={styles.intro}>
+          Na interface, esse cuidado se traduz em experiências claras, agradáveis e úteis para quem
+          está do outro lado da tela. Gosto de unir atenção aos detalhes e código bem organizado,
+          criando soluções que facilitem a rotina e possam evoluir com o projeto.
         </p>
         <ul className={styles.technologies} aria-label="Tecnologias e especialidades">
           {technologies.map((tech) => (
-            <li key={tech}>{tech}</li>
+            <li key={tech}>
+              <GlareHover className={styles.technology}>{tech}</GlareHover>
+            </li>
           ))}
         </ul>
       </div>

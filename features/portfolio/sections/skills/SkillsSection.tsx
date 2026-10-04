@@ -1,9 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import styles from './SkillsSection.module.css';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
 import { useSkillsMotion } from './skillsMotion';
+import { useNearViewport } from '../../shared/motion/useNearViewport';
 
 interface Skill {
   title: string;
@@ -59,6 +61,7 @@ export default function SkillsSection() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<Array<HTMLElement | null>>([]);
   const navRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const nearViewport = useNearViewport(sectionRef);
 
   const navigateToSkill = useSkillsMotion({
     section: sectionRef,
@@ -66,12 +69,16 @@ export default function SkillsSection() {
     track: trackRef,
     viewport: viewportRef,
     cards: cardsRef,
-    nav: navRef
+    nav: navRef,
+    nearViewport
   });
 
   return (
     <section ref={sectionRef} className={styles.section} id="skills" aria-labelledby="skills-title">
-      <div ref={shellRef} className={styles.sectionShell} data-motion="blur-reveal">
+      <noscript>
+        <style>{`@media (max-width: 800px) { #skills [data-near-viewport] { overflow-x: auto; overflow-y: hidden; } }`}</style>
+      </noscript>
+      <div ref={shellRef} className={styles.sectionShell}>
         <div className={styles.aside}>
           <p className={styles.eyebrow}>04 / Como construo</p>
           <HeadingSplit
@@ -81,7 +88,7 @@ export default function SkillsSection() {
             data-motion="text-split"
             toggleActions={false}
           >
-            Muito mais que trocar a cor de um botão.
+            Muito mais que trocar a cor de um botão
           </HeadingSplit>
 
           <nav className={styles.skillsNav} aria-label="Navegação pelas habilidades">
@@ -104,7 +111,27 @@ export default function SkillsSection() {
         </div>
 
         <div className={styles.stage}>
-          <div ref={viewportRef} className={styles.cardViewport}>
+          <svg
+            className={styles.paperPortal}
+            viewBox="0 0 80 600"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              className={styles.portalShadow}
+              d="M0 0H64L55 32 63 61 48 96 58 130 45 170 55 206 42 247 51 281 40 320 52 356 43 390 58 431 49 464 62 501 53 537 65 570 58 600H0Z"
+            />
+            <path
+              className={styles.portalBack}
+              d="M0 0H54L45 32 53 61 38 96 48 130 35 170 45 206 32 247 41 281 30 320 42 356 33 390 48 431 39 464 52 501 43 537 55 570 48 600H0Z"
+            />
+            <path
+              className={styles.portalFront}
+              d="M0 0H34L40 28 28 58 36 92 24 124 31 162 20 199 29 238 18 272 25 309 16 348 28 384 21 420 34 455 26 489 39 528 30 564 38 600H0Z"
+            />
+          </svg>
+          <div ref={viewportRef} className={styles.cardViewport} data-near-viewport={nearViewport}>
             <div
               ref={trackRef}
               className={styles.cardsTrack}
@@ -121,8 +148,6 @@ export default function SkillsSection() {
                   data-variant={cardTones[index]}
                   tabIndex={0}
                   aria-roledescription="cartão"
-                  aria-posinset={index + 1}
-                  aria-setsize={skills.length}
                   aria-label={`${skill.title}: ${skill.description}`}
                 >
                   <div className={styles.cardSurface}>
@@ -130,9 +155,16 @@ export default function SkillsSection() {
                       <span className={styles.cardMark} aria-hidden="true">
                         0{index + 1}.
                       </span>
+                      <Image
+                        className={styles.cardPoster}
+                        src={skill.video.replace('.mp4', '-poster.webp')}
+                        alt=""
+                        fill
+                        sizes="(max-width: 800px) 80vw, 360px"
+                      />
                       <video
                         className={styles.cardVideo}
-                        src={skill.video}
+                        data-src={skill.video}
                         loop
                         muted
                         playsInline

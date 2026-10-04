@@ -55,6 +55,12 @@ export default function ProjectTeaser({
   useEffect(() => {
     if (!shouldLoad || !video.current) return;
     video.current.load();
+    const resume = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      void video.current?.play().catch(() => undefined);
+    };
+    document.addEventListener('portfolio-video-resume', resume);
+    return () => document.removeEventListener('portfolio-video-resume', resume);
   }, [shouldLoad]);
 
   if (!teaser) return null;
@@ -73,7 +79,6 @@ export default function ProjectTeaser({
         <video
           ref={video}
           className={`${styles.video} ${isReady ? styles.videoReady : ''}`}
-          autoPlay
           muted
           loop
           playsInline
@@ -82,7 +87,10 @@ export default function ProjectTeaser({
             setIsReady(true);
             setIsBuffering(false);
             setHasError(false);
-            void video.current?.play().catch(() => undefined);
+            if (document.documentElement.dataset.videosPaused !== 'true' &&
+                !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              void video.current?.play().catch(() => undefined);
+            }
           }}
           onWaiting={() => setIsBuffering(true)}
           onPlaying={() => setIsBuffering(false)}

@@ -1,5 +1,7 @@
 'use client';
 
+import AppIcon from '@/features/portfolio/shared/AppIcon';
+
 import type { Project } from '@/features/portfolio/projects/data/projects';
 import { getProjectTeaser } from '@/features/portfolio/projects/data/projects';
 import { getProjectTone } from './data/projectTone';
@@ -49,7 +51,7 @@ export default function ProjectVisual({
       </div>
       <div className={styles.label}>
         <span>{label}</span>
-        <span>↗</span>
+        <AppIcon name="arrowUpRight" size="compact" />
       </div>
     </div>
   );

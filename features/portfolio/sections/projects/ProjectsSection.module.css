@@ -4,10 +4,11 @@
 .story {
   min-height: 100dvh;
   padding: clamp(1rem, 3vw, 3rem);
-  background: var(--color-paper);
+  background-color: var(--color-paper);
   color: var(--color-ink);
 }
 .header {
+  font-family: var(--font-ui);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -32,72 +33,9 @@
   display: flex;
   min-height: 40rem;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2rem;
 }
-.illustration {
-  position: relative;
-  width: min(100%, 14rem);
-  height: 11rem;
-  margin: 2rem 0 1rem;
-  transform-origin: 50% 0;
-  will-change: transform, opacity;
-}
-.lampCord,
-.lampArm,
-.lampShade,
-.lampBulb,
-.lampPool {
-  position: absolute;
-  display: block;
-}
-.lampCord {
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 4.25rem;
-  background: var(--color-ink);
-  transform: translateX(-50%);
-}
-.lampArm {
-  top: 3.8rem;
-  left: calc(50% - 0.08rem);
-  width: 2.8rem;
-  height: 1px;
-  background: var(--color-ink);
-  transform: rotate(23deg);
-  transform-origin: left center;
-}
-.lampShade {
-  top: 4rem;
-  left: calc(50% + 1.7rem);
-  width: 4.6rem;
-  height: 2.85rem;
-  border: 1px solid var(--color-ink);
-  background: var(--color-peach);
-  clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
-  transform: translateX(-50%);
-}
-.lampBulb {
-  top: 6.15rem;
-  left: calc(50% + 1.7rem);
-  width: 0.86rem;
-  aspect-ratio: 1;
-  border: 1px solid var(--color-ink);
-  border-radius: var(--radius-round);
-  background: var(--color-paper);
-  box-shadow: 0 0 1.25rem rgb(239 174 130 / 0.9);
-  transform: translateX(-50%);
-}
-.lampPool {
-  top: 6.45rem;
-  left: calc(50% + 1.7rem);
-  width: 10rem;
-  height: 4rem;
-  border-radius: var(--radius-round);
-  background: radial-gradient(ellipse, rgb(239 174 130 / 0.45), transparent 67%);
-  filter: blur(2px);
-  transform: translateX(-50%);
-}
+
 .cover h2 {
   max-width: 10ch;
   margin: 0;
@@ -107,7 +45,7 @@
   line-height: 0.78;
 }
 .cover h2 span {
-  color: var(--color-peach);
+  color: var(--color-peach-text);
 }
 .cover p {
   max-width: 20rem;
@@ -185,6 +123,10 @@
   position: relative;
   z-index: 1;
 }
+.day:nth-child(4n + 1) {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
 .day:nth-child(4n + 2) {
   background: var(--color-peach);
 }
@@ -192,7 +134,7 @@
   background: var(--color-cream);
 }
 .day:nth-child(4n) {
-  background: var(--color-rose);
+  background: var(--color-lilac);
 }
 .day:nth-child(4n + 2) {
   min-height: 36.5rem;
@@ -203,6 +145,7 @@
 
 .day span,
 .day small {
+  font-family: var(--font-ui);
   font-size: var(--text-utility-xs);
   font-weight: 700;
   letter-spacing: 0.09em;
@@ -280,6 +223,7 @@
 }
 .archiveCard span,
 .archiveCard small {
+  font-family: var(--font-ui);
   color: var(--color-muted);
   font-size: var(--text-utility-xs);
   font-weight: 700;
@@ -345,7 +289,7 @@
   }
 
   .mobileIntro h2 span {
-    color: var(--color-peach);
+    color: var(--color-peach-text);
   }
 
   .mobileIntro p {

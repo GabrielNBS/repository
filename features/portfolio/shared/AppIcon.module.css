@@ -1,0 +1,16 @@
+.icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  vertical-align: middle;
+  color: inherit;
+}
+
+.action {
+  width: var(--text-action-icon);
+  height: var(--text-action-icon);
+}
+
+.compact {
+  width: var(--text-icon);
+  height: var(--text-icon);
+}

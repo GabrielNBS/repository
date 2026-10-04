@@ -87,7 +87,6 @@
 .chapterIcon svg {
   width: 1rem;
   height: 1rem;
-  stroke-width: 2.2;
 }
 
 .chapterLabel {
@@ -111,9 +110,8 @@
 }
 
 .chevron svg {
-  width: 0.95rem;
-  height: 0.95rem;
-  stroke-width: 2.4;
+  width: var(--text-icon);
+  height: var(--text-icon);
 }
 
 .chevronOpen {
@@ -181,6 +179,11 @@
   outline: none;
 }
 
+.dropdownItem:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
 .dropdownItem:active {
   transform: scale(0.98);
 }
@@ -203,9 +206,8 @@
 }
 
 .itemIcon svg {
-  width: 0.95rem;
-  height: 0.95rem;
-  stroke-width: 2.2;
+  width: var(--text-icon);
+  height: var(--text-icon);
 }
 
 .itemLabel {

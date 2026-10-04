@@ -1,0 +1,59 @@
+.anchor {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 4.5rem;
+  margin-top: clamp(1.8rem, 4vh, 3rem);
+  color: var(--color-ink);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+}
+
+.track {
+  position: relative;
+  display: block;
+  width: 1.5rem;
+  height: 3rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 48%, transparent);
+  border-radius: var(--radius-pill);
+  transition: border-color 200ms ease;
+}
+
+.stroke {
+  position: absolute;
+  top: 0.55rem;
+  left: calc(50% - var(--text-action-icon) / 2);
+  width: var(--text-action-icon);
+  height: var(--text-action-icon);
+  animation: descend 2.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+.anchor:hover .track,
+.anchor:focus-visible .track {
+  border-color: currentColor;
+}
+
+.anchor:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+@keyframes descend {
+  0%, 15% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(0); }
+  65% { opacity: 1; transform: translateY(1.1rem); }
+  85%, 100% { opacity: 0; transform: translateY(1.35rem); }
+}
+
+@media (min-width: 801px) {
+  .anchor {
+    margin-top: clamp(3rem, 7vh, 5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stroke {
+    animation: none;
+  }
+}

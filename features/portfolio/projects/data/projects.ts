@@ -8,22 +8,13 @@ export interface Project {
   description: string;
   problem: string;
   solution: string;
+  outcome: string;
   role: string;
   year: string;
   techs: { name: string }[];
   deploy: string;
   github: string;
-  gallery: {
-    desktop: ProjectGalleryItem[];
-    mobile: ProjectGalleryItem[];
-  };
   highlights: string[];
-}
-
-export interface ProjectGalleryItem {
-  src: string;
-  alt: string;
-  label: string;
 }
 
 export interface ProjectTeaserAsset {
@@ -44,9 +35,11 @@ const projects: Project[] = [
     description:
       'Aplicação completa para operação comercial, com formulários multi-step, regras de negócio e visualização de dados para tomada de decisão.',
     problem:
-      'Unificar o controle de estoque, vendas, preços e caixa em uma experiência clara para a operação diária.',
+      'Organizar a rotina de um comércio em uma única interface, conectando estoque de ingredientes, produção, vendas e caixa. O desafio envolvia representar regras de rendimento e precificação, como aplicação de taxas e cálculo de margens, sem tornar os cadastros difíceis de preencher ou os indicadores financeiros difíceis de interpretar.',
     solution:
-      'Criei uma arquitetura em Next.js com componentes reutilizáveis, formulários tipados e estados globais previsíveis para reduzir fricção no uso.',
+      'Desenvolvi um dashboard e um PDV em Next.js e TypeScript, com componentes reutilizáveis e uma interface consistente baseada em Tailwind e Radix UI. Os cadastros usam React Hook Form e validação de schemas, com etapas, navegação condicional e salvamento de progresso. A Context API sincroniza os módulos, o localStorage preserva dados do usuário e os gráficos em Recharts ajudam a acompanhar vendas, indicadores e histórico de transações.',
+    outcome:
+      'O projeto reúne controle de estoque, precificação, operação de vendas e acompanhamento financeiro em uma experiência integrada. Além dos cadastros com regras de negócio, oferece gráficos interativos e relatórios exportáveis para apoiar a leitura dos dados. Foi uma oportunidade de aprofundar a organização de estado, a validação de fluxos complexos e o uso de feedback visual para orientar cada ação.',
     role: 'Front-end, arquitetura de UI e estado',
     year: '2026',
     techs: [
@@ -60,42 +53,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://regula-mocha.vercel.app/',
     github: 'https://github.com/GabrielNBS/dashboard',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/regula/desktop-01.png',
-          alt: 'Dashboard do Regula com indicadores financeiros',
-          label: 'Dashboard'
-        },
-        {
-          src: '/mockups/regula/desktop-02.png',
-          alt: 'Tela de estoque do Regula',
-          label: 'Estoque'
-        },
-        {
-          src: '/mockups/regula/desktop-03.png',
-          alt: 'Tela de produtos do Regula',
-          label: 'Produtos'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/regula/mobile-01.png',
-          alt: 'Dashboard do Regula em tela mobile',
-          label: 'Dashboard'
-        },
-        {
-          src: '/mockups/regula/mobile-02.png',
-          alt: 'Tela de estoque do Regula em tela mobile',
-          label: 'Estoque'
-        },
-        {
-          src: '/mockups/regula/mobile-03.png',
-          alt: 'Tela de produtos do Regula em tela mobile',
-          label: 'Produtos'
-        }
-      ]
-    },
     highlights: ['Fluxo de PDV', 'Controle financeiro', 'Formulários tipados']
   },
   {
@@ -107,9 +64,12 @@ const projects: Project[] = [
     summary: 'Aplicação de delivery com catálogo, carrinho e validação de checkout.',
     description:
       'Experiência de compra responsiva com Redux para estado global, formulários controlados e arquitetura CSS-in-JS.',
-    problem: 'Criar uma jornada de pedido objetiva, com carrinho persistente e checkout confiável.',
+    problem:
+      'Construir uma jornada de delivery que acompanhasse o usuário da escolha do restaurante até a conclusão do pedido. Era preciso manter o carrinho sincronizado durante a navegação e organizar os dados de entrega e pagamento em etapas claras, com validações que ajudassem a corrigir o preenchimento também em telas pequenas.',
     solution:
-      'Organizei a interface em componentes reutilizáveis, estado centralizado e validação com Formik e Yup.',
+      'Estruturei a aplicação em React com componentes reutilizáveis e estilos em Styled-Components. O Redux centraliza o estado do carrinho e do pedido, enquanto os formulários com Formik organizam o checkout em múltiplas etapas. A validação e as máscaras de entrada orientam o preenchimento dos campos, e o layout responsivo adapta catálogo, cardápio e fluxo de compra a desktop e celular.',
+    outcome:
+      'A aplicação permite explorar restaurantes, consultar seus cardápios, montar um carrinho e seguir pelo checkout com dados validados. O trabalho consolidou a combinação de estado global, formulários e componentes modulares em um fluxo de compra contínuo, com uma estrutura que facilita a manutenção e a evolução da interface.',
     role: 'Front-end e fluxo de compra',
     year: '2025',
     techs: [
@@ -120,57 +80,24 @@ const projects: Project[] = [
     ],
     deploy: 'https://efoodv2.vercel.app',
     github: 'https://github.com/GabrielNBS/eFood',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/e-food/desktop-01.png',
-          alt: 'Destaques de restaurantes do E-Food',
-          label: 'Destaques'
-        },
-        {
-          src: '/mockups/e-food/desktop-02.png',
-          alt: 'Catálogo de restaurantes do E-Food',
-          label: 'Restaurantes'
-        },
-        {
-          src: '/mockups/e-food/desktop-03.png',
-          alt: 'Cardápio de um restaurante no E-Food',
-          label: 'Cardápio'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/e-food/mobile-01.png',
-          alt: 'Destaques de restaurantes do E-Food em tela mobile',
-          label: 'Destaques'
-        },
-        {
-          src: '/mockups/e-food/mobile-02.png',
-          alt: 'Catálogo de restaurantes do E-Food em tela mobile',
-          label: 'Restaurantes'
-        },
-        {
-          src: '/mockups/e-food/mobile-03.png',
-          alt: 'Cardápio de um restaurante no E-Food em tela mobile',
-          label: 'Cardápio'
-        }
-      ]
-    },
     highlights: ['Carrinho global', 'Checkout validado', 'Layout responsivo']
   },
   {
     id: 3,
     slug: 'e-play',
     name: 'E-Play',
-    title: 'Streaming de jogos',
+    title: 'E-commerce de jogos',
     subtitle: 'Vitrine digital responsiva',
     summary:
-      'Interface para streaming de jogos com vitrine, filtros e experiência visual imersiva.',
+      'E-commerce de jogos com catálogo, promoções, carrinho e checkout integrado a uma API REST.',
     description:
-      'Projeto focado em composição visual, responsividade e estado global para uma plataforma de jogos.',
-    problem: 'Apresentar conteúdo denso de jogos sem perder navegação clara e impacto visual.',
+      'Loja de jogos em React e TypeScript, com catálogo integrado a uma API REST, estado global via Redux Toolkit e fluxo de compra com formulários validados.',
+    problem:
+      'Criar uma loja de jogos que combinasse uma vitrine visualmente marcante com um fluxo completo de compra. Além de apresentar categorias, promoções e detalhes dos títulos, o desafio era integrar catálogo e pedidos a uma API REST e manter carrinho e formulários consistentes ao longo da navegação, em desktop e mobile.',
     solution:
-      'Usei componentes modulares, grid responsivo e Redux para manter a experiência fluida em diferentes telas.',
+      'Implementei uma SPA em React e TypeScript, com componentes modulares e Styled-Components para organizar a apresentação do catálogo. O Redux Toolkit mantém o estado global do fluxo de compra, e o checkout usa Formik e Yup para validar os formulários de forma condicional. A integração com a API REST conecta catálogo e pedidos, enquanto lazy loading e code splitting distribuem o carregamento da aplicação.',
+    outcome:
+      'O resultado é um e-commerce de jogos com vitrine, categorias, promoções e uma jornada de compra integrada ao catálogo e aos pedidos da API. O projeto aprofundou minha prática com integração de serviços, gerenciamento de estado e validação de formulários, além de estratégias de carregamento para manter a navegação fluida em diferentes dispositivos.',
     role: 'Front-end e design de interface',
     year: '2025',
     techs: [
@@ -181,42 +108,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://eplay-orpin-psi.vercel.app/',
     github: 'https://github.com/GabrielNBS/eplay',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/e-play/desktop-01.png',
-          alt: 'Vitrine principal do E-Play',
-          label: 'Vitrine'
-        },
-        {
-          src: '/mockups/e-play/desktop-02.png',
-          alt: 'Área de promoções do E-Play',
-          label: 'Promoções'
-        },
-        {
-          src: '/mockups/e-play/desktop-03.png',
-          alt: 'Categorias de jogos do E-Play',
-          label: 'Categorias'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/e-play/mobile-01.png',
-          alt: 'Vitrine principal do E-Play em tela mobile',
-          label: 'Vitrine'
-        },
-        {
-          src: '/mockups/e-play/mobile-02.png',
-          alt: 'Área de promoções do E-Play em tela mobile',
-          label: 'Promoções'
-        },
-        {
-          src: '/mockups/e-play/mobile-03.png',
-          alt: 'Categorias de jogos do E-Play em tela mobile',
-          label: 'Categorias'
-        }
-      ]
-    },
     highlights: ['Vitrine imersiva', 'Estado global', 'Mobile first']
   },
   {
@@ -228,46 +119,17 @@ const projects: Project[] = [
     summary: 'Lista de tarefas com criação, edição, filtros e estado previsível.',
     description:
       'Aplicação de produtividade com foco em interação direta, estado via Redux e interface leve.',
-    problem: 'Manter tarefas organizadas com ações rápidas e estados visuais claros.',
+    problem:
+      'Oferecer uma forma direta de organizar tarefas sem exigir uma sequência longa de ações para cada alteração. O desafio era manter criação, edição, exclusão e filtros fáceis de encontrar, com estados visuais que ajudassem a entender a lista e acompanhar as mudanças durante o uso.',
     solution:
-      'Implementei CRUD de tarefas, filtros e feedback visual para tornar o fluxo simples em desktop e mobile.',
+      'Implementei o CRUD de tarefas e organizei o estado com Redux para refletir as alterações de forma consistente na interface. Os filtros permitem consultar a lista conforme a necessidade, e os contadores e o feedback visual ajudam a acompanhar sua organização. A apresentação se adapta a desktop e celular, mantendo as ações de gerenciamento acessíveis nos dois formatos.',
+    outcome:
+      'A aplicação reúne criação, consulta, edição e exclusão de tarefas, com filtros e contadores para facilitar a organização da rotina. O projeto serviu para aprofundar a relação entre ações, estado global e atualização da interface, trabalhando interações simples que precisam responder de maneira clara e previsível.',
     role: 'Front-end e interações',
     year: '2024',
     techs: [{ name: 'JavaScript' }, { name: 'Redux' }, { name: 'CSS' }, { name: 'HTML' }],
     deploy: 'https://to-do-seven-gamma.vercel.app/',
     github: 'https://github.com/GabrielNBS/To-Do',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/to-do/desktop-01.png',
-          alt: 'Lista principal de tarefas do To-Do',
-          label: 'Lista'
-        },
-        {
-          src: '/mockups/to-do/desktop-02.png',
-          alt: 'Filtros e contadores do To-Do',
-          label: 'Filtros'
-        },
-        { src: '/mockups/to-do/desktop-03.png', alt: 'Edição de tarefa no To-Do', label: 'Edição' }
-      ],
-      mobile: [
-        {
-          src: '/mockups/to-do/mobile-01.png',
-          alt: 'Lista principal de tarefas do To-Do em tela mobile',
-          label: 'Lista'
-        },
-        {
-          src: '/mockups/to-do/mobile-02.png',
-          alt: 'Filtros e contadores do To-Do em tela mobile',
-          label: 'Filtros'
-        },
-        {
-          src: '/mockups/to-do/mobile-03.png',
-          alt: 'Edição de tarefa no To-Do em tela mobile',
-          label: 'Edição'
-        }
-      ]
-    },
     highlights: ['CRUD completo', 'Filtros', 'Redux']
   },
   {
@@ -279,50 +141,17 @@ const projects: Project[] = [
     summary: 'Landing page temática com composição visual forte e transições suaves.',
     description:
       'Página promocional criada com HTML, Sass e JavaScript, explorando ritmo visual e interatividade.',
-    problem: 'Traduzir um universo visual forte em uma landing page responsiva e navegável.',
+    problem:
+      'Transformar a identidade visual do universo Spider-Verse em uma página promocional com personalidade e navegação clara. O desafio era combinar imagens, galeria e trailers em uma composição envolvente, preservando a leitura e a organização das seções quando o espaço disponível muda entre desktop e celular.',
     solution:
-      'Combinei Sass modular, composição por seções e interações discretas para reforçar a imersão sem comprometer a leitura.',
+      'Construí a landing page com HTML, Sass e JavaScript, dividindo o conteúdo em seções que conduzem a exploração do tema. O Sass modular organiza os estilos e as adaptações responsivas, enquanto as transições e interações reforçam o ritmo visual da página. A composição dá destaque ao teaser, à galeria e aos trailers sem perder a hierarquia das informações.',
+    outcome:
+      'O resultado é uma landing page temática que apresenta o universo visual do projeto por meio de imagens, galeria e trailers. O desenvolvimento ampliou minha prática com composição de páginas, organização de estilos em Sass e uso de interatividade para criar uma experiência imersiva e legível em diferentes tamanhos de tela.',
     role: 'Front-end e motion leve',
     year: '2024',
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://lp-spiderverse.vercel.app/',
     github: 'https://github.com/GabrielNBS/LP_Miles_Morales',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/spider-verse/desktop-01.png',
-          alt: 'Hero da landing page Spider-Verse',
-          label: 'Teaser'
-        },
-        {
-          src: '/mockups/spider-verse/desktop-02.png',
-          alt: 'Galeria da landing page Spider-Verse',
-          label: 'Galeria'
-        },
-        {
-          src: '/mockups/spider-verse/desktop-03.png',
-          alt: 'Trailers da landing page Spider-Verse',
-          label: 'Trailers'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/spider-verse/mobile-01.png',
-          alt: 'Hero da landing page Spider-Verse em tela mobile',
-          label: 'Teaser'
-        },
-        {
-          src: '/mockups/spider-verse/mobile-02.png',
-          alt: 'Galeria da landing page Spider-Verse em tela mobile',
-          label: 'Galeria'
-        },
-        {
-          src: '/mockups/spider-verse/mobile-03.png',
-          alt: 'Trailers da landing page Spider-Verse em tela mobile',
-          label: 'Trailers'
-        }
-      ]
-    },
     highlights: ['Sass modular', 'Transições', 'Composição visual']
   },
   {
@@ -334,50 +163,17 @@ const projects: Project[] = [
     summary: 'Clone responsivo da interface Disney+ com seções, carrosséis e navegação.',
     description:
       'Projeto de estudo para praticar composição, responsividade, Sass e interações em uma interface de streaming.',
-    problem: 'Reproduzir uma experiência reconhecível mantendo uma boa estrutura front-end.',
+    problem:
+      'Reproduzir a apresentação da Disney+ em uma página responsiva, preservando a hierarquia visual de uma interface reconhecível. Era preciso organizar o destaque inicial, os planos e o catálogo para que o visitante pudesse explorar o conteúdo e entender a proposta da página tanto no computador quanto no celular.',
     solution:
-      'Modelei seções, carrosséis e estados de navegação com HTML, Sass e JavaScript modular.',
+      'Estruturei a interface com HTML, Sass e JavaScript, organizando as seções e os estilos de forma modular. A composição reúne hero, planos e catálogo, com interações e estados de navegação para explorar os conteúdos. As adaptações responsivas ajustam a distribuição dos elementos e a leitura conforme o tamanho da tela.',
+    outcome:
+      'O projeto entrega um estudo de interface inspirado na Disney+, com apresentação de conteúdo, planos e navegação responsiva. A implementação ajudou a consolidar a tradução de uma referência visual para código, a reutilização de estilos e a atenção à hierarquia e ao comportamento dos elementos em diferentes dispositivos.',
     role: 'Front-end e responsividade',
     year: '2024',
     techs: [{ name: 'HTML' }, { name: 'Sass' }, { name: 'JavaScript' }],
     deploy: 'https://clone-disneyplus-eta.vercel.app/',
     github: 'https://github.com/GabrielNBS/clone_disneyplus',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/clone-disney/desktop-01.png',
-          alt: 'Hero da interface Clone Disney+',
-          label: 'Hero'
-        },
-        {
-          src: '/mockups/clone-disney/desktop-02.png',
-          alt: 'Planos da interface Clone Disney+',
-          label: 'Planos'
-        },
-        {
-          src: '/mockups/clone-disney/desktop-03.png',
-          alt: 'Catálogo da interface Clone Disney+',
-          label: 'Catálogo'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/clone-disney/mobile-01.png',
-          alt: 'Hero da interface Clone Disney+ em tela mobile',
-          label: 'Hero'
-        },
-        {
-          src: '/mockups/clone-disney/mobile-02.png',
-          alt: 'Planos da interface Clone Disney+ em tela mobile',
-          label: 'Planos'
-        },
-        {
-          src: '/mockups/clone-disney/mobile-03.png',
-          alt: 'Catálogo da interface Clone Disney+ em tela mobile',
-          label: 'Catálogo'
-        }
-      ]
-    },
     highlights: ['Streaming UI', 'Carrosséis', 'Sass']
   },
   {
@@ -390,56 +186,22 @@ const projects: Project[] = [
     description:
       'Projeto comercial em HTML, JavaScript e Bootstrap, com foco em apresentação clara de produtos e conversão.',
     problem:
-      'Criar presença digital objetiva para uma confeitaria com produtos de alto apelo visual.',
+      'Criar uma presença digital para uma confeitaria local, apresentando a marca e seus produtos de maneira convidativa. O desafio era aproveitar o apelo visual dos doces e organizar informações sobre cardápio, eventos e contato em uma página fácil de consultar, especialmente para quem chega pelo celular.',
     solution:
-      'Estruturei uma landing page responsiva com seções de produtos, informações e chamada para contato.',
+      'Desenvolvi uma landing page com HTML, JavaScript e Bootstrap, usando seções dedicadas à apresentação da confeitaria, aos eventos e ao cardápio. A estrutura responsiva dá destaque aos produtos e às chamadas para contato. O fluxo de desenvolvimento também utiliza automações com Gulp e compressão de imagens para preparar os arquivos da página e favorecer o carregamento.',
+    outcome:
+      'A página reúne a apresentação da marca, os produtos e os canais de contato em um ponto de entrada para o negócio. O projeto trouxe prática na construção de uma interface comercial focada em conversão, combinando conteúdo visual, responsividade e preparação de assets para uma experiência de navegação mais leve.',
     role: 'Front-end e landing page',
     year: '2024',
     techs: [{ name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'HTML' }],
     deploy: 'https://htd-land-page.vercel.app/',
     github: 'https://github.com/GabrielNBS/HTD-LandPage',
-    gallery: {
-      desktop: [
-        {
-          src: '/mockups/hoje-ta-doce/desktop-01.png',
-          alt: 'Hero da landing page Hoje Tá Doce',
-          label: 'Hero'
-        },
-        {
-          src: '/mockups/hoje-ta-doce/desktop-02.png',
-          alt: 'Seção de eventos da landing page Hoje Tá Doce',
-          label: 'Eventos'
-        },
-        {
-          src: '/mockups/hoje-ta-doce/desktop-03.png',
-          alt: 'Cardápio da landing page Hoje Tá Doce',
-          label: 'Cardápio'
-        }
-      ],
-      mobile: [
-        {
-          src: '/mockups/hoje-ta-doce/mobile-01.png',
-          alt: 'Hero da landing page Hoje Tá Doce em tela mobile',
-          label: 'Hero'
-        },
-        {
-          src: '/mockups/hoje-ta-doce/mobile-02.png',
-          alt: 'Seção de eventos da landing page Hoje Tá Doce em tela mobile',
-          label: 'Eventos'
-        },
-        {
-          src: '/mockups/hoje-ta-doce/mobile-03.png',
-          alt: 'Cardápio da landing page Hoje Tá Doce em tela mobile',
-          label: 'Cardápio'
-        }
-      ]
-    },
     highlights: ['Bootstrap', 'Produto local', 'Conversão']
   },
   {
     id: 8,
     slug: 'whatsapp-sender',
-    name: 'WhatsApp Sender',
+    name: 'W. Sender',
     title: 'Automação de mensageria',
     subtitle: 'Campanhas e disparos via WhatsApp Web',
     summary:
@@ -447,9 +209,11 @@ const projects: Project[] = [
     description:
       'Plataforma full-stack de uso local para conectar uma sessão do WhatsApp Web, organizar contatos e grupos, criar campanhas, agendar mensagens e acompanhar envio, leitura e respostas.',
     problem:
-      'Operar campanhas pelo WhatsApp com controle de contatos, consentimento, agendamento e acompanhamento sem depender de fluxos manuais dispersos.',
+      'Centralizar uma operação de mensagens que envolve contatos, grupos, campanhas e horários de envio, evitando que cada etapa dependa de controles manuais separados. Além de manter a conexão com o WhatsApp Web, era necessário acompanhar falhas, leituras e respostas, registrar consentimento e respeitar os pedidos de cancelamento dos destinatários.',
     solution:
-      'Estruturei um dashboard Next.js com arquitetura em camadas, persistência via Prisma e SQLite, fila e scheduler no servidor, integração com whatsapp-web.js, autenticação pessoal e APIs tipadas para separar domínio, infraestrutura e apresentação.',
+      'Desenvolvi uma aplicação full-stack em Next.js e TypeScript, com conexão ao WhatsApp Web via whatsapp-web.js e Puppeteer. O painel permite organizar e importar contatos, criar grupos e modelos de mensagem com mídia, iniciar campanhas e agendar envios. Prisma e SQLite persistem os dados, enquanto a fila e o agendador executam o trabalho no servidor. A arquitetura separa regras de negócio, APIs, infraestrutura e interface, com acesso por chave pessoal e tratamento centralizado de consentimento e cancelamento.',
+    outcome:
+      'A aplicação de uso local reúne a preparação das mensagens, a execução das campanhas e a consulta de resultados em um único painel. É possível acompanhar envios, falhas, leituras e respostas, consultar o histórico e configurar relatórios para destinatários definidos. O projeto ampliou minha atuação em persistência, integração com serviços externos e processamento no servidor, incluindo auditoria de consentimento e recuperação controlada de agendamentos após reiniciar o serviço.',
     role: 'Full-stack, arquitetura e infraestrutura',
     year: '2026',
     techs: [
@@ -467,10 +231,6 @@ const projects: Project[] = [
     ],
     deploy: 'https://github.com/GabrielNBS/whatsapp-sender',
     github: 'https://github.com/GabrielNBS/whatsapp-sender',
-    gallery: {
-      desktop: [],
-      mobile: []
-    },
     highlights: [
       'Campanhas e fila de envio',
       'Contatos e consentimento',

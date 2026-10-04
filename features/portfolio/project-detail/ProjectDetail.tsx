@@ -1,16 +1,23 @@
+import AppIcon from '@/features/portfolio/shared/AppIcon';
 import Link from 'next/link';
+import contactStyles from '../sections/contact/ContactSection.module.css';
 import ProjectVisual from '../projects/ProjectVisual';
-import type { Project } from '../projects/data/projects';
+import projects, { type Project } from '../projects/data/projects';
+import { getOrderedProjects } from '../projects/data/projectOrder';
 import { getStackIcon } from '../projects/data/projectStackIconLogic';
 import HeadingSplit from '../shared/motion/HeadingSplit';
 import ProjectBackLink from './ProjectBackLink';
 import ProjectDetailExperience from './ProjectDetailExperience';
 import styles from './ProjectDetail.module.css';
+import RasterDrawing from '../shared/motion/RasterDrawing';
+import { getProjectIllustration } from './projectIllustrations';
 
 export default function ProjectDetail({ project }: { project: Project }) {
-  const galleryItems =
-    project.gallery.desktop.length > 0 ? project.gallery.desktop : project.gallery.mobile;
-  const coverImage = galleryItems[0];
+  const orderedProjects = getOrderedProjects(projects);
+  const projectIndex = orderedProjects.findIndex((item) => item.slug === project.slug);
+  const previousProject = orderedProjects[(projectIndex - 1 + orderedProjects.length) % orderedProjects.length];
+  const nextProject = orderedProjects[(projectIndex + 1) % orderedProjects.length];
+  const illustration = getProjectIllustration(project.slug);
   const technologies = project.techs.map((technology) => {
     const { Icon, color } = getStackIcon(technology.name);
     return {
@@ -22,13 +29,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
   const narrativeSections = [
     { label: 'O desafio', body: project.problem },
     { label: 'A solução', body: project.solution },
-    { label: 'O que ficou', body: project.summary }
+    { label: 'O que ficou', body: project.outcome }
   ];
   const hasSeparateDeploy = project.deploy !== project.github;
   const hasLongTitlePart = project.name.split(/\s+/).some((part) => part.length > 10);
 
   return (
     <ProjectDetailExperience>
+      {illustration && (
+        <link rel="preload" as="image" href={illustration.src} fetchPriority="high" />
+      )}
       <a className={styles.skipLink} href="#projeto-titulo">
         Pular para o conteúdo
       </a>
@@ -42,6 +52,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 <p className={styles.projectEyebrow}>Projeto / 0{project.id}</p>
                 <h1
                   id="projeto-titulo"
+                  tabIndex={-1}
                   className={`${styles.projectTitle} ${hasLongTitlePart ? styles.projectTitleCompact : ''}`}
                   data-detail-title
                 >
@@ -50,6 +61,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 <p className={styles.projectDescription}>{project.description}</p>
                 <p className={styles.projectSubtitle}>{project.subtitle}</p>
               </div>
+              {illustration && (
+                <div className={styles.heroIllustration}>
+                  <RasterDrawing
+                    src={illustration.src}
+                    alt={illustration.alt}
+                    drawing={illustration.drawing}
+                    className={styles.heroDrawing}
+                  />
+                </div>
+              )}
               <div className={styles.metaSpecs}>
                 <div>
                   <span className={styles.metaLabel}>Ano</span>
@@ -87,44 +108,37 @@ export default function ProjectDetail({ project }: { project: Project }) {
       >
         <div className={styles.narrativeContainer}>
           <div data-detail-narrative-heading className={styles.narrativeLeft}>
-            <p className={styles.narrativeEyebrow}>01 / Leitura do projeto</p>
+            <p className={styles.narrativeEyebrow}>Leitura do projeto</p>
             <HeadingSplit as="h2" className={styles.narrativeHeading} data-split="lines">
-              Do problema ao produto.
+              Do problema ao produto
             </HeadingSplit>
             <p className={styles.narrativeIntro}>
               {project.subtitle}. Uma leitura direta das decisões que dão forma a {project.name} e
               ao modo como ele responde no uso real.
             </p>
 
-            <figure className={styles.coverFigure}>
-              <span className={styles.badgeNumber}>{String(project.id).padStart(2, '0')}</span>
-              <div
-                className={styles.coverCard}
-                role="img"
-                aria-label={coverImage?.alt ?? `Identidade visual do projeto ${project.name}`}
-                style={
-                  coverImage
-                    ? {
-                        backgroundImage: `linear-gradient(135deg, rgba(239,174,130,0.14), rgba(37,34,31,0.2)), url("${coverImage.src}")`
-                      }
-                    : {
-                        backgroundImage:
-                          'radial-gradient(circle at 75% 24%, rgba(239,174,130,0.9), transparent 28%), linear-gradient(135deg, var(--color-ink), var(--color-lilac))'
-                      }
-                }
+            <nav aria-label="Navegação do projeto" className={styles.projectActionsNav}>
+              {hasSeparateDeploy ? (
+                <a
+                  className={styles.actionButton}
+                  href={project.deploy}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver projeto ${project.name} em uma nova guia`}
+                >
+                  Ver projeto <AppIcon name="arrowUpRight" size="compact" />
+                </a>
+              ) : null}
+              <a
+                className={styles.actionButton}
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${hasSeparateDeploy ? 'Código' : 'Repositório'} de ${project.name} em uma nova guia`}
               >
-                {!coverImage && (
-                  <span className={styles.coverMonogram}>{project.name.slice(0, 1)}</span>
-                )}
-                <span className={styles.coverLabel}>
-                  {coverImage?.label ?? 'Sistema em construção'}
-                </span>
-              </div>
-              <figcaption className={styles.coverCaption}>
-                <span>{project.name}</span>
-                <span>{project.year}</span>
-              </figcaption>
-            </figure>
+                {hasSeparateDeploy ? 'Código' : 'Repositório'} <AppIcon name="arrowUpRight" size="compact" />
+              </a>
+            </nav>
           </div>
 
           <div data-detail-narrative-copy className={styles.narrativeRight}>
@@ -173,32 +187,24 @@ export default function ProjectDetail({ project }: { project: Project }) {
         </div>
       </section>
 
-      <nav aria-label="Navegação do projeto" className={styles.projectActionsNav}>
-        {hasSeparateDeploy ? (
-          <a
-            className={styles.actionButton}
-            href={project.deploy}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Ver projeto ${project.name} em uma nova guia`}
-          >
-            Ver projeto ↗
-          </a>
-        ) : null}
-        <a
-          className={styles.actionButton}
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${hasSeparateDeploy ? 'Código' : 'Repositório'} de ${project.name} em uma nova guia`}
-        >
-          {hasSeparateDeploy ? 'Código' : 'Repositório'} ↗
-        </a>
-      </nav>
-
       <footer className={styles.footer}>
+        <nav className={styles.projectNavigation} aria-label="Navegação entre projetos">
+          <Link
+            href={`/projetos/${previousProject.slug}`}
+            className={`${contactStyles.contactLink} ${styles.previousProject}`}
+          >
+            <AppIcon name="arrowLeft" />
+            <span><span className={styles.navigationLabel}>Projeto anterior</span><span className={styles.navigationProjectName}>{previousProject.name}</span></span>
+          </Link>
+          <Link
+            href={`/projetos/${nextProject.slug}`}
+            className={`${contactStyles.contactLink} ${styles.nextProject}`}
+          >
+            <span><span className={styles.navigationLabel}>Próximo projeto</span><span className={styles.navigationProjectName}>{nextProject.name}</span></span>
+            <AppIcon name="arrowRight" />
+          </Link>
+        </nav>
         <span>Gabriel Nascimento © 2026</span>
-        <Link href="/#contato">Próximo papo ↗</Link>
       </footer>
     </ProjectDetailExperience>
   );

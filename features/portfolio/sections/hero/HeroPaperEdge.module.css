@@ -1,0 +1,24 @@
+.boundary {
+  --paper-width: max(100vw, 48rem);
+  position: relative;
+  z-index: var(--layer-raised);
+  height: 0;
+  pointer-events: none;
+}
+
+.paper {
+  position: absolute;
+  top: calc(var(--paper-width) * -0.16);
+  right: 0;
+  width: var(--paper-width);
+  aspect-ratio: 3;
+  mix-blend-mode: multiply;
+  /* Fade the upper paper into the canvas, keeping the torn edge and fold intact. */
+  mask-image: linear-gradient(to bottom, transparent 24%, #000 43%);
+}
+
+.artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+}

@@ -6,7 +6,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: var(--space-6) var(--gutter-page) var(--space-10);
-  background: var(--color-bg-canvas);
+  background-color: transparent;
   color: var(--color-text-secondary);
   font-family: var(--font-ui);
   font-size: var(--text-label);
@@ -18,10 +18,47 @@
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
+  gap: 0.5rem;
 }
-@media (max-width: 480px) {
-  .footer {
-    flex-direction: column;
-    align-items: flex-start;
+.backToTop {
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition:
+    background-color 200ms var(--ease-editorial),
+    color 200ms var(--ease-editorial);
+}
+.backToTop svg {
+  transition: transform 240ms var(--ease-spring);
+}
+.backToTop:is(:hover, :focus-visible) {
+  background-color: var(--color-peach);
+  color: var(--color-ink);
+}
+.backToTop:is(:hover, :focus-visible) svg {
+  transform: translateY(-0.2rem);
+}
+.backToTop:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backToTop,
+  .backToTop svg {
+    transition: none;
   }
+  .backToTop:is(:hover, :focus-visible) svg {
+    transform: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .footer {
+    justify-content: center;
+    padding-bottom: 1rem;
+    padding-inline: 4.5rem;
+    text-align: center;
+  }
+  .footer .backToTop { display: none; }
 }

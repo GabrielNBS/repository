@@ -102,8 +102,24 @@ export default function AboutPortraitSequence() {
       ))}
 
       <figcaption className={styles.caption}>
-        <span>Gabriel Nascimento</span>
-        <span className={styles.location}>São Paulo / BR</span>
+        <Image
+          src="/images/about/developer-paper.png"
+          alt="desenvolvedor"
+          width={2172}
+          height={724}
+          sizes="(max-width: 800px) 14rem, 21vw"
+          className={styles.developerPaper}
+          draggable={false}
+        />
+        <Image
+          src="/images/about/name-paper.png"
+          alt="Gabriel Nascimento"
+          width={2172}
+          height={724}
+          sizes="(max-width: 800px) 10rem, 15vw"
+          className={styles.namePaper}
+          draggable={false}
+        />
       </figcaption>
     </figure>
   );

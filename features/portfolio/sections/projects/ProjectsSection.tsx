@@ -1,6 +1,9 @@
 'use client';
+
+import AppIcon from '@/features/portfolio/shared/AppIcon';
 import projects, { type Project } from '@/features/portfolio/projects/data/projects';
 import Link from 'next/link';
+import BooksDrawing from './BooksDrawing';
 import { useEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeadingSplit from '@/features/portfolio/shared/motion/HeadingSplit';
@@ -10,11 +13,14 @@ import { markProjectReturnIntent } from '../../projects/projectReturnNavigation'
 import styles from './ProjectsSection.module.css';
 import { useProjectsAgendaMotion, useProjectElastic } from './projectsAgendaMotion';
 
+import { getOrderedProjects } from '../../projects/data/projectOrder';
+
 export default function ProjectsSection({ items = projects }: { items?: Project[] }) {
   const root = useRef<HTMLElement>(null);
   const [showArchive, setShowArchive] = useState(false);
-  const featured = items.slice(0, 4);
-  const archived = items.slice(4);
+  const orderedItems = getOrderedProjects(items);
+  const featured = orderedItems.slice(0, 4);
+  const archived = orderedItems.slice(4);
   const { onProjectPointerEnter, onProjectPointerLeave, onProjectPointerMove } = useProjectCursor();
   // Os hooks montam a entrada da agenda e a resposta elástica individual de
   // cada card, sempre limitadas ao root desta seção.
@@ -32,45 +38,33 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
   }, [showArchive]);
 
   return (
-    <section
-      id="projetos"
-      ref={root}
-      className={styles.section}
-      aria-label="Projetos"
-    >
+    <section id="projetos" ref={root} className={styles.section} aria-label="Projetos">
       <div className={styles.story}>
         <header className={styles.header}>
           <span>02 / Seleção recente</span>
-          <span>4 em foco · {archived.length} no arquivo</span>
         </header>
         <div className={styles.mobileIntro}>
-          <h2 id="projects-title">
-            Meus trabalhos recentes<span>.</span>
-          </h2>
+          <h2 id="projects-title">Meus trabalhos recentes</h2>
           <p>Uma seleção de interfaces, sistemas e experimentos para explorar no seu ritmo.</p>
+          <BooksDrawing className={styles.booksIllustration} />
         </div>
         <div className={styles.agenda}>
           <div className={styles.cover} data-motion="agenda-enter">
             <HeadingSplit as="h2" id="projects-title-desktop">
-              Meus trabalhos recentes<span>.</span>
+              Meus trabalhos recentes
             </HeadingSplit>
-            <div className={styles.illustration} aria-hidden="true" data-motion="projects-lamp">
-              <span className={styles.lampCord} />
-              <span className={styles.lampArm} />
-              <span className={styles.lampShade} />
-              <span className={styles.lampBulb} />
-              <span className={styles.lampPool} />
-            </div>
             <p>
-              Quatro projetos em primeiro plano. Passe pelos dias para ler o recorte de cada
-              sistema.
+              Meus quatro principais projetos em primeiro plano. Passe por cada um deles para
+              conhecer melhor o meu trabalho.
             </p>
+            <BooksDrawing className={styles.booksIllustration} />
           </div>
           <div className={styles.days}>
             {featured.map((project, i) => (
               <Link
                 key={project.slug}
                 href={`/projetos/${project.slug}`}
+                prefetch={true}
                 data-motion="agenda-enter project-elastic"
                 className={styles.day}
                 onClick={markProjectReturnIntent}
@@ -83,7 +77,9 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                 <small>
                   {project.year} · {project.title}
                 </small>
-                <b>↗</b>
+                <b aria-hidden="true">
+                  <AppIcon name="arrowUpRight" />
+                </b>
               </Link>
             ))}
           </div>
@@ -104,6 +100,7 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                   <Link
                     key={project.slug}
                     href={`/projetos/${project.slug}`}
+                    prefetch={true}
                     className={styles.archiveCard}
                     onClick={markProjectReturnIntent}
                     onPointerEnter={(event) => onProjectPointerEnter(event, project)}
@@ -115,7 +112,9 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
                     <small>
                       {project.year} · {project.title}
                     </small>
-                    <b>↗</b>
+                    <b aria-hidden="true">
+                      <AppIcon name="arrowUpRight" />
+                    </b>
                   </Link>
                 ))}
               </div>
@@ -136,13 +135,19 @@ export default function ProjectsSection({ items = projects }: { items?: Project[
               aria-expanded={showArchive}
               aria-controls="mobile-project-archive"
             >
-              <span>{showArchive ? 'Ocultar arquivo' : `Ver mais ${archived.length} projetos`}</span>
-              <span aria-hidden="true">{showArchive ? '−' : '+'}</span>
+              <span>
+                {showArchive ? 'Ocultar arquivo' : `Ver mais ${archived.length} projetos`}
+              </span>
+              <AppIcon name={showArchive ? 'minus' : 'plus'} />
             </button>
             {showArchive && (
               <div id="mobile-project-archive" className={styles.mobileArchiveCards}>
                 {archived.map((project, index) => (
-                  <ProjectCard key={project.slug} project={project} index={index + featured.length} />
+                  <ProjectCard
+                    key={project.slug}
+                    project={project}
+                    index={index + featured.length}
+                  />
                 ))}
               </div>
             )}

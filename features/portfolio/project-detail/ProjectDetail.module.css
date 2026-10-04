@@ -1,7 +1,9 @@
 .main {
+  position: relative;
+  isolation: isolate;
   min-height: 100svh;
   padding-top: 8rem;
-  background: var(--color-bg-canvas);
+  background-color: var(--color-bg-canvas);
   color: var(--color-text-primary);
 }
 
@@ -47,6 +49,7 @@
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem 0.875rem;
   border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
   border-radius: var(--radius-pill);
@@ -398,92 +401,18 @@
   line-height: var(--leading-body);
 }
 
-.coverFigure {
-  position: relative;
-  width: 100%;
-  max-width: 22rem;
-  margin: 4rem 0 0 auto;
-}
-
-@media (max-width: 960px) {
-  .coverFigure {
-    margin-top: 3rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .coverFigure {
-    margin-inline: 0;
-  }
-}
-
-.badgeNumber {
-  position: absolute;
-  top: -1rem;
-  right: -1rem;
-  z-index: var(--layer-content);
-  display: grid;
-  width: 3.5rem;
-  height: 3.5rem;
-  place-items: center;
-  border-radius: var(--radius-round);
-  background: var(--color-ink);
-  color: var(--color-paper);
-  font-family: var(--font-ui);
-  font-size: var(--text-body-sm);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.coverCard {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
-  border-radius: 1.5rem;
-  background-color: var(--color-cream);
-  background-position: center;
-  background-size: cover;
-  box-shadow: 0 24px 60px -38px rgba(37, 34, 31, 0.45);
-}
-
-.coverMonogram {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: color-mix(in srgb, var(--color-paper) 85%, transparent);
-  font-family: var(--font-serif);
-  font-size: clamp(5rem, 14vw, 9rem);
-  font-style: italic;
-  line-height: 1;
-}
-
-.coverLabel {
-  position: absolute;
-  right: 1.25rem;
-  bottom: 1rem;
-  left: 1.25rem;
-  color: var(--color-paper);
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.5));
-  font-family: var(--font-ui);
-  font-size: var(--text-utility-sm);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.coverCaption {
+.heroIllustration {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.75rem;
-  color: var(--color-muted);
-  font-family: var(--font-ui);
-  font-size: var(--text-utility-sm);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  justify-content: center;
+  margin-block: 1.25rem;
+}
+
+.heroDrawing {
+  display: block;
+  width: 100%;
+  max-width: 18rem;
+  height: auto;
+  max-height: 12rem;
 }
 
 /* Narrative Right (Articles & Stacks) */
@@ -616,10 +545,8 @@
 /* Actions Nav */
 .projectActionsNav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 0.75rem;
-  padding: var(--space-16) var(--gutter-page);
+  padding-top: 3rem;
 }
 
 @media (max-width: 480px) {
@@ -630,6 +557,7 @@
 }
 
 .actionButton {
+  gap: var(--space-2);
   display: inline-flex;
   align-items: center;
   padding: 0.75rem 1rem;
@@ -664,6 +592,7 @@
 /* Footer */
 .footer {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -676,15 +605,76 @@
   text-transform: uppercase;
 }
 
-.footer a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
+.backButton svg,
+.projectNavigation a svg {
+  width: var(--text-action-icon);
+  height: var(--text-action-icon);
+  flex: 0 0 auto;
 }
 
-@media (max-width: 480px) {
+.projectNavigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: 100%;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border: 0;
+}
+
+.projectNavigation a {
+  width: fit-content;
+  max-width: 100%;
+  gap: 0.875rem;
+  border-inline: 0;
+  border-block: 1px solid var(--color-shadow-medium);
+  overflow-wrap: anywhere;
+}
+
+.previousProject { justify-self: start; text-align: left; }
+.nextProject { justify-self: end; text-align: right; }
+
+.previousProject:is(:hover, :focus-visible) svg {
+  transform: translateX(-0.12rem);
+}
+
+.nextProject:is(:hover, :focus-visible) svg {
+  transform: translateX(0.12rem);
+}
+
+.navigationProjectName {
+  color: var(--color-peach-text);
+  transition: color 200ms ease;
+}
+
+.projectNavigation a:is(:hover, :focus-visible) .navigationProjectName {
+  color: var(--color-ink);
+}
+
+.navigationLabel {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: var(--text-label-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
   .footer {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  .projectNavigation a {
+    justify-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .projectNavigation {
+    max-width: 32rem;
+    margin-inline: auto;
   }
 }

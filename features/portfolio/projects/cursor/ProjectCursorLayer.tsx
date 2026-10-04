@@ -1,8 +1,9 @@
 'use client';
 
+import AppIcon from '@/features/portfolio/shared/AppIcon';
+
 import type { RefObject } from 'react';
 import type { Project } from '@/features/portfolio/projects/data/projects';
-import { getProjectCursorIcon } from '../data/projectCursorContent';
 import styles from './ProjectCursorLayer.module.css';
 
 type ProjectCursorLayerProps = {
@@ -11,7 +12,6 @@ type ProjectCursorLayerProps = {
 };
 
 export default function ProjectCursorLayer({ cursorRef, project }: ProjectCursorLayerProps) {
-  const cursorIcon = project ? getProjectCursorIcon(project.slug) : '↗';
 
   return (
     <span
@@ -23,8 +23,7 @@ export default function ProjectCursorLayer({ cursorRef, project }: ProjectCursor
         className={styles.content}
         data-component="project-cursor-content"
       >
-        <span className={styles.accent}>{cursorIcon}</span>
-        Ver {project?.name ?? 'projeto'} <span className={styles.accent}>↗</span>
+        Ver {project?.name ?? 'projeto'} <AppIcon name="arrowUpRight" size="compact" className={styles.accent} />
       </span>
     </span>
   );

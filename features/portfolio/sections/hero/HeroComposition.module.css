@@ -1,0 +1,16 @@
+.composition {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 66rem);
+  margin-top: clamp(1.75rem, 4vh, 3rem);
+}
+
+.scroll a {
+  margin-top: 0;
+}
+
+@media (max-width: 800px) {
+  .composition {
+    margin-top: 1.75rem;
+  }
+}

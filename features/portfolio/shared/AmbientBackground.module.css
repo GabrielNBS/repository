@@ -1,0 +1,32 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.spot {
+  position: absolute;
+  visibility: hidden;
+  left: var(--spot-x);
+  width: clamp(34rem, 75vw, 82rem);
+  height: clamp(40rem, 90vh, 68rem);
+  margin-left: clamp(-41rem, -37.5vw, -17rem);
+  margin-top: clamp(-34rem, -45vh, -20rem);
+  background: radial-gradient(ellipse, var(--spot-color), transparent 72%);
+}
+
+.lilac { --spot-color: rgb(205 184 216 / 22%); }
+.peach { --spot-color: rgb(239 174 130 / 21%); }
+.cream { --spot-color: rgb(231 214 187 / 30%); }
+
+@media (max-width: 800px) {
+  .spot {
+    width: 38rem;
+    height: 44rem;
+    margin-left: -19rem;
+    margin-top: -22rem;
+    opacity: 0.85;
+  }
+}
