@@ -609,7 +609,8 @@
     width: min(84vw, 22rem);
     scroll-snap-align: center;
     scroll-snap-stop: always;
-    touch-action: pan-x;
+    /* Allow page scrolling when a vertical gesture starts over a card. */
+    touch-action: auto;
   }
 }
 

@@ -287,31 +287,42 @@
     justify-content: flex-start;
     gap: clamp(1.5rem, 3.5vh, 2.5rem);
     padding-block: clamp(5.5rem, 10vh, 7rem) 43dvh;
+    text-align: center;
   }
 
   .heading {
     gap: 0.875rem;
+    justify-items: center;
   }
 
   .title {
+    width: min(100%, 7ch);
     max-width: 7ch;
-    margin-left: auto;
+    margin-inline: auto;
     font-size: clamp(3.35rem, 14vw, 5.8rem);
-    text-align: right;
+    text-align: center;
   }
 
   .eyebrow {
-    margin-left: auto;
+    margin-inline: auto;
   }
 
   .form {
     width: min(100%, 34rem);
-    margin-left: auto;
+    margin-inline: auto;
   }
 
   .interaction {
     width: min(100%, 34rem);
-    margin-left: auto;
+    margin-inline: auto;
+  }
+
+  .input {
+    text-align: center;
+  }
+
+  .contactLink {
+    justify-content: center;
   }
 }
 
@@ -327,7 +338,7 @@
   }
 
   .heading {
-    justify-content: flex-start;
+    justify-content: stretch;
   }
 
   .content {
